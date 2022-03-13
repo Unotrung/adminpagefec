@@ -1,7 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Dashboard')
+@section('title', 'Employee')
 @section('css')
-    <link rel="stylesheet" href="/css/app.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -15,12 +14,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Customers</h1>
+            <h1 class="m-0">Employee list</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Customers</li>
+              <li class="breadcrumb-item active">Employee</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,7 +29,6 @@
 @stop
 
 @section('content')
-
     <!-- Main content -->
     <section class="content">
     <div class="container-fluid">
@@ -39,32 +37,21 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">DataTable with default features</h3>
+                <x-adminlte-button label="Open Modal" data-toggle="modal" data-target="#exampleModal"/>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>phone</th>
+                    <th>Employee name</th>
                     <th>Email</th>
-                    <th>Status</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>Nguyễn Văn A</td>
-                    <td>0981818181
-                    </td>
-                    <td>a.nguyen@gmail.com</td>
-                    <td> Activated</td>
-                    <td><a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a></td>
-                  </tr>
-                  
                   
                   </tbody>
-
                 </table>
               </div>
               <!-- /.card-body -->
@@ -77,9 +64,21 @@
       </div>
     </section>
     <!-- /.content -->
+    {{-- Global Modal --}}
+<x-adminlte-modal id="exampleModal" title="Minimal">
+{{-- Minimal --}}
+<x-adminlte-input name="name" type="text" placeholder="" label="Name" fgroup-class="col-md-6" disable-feedback />
+
+
+{{-- Email type --}}
+<x-adminlte-input name="iMail" type="email" placeholder="mail@example.com" label="Email" fgroup-class="col-md-6" disable-feedback />
+<x-slot name="footerSlot">
+        <x-adminlte-button class="mr-auto" theme="success" label="Accept"/>
+        <x-adminlte-button theme="danger" label="Dismiss" data-dismiss="modal"/>
+        </x-slot>
+</x-adminlte-modal >
 
 @stop
-
 
 
 @section('js')
@@ -103,8 +102,19 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      processing: true,
+        serverSide: true,
+        ajax: "{{ route('employee.dtajax') }}",
+        columns: [
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
+            {
+                data: 'action', 
+                name: 'action', 
+                orderable: true, 
+                searchable: true
+            },
+        ]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
 </script>

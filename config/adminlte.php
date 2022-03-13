@@ -255,6 +255,21 @@ return [
             'text' => 'BNPL Registrations',
             'url'  => 'bnpl',
             'icon' => 'fas fa-solid fa-id-card',
+        ['header' => 'account_settings'],
+        ],
+        [
+            'text'    => 'Employees',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'All Employee',
+                    'url'  => 'employee',
+                ],
+                [
+                    'text' => 'Permission',
+                    'url'  => 'employee/permission',
+                ],
+            ],
         ],
         ['header' => 'account_settings'],
         [
