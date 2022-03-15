@@ -15,6 +15,13 @@ class CreateBnplsTable extends Migration
     {
         Schema::create('bnpls', function (Blueprint $table) {
             $table->id();
+            $table->string(column:'ncustomer');
+            $table->string(column:'phnumber');
+            $table->string(column:'image');
+            $table->text(column:'nidcustomer');
+            $table->string(column:'nidimage');
+            $table->text(column:'Gender');
+            $table->string(column:'Pincode');
             $table->timestamps();
         });
     }

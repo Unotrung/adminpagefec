@@ -41,29 +41,44 @@
                 <h3 class="card-title">DataTable with default features</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" overflow: scroll>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>Customer name</th>
                     <th>Phone</th>
-                    <th>DOB</th>
-                    <th>Address</th>
+                    <th>Image</th>
+                    <th>NID</th>
+                    <th>NID Image</th>
                     <th>Gender</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
+                    <th>Pin Code</th>
                     <th>Status</th>
                   </tr>
                   </thead>
                   <tbody>
+                  @foreach($bnpl as $bnpl)
                   <tr>
-                    <td>11974846f3d5e27b41d2d1c9e31364e3</td>
-                    <td>a3ca7aee3e8816145b8fd56791bac66c
-                    </td>
-                    <td>01/02/1992</td>
-                    <td>4cc859b7282b9a05ea622e2f08c137dc</td>
-                    <td>Nam</td>
-                    <td>e-KYC checking</td>
+                    <td>{{$bnpl->ncustomer}}</td>
+                    <td>{{$bnpl->phnumber}}</td>
+                    <td>{{$bnpl->image}}</td>
+                    <td>{{$bnpl->nidcustomer}}</td>
+                    <td>{{$bnpl->nidimage}}</td>
+                    <td>{{$bnpl->Gender}}</td>
+                    <td>{{$bnpl->Pincode}}</td>
+                    <td>Active</td>
                   </tr>
-                  <tr>
+                  @endforeach
+                  <!-- <tr>
                     <td>11974846f3d5e27b41d2d1c9e31364e3</td>
                     <td>a3ca7aee3e8816145b8fd56791bac66c
                     </td>
@@ -107,7 +122,7 @@
                     <td>4cc859b7282b9a05ea622e2f08c137dc</td>
                     <td>Nữ</td>
                     <td>e-KYC checking</td>
-                  </tr>
+                  </tr> -->
                   </tbody>
                 </table>
               </div>

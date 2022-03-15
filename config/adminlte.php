@@ -258,9 +258,21 @@ return [
         ['header' => 'account_settings'],
         ],
         [
-            'text'    => 'Employees',
+            'text'    => 'Team',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
+                [
+                    'text' => 'Users',
+                    'url'  => 'users',
+                ],
+                [
+                    'text' => 'Department',
+                    'url'  => 'department',
+                ],
+                [
+                    'text' => 'Roles',
+                    'url'  => 'roles',
+                ],
                 [
                     'text' => 'All Employee',
                     'url'  => 'employee',

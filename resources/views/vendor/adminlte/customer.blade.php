@@ -45,15 +45,19 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>phone</th>
                     <th>Email</th>
                     <th>Status</th>
                     <th>Action</th>
+                    <th>Token</th>
+                    <th>Address</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
+                    <td>1</td>
                     <td>Nguyễn Văn A</td>
                     <td>0981818181
                     </td>
