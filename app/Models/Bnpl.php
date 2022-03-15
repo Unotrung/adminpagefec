@@ -18,18 +18,6 @@ class Bnpl extends Model
         'nidimage',
         'Gender',
         'Pincode',
-        'DOB',
-        'DON',
-        'DRegis',
-        'Address',
-        'Code',
-        'CodeName',
-        'DivisionType',
-        'District',
-        'TypeRelation',
-        'PhoneRelation',
-        'NameRelation',
-        'Contract',
     ];
     protected $guard_name = 'web';
 }

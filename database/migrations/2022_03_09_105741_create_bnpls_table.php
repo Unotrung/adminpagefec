@@ -35,7 +35,6 @@ class CreateBnplsTable extends Migration
             $table->string(column:'NameRelation');
             $table->string(column:'District');
             $table->string(column:'Contract');
-
             $table->timestamps();
         });
     }

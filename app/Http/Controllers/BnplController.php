@@ -32,23 +32,9 @@ class BnplController extends Controller
         $bnpl->nidimage = $request->nidimage;
         $bnpl->Gender = $request->Gender;
         $bnpl->Pincode = $request->Pincode;
-        $bnpl->DOB = $request->DOB;
-        $bnpl->DON = $request->DON;
-        $bnpl->DRegis = $request->DRegis;
-        $bnpl->Address = $request->Address;
-        $bnpl->Code = $request->Code;
-        $bnpl->CodeName = $request->CodeName;
-        $bnpl->DivisionType = $request->DivisionType;
-        $bnpl->District = $request->District;
-        $bnpl->TypeRelation = $request->TypeRelation;
-        $bnpl->PhoneRelation = $request->PhoneRelation;
-        $bnpl->NameRelation = $request->NameRelation;
-        $bnpl->Contract = $request->Contract;
         $bnpl->save();
         return response()->json(['message'=>'Added successfully'],201);
     }
-
-
     public function edit($id)
     {
         $bnpl = Bnpl::find($id);
