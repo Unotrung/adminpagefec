@@ -48,7 +48,6 @@ Route::get('/account/show', function(){
 Route::get('/account/change', function(){
     return view('vendor.adminlte.account.change');
 });
-
 // Permissions
 Route::get('/permission/index', [App\Http\Controllers\PermissionsController::class, 'index'])->name('permission.index');
 Route::get('/permission/add', [App\Http\Controllers\PermissionsController::class, 'create'])->name('permission.add');
