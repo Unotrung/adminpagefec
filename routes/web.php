@@ -33,10 +33,4 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index'])->name('customer');
 Route::get('/bnpl', [App\Http\Controllers\BnplController::class, 'index'])->name('bnpl');
-Route::get('/employee', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employee');
-Route::get('/employee/dtajax', [App\Http\Controllers\EmployeeController::class, 'dtajax'])->name('employee.dtajax');
-Route::get('/employee/edit/{id}', [App\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
-Route::get('/employee/edit', [App\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
-// Route::get('/employee/show', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
-Route::get('/employee/show/{id}', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
 
