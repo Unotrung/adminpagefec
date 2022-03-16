@@ -43,7 +43,7 @@
                 <h3 class="card-title">DataTable with default features</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body" overflow: scroll>
+              <div class="card-body" style="overflow-x: scroll;">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -54,16 +54,20 @@
                     <th>NID Image</th>
                     <th>Gender</th>
                     <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
-                    <th>Pin Code</th>
+                    <th>DOB</th>
+                    <th>DON</th>
+                    <th>Date Regis</th>
+                    <th>Address</th>
+                    <th>Code</th>
+                    <th>Code Name</th>
+                    <th>Division Type</th>
+                    <th>District</th>
+                    <th>Type Relation</th>
+                    <th>Phone Relation</th>
+                    <th>Name Relation</th>
+                    <th>Contract</th>
+                    <th>Action</th>
+                    <th>Stage</th>
                     <th>Status</th>
                   </tr>
                   </thead>
@@ -77,7 +81,31 @@
                     <td>{{$bnpl->nidimage}}</td>
                     <td>{{$bnpl->Gender}}</td>
                     <td>{{$bnpl->Pincode}}</td>
-                    <td>Active</td>
+                    <td>{{$bnpl->DOB}}</td>
+                    <td>{{$bnpl->DON}}</td>
+                    <td>{{$bnpl->DRegis}}</td>
+                    <td>{{$bnpl->Address}}</td>
+                    <td>{{$bnpl->Code}}</td>
+                    <td>{{$bnpl->CodeName}}</td>
+                    <td>{{$bnpl->DivisionType}}</td>
+                    <td>{{$bnpl->District}}</td>
+                    <td>{{$bnpl->TypeRelation}}</td>
+                    <td>{{$bnpl->PhoneRelation}}</td>
+                    <td>{{$bnpl->NameRelation}}</td>
+                    <td>{{$bnpl->Contract}}</td>
+                    <td><a href="{{action([App\Http\Controllers\BnplController::class, 'edit'],$bnpl->id)}}" method="GET" class="btn btn-warning">Edit</a></td>
+                    <td>
+                      @if(!$bnpl->ncustomer == null && !$bnpl->Pincode == null && !$bnpl->Contract == null)
+                          Xác Minh Thông Tin
+                      @elseif(!$bnpl->ncustomer == null && !$bnpl->Pincode == null && $bnpl->Contract == null)
+                          Xác nhận hợp đồng 
+                      @elseif(!$bnpl->ncustomer == null && $bnpl->Pincode == null && $bnpl->Contract == null)
+                          Cài đặt Pin Code
+                      @else
+                          Nhập Thông Tin    
+                      @endif
+                    </td>
+                    <td>Waiting</td>
                   </tr>
                   @endforeach
                   <!-- <tr>
