@@ -41,3 +41,4 @@ Route::get('/employee/edit', [App\Http\Controllers\EmployeeController::class, 'e
 // Route::get('/employee/show', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
 Route::get('/employee/show/{id}', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
 
+
