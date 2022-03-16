@@ -35,23 +35,6 @@ class CreateBnplsTable extends Migration
             $table->string(column:'NameRelation');
             $table->string(column:'District');
             $table->string(column:'Contract');
-            $table->text(column:'nidcustomer');
-            $table->string(column:'nidimage');
-            $table->text(column:'Gender');
-            $table->string(column:'Pincode');
-            $table->date(column:'DOB');
-            $table->date(column:'DON');
-            $table->date(column:'DRegis');
-            $table->string(column:'Address');
-            $table->string(column:'Code');
-            $table->string(column:'CodeName');
-            $table->string(column:'DivisionType');
-            $table->string(column:'District');
-            $table->string(column:'TypeRelation');
-            $table->string(column:'PhoneRelation');
-            $table->string(column:'NameRelation');
-            $table->string(column:'District');
-            $table->string(column:'Contract');
             $table->timestamps();
         });
     }
