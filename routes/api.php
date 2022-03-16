@@ -15,11 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('edit/{id}',[BnplController::class,'edit']);
 // Route::get('edit/{id}',[BnplController::class,'edit']);
 Route::post('edit/{id}',[BnplController::class,'update']);
-
 Route::post('bnpl/add',[BnplController::class,'store']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

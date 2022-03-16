@@ -40,6 +40,3 @@ Route::get('/bnpl/edit/{id}', [App\Http\Controllers\BnplController::class, 'edit
 Route::get('/employee/edit', [App\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
 // Route::get('/employee/show', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
 Route::get('/employee/show/{id}', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
-
-
-
