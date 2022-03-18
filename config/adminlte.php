@@ -249,12 +249,32 @@ return [
         [
             'text' => 'Customers',
             'url'  => 'customer',
-            'icon' => 'fas fa-fw fa-users',
+            'icon'        => 'nav-icon fas fa-fw fa-users',
         ],
         [
             'text' => 'BNPL Registrations',
             'url'  => 'bnpl',
-            'icon' => 'fas fa-solid fa-id-card',
+            'icon' => 'nav-icon fas fa-solid fa-id-card',
+        ],
+        [
+            'text' => 'Notifications',
+            'url'  => 'notification',
+            'icon' => 'nav-icon fas fa-solid fa-bell',
+        ],
+        [
+            'text' => 'News',
+            'url'  => 'news',
+            'icon' => 'nav-icon fas fa-newspaper',
+        ],
+        [
+            'text' => 'Promotions',
+            'url'  => 'promotions',
+            'icon' => 'nav-icon fas fa-solid fa-tags',
+        ],
+        [
+            'text' => 'FAQs',
+            'url'  => 'faqs',
+            'icon' => 'nav-icon fas fa-comments',
         ],
         [
             'text'    => 'Team',
@@ -271,10 +291,6 @@ return [
                 [
                     'text' => 'Roles',
                     'url'  => 'roles/index',
-                ],
-                [
-                    'text' => 'All Employee',
-                    'url'  => 'employee',
                 ],
                 [
                     'text' => 'Permission',

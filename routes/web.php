@@ -41,7 +41,7 @@ Route::get('/bnpl/edit/{id}', [App\Http\Controllers\BnplController::class, 'edit
 Route::get('/employee/edit', [App\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
 // Route::get('/employee/show', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
 Route::get('/employee/show/{id}', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
-Route::get('/users', [App\Http\Controllers\TeamController::class, 'index'])->name('team');
+Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('team');
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
 });
