@@ -255,7 +255,6 @@ return [
             'text' => 'BNPL Registrations',
             'url'  => 'bnpl',
             'icon' => 'fas fa-solid fa-id-card',
-        ['header' => 'account_settings'],
         ],
         [
             'text'    => 'Team',
@@ -282,6 +281,7 @@ return [
                     'url'  => 'employee/permission',
                 ],
             ],
+
         ],
         ['header' => 'account_settings'],
         [

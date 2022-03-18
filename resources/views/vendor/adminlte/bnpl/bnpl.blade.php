@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 @section('css')
+    <link rel="stylesheet" href="/css/app.css">
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -30,7 +33,6 @@
 
 @section('content')
 
-
     <!-- Main content -->
     <section class="content">
     <div class="container-fluid">
@@ -47,15 +49,15 @@
                   <tr>
                     <th>Customer name</th>
                     <th>Phone</th>
-                    <th>Image</th>
+                    <!-- <th>Image</th>
                     <th>NID</th>
                     <th>NID Image</th>
                     <th>Gender</th>
                     <th>Pin Code</th>
                     <th>DOB</th>
-                    <th>DON</th>
+                    <th>DON</th> -->
                     <th>Date Regis</th>
-                    <th>Address</th>
+                    <!-- <th>Address</th>
                     <th>Code</th>
                     <th>Code Name</th>
                     <th>Division Type</th>
@@ -63,7 +65,7 @@
                     <th>Type Relation</th>
                     <th>Phone Relation</th>
                     <th>Name Relation</th>
-                    <th>Contract</th>
+                    <th>Contract</th> -->
                     <th>Action</th>
                     <th>Stage</th>
                     <th>Status</th>
@@ -74,15 +76,15 @@
                   <tr>
                     <td>{{$bnpl->ncustomer}}</td>
                     <td>{{$bnpl->phnumber}}</td>
-                    <td>{{$bnpl->image}}</td>
-                    <td>{{$bnpl->nidcustomer}}</td>
+                    <!-- <td>{{$bnpl->image}}</td> -->
+                    <!-- <td>{{$bnpl->nidcustomer}}</td>
                     <td>{{$bnpl->nidimage}}</td>
                     <td>{{$bnpl->Gender}}</td>
                     <td>{{$bnpl->Pincode}}</td>
                     <td>{{$bnpl->DOB}}</td>
-                    <td>{{$bnpl->DON}}</td>
+                    <td>{{$bnpl->DON}}</td> -->
                     <td>{{$bnpl->DRegis}}</td>
-                    <td>{{$bnpl->Address}}</td>
+                    <!-- <td>{{$bnpl->Address}}</td>
                     <td>{{$bnpl->Code}}</td>
                     <td>{{$bnpl->CodeName}}</td>
                     <td>{{$bnpl->DivisionType}}</td>
@@ -90,7 +92,7 @@
                     <td>{{$bnpl->TypeRelation}}</td>
                     <td>{{$bnpl->PhoneRelation}}</td>
                     <td>{{$bnpl->NameRelation}}</td>
-                    <td>{{$bnpl->Contract}}</td>
+                    <td>{{$bnpl->Contract}}</td> -->
                     <td><a href="{{action([App\Http\Controllers\BnplController::class, 'edit'],$bnpl->id)}}" method="GET" class="btn btn-warning">Edit</a></td>
                     <td>
                       @if(!$bnpl->ncustomer == null && !$bnpl->Pincode == null && !$bnpl->Contract == null)
@@ -171,6 +173,10 @@
 
 @section('js')
  
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -184,6 +190,8 @@
 <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 
 <!-- Page specific script -->

@@ -46,6 +46,6 @@ class CreateBnplsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bnpls');
+        Schema::dropIfExists('personals');
     }
 }
