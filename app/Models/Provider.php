@@ -11,10 +11,11 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 //use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Model
+class Provider extends Model
 {
     use HasFactory,Authenticatable,Notifiable,HasApiTokens,HasRoles;
     protected $connection = 'mongodb';
-    protected $collection = 'customers'; 
+    protected $collection = 'providers'; 
 }
+
 ?>

@@ -49,27 +49,37 @@
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>phone</th>
                     <th>Email</th>
+                    <th>Phone</th>
                     <th>Status</th>
+                    <th>Created Time</th>
+                    <th>Modify Time</th>
                     <th>Action</th>
                     <th>Token</th>
                     <th>Address</th>
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>0981818181
-                    </td>
-                    <td>a.nguyen@gmail.com</td>
-                    <td> Activated</td>
-                    <td><a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a></td>
-                  </tr>
-                  
-                  
+                  <?php
+                  use App\Models\Customer; 
+                  $data = Customer::Where('_id','!=',0)->get();
+                  $count = 0;
+                  foreach ($data as $customer){?>
+                       <tbody>
+                      <tr>
+                        <td><?php echo $customer['name']?></td>
+                        <td><?php echo $customer['email']?></td>
+                        <td><?php echo $customer['phone']?></td>
+                        <td><?php if($customer['status'] != "0"){
+                          echo "Active";
+                        } else { echo "Inactive";} ?></td>
+                        <td><?php echo $customer['created_at']?></td>
+                        <td><?php echo $customer['updated_at']?></td>
+                        <td><a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a></td>
+                      </tr>
                   </tbody>
+                  <?php 
+                  $count = $count + 1;
+                } ?> 
 
                 </table>
               </div>

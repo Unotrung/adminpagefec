@@ -41,6 +41,14 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+// $app->routeMiddleware([
+//     'auth'       => App\Http\Middleware\Authenticate::class,
+//     'permission' => Maklad\Permission\Middlewares\PermissionMiddleware::class,
+//     'role'       => Maklad\Permission\Middlewares\RoleMiddleware::class,
+// ]);
+
+//$app->configure('permission');
+//$app->register(Maklad\Permission\PermissionServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Return The Application

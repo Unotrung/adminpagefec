@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Voolo</b> Admin',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>VOOLO Admin</b> ',
+    'logo_img' => 'vendor/adminlte/dist/img/Vector.png',
+    'logo_img_class' => 'brand-image img-square elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -266,11 +266,11 @@ return [
                 ],
                 [
                     'text' => 'Department',
-                    'url'  => 'department',
+                    'url'  => 'department/index',
                 ],
                 [
                     'text' => 'Roles',
-                    'url'  => 'roles',
+                    'url'  => 'roles/index',
                 ],
                 [
                     'text' => 'All Employee',
@@ -278,7 +278,7 @@ return [
                 ],
                 [
                     'text' => 'Permission',
-                    'url'  => 'employee/permission',
+                    'url'  => 'permission/index',
                 ],
             ],
 
@@ -286,14 +286,14 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => 'account/show',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'url'  => '/account/change',
             'icon' => 'fas fa-fw fa-lock',
-        ]
+        ],
     ],
 
     /*
