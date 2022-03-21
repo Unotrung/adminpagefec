@@ -68,3 +68,15 @@ Route::get('/department/add', [App\Http\Controllers\DepartmentController::class,
 Route::get('/department/edit/{id}', [App\Http\Controllers\DepartmentController::class, 'edit'])->name('department.edit');
 Route::post('/department/store', [App\Http\Controllers\DepartmentController::class, 'store'])->name('department.store');
 Route::post('/department/update', [App\Http\Controllers\DepartmentController::class, 'update'])->name('department.update');
+
+//FAQs
+Route::get('/faqs/index', [App\Http\Controllers\FaqController::class, 'index'])->name('FAQs.index');
+
+//Promotions
+Route::get('/promotions/index', [App\Http\Controllers\PromotionsController::class, 'index'])->name('promotions.index');
+
+//News
+Route::get('/news/index', [App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
+
+//Notifications
+Route::get('/notifications/index', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications.index');

@@ -258,22 +258,22 @@ return [
         ],
         [
             'text' => 'Notifications',
-            'url'  => 'notification',
+            'url'  => 'notifications/index',
             'icon' => 'nav-icon fas fa-solid fa-bell',
         ],
         [
             'text' => 'News',
-            'url'  => 'news',
+            'url'  => 'news/index',
             'icon' => 'nav-icon fas fa-newspaper',
         ],
         [
             'text' => 'Promotions',
-            'url'  => 'promotions',
+            'url'  => 'promotions/index',
             'icon' => 'nav-icon fas fa-solid fa-tags',
         ],
         [
             'text' => 'FAQs',
-            'url'  => 'faqs',
+            'url'  => 'faqs/index',
             'icon' => 'nav-icon fas fa-comments',
         ],
         [

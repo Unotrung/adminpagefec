@@ -47,16 +47,12 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Status</th>
                     <th>Created Time</th>
-                    <th>Modify Time</th>
                     <th>Action</th>
-                    <th>Token</th>
-                    <th>Address</th>
                   </tr>
                   </thead>
                   <?php
@@ -66,7 +62,6 @@
                   foreach ($data as $customer){?>
                        <tbody>
                       <tr>
-                      <td><?php echo $customer['id']?></td>
                         <td><?php echo $customer['name']?></td>
                         <td><?php echo $customer['email']?></td>
                         <td><?php echo $customer['phone']?></td>
@@ -74,7 +69,6 @@
                           echo "Active";
                         } else { echo "Inactive";} ?></td>
                         <td><?php echo $customer['created_at']?></td>
-                        <td><?php echo $customer['updated_at']?></td>
                         <td><a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a></td>
                       </tr>
                   </tbody>
