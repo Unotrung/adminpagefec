@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TeamController extends Controller
+class UsersController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -23,6 +23,6 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return view('vendor.adminlte.customer');
+        return view('vendor.adminlte.user');
     }
 }
