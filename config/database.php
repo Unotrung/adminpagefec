@@ -34,14 +34,21 @@ return [
     */
 
     'connections' => [
+        // 'mongodb' => [
+        //     'driver' => 'mongodb',
+        //     'host' => env('DB_HOST', '127.0.0.1'),
+        //     'port' => env('DB_PORT', 27017),
+        //     'database' => env('DB_DATABASE', 'fecdb'),
+        //     'username' => env('DB_USERNAME', ''),
+        //     'password' => env('DB_PASSWORD', '')
+        // ],
+
         'mongodb' => [
             'driver' => 'mongodb',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', 27017),
-            'database' => env('DB_DATABASE', 'fecdb'),
-            'username' => env('DB_USERNAME', ''),
-            'password' => env('DB_PASSWORD', '')
+            'dsn' => env('DB_URI', 'mongodb+srv://nguyentrungkien:nguyentrungkien123456789@cluster0.hewrc.mongodb.net/wolfconsultingdemo?authSource=admin&replicaSet=atlas-3locki-shard-0&w=majority%3B&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true'),
+            'database' => 'BNPL',
         ],
+        
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),

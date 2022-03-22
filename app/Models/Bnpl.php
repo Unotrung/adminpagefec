@@ -9,22 +9,27 @@ use Maklad\Permission\Traits\HasRoles;
 class Bnpl extends Model
 {
     use HasFactory,HasRoles;
-    protected $table = 'bnpls';
+    protected $table = 'personals';
     protected $fillable = [
-        'name',
-        'sex',
-        'birthday',
-        'phone',
-        'citizenId',
-        'issueDate',
-        'city',
-        'district',
-        'ward',
-        'street',
-        'personal_title_ref',
-        'name_ref',
-        'phone_ref',
-        'user',
+        'ncustomer',
+        'phnumber',
+        'image',
+        'nidcustomer',
+        'nidimage',
+        'Gender',
+        'Pincode',
+        'DOB',
+        'DON',
+        'DRegis',
+        'Address',
+        'Code',
+        'CodeName',
+        'DivisionType',
+        'District',
+        'TypeRelation',
+        'PhoneRelation',
+        'NameRelation',
+        'Contract',
     ];
     protected $guard_name = 'web';
 }
