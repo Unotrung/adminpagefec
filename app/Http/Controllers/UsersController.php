@@ -23,6 +23,6 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('vendor.adminlte.customer');
+        return view('vendor.adminlte.user');
     }
 }

@@ -17,12 +17,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Customers</h1>
+            <h1 class="m-0">Users</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Customers</li>
+              <li class="breadcrumb-item active">Users</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -47,26 +47,21 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Status</th>
                     <th>Created Time</th>
-                    <th>Modify Time</th>
                     <th>Action</th>
-                    <th>Token</th>
-                    <th>Address</th>
                   </tr>
                   </thead>
                   <?php
-                  use App\Models\Customer; 
-                  $data = Customer::Where('_id','!=',0)->get();
+                  use App\Models\User; 
+                  $data = User::Where('_id','!=',0)->get();
                   $count = 0;
                   foreach ($data as $customer){?>
                        <tbody>
                       <tr>
-                      <td><?php echo $customer['id']?></td>
                         <td><?php echo $customer['name']?></td>
                         <td><?php echo $customer['email']?></td>
                         <td><?php echo $customer['phone']?></td>
@@ -74,7 +69,6 @@
                           echo "Active";
                         } else { echo "Inactive";} ?></td>
                         <td><?php echo $customer['created_at']?></td>
-                        <td><?php echo $customer['updated_at']?></td>
                         <td><a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a></td>
                       </tr>
                   </tbody>
