@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Voolo</b> Admin',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>VOOLO Admin</b> ',
+    'logo_img' => 'vendor/adminlte/dist/img/Vector.png',
+    'logo_img_class' => 'brand-image img-square elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -249,12 +249,32 @@ return [
         [
             'text' => 'Customers',
             'url'  => 'customer',
-            'icon' => 'fas fa-fw fa-users',
+            'icon'        => 'nav-icon fas fa-fw fa-users',
         ],
         [
             'text' => 'BNPL Registrations',
             'url'  => 'bnpl',
-            'icon' => 'fas fa-solid fa-id-card',
+            'icon' => 'nav-icon fas fa-solid fa-id-card',
+        ],
+        [
+            'text' => 'Notifications',
+            'url'  => 'notification',
+            'icon' => 'nav-icon fas fa-solid fa-bell',
+        ],
+        [
+            'text' => 'News',
+            'url'  => 'news',
+            'icon' => 'nav-icon fas fa-newspaper',
+        ],
+        [
+            'text' => 'Promotions',
+            'url'  => 'promotions',
+            'icon' => 'nav-icon fas fa-solid fa-tags',
+        ],
+        [
+            'text' => 'FAQs',
+            'url'  => 'faqs',
+            'icon' => 'nav-icon fas fa-comments',
         ],
         [
             'text'    => 'Team',
@@ -266,19 +286,15 @@ return [
                 ],
                 [
                     'text' => 'Department',
-                    'url'  => 'department',
+                    'url'  => 'department/index',
                 ],
                 [
                     'text' => 'Roles',
-                    'url'  => 'roles',
-                ],
-                [
-                    'text' => 'All Employee',
-                    'url'  => 'employee',
+                    'url'  => 'roles/index',
                 ],
                 [
                     'text' => 'Permission',
-                    'url'  => 'employee/permission',
+                    'url'  => 'permission/index',
                 ],
             ],
 
@@ -286,14 +302,14 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+            'url'  => 'account/show',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'url'  => '/account/change',
             'icon' => 'fas fa-fw fa-lock',
-        ]
+        ],
     ],
 
     /*
