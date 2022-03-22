@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Role;
 
 class UsersController extends Controller
 {
@@ -23,6 +25,20 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('vendor.adminlte.user');
+        $users = User::All();
+        return view('vendor.adminlte.user',['users'=> $users]);
+    }
+
+    public function edit($id = null)
+    {
+        $user = User::find($id);
+        $roles = Role::All();
+        return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles]);
+    }
+
+    public function assign( Request $request ){
+        $user = User::find($id);
+        $roles = Role::All();
+        return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles]);
     }
 }

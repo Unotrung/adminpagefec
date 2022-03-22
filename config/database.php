@@ -45,8 +45,8 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('DB_URI', 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'),
-            'database' => env('DB_DATABASE','fecdb'),
+            'dsn' => env('DB_URI', 'localhost'),
+            'database' => env('DB_DATABASE','fecdb')
         ],
         
         'sqlite' => [

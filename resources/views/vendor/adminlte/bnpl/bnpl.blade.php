@@ -117,48 +117,48 @@ var editor;
     $("#example1").DataTable({
       processing: true,
         serverSide: true,
-      "ajax": "{{ route('bnpl.dtajax') }}",
-      columns: [
-        {data: 'name', name: 'name'},
-        {data: 'phone', name: 'phone'},
-        {data: 'createdAt', name: 'issueDate',
-          render: function ( data, type, row ) {
-            console.log(data);
-            if ( type === 'display' || type === 'filter' ) {
-                var d = new Date( data.milliseconds*1);
-                return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
+        "ajax": "{{ route('bnpl.dtajax') }}",
+        columns: [
+          {data: 'name', name: 'name'},
+          {data: 'phone', name: 'phone'},
+          {data: 'createdAt', name: 'issueDate',
+            render: function ( data, type, row ) {
+              console.log(data);
+              if ( type === 'display' || type === 'filter' ) {
+                  var d = new Date( data.milliseconds*1);
+                  return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
+              }
+              return data;}
+          
+          },
+          
+          {data:'sex',
+            "searchable": false,
+            "orderable":false,
+            "render": function (data, type, row) {
+              if (row.name === null) {
+                return "<i>Nhập  Thông Tin<i>";
             }
-            return data;}
-        
-        },
-        
-        {data:'sex',
-          "searchable": false,
-          "orderable":false,
-          "render": function (data, type, row) {
-            if (row.name === null) {
-              return "<i>Nhập  Thông Tin<i>";
+            else if(row.phone === null)
+            {
+              return "<i>Cài đặt Pin Code<i>";
+            }
+            else
+            {
+              return "<i>Xác thực người dùng<i>";
+            }
           }
-          else if(row.phone === null)
+          },
           {
-            return "<i>Cài đặt Pin Code<i>";
-          }
-          else
+            "defaultContent": "<i>Waiting</i>"
+          },
           {
-            return "<i>Xác thực người dùng<i>";
-          }
-        }
-        },
-        {
-          "defaultContent": "<i>Waiting</i>"
-        },
-        {
-                data: 'action', 
-                name: 'action', 
-                orderable: true, 
-                searchable: true
-        },
-      ],
+                  data: 'action', 
+                  name: 'action', 
+                  orderable: true, 
+                  searchable: true
+          },
+        ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
   });
 </script>

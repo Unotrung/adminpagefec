@@ -55,26 +55,21 @@
                     <th>Action</th>
                   </tr>
                   </thead>
-                  <?php
-                  use App\Models\User; 
-                  $data = User::Where('_id','!=',0)->get();
-                  $count = 0;
-                  foreach ($data as $customer){?>
-                       <tbody>
+                  <tbody>
+                    @foreach ($users as $user)
                       <tr>
-                        <td><?php echo $customer['name']?></td>
-                        <td><?php echo $customer['email']?></td>
-                        <td><?php echo $customer['phone']?></td>
-                        <td><?php if($customer['status'] != "0"){
-                          echo "Active";
-                        } else { echo "Inactive";} ?></td>
-                        <td><?php echo $customer['created_at']?></td>
-                        <td><a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a></td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->phone }}</td>
+                        <td>{{ $user->status }}</td>
+                        <td>{{ $user->created_at }}</td>
+                        <td>
+                          <a href="{{ route('user.edit', $user->id) }}" class="small-box-footer btn-success btn btn-xs"> <i class="fas fa-edit"></i></a>
+                          <a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a>
+                        </td>
                       </tr>
+                      @endforeach
                   </tbody>
-                  <?php 
-                  $count = $count + 1;
-                } ?> 
 
                 </table>
               </div>
@@ -120,7 +115,7 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true, "lengthChange": true, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });

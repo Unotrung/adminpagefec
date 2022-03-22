@@ -33,6 +33,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index'])->name('customer');
+Route::get('/customer/dtajax', [App\Http\Controllers\CustomerController::class, 'dtajax'])->name('customer.dtajax');
 Route::get('/bnpl', [App\Http\Controllers\BnplController::class, 'index'])->name('bnpl');
 Route::get('/bnpl/dtajax', [App\Http\Controllers\BnplController::class, 'dtajax'])->name('bnpl.dtajax');
 Route::get('/employee', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employee');
@@ -43,7 +44,13 @@ Route::get('/bnpl/edit', [App\Http\Controllers\BnplController::class, 'edit'])->
 Route::get('/employee/edit', [App\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
 // Route::get('/employee/show', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
 Route::get('/employee/show/{id}', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
+
+//Users
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('team');
+Route::get('/users/{id}', [App\Http\Controllers\UsersController::class, 'edit'])->name('user.edit');
+Route::post('/users/assign', ['UsersController@assign'])->name('user.assign');
+
+
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
 });

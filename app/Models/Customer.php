@@ -15,6 +15,6 @@ class Customer extends Model
 {
     use HasFactory,Authenticatable,Notifiable,HasApiTokens,HasRoles;
     protected $connection = 'mongodb';
-    protected $collection = 'customers'; 
+    protected $collection = 'eap_customers'; 
 }
 ?>
