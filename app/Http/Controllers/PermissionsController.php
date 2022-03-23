@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\DB;
+use Maklad\Permission\Models\Role;
 use Maklad\Permission\Models\Permission;
 use App\Models\Permission as DB;
-use DataTables;
+
 
 class PermissionsController extends Controller
 {
@@ -119,10 +119,12 @@ class PermissionsController extends Controller
                 'guard_name' => 'required'
             ]);
             $id = $request['id'];
-            $permission = Permission::Where($id)->first();
+            $permission = Permission::find($id);
             $permission->name = $request->name;
-            $permission->guard_name = $request->guard_name;
-            $permission->id = $id;
+            if($request->guard_name == 'admin' ){
+                $role = Role::Where('name','=',$request->guard_name)->get();
+                $permission->assignRole($role);
+            }
             $permission->save();
             
         return redirect()->route('permission.index')->with('success','Permissions updated successfully.');

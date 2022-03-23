@@ -15,14 +15,14 @@ class DepartmentController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
+    public function __construct()
+    {
     //     $this->middleware('auth');
     //     $this->middleware('permission:permission-list|permission-create|permission-edit|permission-delete', ['only' => ['index']]);
     //     $this->middleware('permission:permission-create', ['only' => ['create','store']]);
     //     $this->middleware('permission:permission-edit', ['only' => ['edit','update']]);
     //     $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
-    // }
+    }
 
     /**
      * Display a listing of the resource.
@@ -103,9 +103,9 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        $role = Provider::find($id);
+        $department = Provider::find($id);
         // $permission = Permission::whereId($id)->first();
-        return view('vendor.adminlte.department.edit', ['permission' => $role->id]);
+        return view('vendor.adminlte.department.edit', ['department' => $department->id]);
     }
 
     /**

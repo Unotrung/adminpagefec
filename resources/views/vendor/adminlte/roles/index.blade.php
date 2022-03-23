@@ -2,7 +2,10 @@
 
 @section('title', 'Roles')
 
-@section('content')
+@php
+  $roles = App\Models\Role::all();
+@endphp
+@section('content_header')
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -12,8 +15,9 @@
             <i class="fas fa-plus"></i> Add New
         </a>
     </div>
+@stop
 
-   
+@section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -30,19 +34,13 @@
                             <th width="20%">Action</th>
                         </tr>
                     </thead>
-                        <?php
-                        use App\Models\Role;
-                        $data = Role::Where('_id','!=',0)->get();
-                        $count = 0;
-                       foreach ($data as $role){
-                        $id = $role['_id'];
-                       ?>
                             <tbody>
                            <tr>
-                               <td><?php echo $role['name']?></td>
-                               <td><?php echo $role['guard_name']?></td>
+                               @foreach ($roles as $role)
+                               <td>{{$role->name}}</td>
+                               <td>{{$role->guard_name}}</td>
                                <td style="display: flex">
-                                   <a href="{{route('roles.edit',$id)}}" class="btn btn-primary m-2">
+                                   <a href="{{route('roles.edit',$role->id)}}" class="btn btn-primary m-2">
                                         <i class="fa fa-pen"></i>
                                    </a>
                                    <form method="POST" action="">
@@ -54,10 +52,8 @@
                                    </form>
                                </td>
                            </tr>
+                           @endforeach
                     </tbody>
-                    <?php 
-                  $count = $count + 1;
-                    }?> 
                 </table>
 
                 {{$permissions ?? '' ?? ''->links()}}

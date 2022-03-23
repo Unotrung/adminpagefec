@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Dashboard')
+@section('title', 'Customers')
 @section('css')
     <link rel="stylesheet" href="/css/app.css">
     <!-- Font Awesome -->
@@ -11,6 +11,9 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 @stop
+@php
+  $customers = App\Models\Customer::all();
+@endphp
 @section('content_header')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -47,40 +50,31 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Status</th>
                     <th>Created Time</th>
-                    <th>Modify Time</th>
                     <th>Action</th>
-                    <th>Token</th>
-                    <th>Address</th>
                   </tr>
                   </thead>
-                  <?php
-                  use App\Models\Customer; 
-                  $data = Customer::Where('_id','!=',0)->get();
-                  $count = 0;
-                  foreach ($data as $customer){?>
+                  @foreach ($customers as $customer )
                        <tbody>
                       <tr>
-                      <td><?php echo $customer['id']?></td>
-                        <td><?php echo $customer['name']?></td>
-                        <td><?php echo $customer['email']?></td>
-                        <td><?php echo $customer['phone']?></td>
-                        <td><?php if($customer['status'] != "0"){
-                          echo "Active";
-                        } else { echo "Inactive";} ?></td>
-                        <td><?php echo $customer['created_at']?></td>
-                        <td><?php echo $customer['updated_at']?></td>
+                        <td>{{$customer->name}}</td>
+                        <td>{{$customer->email}}</td>
+                        <td>{{$customer->phone}}</td>
+                        <td>@if ($customer->status == 1)
+                        Active
+                        @else
+                        Inactive
+                        @endif
+                        </td>
+                        <td>{{$customer->created_at}}</td>
                         <td><a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a></td>
                       </tr>
+                      @endforeach
                   </tbody>
-                  <?php 
-                  $count = $count + 1;
-                } ?> 
 
                 </table>
               </div>

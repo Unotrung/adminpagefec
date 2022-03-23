@@ -2,7 +2,7 @@
 
 @section('title', 'Promotions')
 
-@section('content')
+
 <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <script>
@@ -61,6 +61,7 @@
     padding: 0px 20px;
 }
 </style>
+@section('content_header')
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -70,8 +71,8 @@
             <i class="fas fa-plus"></i> Add New
         </a>
     </div>
-
-   
+@stop
+@section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">

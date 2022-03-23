@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\DB;
 use Maklad\Permission\Models\Role;
+use Maklad\Permission\Models\Permission;
 use App\Models\Role as DB;
-use DataTables;
 
 class RolesController extends Controller
 {
@@ -15,14 +14,15 @@ class RolesController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
+    public function __construct()
+    {
+         $this->middleware('auth');
+    //     $this->middleware(['can:read'],['only' => ['index']]);
     //     $this->middleware('permission:permission-list|permission-create|permission-edit|permission-delete', ['only' => ['index']]);
     //     $this->middleware('permission:permission-create', ['only' => ['create','store']]);
     //     $this->middleware('permission:permission-edit', ['only' => ['edit','update']]);
     //     $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
-    // }
+    }
 
     /**
      * Display a listing of the resource.
@@ -31,8 +31,6 @@ class RolesController extends Controller
      */
     public function index()
     {
-        // $permissions = Permission::paginate(10);
-
         return view('vendor.adminlte.roles.index');
     }
     
@@ -100,8 +98,7 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        // $permission = Permission::whereId($id)->first();
-        return view('vendor.adminlte.roles.edit', ['permission' => $role->id]);
+        return view('vendor.adminlte.roles.edit', ['role' => $role->id]);
     }
 
     /**
@@ -122,7 +119,6 @@ class RolesController extends Controller
             $role = Role::Where($id)->first();
             $role->name = $request->name;
             $role->guard_name = $request->guard_name;
-            $role->id = $id;
             $role->save();
             
         return redirect()->route('roles.index')->with('success','Permissions updated successfully.');
