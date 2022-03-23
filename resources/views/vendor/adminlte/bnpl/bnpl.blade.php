@@ -136,8 +136,8 @@ var editor;
           "searchable": false,
           "orderable":false,
           "render": function (data, type, row) {
-            if (row.name === null) {
-              return "<i>Nhập  Thông Tin<i>";
+          if (row.name === null) {
+            return "<i>Nhập Thông Tin<i>";
           }
           else if(row.phone === null)
           {
