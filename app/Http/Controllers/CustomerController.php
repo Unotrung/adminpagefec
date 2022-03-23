@@ -6,7 +6,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use DataTables;
 
 class CustomerController extends Controller
 {
@@ -17,41 +17,7 @@ class CustomerController extends Controller
      */
     public function login(Request $request)
     {
-        try {
-            $request->validate([
-                'email' => 'email|required',
-                'password' => 'required'
-            ]);
-
-            $credentials = request(['email', 'password']);
-
-            if (!Auth::attempt($credentials)) {
-                return response()->json([
-                    'status_code' => 500,
-                    'message' => 'Unauthorized'
-                ]);
-            }
-
-            $user = User::where('email', $request->email)->first();
-
-            if (!Hash::check($request->password, $user->password, [])) {
-                throw new \Exception('Error in Login');
-            }
-
-            $tokenResult = $user->createToken('authToken')->plainTextToken;
-
-            return response()->json([
-                'status_code' => 200,
-                'access_token' => $tokenResult,
-                'token_type' => 'Bearer',
-            ]);
-        } catch (\Exception $error) {
-            return response()->json([
-                'status_code' => 500,
-                'message' => 'Error in Login',
-                'error' => $error,
-            ]);
-        }
+        
     }
 
     public function __construct()
@@ -83,4 +49,28 @@ class CustomerController extends Controller
 
         return $request->email;
     }
+
+    public function dtajax(Request $request){
+        if ($request->ajax()) {
+            $out =  Datatables::of(Customer::All())->make(true);
+            $data = $out->getData();
+            for($i=0; $i < count($data->data); $i++) {
+
+                $output = '';
+                // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
+                $output .= ' <a href="'.url(route('employee.edit').'/'.$data->data[$i]->_id).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                $output .= ' <a href="'.url(route('employee.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                // $output .= Form::open(['route' => [config('employee') . '.employee', $data->data[$i]->_id], 'method' => 'delete', 'style'=>'display:inline']);
+                // $output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
+                // $output .= Form::close();
+                $data->data[$i]->index = $i;
+                $data->data[$i]->action = (string)$output;
+
+            }
+            $out->setData($data);
+            return $out;
+        }
+    }
+
+    
 }

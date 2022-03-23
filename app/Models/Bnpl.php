@@ -9,7 +9,7 @@ use Maklad\Permission\Traits\HasRoles;
 class Bnpl extends Model
 {
     use HasFactory,HasRoles;
-    protected $table = 'bnpls';
+    protected $table = 'bnpl_personals';
     protected $fillable = [
         'ncustomer',
         'phnumber',

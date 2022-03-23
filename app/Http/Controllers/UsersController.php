@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class UsersController extends Controller
 {
@@ -26,7 +27,21 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('vendor.adminlte.users.index');
+        $users = User::All();
+        return view('vendor.adminlte.user',['users'=> $users]);
+    }
+
+    public function edit($id = null)
+    {
+        $user = User::find($id);
+        $roles = Role::All();
+        return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles]);
+    }
+
+    public function assign( Request $request ){
+        $user = User::find($id);
+        $roles = Role::All();
+        return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles]);
     }
 
     public function create()
@@ -46,11 +61,11 @@ class UsersController extends Controller
         return view('vendor.adminlte.users.index');
     }
 
-    public function edit($id)
-    {
-        $user = User::find($id);
-        return view('vendor.adminlte.users.edit', ['user' => $user->id]);
-    }
+    // public function edit($id)
+    // {
+    //     $user = User::find($id);
+    //     return view('vendor.adminlte.users.edit', ['user' => $user->id]);
+    // }
 
     public function update(Request $request)
     {

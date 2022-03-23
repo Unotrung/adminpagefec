@@ -1,12 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 @section('css')
+
+
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+
 @stop
 @section('content_header')
     <!-- Content Header (Page header) -->
@@ -47,15 +50,15 @@
                   <tr>
                     <th>Customer name</th>
                     <th>Phone</th>
-                    <th>Image</th>
+                    <!-- <th>Image</th>
                     <th>NID</th>
                     <th>NID Image</th>
                     <th>Gender</th>
                     <th>Pin Code</th>
                     <th>DOB</th>
-                    <th>DON</th>
+                    <th>DON</th> -->
                     <th>Date Regis</th>
-                    <th>Address</th>
+                    <!-- <th>Address</th>
                     <th>Code</th>
                     <th>Code Name</th>
                     <th>Division Type</th>
@@ -63,94 +66,15 @@
                     <th>Type Relation</th>
                     <th>Phone Relation</th>
                     <th>Name Relation</th>
-                    <th>Contract</th>
-                    <th>Action</th>
+                    <th>Contract</th> -->
                     <th>Stage</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($bnpl as $bnpl)
                   <tr>
-                    <td>{{$bnpl->ncustomer}}</td>
-                    <td>{{$bnpl->phnumber}}</td>
-                    <td>{{$bnpl->image}}</td>
-                    <td>{{$bnpl->nidcustomer}}</td>
-                    <td>{{$bnpl->nidimage}}</td>
-                    <td>{{$bnpl->Gender}}</td>
-                    <td>{{$bnpl->Pincode}}</td>
-                    <td>{{$bnpl->DOB}}</td>
-                    <td>{{$bnpl->DON}}</td>
-                    <td>{{$bnpl->DRegis}}</td>
-                    <td>{{$bnpl->Address}}</td>
-                    <td>{{$bnpl->Code}}</td>
-                    <td>{{$bnpl->CodeName}}</td>
-                    <td>{{$bnpl->DivisionType}}</td>
-                    <td>{{$bnpl->District}}</td>
-                    <td>{{$bnpl->TypeRelation}}</td>
-                    <td>{{$bnpl->PhoneRelation}}</td>
-                    <td>{{$bnpl->NameRelation}}</td>
-                    <td>{{$bnpl->Contract}}</td>
-                    <td><a href="{{action([App\Http\Controllers\BnplController::class, 'edit'],$bnpl->id)}}" method="GET" class="btn btn-warning">Edit</a></td>
-                    <td>
-                      @if(!$bnpl->ncustomer == null && !$bnpl->Pincode == null && !$bnpl->Contract == null)
-                          Xác Minh Thông Tin
-                      @elseif(!$bnpl->ncustomer == null && !$bnpl->Pincode == null && $bnpl->Contract == null)
-                          Xác nhận hợp đồng 
-                      @elseif(!$bnpl->ncustomer == null && $bnpl->Pincode == null && $bnpl->Contract == null)
-                          Cài đặt Pin Code
-                      @else
-                          Nhập Thông Tin    
-                      @endif
-                    </td>
-                    <td>Waiting</td>
                   </tr>
-                  @endforeach
-                  <!-- <tr>
-                    <td>11974846f3d5e27b41d2d1c9e31364e3</td>
-                    <td>a3ca7aee3e8816145b8fd56791bac66c
-                    </td>
-                    <td>11/02/1988</td>
-                    <td>4cc859b7282b9a05ea622e2f08c137dc</td>
-                    <td>Nam</td>
-                    <td>e-Sign</td>
-                  </tr>
-                  <tr>
-                    <td>11974846f3d5e27b41d2d1c9e31364e3</td>
-                    <td>a3ca7aee3e8816145b8fd56791bac66c
-                    </td>
-                    <td>31/01/1992</td>
-                    <td>4cc859b7282b9a05ea622e2f08c137dc</td>
-                    <td>Nữ</td>
-                    <td>Fail</td>
-                  </tr>
-                  <tr>
-                    <td>11974846f3d5e27b41d2d1c9e31364e3</td>
-                    <td>a3ca7aee3e8816145b8fd56791bac66c
-                    </td>
-                    <td>01/02/1992</td>
-                    <td>4cc859b7282b9a05ea622e2f08c137dc</td>
-                    <td>Nữ</td>
-                    <td>Fail</td>
-                  </tr>
-                  <tr>
-                    <td>11974846f3d5e27b41d2d1c9e31364e3</td>
-                    <td>a3ca7aee3e8816145b8fd56791bac66c
-                    </td>
-                    <td>01/02/1992</td>
-                    <td>4cc859b7282b9a05ea622e2f08c137dc</td>
-                    <td>Nam</td>
-                    <td>Fail</td>
-                  </tr>
-                  <tr>
-                    <td>11974846f3d5e27b41d2d1c9e31364e3</td>
-                    <td>a3ca7aee3e8816145b8fd56791bac66c
-                    </td>
-                    <td>01/02/1992</td>
-                    <td>4cc859b7282b9a05ea622e2f08c137dc</td>
-                    <td>Nữ</td>
-                    <td>e-KYC checking</td>
-                  </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -188,11 +112,65 @@
 
 <!-- Page specific script -->
 <script>
+var editor;
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      processing: true,
+        serverSide: true,
+        "ajax": "{{ route('bnpl.dtajax') }}",
+        columns: [
+          {data: 'name', name: 'name'},
+          {data: 'phone', name: 'phone'},
+          {data: 'createdAt', name: 'issueDate',
+            render: function ( data, type, row ) {
+              console.log(data);
+              if ( type === 'display' || type === 'filter' ) {
+                  var d = new Date( data.milliseconds*1);
+                  return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
+              }
+              return data;}
+          
+          },
+          
+          {data:'sex',
+            "searchable": false,
+            "orderable":false,
+            "render": function (data, type, row) {
+              if (row.name === null) {
+                return "<i>Nhập  Thông Tin<i>";
+            }
+            else if(row.phone === null)
+            {
+              return "<i>Cài đặt Pin Code<i>";
+            }
+            else
+            {
+              return "<i>Xác thực người dùng<i>";
+            }
+          }
+          },
+          {
+            "defaultContent": "<i>Waiting</i>"
+          },
+          {
+                  data: 'action', 
+                  name: 'action', 
+                  orderable: true, 
+                  searchable: true
+          },
+        ],
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6');
   });
 </script>
+
+<!-- <script>
+  $(document).ready( function () {
+    $('#example1').DataTable(
+      {
+        "buttons": [ "excel", "pdf"]
+      }
+    ).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)') ;
+} );
+</script>  -->
+
 @stop

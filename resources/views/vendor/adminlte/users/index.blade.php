@@ -59,23 +59,18 @@
                     <th>Action</th>
                   </tr>
                   </thead>
-                       <tbody>
+                  <tbody>
+                    @foreach ($users as $user)
                       <tr>
-                        @foreach ($users as $user)
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->phone}}</td>
-                        <td>{{$user->role}}</td>
-                        <td>@if ($user->status == 1)
-                        Active
-                        @else
-                        Inactive
-                        @endif
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->phone }}</td>
+                        <td>{{ $user->status }}</td>
+                        <td>{{ $user->created_at }}</td>
+                        <td>
+                          <a href="{{ route('user.edit', $user->id) }}" class="small-box-footer btn-success btn btn-xs"> <i class="fas fa-edit"></i></a>
+                          <a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a>
                         </td>
-                        <td>{{$user->created_at}}</td>
-                        <td><a href="#" class="small-box-footer btn-danger btn btn-xs"> <i class="fas fa-ban"></i></a>
-                        <a href="{{route('users.edit',$user->id)}}" class="small-box-footer btn-primary btn btn-xs"> <i class="fas fa-edit"></i></a>
-                      </td>
                       </tr>
                       @endforeach
                   </tbody>
@@ -124,7 +119,7 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true, "lengthChange": true, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });

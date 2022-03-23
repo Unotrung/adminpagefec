@@ -76,6 +76,12 @@
                       @endforeach
                   </tbody>
 
+                    <th>User name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody></tbody>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -119,10 +125,26 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    var table = $("#example1").DataTable({
+        responsive: true, 
+        lengthChange: true, 
+        autoWidth: false,
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('customer.dtajax') }}",
+        columns: [
+            {data: 'username', name: 'username'},
+            {data: 'email', name: 'email'},
+            {
+                data: 'action', 
+                name: 'action', 
+                orderable: false, 
+                searchable: false,
+            },
+        ],
+        buttons: ["csv", "excel", "pdf", "print"]
+    });
+    table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   });
 </script>
 @stop

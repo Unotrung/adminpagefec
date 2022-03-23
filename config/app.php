@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Maklad\Permission\PermissionServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
@@ -233,7 +234,7 @@ return [
         'auth'       => App\Http\Middleware\Authenticate::class,
         'permission' => Maklad\Permission\Middlewares\PermissionMiddleware::class,
         'role'       => Maklad\Permission\Middlewares\RoleMiddleware::class,
-
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
