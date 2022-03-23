@@ -231,6 +231,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'auth'       => App\Http\Middleware\Authenticate::class,
+        'permission' => Maklad\Permission\Middlewares\PermissionMiddleware::class,
+        'role'       => Maklad\Permission\Middlewares\RoleMiddleware::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 

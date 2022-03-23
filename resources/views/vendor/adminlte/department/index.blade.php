@@ -2,7 +2,10 @@
 
 @section('title', 'Departments')
 
-@section('content')
+@php
+  $departments = App\Models\Provider::all();
+@endphp
+@section('content_header')
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -12,8 +15,8 @@
             <i class="fas fa-plus"></i> Add New
         </a>
     </div>
-
-   
+@stop
+@section('content')   
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -34,23 +37,17 @@
                             <th width="20%">Action</th>
                         </tr>
                     </thead>
-                        <?php
-                        use App\Models\Provider;
-                        $data = Provider::Where('_id','!=',0)->get();
-                        $count = 0;
-                       foreach ($data as $permission){
-                        $id = $permission['_id'];
-                       ?>
                             <tbody>
                            <tr>
-                               <td><?php echo $permission['name']?></td>
-                               <td><?php echo $permission['phone']?></td>
-                               <td><?php echo $permission['website']?></td>
-                               <td><?php echo $permission['email']?></td>
-                               <td><?php echo $permission['address']?></td>
-                               <td><?php echo $permission['description']?></td>
+                               @foreach ($departments as $department)
+                               <td>{{$department->name}}</td>
+                               <td>{{$department->phone}}</td>
+                               <td>{{$department->website}}</td>
+                               <td>{{$department->email}}</td>
+                               <td>{{$department->address}}</td>
+                               <td>{{$department->description}}</td>
                                <td style="display: flex">
-                                   <a href="{{route('department.edit',$id)}}" class="btn btn-primary m-2">
+                                   <a href="{{route('department.edit',$department->id)}}" class="btn btn-primary m-2">
                                         <i class="fa fa-pen"></i>
                                    </a>
                                    <form method="POST" action="">
@@ -62,10 +59,8 @@
                                    </form>
                                </td>
                            </tr>
+                           @endforeach
                     </tbody>
-                    <?php 
-                  $count = $count + 1;
-                    }?> 
                 </table>
 
                 {{$permissions ?? '' ?? ''->links()}}

@@ -282,7 +282,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Users',
-                    'url'  => 'users',
+                    'url'  => 'users/index',
                 ],
                 [
                     'text' => 'Department',

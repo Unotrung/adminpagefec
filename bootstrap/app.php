@@ -25,6 +25,14 @@ $app = new Illuminate\Foundation\Application(
 | incoming requests to this application from both the web and CLI.
 |
 */
+// $app->routeMiddleware([
+//     'auth'       => App\Http\Middleware\Authenticate::class,
+//     'permission' => Maklad\Permission\Middlewares\PermissionMiddleware::class,
+//     'role'       => Maklad\Permission\Middlewares\RoleMiddleware::class
+// ]);
+
+//$app->configure('permission');
+//$app->register(Maklad\Permission\PermissionServiceProvider::class);
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
@@ -41,14 +49,11 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-// $app->routeMiddleware([
-//     'auth'       => App\Http\Middleware\Authenticate::class,
-//     'permission' => Maklad\Permission\Middlewares\PermissionMiddleware::class,
-//     'role'       => Maklad\Permission\Middlewares\RoleMiddleware::class,
-// ]);
+$app->register(App\Providers\AuthServiceProvider::class);
 
-//$app->configure('permission');
-//$app->register(Maklad\Permission\PermissionServiceProvider::class);
+//$app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
+
+//$app->withEloquent();
 /*
 |--------------------------------------------------------------------------
 | Return The Application

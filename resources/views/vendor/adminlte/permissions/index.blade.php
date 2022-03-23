@@ -2,7 +2,11 @@
 
 @section('title', 'Permissions')
 
-@section('content')
+
+@php
+  $permissions = App\Models\Permission::all();
+@endphp
+@section('content_header')
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -12,8 +16,8 @@
             <i class="fas fa-plus"></i> Add New
         </a>
     </div>
-
-   
+@stop
+@section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -30,19 +34,13 @@
                             <th width="20%">Action</th>
                         </tr>
                     </thead>
-                        <?php
-                        use App\Models\Permission;
-                        $data = Permission::Where('_id','!=',0)->get();
-                        $count = 0;
-                       foreach ($data as $permission){
-                        $id = $permission['_id'];
-                       ?>
                             <tbody>
                            <tr>
-                               <td><?php echo $permission['name']?></td>
-                               <td><?php echo $permission['guard_name']?></td>
+                               @foreach ($permissions as $permission)
+                               <td>{{$permission->name}}</td>
+                               <td>{{$permission->guard_name}}</td>
                                <td style="display: flex">
-                                   <a href="{{route('permission.edit',$id)}}" class="btn btn-primary m-2">
+                                   <a href="{{route('permission.edit',$permission->_id)}}" class="btn btn-primary m-2">
                                         <i class="fa fa-pen"></i>
                                    </a>
                                    <form method="POST" action="">
@@ -55,12 +53,9 @@
                                </td>
                            </tr>
                     </tbody>
-                    <?php 
-                  $count = $count + 1;
-                    }?> 
+                    @endforeach
                 </table>
 
-                {{$permissions ?? '' ?? ''->links()}}
             </div>
         </div>
     </div>

@@ -45,8 +45,8 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('DB_URI', 'mongodb+srv://nguyentrungkien:nguyentrungkien123456789@cluster0.hewrc.mongodb.net/wolfconsultingdemo?authSource=admin&replicaSet=atlas-3locki-shard-0&w=majority%3B&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true'),
-            'database' => 'WolfConsulting',
+            'dsn' => env('DB_URI', 'localhost'),
+            'database' => env('DB_DATABASE','fecdb')
         ],
         
         'sqlite' => [

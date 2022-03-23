@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\Authenticatable;
 use Maklad\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
-use Jenssegers\Mongodb\Eloquent\Model as Model;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
@@ -18,6 +14,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable, HasRoles;
 
+    protected $connection = 'mongodb';
+    protected $collection = 'users'; 
     /**
      * The attributes that are mass assignable.
      *
@@ -51,4 +49,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
     protected $dates = ['email_verified_at'];
     protected $guard_name = 'web';
+
 }

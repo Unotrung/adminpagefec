@@ -2,7 +2,7 @@
 
 @section('title', 'News')
 
-@section('content')
+@section('content_header')
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -12,8 +12,8 @@
             <i class="fas fa-plus"></i> Add New
         </a>
     </div>
-
-   
+@stop
+@section('content')   
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
