@@ -33,7 +33,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('vendor.adminlte.customer');
+        return view('vendor.adminlte.customers.customer');
     }
 
     public function store(Request $request )
@@ -50,6 +50,21 @@ class CustomerController extends Controller
         return $request->email;
     }
 
+    public function show($id){
+        $cus = Customer::find($id);
+			if(isset($cus->_id)) {
+				$setErrorsBag = "khong hien thi";
+				return view('vendor.adminlte.customers.show',[])->with('cus', $cus);
+			} else {
+				return view('errors.404', [
+					'record_id' => $id,
+					'record_name' => ucfirst("cus"),
+				]);
+			}
+    }
+
+
+
     public function dtajax(Request $request){
         if ($request->ajax()) {
             $out =  Datatables::of(Customer::All())->make(true);
@@ -58,12 +73,12 @@ class CustomerController extends Controller
 
                 $output = '';
                 // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
-                $output .= ' <a href="'.url(route('employee.edit').'/'.$data->data[$i]->_id).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-                $output .= ' <a href="'.url(route('employee.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                // $output .= ' <a href="'.url(route('employee.edit').'/'.$data->data[$i]->_id).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 // $output .= Form::open(['route' => [config('employee') . '.employee', $data->data[$i]->_id], 'method' => 'delete', 'style'=>'display:inline']);
                 // $output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
                 // $output .= Form::close();
-                $data->data[$i]->index = $i;
+                // $data->data[$i]->index = $i;
                 $data->data[$i]->action = (string)$output;
 
             }

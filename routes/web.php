@@ -41,8 +41,8 @@ Route::get('/employee/edit/{id}', [App\Http\Controllers\EmployeeController::clas
 Route::get('/bnpl/edit/{id}', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
 Route::get('/bnpl/edit', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
 Route::get('/employee/edit', [App\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
-// Route::get('/employee/show', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
-Route::get('/employee/show/{id}', [App\Http\Controllers\EmployeeController::class, 'show'])->name('employee.show');
+Route::get('/customer/show', [App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show');
+Route::get('/customer/show/{id}', [App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show');
 
 //Users
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('team');

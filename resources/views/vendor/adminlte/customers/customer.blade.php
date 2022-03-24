@@ -52,12 +52,12 @@
                   <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Phone</th>
+                    <!-- <th>Phone</th>
                     <th>Status</th>
-                    <th>Created Time</th>
+                    <th>Created Time</th> -->
                     <th>Action</th>
                   </tr>
-                  </thead>
+                  <!-- </thead>
                   @foreach ($customers as $customer )
                        <tbody>
                       <tr>
@@ -80,7 +80,7 @@
                     <th>Email</th>
                     <th>Action</th>
                   </tr>
-                  </thead>
+                  </thead> -->
                   <tbody></tbody>
                 </table>
               </div>

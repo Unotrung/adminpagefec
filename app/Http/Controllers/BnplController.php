@@ -115,7 +115,7 @@ class BnplController extends Controller
     }
 
     public function dtajax(Request $request){
-        if ($request->ajax()) {
+         if ($request->ajax()) {
             $out =  Datatables::of(Bnpl::All())->make(true);
             $data = $out->getData();
             for($i=0; $i < count($data->data); $i++) {

@@ -148,18 +148,7 @@ var editor;
               return "<i>Xác thực người dùng<i>";
             }
             return data;}
-        
-        },
-        
-        {data:'sex',
-          "searchable": false,
-          "orderable":false,
-          "render": function (data, type, row) {
-          if (row.name === null) {
-            return "<i>Nhập Thông Tin<i>";
-          }
           },
-        },
           {
             "defaultContent": "<i>Waiting</i>"
           },
