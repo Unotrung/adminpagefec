@@ -2,9 +2,6 @@
 
 @section('title', 'Departments')
 
-@php
-  $departments = App\Models\Provider::all();
-@endphp
 @section('content_header')
 <div class="container-fluid">
 
@@ -25,7 +22,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="example1" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th width="10%">Name</th>
@@ -39,31 +36,9 @@
                     </thead>
                             <tbody>
                            <tr>
-                               @foreach ($departments as $department)
-                               <td>{{$department->name}}</td>
-                               <td>{{$department->phone}}</td>
-                               <td>{{$department->website}}</td>
-                               <td>{{$department->email}}</td>
-                               <td>{{$department->address}}</td>
-                               <td>{{$department->description}}</td>
-                               <td style="display: flex">
-                                   <a href="{{route('department.edit',$department->id)}}" class="btn btn-primary m-2">
-                                        <i class="fa fa-pen"></i>
-                                   </a>
-                                   <form method="POST" action="">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger m-2" type="submit">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                   </form>
-                               </td>
                            </tr>
-                           @endforeach
                     </tbody>
                 </table>
-
-                {{$permissions ?? '' ?? ''->links()}}
             </div>
         </div>
     </div>
@@ -72,3 +47,57 @@
 
 
 @endsection
+
+@section('js')
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+
+<!-- Page specific script -->
+<script>
+var editor;
+  $(function () {
+    $("#example1").DataTable({
+      processing: true,
+        serverSide: true,
+        "ajax": "{{ route('department.dtajax') }}",
+        columns: [
+          {data: 'name', name: 'Name'},
+          {data: 'phone', name: 'Phone'},
+          {data: 'website', name: 'Website'},
+          {data: 'email', name: 'Email'},
+          {data: 'address', name: 'Address'},
+          {data: 'description', name: 'Description'},
+          {
+                  data: 'action', 
+                  name: 'action', 
+                  orderable: true, 
+                  searchable: true
+          },
+        ],
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6');
+  });
+</script>
+
+<!-- <script>
+  $(document).ready( function () {
+    $('#example1').DataTable(
+      {
+        "buttons": [ "excel", "pdf"]
+      }
+    ).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)') ;
+} );
+</script>  -->
+
+@stop

@@ -1,127 +1,111 @@
 @extends('layouts.app')
 
 @section('title', 'Promotions')
+@section('css')
 
 
-<script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-  
-  <script>
- $(document).ready(function() {
- 
-    $('.faq_question').click(function() {
- 
-        if ($(this).parent().is('.open')){
-            $(this).closest('.faq').find('.faq_answer_container').animate({'height':'0'},500);
-            $(this).closest('.faq').removeClass('open');
- 
-            }else{
-                var newHeight =$(this).closest('.faq').find('.faq_answer').height() +'px';
-                $(this).closest('.faq').find('.faq_answer_container').animate({'height':newHeight},500);
-                $(this).closest('.faq').addClass('open');
-            }
-    });
-});
-</script>
-<style>
- /*Promotions*/
- .coupon {
-  border: 5px dotted #bbb; /* Dotted border */
-  width: 80%;
-  border-radius: 15px; /* Rounded border */
-  margin: 0 auto; /* Center the coupon */
-  max-width: 600px;
-}
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 
-.container {
-  padding: 2px 16px;
-  background-color: #f1f1f1;
-}
-
-.promo {
-  background: #ccc;
-  padding: 3px;
-}
-
-.expire {
-  color: red;
-}
-
-/*FAQS*/
-.faq_question {
-    margin: 0px;
-    padding: 0px 0px 0px 20px;
-    display: inline-block;
-    cursor: pointer;
-    font-weight: bold;
-}
- 
-.faq_answer_container {
-    height: 0px;
-    overflow: hidden;
-    padding: 0px 20px;
-}
-</style>
-@section('content_header')
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Promotions</h1>
-        <a href="{{route('roles.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus"></i> Add New
-        </a>
-    </div>
 @stop
 @section('content')
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">All Promotions</h6>
-        </div>
-        <div class="card-body">
-        <div class="faq_container">
-            <div class="card faq py-3">
-                <h6 class="text-primary faq_question">January 2022 </h6>
-                    <div class="faq_answer_container">
-                        <div class="faq_answer">1. Hot Deal
-                        <div class="coupon">
-  <div class="container">
-    <h3>Hot Deal</h3>
-  </div>
-  <img src="https://yb4ke1guf9g32qn4pnt1k17m-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/deal-sites.jpg" alt="Avatar" style="width:100%;">
-  <div class="container" style="background-color:white">
-    <h2><b>20% OFF YOUR PURCHASE</b></h2>
-    <p>Lorem ipsum..</p>
-  </div>
-  <div class="container">
-    <p>Use Promo Code: <span class="promo">BOH232</span></p>
-    <p class="expire">Expires: Jan 03, 2022</p>
-  </div>
-</div>
-</div>
-                    </div>        
-                </div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+              <h1 class="h3 mb-0 text-gray-800">Promotions</h1>
+              <a href="{{route('promotions.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                  <i class="fas fa-plus"></i> Add New
+              </a>
+          </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="overflow-x: scroll;">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date Post</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
-
-            <div class="card faq py-3">
-                <h6 class="text-primary faq_question">February 2022 </h6>
-                    <div class="faq_answer_container">
-                        <div class="faq_answer">Answer goes here</div>
-                    </div>        
-                </div>
-                <div class="card faq py-3">
-                <h6 class="text-primary faq_question">March 2022 </h6>
-                    <div class="faq_answer_container">
-                        <div class="faq_answer">Answer goes here</div>
-                    </div>        
-                </div>
-            </div>
-            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
         </div>
-        </div>
-    </div>
+        <!-- /.row -->
+      </div>
+</section>
+    <!-- /.content -->
+@stop
 
-</div>
 
 
-@endsection
+@section('js')
+ 
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+
+<!-- Page specific script -->
+<script>
+var editor;
+  $(function () {
+    $("#example1").DataTable({
+      processing: true,
+        serverSide: true,
+        "ajax": "{{ route('promotions.dtajax') }}",
+        columns: [
+          {data: 'Title', name: 'Title'},
+          {data: 'Description', name: 'Description'},
+          {data: 'created_at', name: 'Date Post'},
+          {
+                  data: 'action', 
+                  name: 'action', 
+                  orderable: true, 
+                  searchable: true
+          },
+        ],
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6');
+  });
+</script>
+
+<!-- <script>
+  $(document).ready( function () {
+    $('#example1').DataTable(
+      {
+        "buttons": [ "excel", "pdf"]
+      }
+    ).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)') ;
+} );
+</script>  -->
+
+@stop

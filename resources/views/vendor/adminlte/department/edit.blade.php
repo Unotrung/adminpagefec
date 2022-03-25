@@ -2,10 +2,6 @@
 
 @section('title', 'Edit Department')
 
-@php
-$old = App\Models\Provider::find($department)
-@endphp
-
 @section('content_header')
 <div class="container-fluid">
 
@@ -23,7 +19,7 @@ $old = App\Models\Provider::find($department)
             <h6 class="m-0 font-weight-bold text-primary">Edit Department</h6>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{route('permission.update', 'id='.$department)}}">
+            <form method="POST" action="{{route('permission.update', 'id='.$department['id'])}}">
                 @csrf
                 @method('POST')
                 <div class="form-group row">
@@ -37,7 +33,7 @@ $old = App\Models\Provider::find($department)
                             id="exampleName"
                             placeholder="Name" 
                             name="name" 
-                            value="{{$old['name']}}">
+                            value="{{$department['name']}}">
 
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
@@ -53,7 +49,7 @@ $old = App\Models\Provider::find($department)
                             id="phone"
                             placeholder="Phone" 
                             name="phone" 
-                            value="{{$old['phone']}}">
+                            value="{{$department['phone']}}">
 
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
@@ -69,7 +65,7 @@ $old = App\Models\Provider::find($department)
                             id="website"
                             placeholder="www.example.com" 
                             name="website" 
-                            value="{{$old['website']}}">
+                            value="{{$department['website']}}">
 
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
@@ -84,7 +80,7 @@ $old = App\Models\Provider::find($department)
                             id="email"
                             placeholder="example@example.com" 
                             name="email" 
-                            value="{{$old['email']}}">
+                            value="{{$department['email']}}">
 
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
@@ -99,7 +95,7 @@ $old = App\Models\Provider::find($department)
                             id="address"
                             placeholder="" 
                             name="address" 
-                            value="{{$old['address']}}">
+                            value="{{$department['address']}}">
 
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
@@ -114,7 +110,7 @@ $old = App\Models\Provider::find($department)
                             id="description"
                             placeholder="" 
                             name="description" 
-                            value="{{$old['description']}}">
+                            value="{{$department['description']}}">
 
                         @error('name')
                             <span class="text-danger">{{$message}}</span>

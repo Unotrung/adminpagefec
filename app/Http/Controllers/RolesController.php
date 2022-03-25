@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Maklad\Permission\Models\Role;
 use Maklad\Permission\Models\Permission;
 use App\Models\Role as DB;
+use DataTables;
 
 class RolesController extends Controller
 {
@@ -52,25 +53,9 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        // DB::beginTransaction();
-        // try {
-        //     $request->validate([
-        //         'name' => 'required',
-        //         'guard_name' => 'required'
-        //     ]);
-    
-        //     Permission::create($request->all());
-
-        //     DB::commit();
-        //     return redirect()->route('permission.index')->with('success','Permissions created successfully.');
-        // } catch (\Throwable $th) {
-        //     DB::rollback();
-        //     return redirect()->route('permission.add')->with('error',$th->getMessage());
-        // }
         $role = new Role;
         $role->name = $request->name;
         $role->guard_name = $request->guard_name;
-    
 
         $role->save();
 
@@ -110,7 +95,6 @@ class RolesController extends Controller
      */
     public function update(Request $request)
     {
-        //DB::beginTransaction();
             $request->validate([
                 'name' => 'required',
                 'guard_name' => 'required'
@@ -132,16 +116,34 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        DB::beginTransaction();
-        try {
-    
-            Role::whereId($id)->delete();
-            
-            DB::commit();
-            return redirect()->route('roles.index')->with('success','Permissions deleted successfully.');
-        } catch (\Throwable $th) {
-            DB::rollback();
-            return redirect()->route('roles.index')->with('error',$th->getMessage());
+        $role = Role::find($id);
+        $role->delete();
+        return redirect()->route('roles.index')->with('Role deleted successfull');
+    }
+
+    public function dtajax(Request $request){
+        if ($request->ajax()) {
+        $out =  DataTables::of(Role::All())->make(true);
+           $data = $out->getData();
+           for($i=0; $i < count($data->data); $i++) {
+               $output = '';
+               //$output .= ' <a href="'.url(route('roles.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                $output .= ' <a href="'.url(route('roles.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+               $output .= ' <a href="'.url(route('roles.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+               $data->data[$i]->action = (string)$output;
+           //     if($this->show_action) {
+           //         $output = '';
+           // //         // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
+           //         $output .= ' <a href="'.url(route('bnpl.edit').'/'.$data->data[$i]->_id).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+           // //         // $output .= ' <a href="'.url(route('employee.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+           // //         // $output .= Form::open(['route' => [config('employee') . '.employee', $data->data[$i]->_id], 'method' => 'delete', 'style'=>'display:inline']);
+           // //         // $output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
+           //             // $output .= Form::close();
+           //         $data->data[$i]->action = (string)$output;
+           //     }
+            }
+           $out->setData($data);
+           return $out;
         }
     }
 }

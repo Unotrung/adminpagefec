@@ -92,7 +92,8 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $department = Provider::find($id);
+        return view('vendor.adminlte.department.show',['department'=>$department]);
     }
 
     /**
@@ -105,7 +106,7 @@ class DepartmentController extends Controller
     {
         $department = Provider::find($id);
         // $permission = Permission::whereId($id)->first();
-        return view('vendor.adminlte.department.edit', ['department' => $department->id]);
+        return view('vendor.adminlte.department.edit', ['department' => $department]);
     }
 
     /**
@@ -140,16 +141,34 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        DB::beginTransaction();
-        try {
-    
-            Provider::whereId($id)->delete();
-            
-            DB::commit();
-            return redirect()->route('department.index')->with('success','Permissions deleted successfully.');
-        } catch (\Throwable $th) {
-            DB::rollback();
-            return redirect()->route('department.index')->with('error',$th->getMessage());
+        $department = Provider::find($id);
+        $department->delete();
+        return redirect()->route('department.index')->with('Department deleted successfull');
+    }
+
+    public function dtajax(Request $request){
+        if ($request->ajax()) {
+        $out =  DataTables::of(Provider::All())->make(true);
+           $data = $out->getData();
+           for($i=0; $i < count($data->data); $i++) {
+               $output = '';
+               $output .= ' <a href="'.url(route('department.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                $output .= ' <a href="'.url(route('department.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+               $output .= ' <a href="'.url(route('department.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+               $data->data[$i]->action = (string)$output;
+           //     if($this->show_action) {
+           //         $output = '';
+           // //         // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
+           //         $output .= ' <a href="'.url(route('bnpl.edit').'/'.$data->data[$i]->_id).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+           // //         // $output .= ' <a href="'.url(route('employee.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+           // //         // $output .= Form::open(['route' => [config('employee') . '.employee', $data->data[$i]->_id], 'method' => 'delete', 'style'=>'display:inline']);
+           // //         // $output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
+           //             // $output .= Form::close();
+           //         $data->data[$i]->action = (string)$output;
+           //     }
+            }
+           $out->setData($data);
+           return $out;
         }
     }
 }
