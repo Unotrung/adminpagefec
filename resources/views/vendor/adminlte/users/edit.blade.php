@@ -5,14 +5,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @extends('layouts.app')
 @section('title', 'Users')
 @section('css')
-
-@php
-use App\Models\User;
-$old = User::find($user);
-$roles = App\Models\Role::all();
-$permissions = App\Models\Permission::all();
-$old_role = App\Models\Role::find($old['role_ids'][0]);
-@endphp
 <style>
    #admin {
       display: none;
@@ -23,7 +15,7 @@ $old_role = App\Models\Role::find($old['role_ids'][0]);
     
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h2 class="h3 mb-0 text-gray-800">Edit User </h2>
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('users.index') }}"><i
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('team') }}"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
 @stop
@@ -40,64 +32,126 @@ $old_role = App\Models\Role::find($old['role_ids'][0]);
   </div>
 @endif
 
-<div class="card shadow mb-4">
-	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">Add New User</h6> </div>
-	<div class="card-body">
-		<form method="POST" action="{{route('users.update', 'id='.$user)}}"> @csrf
-			<div class="form-group row"> {{-- Name --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
-					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{ $old['name'] }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Email --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
-					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{ $old['email'] }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Password --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
-					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{ $old['phone'] }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Confirm Password --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Password: </label>
-					<input type="password" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleConfirmPassword" placeholder="Password" name="confirm_password" value="{{ $old['password'] }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Role --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Role: </label>
-				<select onchange="displayDivDemo('admin', this)" class="form-control form-control-user" name="role">
-						@foreach ($roles as $role)
-								<option value="{{$old_role['name'] ?: 'default value' }}" selected>{{$role['name']}}</option>
-						@endforeach
-					</select>
+
+
+<!-- /.col -->
+<div class="col-md-12">
+	<div class="card">
+	  <div class="card-header p-2">
+		<ul class="nav nav-pills">
+		  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">User</a></li>
+		  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Role</a></li>
+		</ul>
+	  </div><!-- /.card-header -->
+	  <div class="card-body">
+		<div class="tab-content">
+		  <div class="active tab-pane" id="activity">
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">
+						{{$user->roles[0]->name}}
+					</h6> </div>
+				<div class="card-body">
+					<form method="POST" action="{{route('users.update')}}"> 
+						@csrf
+						<input type="hidden" name="id" value="{{$user->id}}">
+						<div class="form-group row"> {{-- Name --}}
+							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{$user->name}}">@error('name') <span class="text-danger"></span> @enderror </div> {{-- Email --}}
+							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Password --}}
+							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
+						</div>
+						<div id="admin">
+							<h6><b>Admin's Permissions Set Up</b></h6>
+			
+								@foreach ($permissions as $permission)
+									   @if (Str::contains($permission['name'],'customer') == true)
+									   <h6><b>Module Customers</b></h6>
+										<input type="checkbox" id="permission" name="permission" value="{{ $permission['name'] }}">
+										<label> {{$permission['name']}}</label><br>
+									@elseif (Str::contains($permission['name'],'notification') == true)
+									<h6><b>Module Notification</b></h6>
+										<input type="checkbox" id="permission" name="permission" value="{{ $permission['name'] }}">
+										<label> {{$permission['name']}}</label><br>
+									@endif
+								@endforeach
+			
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 text-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+						<script>
+							   function displayDivDemo(id, elementValue) {  
+								var role = elementValue.value;
+								console.log(id);
+								if(role == 'admin' && id == 'admin' ){
+									document.getElementById(id).style.display = 'block';
+								}
+								else
+								{
+									document.getElementById(id).style.display = 'block';
+								}
+								  //document.getElementById(id).style.display = elementValue.value == 'admin' ? 'block' : 'none';
+			
+							   }
+						</script>
+					</form>
 				</div>
 			</div>
-			<div id="admin">
-				<h6><b>Admin's Permissions Set Up</b></h6>
-				<form action="#">
-					@foreach ($permissions as $permission)
-   						@if (Str::contains($permission['name'],'customer') == true)
-						   <h6><b>Module Customers</b></h6>
-							<input type="checkbox" id="permission" name="permission" value="{{ $permission['name'] }}">
-							<label> {{$permission['name']}}</label><br>
-						@elseif (Str::contains($permission['name'],'notification') == true)
-						<h6><b>Module Notification</b></h6>
-							<input type="checkbox" id="permission" name="permission" value="{{ $permission['name'] }}">
-							<label> {{$permission['name']}}</label><br>
-						@endif
-					@endforeach
-				</form>
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</div>
-			<script>
-   				function displayDivDemo(id, elementValue) {  
-					var role = elementValue.value;
-					console.log(id);
-					if(role == 'admin' && id == 'admin' ){
-						document.getElementById(id).style.display = 'block';
-					}
-					else
-					{
-						document.getElementById(id).style.display = 'block';
-					}
-   				   //document.getElementById(id).style.display = elementValue.value == 'admin' ? 'block' : 'none';
+		  </div>
+		 
+		  <!-- /.tab-pane -->
 
-   				}
-			</script>
-		</form>
+		  <div class="tab-pane" id="settings">
+			  <table>
+				@foreach ($roles as $role)
+					<tr>
+						<td>
+							<input type="checkbox" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif onClick="btnRole(this.checked,this.value)"/> {{$role->name}}
+						</td>
+					</tr>
+				@endforeach
+				<script>
+					function btnRole(e,d){
+						console.log(d);
+						if(e){
+							$.ajax({
+								url : "{{route('user.assignrole')}}",
+								type: "POST",
+								data : {
+									_token: "{{ csrf_token() }}",
+									id : "{{ $user->id }}",
+									role : d
+								}
+							}).done(function(msg){
+								alert( "Data Saved: " + msg );
+							});
+						}else{
+							$.ajax({
+								url : "{{route('user.removerole')}}",
+								type: "POST",
+								data : {
+									_token: "{{ csrf_token() }}",
+									id : "{{ $user->id }}",
+									role : d
+								}
+							}).done(function(msg){
+								alert( "Data Saved: " + msg );
+							});
+						}
+					};
+				</script>
+			  </table>
+		  </div>
+		  <!-- /.tab-pane -->
+		</div>
+		<!-- /.tab-content -->
+	  </div><!-- /.card-body -->
 	</div>
-</div>
+	<!-- /.card -->
+  </div>
+  <!-- /.col -->
 </div>
 @endsection

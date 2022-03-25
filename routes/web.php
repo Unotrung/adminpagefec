@@ -51,6 +51,9 @@ Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->na
 Route::get('/users/{id}', [App\Http\Controllers\UsersController::class, 'edit'])->name('user.edit');
 Route::post('/users/assign', ['UsersController@assign'])->name('user.assign');
 
+Route::post('/users/assignrole', [App\Http\Controllers\UsersController::class, 'assignRole'])->name('user.assignrole');
+Route::post('/users/removerole', [App\Http\Controllers\UsersController::class, 'removeRole'])->name('user.removerole');
+
 
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
@@ -61,12 +64,12 @@ Route::get('/account/change', function(){
 //Em
 //Users
 Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
-Route::group(['middleware' => ['can:create users,delete users']], function (){
+// Route::group(['middleware' => ['can:create users,delete users']], function (){
     Route::get('/users/create', 'App\Http\Controllers\UsersController@create')->name('users.create');
     Route::get('/users/edit/{id}', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
     Route::post('/users/store', 'App\Http\Controllers\UsersController@store')->name('users.store');
     Route::post('/users/update', 'App\Http\Controllers\UsersController@update')->name('users.update');
- });
+//  });
 
 // Permissions
 Route::group(['middleware' => ['can:full access permissions']], function () {
@@ -78,7 +81,7 @@ Route::group(['middleware' => ['can:full access permissions']], function () {
 });
 
 //Roles
-Route::group(['middleware' => ['can:full access roles']], function (
+Route::group(['middleware' => ['role:admin']], function (
 ) {
     Route::get('/roles/add', [App\Http\Controllers\RolesController::class, 'create'])->name('roles.add');
     Route::get('/roles/index', [App\Http\Controllers\RolesController::class, 'index'])->name('roles.index');
