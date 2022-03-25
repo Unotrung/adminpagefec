@@ -1,99 +1,109 @@
 @extends('layouts.app')
 
 @section('title', 'News')
+@section('css')
 
-@section('content_header')
-<div class="container-fluid">
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">News</h1>
-        <a href="{{route('roles.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus"></i> Add New
-        </a>
-    </div>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+
 @stop
-@section('content')   
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">All News</h6>
+@section('content')
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+              <h1 class="h3 mb-0 text-gray-800">News</h1>
+              <a href="{{route('news.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                  <i class="fas fa-plus"></i> Add New
+              </a>
+          </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">DataTable with default features</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body" style="overflow-x: scroll;">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Date Post</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
         </div>
-        <div class="card-body">
-            
-            <!-- Page Content -->
-<div class="container">
-
-<!-- Portfolio Item Heading -->
-<h1 class="my-4">Lasted News
-  <small id="date"></small><script>
-  var today = new Date();
-  var date = today.getDate()+'-'+'0'+(today.getMonth()+1)+'-'+today.getFullYear();
-  document.getElementById("date").innerHTML = date;
-  </script>
-</h1>
-
-<!-- Portfolio Item Row -->
-<div class="row">
-
-  <div class="col-md-8">
-    <img class="img-fluid" src="https://via.placeholder.com/750x500" alt="">
-  </div>
-
-  <div class="col-md-4">
-    <h3 class="my-3">News Description</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-    <h3 class="my-3">News Details</h3>
-    <ul>
-      <li>Lorem Ipsum</li>
-      <li>Dolor Sit Amet</li>
-      <li>Consectetur</li>
-      <li>Adipiscing Elit</li>
-    </ul>
-  </div>
-
-</div>
-<!-- /.row -->
-
-<!-- Related Projects Row -->
-<h3 class="my-4">Related News</h3>
-
-<div class="row">
-
-  <div class="col-md-3 col-sm-6 mb-4">
-    <a href="#">
-          <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-        </a>
-  </div>
-
-  <div class="col-md-3 col-sm-6 mb-4">
-    <a href="#">
-          <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-        </a>
-  </div>
-
-  <div class="col-md-3 col-sm-6 mb-4">
-    <a href="#">
-          <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-        </a>
-  </div>
-
-  <div class="col-md-3 col-sm-6 mb-4">
-    <a href="#">
-          <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-        </a>
-  </div>
-
-</div>
-<!-- /.row -->
-
-</div>
-<!-- /.container -->
-
-        </div>
-    </div>
-
-</div>
+        <!-- /.row -->
+      </div>
+</section>
+    <!-- /.content -->
+@stop
 
 
-@endsection
+
+@section('js')
+ 
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+
+<!-- Page specific script -->
+<script>
+var editor;
+  $(function () {
+    $("#example1").DataTable({
+      processing: true,
+        serverSide: true,
+        "ajax": "{{ route('news.dtajax') }}",
+        columns: [
+          {data: 'Title', name: 'Title'},
+          {data: 'created_at', name: 'Date Post'},
+          {
+                  data: 'action', 
+                  name: 'action', 
+                  orderable: true, 
+                  searchable: true
+          },
+        ],
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6');
+  });
+</script>
+
+<!-- <script>
+  $(document).ready( function () {
+    $('#example1').DataTable(
+      {
+        "buttons": [ "excel", "pdf"]
+      }
+    ).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)') ;
+} );
+</script>  -->
+
+@stop

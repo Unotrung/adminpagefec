@@ -13,29 +13,22 @@ class CreateBnplsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bnpls', function (Blueprint $table) {
+        Schema::create('bnpl_personals', function (Blueprint $table) {
             $table->id();
-            $table->string(column:'ncustomer');
-            $table->string(column:'phnumber');
-            $table->string(column:'image');
-            $table->string(column:'nidcustomer');
-            $table->string(column:'nidimage');
-            $table->text(column:'Gender');
-            $table->string(column:'Pincode');
-            $table->date(column:'DOB');
-            $table->date(column:'DON');
-            $table->date(column:'DRegis');
-            $table->string(column:'Address');
-            $table->string(column:'Code');
-            $table->string(column:'CodeName');
-            $table->string(column:'DivisionType');
-            $table->string(column:'District');
-            $table->string(column:'TypeRelation');
-            $table->string(column:'PhoneRelation');
-            $table->string(column:'NameRelation');
-            $table->string(column:'District');
-            $table->string(column:'Contract');
-
+            $table->string(column:'name');
+            $table->string(column:'sex');
+            $table->date(column:'birthday');
+            $table->string(column:'phone');
+            $table->string(column:'citizenId');
+            $table->date(column:'issueDate');
+            $table->string(column:'city');
+            $table->date(column:'district');
+            $table->date(column:'ward');
+            $table->date(column:'street');
+            $table->string(column:'personal_title_ref');
+            $table->string(column:'name_ref');
+            $table->string(column:'phone_ref');
+            $table->string(column:'user');
             $table->timestamps();
         });
     }
@@ -47,6 +40,6 @@ class CreateBnplsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personals');
+        Schema::dropIfExists('bnpl_personals');
     }
 }

@@ -1,7 +1,7 @@
 <!-- caredit.blade.php  -->
 <!--  -->
 @extends('layouts.app')
-@section('title', 'BNPL')
+@section('title', 'Customer')
 @section('content_header')
     <!-- Content Header (Page header) -->
     <!-- <div class="content-header">
@@ -65,87 +65,27 @@ $config = [
               <!-- form start -->
                 <div class="card-body">
                   <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name Customer</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue">{{$bnpl->name}}</div>
+                    <div class="col-md-10 fvalue">{{$cus->username}}</div>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone Customer</label>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue">{{$bnpl->phone}}</div>
+                    <div class="col-md-10 fvalue">{{$cus->email}}</div>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Gender</label>
+                    <label for="inputPassword4" class="col-sm-2 col-form-label">Phone</label>
                     <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->sex}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Date of Birth</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue" >{{$bnpl->birthday}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">CitizenID</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->citizenId}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">IssueDate</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->issueDate}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">City</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->city}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">District</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->district}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Ward</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->ward}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Street</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->street}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Danh xưng</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->personal_title_ref}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Tên người tham chiếu</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->name_ref}}</div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Phone Number</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->phone_ref}}</div>
+                      <div class="col-md-10 fvalue">{{$cus->phone}}</div>
                     </div>
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                <a href="http://127.0.0.1:8000/bnpl" class="btn btn-primary">Back</a>
+                <a href="http://127.0.0.1:8000/customer" class="btn btn-primary">Back</a>
                   <!-- <button type="submit" class="btn btn-default">Cancel</button> -->
                   <!-- <button type="submit" class="btn btn-info float-right" >Sign in</button> -->
                   <!-- <li class=""><a href="http://127.0.0.1:8000/bnpl" data-toggle="tooltip" data-placement="right" title="Back to Customers"><i class="fa fa-chevron-left"></i>Cancel</a></li> -->
@@ -171,22 +111,15 @@ $config = [
             <div class="timeline">
               <!-- timeline time label -->
               <div class="time-label">
-                <span class="bg-red">10 Feb. 2014</span>
+                <span class="bg-red">24/3/2022</span>
               </div>
               <!-- /.timeline-label -->
               <!-- timeline item -->
               <div>
                 <i class="fas fa-sign-out-alt bg-red"></i>
                 <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                  <h3 class="timeline-header"><a href="#">{{$bnpl->name}}</a> is logout </h3>
-
-                  <div class="timeline-body">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                    quora plaxo ideeli hulu weebly balihoo...
-                  </div>
+                  <span class="time"><i class="fas fa-clock"></i> {{$cus->updatedAt}}</span>
+                  <h3 class="timeline-header"><a href="#">{{$cus->username}}</a> is logout </h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -195,7 +128,7 @@ $config = [
                 <i class="fas fa-upload bg-green"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#">{{$bnpl->name}}</a> has update password</h3>
+                  <h3 class="timeline-header no-border"><a href="#">{{$cus->username}}</a> has update password</h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -204,7 +137,7 @@ $config = [
                 <i class="fas fa-user-check bg-green"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 3 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#">{{$bnpl->name}}</a> has update information</h3>
+                  <h3 class="timeline-header no-border"><a href="#">{{$cus->username}}</a> has update information</h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -213,9 +146,9 @@ $config = [
                 <i class="fas fa-sign-in-alt bg-blue"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                  <h3 class="timeline-header"><a href="#">{{$bnpl->name}}</a> is login</h3>
+                  <h3 class="timeline-header"><a href="#">{{$cus->username}}</a> is login</h3>
                   <div class="timeline-body">
-                    Welcome back {{$bnpl->name}}
+                    Welcome back {{$cus->username}}
                   </div>
                 </div>
               </div>
@@ -274,7 +207,7 @@ $config = [
     </section>
                 </div>
                 <div class="card-footer">
-                <a href="http://127.0.0.1:8000/bnpl" class="btn btn-primary">Back</a>
+                <a href="http://127.0.0.1:8000/customer" class="btn btn-primary">Back</a>
                 </div>
                 </form>
               </div>
@@ -296,5 +229,4 @@ $config = [
 
 
 {{-- Minimal --}}
-<!-- <x-adminlte-input name="name" type="text" placeholder="" label="Name" fgroup-class="col-md-6" disable-feedback value="{{ $bnpl->name }}"/> -->
 @stop 

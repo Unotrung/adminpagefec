@@ -147,7 +147,7 @@ var editor;
             {
               return "<i>Xác thực người dùng<i>";
             }
-          }
+            return data;}
           },
           {
             "defaultContent": "<i>Waiting</i>"
