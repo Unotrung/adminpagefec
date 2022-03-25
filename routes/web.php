@@ -32,7 +32,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index'])->name('customer');
+Route::post('/customer/store', [App\Http\Controllers\CustomerController::class, 'store'])->name('customer.store');
 Route::get('/customer/dtajax', [App\Http\Controllers\CustomerController::class, 'dtajax'])->name('customer.dtajax');
+Route::get('/customer/add', [App\Http\Controllers\CustomerController::class, 'create'])->name('customer.add');
 Route::get('/bnpl', [App\Http\Controllers\BnplController::class, 'index'])->name('bnpl');
 Route::get('/bnpl/dtajax', [App\Http\Controllers\BnplController::class, 'dtajax'])->name('bnpl.dtajax');
 Route::get('/employee', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employee');
@@ -102,7 +104,23 @@ Route::get('/promotions/index', [App\Http\Controllers\PromotionsController::clas
 
 //News
 Route::get('/news/index', [App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
-
+Route::get('/news/add', [App\Http\Controllers\NewsController::class, 'create'])->name('news.add');
+Route::post('/news/store', [App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
+Route::get('/news/dtajax', [App\Http\Controllers\NewsController::class, 'dtajax'])->name('news.dtajax');
+Route::get('/news/show', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+Route::get('/news/show/{id}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+Route::get('/news/edit', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
+Route::get('/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
+Route::post('/news/update', [App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
+Route::get('/news/delete/{id}', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
 //Notifications
 Route::get('/notifications/index', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications.index');
-
+Route::get('/notifications/add', [App\Http\Controllers\NotificationsController::class, 'create'])->name('notifications.add');
+Route::post('/notifications/store', [App\Http\Controllers\NotificationsController::class, 'store'])->name('notifications.store');
+Route::get('/notifications/dtajax', [App\Http\Controllers\NotificationsController::class, 'dtajax'])->name('notifications.dtajax');
+Route::get('/notifications/show', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
+Route::get('/notifications/show/{id}', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
+Route::get('/notifications/edit', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
+Route::get('/notifications/edit/{id}', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
+Route::post('/notifications/update', [App\Http\Controllers\NotificationsController::class, 'update'])->name('notifications.update');
+Route::get('/notifications/delete/{id}', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');

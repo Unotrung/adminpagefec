@@ -176,10 +176,10 @@ $config = [
               <!-- /.timeline-label -->
               <!-- timeline item -->
               <div>
-                <i class="fas fa-envelope bg-blue"></i>
+                <i class="fas fa-sign-out-alt bg-red"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                  <h3 class="timeline-header"><a href="#">Stage</a> sent you an email</h3>
+                  <h3 class="timeline-header"><a href="#">{{$bnpl->name}}</a> is logout </h3>
 
                   <div class="timeline-body">
                     Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
@@ -187,35 +187,35 @@ $config = [
                     jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
                     quora plaxo ideeli hulu weebly balihoo...
                   </div>
-                  <div class="timeline-footer">
-                    <a class="btn btn-primary btn-sm">Read more</a>
-                    <a class="btn btn-danger btn-sm">Delete</a>
-                  </div>
                 </div>
               </div>
               <!-- END timeline item -->
               <!-- timeline item -->
               <div>
-                <i class="fas fa-user bg-green"></i>
+                <i class="fas fa-upload bg-green"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                  <h3 class="timeline-header no-border"><a href="#">{{$bnpl->name}}</a> has update password</h3>
                 </div>
               </div>
               <!-- END timeline item -->
               <!-- timeline item -->
               <div>
-                <i class="fas fa-comments bg-yellow"></i>
+                <i class="fas fa-user-check bg-green"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> 3 mins ago</span>
+                  <h3 class="timeline-header no-border"><a href="#">{{$bnpl->name}}</a> has update information</h3>
+                </div>
+              </div>
+              <!-- END timeline item -->
+              <!-- timeline item -->
+              <div>
+                <i class="fas fa-sign-in-alt bg-blue"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                  <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                  <h3 class="timeline-header"><a href="#">{{$bnpl->name}}</a> is login</h3>
                   <div class="timeline-body">
-                    Take me to your leader!
-                    Switzerland is small and neutral!
-                    We are more like Germany, ambitious and misunderstood!
-                  </div>
-                  <div class="timeline-footer">
-                    <a class="btn btn-warning btn-sm">View comment</a>
+                    Welcome back {{$bnpl->name}}
                   </div>
                 </div>
               </div>

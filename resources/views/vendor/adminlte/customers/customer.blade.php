@@ -42,6 +42,12 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800"></h1>
+              <a href="{{route('customer.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                  <i class="fas fa-plus"></i> Add Customer
+              </a>
+            </div>
               <div class="card-header">
                 <h3 class="card-title">DataTable with default features</h3>
               </div>
