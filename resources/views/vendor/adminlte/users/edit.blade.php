@@ -5,6 +5,10 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @extends('layouts.app')
 @section('title', 'Users')
 @section('css')
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
 <style>
    #admin {
       display: none;
@@ -113,36 +117,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 						</td>
 					</tr>
 				@endforeach
-				<script>
-					function btnRole(e,d){
-						console.log(d);
-						if(e){
-							$.ajax({
-								url : "{{route('user.assignrole')}}",
-								type: "POST",
-								data : {
-									_token: "{{ csrf_token() }}",
-									id : "{{ $user->id }}",
-									role : d
-								}
-							}).done(function(msg){
-								alert( "Data Saved: " + msg );
-							});
-						}else{
-							$.ajax({
-								url : "{{route('user.removerole')}}",
-								type: "POST",
-								data : {
-									_token: "{{ csrf_token() }}",
-									id : "{{ $user->id }}",
-									role : d
-								}
-							}).done(function(msg){
-								alert( "Data Saved: " + msg );
-							});
-						}
-					};
-				</script>
 			  </table>
 		  </div>
 		  <!-- /.tab-pane -->
@@ -155,3 +129,51 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- /.col -->
 </div>
 @endsection
+@section('js')
+<!-- SweetAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="../../plugins/toastr/toastr.min.js"></script>
+<script>
+	var Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 3000
+		});
+	function btnRole(e,d){
+		console.log(d);
+		if(e){
+			$.ajax({
+				url : "{{route('user.assignrole')}}",
+				type: "POST",
+				data : {
+					_token: "{{ csrf_token() }}",
+					id : "{{ $user->id }}",
+					role : d
+				}
+			}).done(function(msg){
+				Toast.fire({
+					icon: 'success',
+					title: "Update Successful"
+				});
+			});
+		}else{
+			$.ajax({
+				url : "{{route('user.removerole')}}",
+				type: "POST",
+				data : {
+					_token: "{{ csrf_token() }}",
+					id : "{{ $user->id }}",
+					role : d
+				}
+			}).done(function(msg){
+				Toast.fire({
+					icon: 'success',
+					title: "Update Successful"
+				});
+			});
+		}
+	};
+</script>
+@stop

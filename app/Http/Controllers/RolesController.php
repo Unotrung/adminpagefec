@@ -98,7 +98,8 @@ class RolesController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        return view('vendor.adminlte.roles.edit', ['role' => $role->id]);
+        $permissions = Permission::All();
+        return view('vendor.adminlte.roles.edit', ['role' => $role->id, 'permissions'=>$permissions]);
     }
 
     /**
@@ -116,9 +117,15 @@ class RolesController extends Controller
                 'guard_name' => 'required'
             ]);
             $id = $request['id'];
-            $role = Role::Where($id)->first();
+            $role = Role::find($id);
             $role->name = $request->name;
             $role->guard_name = $request->guard_name;
+            $rPer = $request->permission;
+            $role->revokePermissionTo(Permission::All());
+            foreach ($rPer as $per){
+                $role->givePermissionTo(Permission::find($per));
+            }
+
             $role->save();
             
         return redirect()->route('roles.index')->with('success','Permissions updated successfully.');

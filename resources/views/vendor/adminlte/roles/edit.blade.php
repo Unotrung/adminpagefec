@@ -58,6 +58,19 @@ $old = Role::find($role);
                         @enderror
                     </div>                  
                 </div>
+                <div class="form-group row">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Assign Permissions</h6>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        @foreach ($permissions as $permission)
+                        <div class="custom-control custom-checkbox">
+                          <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" @if($old->hasPermissionTo($permission->name)) checked @endif >
+                          <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
                 {{-- Save Button --}}
                 <button type="submit" class="btn btn-success btn-user btn-block">
                     Update
