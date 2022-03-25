@@ -49,7 +49,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary">
-						{{$user->roles[0]->name}}
+						
 					</h6> </div>
 				<div class="card-body">
 					<form method="POST" action="{{route('users.update')}}"> 

@@ -63,7 +63,8 @@ Route::get('/account/change', function(){
 });
 //Em
 //Users
-Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
+
+// Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
 // Route::group(['middleware' => ['can:create users,delete users']], function (){
     Route::get('/users/create', 'App\Http\Controllers\UsersController@create')->name('users.create');
     Route::get('/users/edit/{id}', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
@@ -72,7 +73,7 @@ Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('
 //  });
 
 // Permissions
-Route::group(['middleware' => ['can:full access permissions']], function () {
+Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/permission/index', 'App\Http\Controllers\PermissionsController@index')->name('permission.index');
     Route::get('/permission/add', 'App\Http\Controllers\PermissionsController@create')->name('permission.add');
     Route::get('/permission/edit/{id}','App\Http\Controllers\PermissionsController@edit')->name('permission.edit');
