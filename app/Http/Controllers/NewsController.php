@@ -36,9 +36,8 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $news = new News;
-        $news->Title = $request->Title;
-        $news->Content = $request->Content;
-        $news->Description = $request->Description;
+        $news->Title = $request->Title_Create;
+        $news->Description = $request->Description_Create;
         $news->save();
         return redirect()->route("news.index")->with('Create news successfully');
     }
@@ -84,11 +83,10 @@ class NewsController extends Controller
      */
     public function update(Request $request)
     {
-        $id = $request['id'];
-        $news = News::Where($id)->first();
-        $news->Title = $request->Title;
-        $news->Description = $request->Description;
-        $news->Content = $request->Content;
+        $id = $request->id;
+        $news = News::find($id);
+        $news->Title = $request->Title_Edit;
+        $news->Description = $request->Description_Edit;
         $news->save();
             
         return redirect()->route('news.index')->with('success','News updated successfully.');
@@ -103,13 +101,14 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $promotion = News::find($id);
-        $promotion->delete();
+        $promotion->is_delete = 1;
+        $promotion->save();
         return redirect()->route('news.index')->with('News deleted successfull');
     }
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-           $out =  Datatables::of(News::All())->make(true);
+           $out =  Datatables::of(News::whereNull("is_delete")->get())->make(true);
            $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';

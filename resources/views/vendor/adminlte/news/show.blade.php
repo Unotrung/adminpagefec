@@ -69,15 +69,10 @@ $config = [
                   <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue">{{$news->Description}}</div>
+                    <div class="col-md-10 fvalue">{!!$news->Description!!}</div>
                     </div>
                   </div>
-                  <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Content</label>
-                    <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$news->Content}}</div>
-                    </div>
-                  </div>
+                  
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
