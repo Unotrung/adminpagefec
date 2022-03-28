@@ -3,47 +3,48 @@
 @section('title', 'FAQs')
 @section('css')
 
-@section('content_header')
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">FAQs</h1>
-        <a href="{{route('faqs.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus"></i> Add New
-        </a>
-    </div>
-</div>
+<link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 @stop
 @section('content')
 <section class="content">
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">All FAQs</h6>
-        </div>
-        <div class="card-body">
-        <div class="faq_container">
-            <div class="card faq py-3">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="example1" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                        <th>Question</th>
-                        <th>Answer</th>
-                        <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+              <h1 class="h3 mb-0 text-gray-800">FAQs</h1>
+              <a href="{{route('news.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                  <i class="fas fa-plus"></i> Add FAQs
+              </a>
+          </div>
+            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body" style="overflow-x: scroll;">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Question</th>
+                    <th>Ask Date</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
         </div>
-    </div>
+        <!-- /.row -->
+      </div>
 </section>
 
 @stop
