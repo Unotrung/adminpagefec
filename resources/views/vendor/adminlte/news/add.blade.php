@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('title', 'Add News')
-
-
+@section('css')
+<link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
+@stop
 @section('content_header')
 <div class="container-fluid">
 
@@ -26,21 +27,16 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Title" placeholder="Title" >
+                        <input type="string" class="form-control" name="Title_Create" placeholder="Title" >
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
-                        <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Description" placeholder="Description" >
-                        </div>
+                        <label for="" class="col-sm-2 col-form-label">Description</label>
+                        
+                        <textarea name="Description_Create" id="summernote" cols="30" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                        
                     </div>
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Content</label>
-                        <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Content" placeholder="Content">
-                        </div>
-                    </div>
+                    
                 <!-- </div> -->
 
                 {{-- Save Button --}}
@@ -56,3 +52,11 @@
 
 
 @endsection
+@section('js')
+<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+<script>
+    $(function () {
+      $('#summernote').summernote();
+    })
+</script>
+@stop

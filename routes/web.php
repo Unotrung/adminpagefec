@@ -51,6 +51,9 @@ Route::get('/customer/show/{id}', [App\Http\Controllers\CustomerController::clas
 // Route::get('/users/{id}', [App\Http\Controllers\UsersController::class, 'edit'])->name('user.edit');
 // Route::post('/users/assign', ['UsersController@assign'])->name('user.assign');
 
+Route::post('/users/assignrole', [App\Http\Controllers\UsersController::class, 'assignRole'])->name('user.assignrole');
+Route::post('/users/removerole', [App\Http\Controllers\UsersController::class, 'removeRole'])->name('user.removerole');
+
 
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
@@ -60,6 +63,8 @@ Route::get('/account/change', function(){
 });
 
 //Users
+// Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
+// Route::group(['middleware' => ['can:create users,delete users']], function (){
 Route::group([], function (){
     Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
     Route::get('/users/create', 'App\Http\Controllers\UsersController@create')->name('users.create');
@@ -74,7 +79,7 @@ Route::group([], function (){
  });
 
 // Permissions
-Route::group([], function () {
+Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/permission/index', 'App\Http\Controllers\PermissionsController@index')->name('permission.index');
     Route::get('/permission/add', 'App\Http\Controllers\PermissionsController@create')->name('permission.add');
     Route::get('/permission/edit','App\Http\Controllers\PermissionsController@edit')->name('permission.edit');
@@ -86,7 +91,7 @@ Route::group([], function () {
 });
 
 //Roles
-Route::group([], function (
+Route::group(['middleware' => ['role:admin']], function (
 ) {
     Route::get('/roles/add', [App\Http\Controllers\RolesController::class, 'create'])->name('roles.add');
     Route::get('/roles/index', [App\Http\Controllers\RolesController::class, 'index'])->name('roles.index');
