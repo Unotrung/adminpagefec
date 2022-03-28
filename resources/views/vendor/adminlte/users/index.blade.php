@@ -46,7 +46,6 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Role</th>
                     <th>Status</th>
                     <th>Created Time</th>
                     <th>Action</th>
@@ -100,7 +99,6 @@ var editor;
           {data: 'name', name: 'Name'},
           {data: 'email', name: 'Email'},
           {data: 'phone', name: 'Phone'},
-          {data: 'role', name: 'Role'},
           {data: 'status', name: 'Status'},
           {data: 'created_at', name: 'Created Time'},
           {

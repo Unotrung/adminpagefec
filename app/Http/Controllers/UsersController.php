@@ -126,6 +126,12 @@ class UsersController extends Controller
            //             // $output .= Form::close();
            //         $data->data[$i]->action = (string)$output;
            //     }
+                if(empty($data->data[$i]->status)){
+                    $data->data[$i]->status = "";
+                }
+                if(empty($data->data[$i]->phone)){
+                    $data->data[$i]->phone = "";
+                }
             }
            $out->setData($data);
            return $out;
