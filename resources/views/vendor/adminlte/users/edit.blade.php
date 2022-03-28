@@ -5,14 +5,10 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @extends('layouts.app')
 @section('title', 'Users')
 @section('css')
-<<<<<<< HEAD
-
-=======
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
->>>>>>> 183fbe5f310a42b98fa23477cd90883d232026df
 <style>
    #admin {
       display: none;
