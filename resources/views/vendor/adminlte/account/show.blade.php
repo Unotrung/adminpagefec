@@ -58,8 +58,7 @@
             </div>
             <!-- /.card -->
 
-            <!-- About Me Box -->
-          
+            <!-- About Me Box -->          
             <!-- /.card -->
           </div>
           <!-- /.col -->
