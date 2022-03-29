@@ -30,25 +30,6 @@ class BnplController extends Controller
     public function store(Request $request)
     {
         $bnpl = new Bnpl;
-        $bnpl->ncustomer = $request->ncustomer;
-        $bnpl->phnumber = $request->phnumber;
-        $bnpl->image = $request->image;
-        $bnpl->nidcustomer = $request->nidcustomer;
-        $bnpl->nidimage = $request->nidimage;
-        $bnpl->Gender = $request->Gender;
-        $bnpl->Pincode = $request->Pincode;
-        $bnpl->DOB = $request->DOB;
-        $bnpl->DON = $request->DON;
-        $bnpl->DRegis = $request->DRegis;
-        $bnpl->Address = $request->Address;
-        $bnpl->Code = $request->Code;
-        $bnpl->CodeName = $request->CodeName;
-        $bnpl->DivisionType = $request->DivisionType;
-        $bnpl->District = $request->District;
-        $bnpl->TypeRelation = $request->TypeRelation;
-        $bnpl->PhoneRelation = $request->PhoneRelation;
-        $bnpl->NameRelation = $request->NameRelation;
-        $bnpl->Contract = $request->Contract;
         $bnpl->save();
         return response()->json(['message'=>'Added successfully'],201);
     }
@@ -63,25 +44,6 @@ class BnplController extends Controller
     {
         $bnpl= Bnpl::find($id);
         // $bnpl->ncustomer = $request->ncustomer;
-        $bnpl->ncustomer = $request->get('ncustomer');
-        $bnpl->phnumber = $request->get('phnumber');
-        $bnpl->image = $request->get('image');
-        $bnpl->nidcustomer = $request->get('nidcustomer');
-        $bnpl->nidimage = $request->get('nidimage');
-        $bnpl->Gender = $request->get('Gender');
-        $bnpl->Pincode = $request->get('Pincode');
-        $bnpl->DOB = $request->get('DOB');
-        $bnpl->DON = $request->get('DON');
-        $bnpl->DRegis = $request->get('DRegis');
-        $bnpl->Address = $request->get('Address');
-        $bnpl->Code = $request->get('Code');
-        $bnpl->CodeName = $request->get('CodeName');
-        $bnpl->DivisionType = $request->get('DivisionType');
-        $bnpl->District = $request->get('District');
-        $bnpl->TypeRelation = $request->get('TypeRelation');
-        $bnpl->PhoneRelation = $request->get('PhoneRelation');
-        $bnpl->NameRelation = $request->get('NameRelation');
-        $bnpl->Contract = $request->get('Contract');
         // $bnpl->model = $request->get('model');
         // $bnpl->price = $request->get('price');        
         $bnpl->save();
@@ -114,13 +76,21 @@ class BnplController extends Controller
         return view('vendor.adminlte.bnpl.bnpl',compact('bnpl'));
     }
 
+    // public function destroy($id)
+    // {
+    //     $promotion = News::find($id);
+    //     $promotion->is_delete = 1;
+    //     $promotion->save();
+    //     return redirect()->route('news.index')->with('News deleted successfull');
+    // }
+
     public function dtajax(Request $request){
          if ($request->ajax()) {
             $out =  Datatables::of(Bnpl::All())->make(true);
             $data = $out->getData();
             for($i=0; $i < count($data->data); $i++) {
                 $output = '';
-                $output .= ' <a href="'.url(route('bnpl.edit').'/'.$data->data[$i]->_id).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                $output .= ' <a href="'.url(route('bnpl.edit').'/'.$data->data[$i]->_id).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $data->data[$i]->action = (string)$output;
             //     if($this->show_action) {
             //         $output = '';

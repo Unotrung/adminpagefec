@@ -41,6 +41,8 @@ $nots = Notifications::find($not);
                     Update
                 </button>
             </form>
+            <a href="{{route('notifications.index')}}" class="btn btn-success btn-user btn-block" style="background-color: #007BFF"><i
+                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
     </div>
 </div>
