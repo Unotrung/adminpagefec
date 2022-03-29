@@ -44,21 +44,17 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="password" placeholder="Password" >
+                        <input type="password" class="form-control" name="password" placeholder="Password" >
                         </div>
                     </div>
                 <!-- </div> -->
-
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block">
+                <button type="submit" class="btn btn-success btn-user btn-block" formaction="{{route('sendtxtmail')}}" >
                     Save
                 </button>
-
             </form>
         </div>
     </div>
-
 </div>
-
 
 @endsection

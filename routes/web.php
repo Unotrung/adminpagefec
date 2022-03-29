@@ -166,3 +166,18 @@ Route::get('/notifications/edit/{id}', [App\Http\Controllers\NotificationsContro
 Route::post('/notifications/update', [App\Http\Controllers\NotificationsController::class, 'update'])->name('notifications.update');
 Route::get('/notifications/delete/{id}', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
 
+//Sending Email
+Route::get('sendtxtmail','App\Http\Controllers\MailController@txt_mail')->name('sendtxtmail');
+Route::get('sendhtmlmail','App\Http\Controllers\MailController@html_mail');
+Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_email');
+
+//Modules
+Route::get('modules/index','App\Http\Controllers\ModuleController@index')->name('modules.index');
+Route::get('/modules/dtajax', [App\Http\Controllers\ModuleController::class, 'dtajax'])->name('modules.dtajax');
+Route::get('/modules/add', [App\Http\Controllers\ModuleController::class, 'create'])->name('modules.add');
+Route::post('/modules/store', [App\Http\Controllers\ModuleController::class, 'store'])->name('modules.store');
+Route::get('/modules/show', [App\Http\Controllers\ModuleController::class, 'show'])->name('modules.show');
+Route::get('/modules/show/{id}', [App\Http\Controllers\ModuleController::class, 'show'])->name('modules.show');
+Route::get('/modules/edit', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
+Route::get('/modules/edit/{id}', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
+Route::post('/modules/update', [App\Http\Controllers\ModuleController::class, 'update'])->name('modules.update');

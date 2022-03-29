@@ -289,6 +289,10 @@ return [
                     'url'  => 'department/index',
                 ],
                 [
+                    'text' => 'Modules',
+                    'url'  => 'modules/index',
+                ],
+                [
                     'text' => 'Roles',
                     'url'  => 'roles/index',
                 ],

@@ -50,6 +50,7 @@ class CustomerController extends Controller
         $customer->phone = $request->phone;
         $customer->password = Hash::make($request->password);
         $customer->save();
+
         return redirect()->route("customer")->with('Create news successfully');
     }
 

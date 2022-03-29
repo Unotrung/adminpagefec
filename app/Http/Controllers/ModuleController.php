@@ -1,20 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\News;
+
+use App\Models\Modules;
 use DataTables;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class ModuleController extends Controller
 {
-    /**
+      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('vendor.adminlte.news.index');
+        return view('vendor.adminlte.modules.index');
     }
 
     /**
@@ -24,7 +26,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('vendor.adminlte.news.add');
+        return view('vendor.adminlte.modules.add');
     }
 
     /**
@@ -35,11 +37,10 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $news = new News;
-        $news->Title = $request->Title_Create;
-        $news->Description = $request->Description_Create;
-        $news->save();
-        return redirect()->route("news.index")->with('Create news successfully');
+        $modules = new Modules;
+        $modules->module = $request->module;
+        $modules->save();
+        return redirect()->route("modules.index")->with('Create news successfully');
     }
 
     /**
@@ -50,10 +51,10 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $news = News::find($id);
-			if(isset($news->_id)) {
+        $module = Modules::find($id);
+			if(isset($module->_id)) {
 				$setErrorsBag = "khong hien thi";
-				return view('vendor.adminlte.news.show',[])->with('news', $news);
+				return view('vendor.adminlte.modules.show',[])->with('modules', $module);
 			} else {
 				return view('errors.404', [
 					'record_id' => $id,
@@ -70,8 +71,8 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news = News::find($id);
-        return view('vendor.adminlte.news.edit', ['news' => $news->id]);
+        $modules = Modules::find($id);
+        return view('vendor.adminlte.modules.edit', ['module' => $modules->id]);
     }
 
     /**
@@ -83,13 +84,20 @@ class NewsController extends Controller
      */
     public function update(Request $request)
     {
-        $id = $request->id;
-        $news = News::find($id);
-        $news->Title = $request->Title_Edit;
-        $news->Description = $request->Description_Edit;
-        $news->save();
+        $request->validate([
+            'module' => 'required',
+            'role' => 'required'
+        ]);
+        $id = $request['id'];
+        $module = Modules::find($id);
+        $module->module = $request->module;
+        if($request->role != null ){
+            $role = Role::Where('name','=',$request->role)->get();
+            $module->assignRole($role[0]['name']);
+        }
+        $module->save();
             
-        return redirect()->route('news.index')->with('success','News updated successfully.');
+        return redirect()->route('modules.index')->with('success','modules updated successfully.');
     }
 
     /**
@@ -100,21 +108,21 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        $promotion = News::find($id);
-        $promotion->is_delete = 1;
-        $promotion->save();
-        return redirect()->route('news.index')->with('News deleted successfull');
+        $module = Modules::find($id);
+        $module->is_delete = 1;
+        $module->save();
+        return redirect()->route('modules.index')->with('Module deleted successfull');
     }
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-           $out =  Datatables::of(News::whereNull("is_delete")->get())->make(true);
+           $out =  Datatables::of(Modules::whereNull("is_delete")->get())->make(true);
            $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
-               $output .= ' <a href="'.url(route('news.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                $output .= ' <a href="'.url(route('news.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-               $output .= ' <a href="'.url(route('news.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+               //$output .= ' <a href="'.url(route('modules.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                $output .= ' <a href="'.url(route('modules.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+               //$output .= ' <a href="'.url(route('modules.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                $data->data[$i]->action = (string)$output;
            //     if($this->show_action) {
            //         $output = '';
@@ -132,3 +140,4 @@ class NewsController extends Controller
        }
    }
 }
+
