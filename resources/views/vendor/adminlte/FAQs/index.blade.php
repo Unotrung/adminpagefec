@@ -73,8 +73,8 @@ var editor;
         serverSide: true,
         "ajax": "{{ route('faqs.dtajax') }}",
         columns: [
-          {data: 'question', name: 'Question'},
-          {data: 'answer', name: 'Answer'},
+          {data: 'Title', name: 'Title'},
+          {data: 'Description', name: 'Description'},
           {
                   data: 'action', 
                   name: 'action', 
