@@ -30,6 +30,7 @@
                   <thead>
                   <tr>
                     <th>Title</th>
+                    <th>Description</th>
                     <th>Date Post</th>
                     <th>Action</th>
                   </tr>
@@ -81,6 +82,7 @@ var editor;
         "ajax": "{{ route('news.dtajax') }}",
         columns: [
           {data: 'Title', name: 'Title'},
+          {data: 'Description', name: 'Description'},
           {data: 'created_at', name: 'Date Post'},
           {
                   data: 'action', 
