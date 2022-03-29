@@ -122,6 +122,8 @@ Route::group([], function () {
     Route::get('/faqs/index', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
     Route::get('/faqs/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
     Route::get('/faqs/edit/{id}', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
+    Route::get('/faqs/show', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
+    Route::get('/faqs/show/{id}', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
     Route::get('/faqs/add', [App\Http\Controllers\FaqController::class, 'create'])->name('faqs.add');
     Route::post('/faqs/update', [App\Http\Controllers\FaqController::class, 'update'])->name('faqs.update');
     Route::post('/faqs/store', [App\Http\Controllers\FaqController::class, 'store'])->name('faqs.store');

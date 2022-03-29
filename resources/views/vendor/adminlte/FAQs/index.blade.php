@@ -16,7 +16,7 @@
           <div class="col-12">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
               <h1 class="h3 mb-0 text-gray-800">FAQs</h1>
-              <a href="{{route('news.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+              <a href="{{route('faqs.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                   <i class="fas fa-plus"></i> Add FAQs
               </a>
           </div>
@@ -67,15 +67,14 @@
 
 <!-- Page specific script -->
 <script>
-var editor;
   $(function () {
     $("#example1").DataTable({
       processing: true,
         serverSide: true,
         "ajax": "{{ route('faqs.dtajax') }}",
         columns: [
-          {data: 'question', name: 'Question'},
-          {data: 'answer', name: 'Answer'},
+          {data: 'Title', name: 'Title'},
+          {data: 'created_at', name: 'Answer'},
           {
                   data: 'action', 
                   name: 'action', 

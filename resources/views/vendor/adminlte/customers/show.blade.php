@@ -85,7 +85,7 @@ $config = [
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                <a href="http://127.0.0.1:8000/customer" class="btn btn-primary">Back</a>
+                <a href="{{ URL::previous()}}" class="btn btn-primary">Back</a>
                   <!-- <button type="submit" class="btn btn-default">Cancel</button> -->
                   <!-- <button type="submit" class="btn btn-info float-right" >Sign in</button> -->
                   <!-- <li class=""><a href="http://127.0.0.1:8000/bnpl" data-toggle="tooltip" data-placement="right" title="Back to Customers"><i class="fa fa-chevron-left"></i>Cancel</a></li> -->
@@ -96,9 +96,8 @@ $config = [
                 </form>
               </div>
               <div class="tab-pane fade" id="custom-content-above-profile" role="tabpanel" aria-labelledby="custom-content-above-profile-tab">
-                <form method="POST" action="http://ec2-54-161-127-196.compute-1.amazonaws.com/users/assign">
-                  <input type="hidden" name="user_id" value="623ac11a7095b7110a6821e4">
-                  <input type="hidden" name="_token" value="s9SfecquKXNyXxk12YpAkMoJa2H3feIiW5wzLiRE">                <!-- select -->
+                <form method=>
+                <!-- select -->
                 <div class="form-group">
                   <!-- <label>Select Role</label> -->
                   <section class="content">
@@ -207,7 +206,7 @@ $config = [
     </section>
                 </div>
                 <div class="card-footer">
-                <a href="http://127.0.0.1:8000/customer" class="btn btn-primary">Back</a>
+                <a href="{{ URL::previous()}}" class="btn btn-primary">Back</a>
                 </div>
                 </form>
               </div>

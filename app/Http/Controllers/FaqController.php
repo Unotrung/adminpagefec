@@ -37,11 +37,10 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $faq = new Faqs;
-        $faq->question = $request->question;
-        $faq->answer = $request->answer;
-    
+        $faq->Title = $request->Title_Create;
+        $faq->Description = $request->Description_Create;
+        $faq->Content = $request->Content_Create;
         $faq->save();
-
         return redirect()->route("faqs.index")->with('FAQ created successfull');
         
     }
@@ -54,8 +53,16 @@ class FaqController extends Controller
      */
     public function show($id)
     {
-        $faq = Faqs::find($id);
-        return view('vendor.adminlte.faqs.show',['faq'=>$faq]);
+        $faqs = Faqs::find($id);
+			if(isset($faqs->_id)) {
+				$setErrorsBag = "khong hien thi";
+				return view('vendor.adminlte.faqs.show',[])->with('faqs', $faqs);
+			} else {
+				return view('errors.404', [
+					'record_id' => $id,
+					'record_name' => ucfirst("faqs"),
+				]);
+			}
     }
 
     /**
@@ -112,8 +119,8 @@ class FaqController extends Controller
            $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
-               //$output .= ' <a href="'.url(route('FAQs.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+               $output .= ' <a href="'.url(route('faqs.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+               $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                $output .= ' <a href="'.url(route('faqs.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                $data->data[$i]->action = (string)$output;
            //     if($this->show_action) {

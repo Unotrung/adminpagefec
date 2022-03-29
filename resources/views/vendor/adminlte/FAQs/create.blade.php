@@ -1,44 +1,68 @@
 @extends('layouts.app')
-@section('title', 'FAQs')
+
+@section('title', 'Add FAQs')
 @section('css')
-
-@section('content')
+<link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
+@stop
+@section('content_header')
 <div class="container-fluid">
-    
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h2 class="h3 mb-0 text-gray-800">Create FAQs</h2>
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('faqs.index') }}"><i
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Add FAQs</h1>
+        <a href="{{route('faqs.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+    </div>
+@stop
+@section('content')
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Add News</h6>
         </div>
+        <div class="card-body">
+            <form method="POST" action="{{route('faqs.store')}}">
+                @csrf
+                <!-- <div class="form-group row"> -->
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                        <div class="col-sm-10">
+                        <input type="string" class="form-control" name="Title_Create" placeholder="Title" >
+                        </div>
+                    </div>
+					<div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                        <input type="string" class="form-control" name="Description_Create" placeholder="Title" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Content</label>
+                        
+                        <textarea name="Content_Create" id="summernote" cols="30" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                        
+                    </div>
+                    
+                <!-- </div> -->
 
-@if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-       @foreach ($errors->all() as $error)
-         <li>{{ $error }}</li>
-       @endforeach
-    </ul>
-  </div>
-@endif
+                {{-- Save Button --}}
+                <button type="submit" class="btn btn-success btn-user btn-block">
+                    Save
+                </button>
 
-<div class="card shadow mb-4">
-	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">Add New FAQs</h6> </div>
-	<div class="card-body">
-		<form method="POST" action="{{route('faqs.store')}}"> @csrf
-			<div class="form-group row"> {{-- Question --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Question: </label>
-					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="question" placeholder="" name="question" value=""> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Answer --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Answer: </label>
-					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="answer" placeholder="" name="answer" value=""> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div>
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-				<button type="submit" class="btn btn-primary">Submit</button>
-			</div>
-		</form>
-	</div>
+            </form>
+        </div>
+    </div>
+
 </div>
-</div>
+
 
 @endsection
+@section('js')
+<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+<script>
+    $(function () {
+      $('#summernote').summernote();
+    })
+</script>
+@stop
