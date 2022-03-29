@@ -28,6 +28,7 @@
                   <tr>
                     <th>Question</th>
                     <th>Ask Date</th>
+                    <th>Description</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -74,8 +75,7 @@
         "ajax": "{{ route('faqs.dtajax') }}",
         columns: [
           {data: 'Title', name: 'Title'},
-          {data: 'created_at', name: 'Answer'},
-
+          {data: 'created_at', name: 'created_at'},
           {data: 'Description', name: 'Description'},
           {
                   data: 'action', 
