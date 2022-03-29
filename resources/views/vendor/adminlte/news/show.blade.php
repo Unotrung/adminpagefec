@@ -24,7 +24,17 @@
 
 
 @stop
+@section('css')
 
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+
+@stop
 @section('content')
 
 @php
@@ -76,7 +86,7 @@ $config = [
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                <a href="http://127.0.0.1:8000/news/index" class="btn btn-primary">Back</a>
+                <a href="{{ URL::previous()}}" class="btn btn-primary">Back</a>
                   <!-- <button type="submit" class="btn btn-default">Cancel</button> -->
                   <!-- <button type="submit" class="btn btn-info float-right" >Sign in</button> -->
                   <!-- <li class=""><a href="http://127.0.0.1:8000/bnpl" data-toggle="tooltip" data-placement="right" title="Back to Customers"><i class="fa fa-chevron-left"></i>Cancel</a></li> -->

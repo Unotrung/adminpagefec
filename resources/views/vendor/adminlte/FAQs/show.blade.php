@@ -1,7 +1,7 @@
 <!-- caredit.blade.php  -->
 <!--  -->
 @extends('layouts.app')
-@section('title', 'Notifications')
+@section('title', 'FAQs')
 @section('content_header')
     <!-- Content Header (Page header) -->
     <!-- <div class="content-header">
@@ -24,7 +24,17 @@
 
 
 @stop
+@section('css')
 
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+
+@stop
 @section('content')
 
 @php
@@ -63,21 +73,22 @@ $config = [
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue">{{$not->Title}}</div>
+                    <div class="col-md-10 fvalue">{{$faqs->Title}}</div>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue">{{$not->Description}}</div>
+                    <div class="col-md-10 fvalue">{{$faqs->Description}}</div>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-2 col-form-label">Content</label>
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$not->Content}}</div>
+                    <div class="col-md-10 fvalue">{!!$faqs->Content!!}</div>
                     </div>
                   </div>
+                  
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
