@@ -75,6 +75,8 @@
         columns: [
           {data: 'Title', name: 'Title'},
           {data: 'created_at', name: 'Answer'},
+
+          {data: 'Description', name: 'Description'},
           {
                   data: 'action', 
                   name: 'action', 
