@@ -65,8 +65,9 @@ Route::get('/account/change', function(){
 //Users
 // Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
 // Route::group(['middleware' => ['can:create users,delete users']], function (){
-Route::group([], function (){
-    Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
+Route::group(['middleware' => ['role:admin']], function (){
+    Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
+    // Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
     Route::get('/users/create', 'App\Http\Controllers\UsersController@create')->name('users.create');
     Route::get('/users/edit', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
     Route::get('/users/edit/{id}', 'App\Http\Controllers\UsersController@edit')->name('users.edit');
