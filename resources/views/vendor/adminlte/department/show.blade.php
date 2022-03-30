@@ -2,7 +2,6 @@
 @section('title', 'Department')
 
 @section('content_header')
-<section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -16,10 +15,8 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
-    </section>
-@endsection
+@stop
 @section('content')
-<section class="content">
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
@@ -69,6 +66,8 @@
                           <p type="text" class="form-control" id="description" placeholder="">{{$department->description}}</p>
                         </div>
                       </div>
+                      <a href="{{route('department.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
                     </form> 
                     <!-- /.post -->
                   </div>
@@ -76,7 +75,6 @@
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
-          </div>
-</section>
+          
 @endsection
  

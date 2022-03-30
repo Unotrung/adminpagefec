@@ -46,12 +46,10 @@
                     </div>                  
                 </div>
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block">
+                <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Update
                 </button>
             </form>
-            <a href="{{route('promotions.index')}}" class="btn btn-success btn-user btn-block" style="background-color: #007BFF"><i
-                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
     </div>
 </div>

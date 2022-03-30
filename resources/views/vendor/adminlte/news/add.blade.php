@@ -32,22 +32,19 @@
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Description</label>
-                        
                         <textarea name="Description_Create" id="summernote" cols="30" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
-                        
                     </div>
                     
                 <!-- </div> -->
 
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block">
+                <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Save
                 </button>
 
             </form>
         </div>
     </div>
-
 </div>
 
 

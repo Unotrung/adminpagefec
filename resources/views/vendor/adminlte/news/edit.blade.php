@@ -9,13 +9,17 @@ $new = News::find($news);
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 @stop
-@section('content')
+@section('content_header')
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h6 class="m-0 font-weight-bold text-primary">Edit News</h6>
+            <a href="{{route('news.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" ><i
+                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
-        <div class="card-body">
+        @stop
+        @section('content')
+        <div class="card shadow mb-4">
             <form method="POST" action="{{route('news.update', 'id='.$news)}}">
                 @csrf
                 @method('POST')
@@ -35,14 +39,12 @@ $new = News::find($news);
                       </textarea>
                     </div>
                   </div>
-                </div>
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block">
+                <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Update
                 </button>
+
             </form>
-            <a href="{{route('news.index')}}" class="btn btn-success btn-user btn-block" style="background-color: #007BFF"><i
-                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
     </div>
 </div>
