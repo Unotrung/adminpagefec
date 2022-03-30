@@ -249,3 +249,15 @@ Route::group(['middleware' => ['permission:delete']], function () {
     Route::get('/roles/delete/{id}', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.delete');
     Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
 });
+
+//Providers
+Route::get('/providers/index', [App\Http\Controllers\ProviderController::class, 'index'])->name('providers.index');
+Route::get('/providers/add', [App\Http\Controllers\ProviderController::class, 'create'])->name('providers.add');
+Route::post('/providers/store', [App\Http\Controllers\ProviderController::class, 'store'])->name('providers.store');
+Route::get('/providers/dtajax', [App\Http\Controllers\ProviderController::class, 'dtajax'])->name('providers.dtajax');
+Route::get('/providers/show', [App\Http\Controllers\ProviderController::class, 'show'])->name('providers.show');
+Route::get('/providers/show/{id}', [App\Http\Controllers\ProviderController::class, 'show'])->name('providers.show');
+Route::get('/providers/edit', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
+Route::get('/providers/edit/{id}', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
+Route::post('/providers/update', [App\Http\Controllers\ProviderController::class, 'update'])->name('providers.update');
+Route::get('/providers/delete/{id}', [App\Http\Controllers\ProviderController::class, 'destroy'])->name('providers.delete');

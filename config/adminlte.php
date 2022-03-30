@@ -267,6 +267,11 @@ return [
             'icon' => 'nav-icon fas fa-newspaper',
         ],
         [
+            'text' => 'Providers',
+            'url'  => 'providers/index',
+            'icon' => 'nav-icon fas fa-building	',
+        ],
+        [
             'text' => 'Promotions',
             'url'  => 'promotions/index',
             'icon' => 'nav-icon fas fa-solid fa-tags',
