@@ -42,7 +42,7 @@ class CustomerController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
         return view('vendor.adminlte.customers.customer');
     }
 
