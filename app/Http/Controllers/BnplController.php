@@ -53,11 +53,6 @@ class BnplController extends Controller
 
     public function edit($id){
         $bnpl = Bnpl::find($id);
-        foreach ($bnpl['providers'] as $ele)
-        {
-            return $ele;
-        }
-        exit();
 			if(isset($bnpl->_id)) {
 				$setErrorsBag = "khong hien thi";
 				return view('vendor.adminlte.bnpl.edit',[])->with('bnpl', $bnpl);

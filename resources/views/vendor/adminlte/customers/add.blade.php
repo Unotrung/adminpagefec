@@ -40,12 +40,6 @@
                         <input type="string" class="form-control" name="phone" placeholder="Phone" >
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                        <input type="password" class="form-control" name="password" placeholder="Password" >
-                        </div>
-                    </div>
                 <!-- </div> -->
                 {{-- Save Button --}}
                 <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">

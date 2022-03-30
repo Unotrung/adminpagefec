@@ -51,10 +51,12 @@ $old = App\Models\Modules::find($module);
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         @foreach (App\Models\Role::all() as $role)
-                        <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="{{$role->id}}" value="{{$role->name}}" name="role" >
-                          <label for="{{$role->id}}" class="custom-control-label">{{$role->name}}</label>
-                        </div>
+                            @if( $role['name'] != 'super admin' )
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="checkbox" id="{{$role->id}}" value="{{$role->name}}" name="role" >
+                                    <label for="{{$role->id}}" class="custom-control-label">{{$role->name}}</label>
+                                </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>

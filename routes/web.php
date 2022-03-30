@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Middleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,7 +66,7 @@ Route::get('/account/change', function(){
 //Users
 // Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
 // Route::group(['middleware' => ['can:create users,delete users']], function (){
-Route::group(['middleware' => ['role:admin']], function (){
+Route::group(['middleware' => ['role:super admin','permission:view']], function (){
     Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
     // Route::get('/users/index', 'App\Http\Controllers\UsersController@index')->name('users.index');
     Route::get('/users/create', 'App\Http\Controllers\UsersController@create')->name('users.create');
@@ -80,7 +81,7 @@ Route::group(['middleware' => ['role:admin']], function (){
  });
 
 // Permissions
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['role:super admin']], function () {
     Route::get('/permission/index', 'App\Http\Controllers\PermissionsController@index')->name('permission.index');
     Route::get('/permission/add', 'App\Http\Controllers\PermissionsController@create')->name('permission.add');
     Route::get('/permission/edit','App\Http\Controllers\PermissionsController@edit')->name('permission.edit');
@@ -92,7 +93,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 //Roles
-Route::group(['middleware' => ['role:admin']], function (
+Route::group(['middleware' => ['role:super admin']], function (
 ) {
     Route::get('/roles/add', [App\Http\Controllers\RolesController::class, 'create'])->name('roles.add');
     Route::get('/roles/index', [App\Http\Controllers\RolesController::class, 'index'])->name('roles.index');
@@ -104,7 +105,7 @@ Route::group(['middleware' => ['role:admin']], function (
 });
 
 //Department
-Route::group([], function () {
+Route::group(['middleware' => ['role:super admin']], function () {
     Route::get('/department/index', [App\Http\Controllers\DepartmentController::class, 'index'])->name('department.index');
     Route::get('/department/edit', [App\Http\Controllers\DepartmentController::class, 'edit'])->name('department.edit');
     Route::get('/department/edit/{id}', [App\Http\Controllers\DepartmentController::class, 'edit'])->name('department.edit');
@@ -118,7 +119,7 @@ Route::group([], function () {
 });
 
 //FAQs
-Route::group([], function () {
+Route::group(['middleware' => ['role:super admin']], function () {
     Route::get('/faqs/index', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
     Route::get('/faqs/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
     Route::get('/faqs/edit/{id}', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
@@ -131,7 +132,7 @@ Route::group([], function () {
     Route::get('/faqs/delete/{id}', [App\Http\Controllers\FaqController::class, 'destroy'])->name('faqs.delete');
 });
 //Promotions
-Route::group([], function () {
+Route::group(['middleware' => ['role:super admin']], function () {
     Route::get('/promotions/index', [App\Http\Controllers\PromotionsController::class, 'index'])->name('promotions.index');
     Route::get('/promotions/edit', [App\Http\Controllers\PromotionsController::class, 'edit'])->name('promotions.edit');
     Route::get('/promotions/edit/{id}', [App\Http\Controllers\PromotionsController::class, 'edit'])->name('promotions.edit');
@@ -144,28 +145,31 @@ Route::group([], function () {
     Route::get('/promotions/dtajax', [App\Http\Controllers\PromotionsController::class, 'dtajax'])->name('promotions.dtajax');
 });
 //News
-Route::get('/news/index', [App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
-Route::get('/news/add', [App\Http\Controllers\NewsController::class, 'create'])->name('news.add');
-Route::post('/news/store', [App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
-Route::get('/news/dtajax', [App\Http\Controllers\NewsController::class, 'dtajax'])->name('news.dtajax');
-Route::get('/news/show', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
-Route::get('/news/show/{id}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
-Route::get('/news/edit', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
-Route::get('/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
-Route::post('/news/update', [App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
-Route::get('/news/delete/{id}', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
+Route::group(['middleware' => ['role:super admin']], function () {
+    Route::get('/news/add', [App\Http\Controllers\NewsController::class, 'create'])->name('news.add');
+    Route::get('/news/index', [App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
+    Route::get('/news/dtajax', [App\Http\Controllers\NewsController::class, 'dtajax'])->name('news.dtajax');
+    Route::post('/news/store', [App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
+    Route::get('/news/show/{id}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+    Route::get('/news/show', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+    Route::get('/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
+    Route::get('/news/edit', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
+    Route::get('/news/delete/{id}', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
+    Route::post('/news/update', [App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
+});
 //Notifications
-Route::get('/notifications/index', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications.index');
-Route::get('/notifications/add', [App\Http\Controllers\NotificationsController::class, 'create'])->name('notifications.add');
-Route::post('/notifications/store', [App\Http\Controllers\NotificationsController::class, 'store'])->name('notifications.store');
-Route::get('/notifications/dtajax', [App\Http\Controllers\NotificationsController::class, 'dtajax'])->name('notifications.dtajax');
-Route::get('/notifications/show', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
-Route::get('/notifications/show/{id}', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
-Route::get('/notifications/edit', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
-Route::get('/notifications/edit/{id}', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
-Route::post('/notifications/update', [App\Http\Controllers\NotificationsController::class, 'update'])->name('notifications.update');
-Route::get('/notifications/delete/{id}', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
-
+Route::group(['middleware' => ['role:super admin']], function () {
+    Route::get('/notifications/index', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/add', [App\Http\Controllers\NotificationsController::class, 'create'])->name('notifications.add');
+    Route::post('/notifications/store', [App\Http\Controllers\NotificationsController::class, 'store'])->name('notifications.store');
+    Route::get('/notifications/dtajax', [App\Http\Controllers\NotificationsController::class, 'dtajax'])->name('notifications.dtajax');
+    Route::get('/notifications/show', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
+    Route::get('/notifications/show/{id}', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
+    Route::get('/notifications/edit', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
+    Route::get('/notifications/edit/{id}', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
+    Route::post('/notifications/update', [App\Http\Controllers\NotificationsController::class, 'update'])->name('notifications.update');
+    Route::get('/notifications/delete/{id}', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
+});
 //Sending Email
 Route::get('sendtxtmail','App\Http\Controllers\MailController@txt_mail')->name('sendtxtmail');
 Route::get('sendhtmlmail','App\Http\Controllers\MailController@html_mail');
@@ -173,12 +177,18 @@ Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_ema
 Route::get('sendemail','App\Http\Controllers\MailController@mailTemplate')->name('sendemail');
 
 //Modules
-Route::get('modules/index','App\Http\Controllers\ModuleController@index')->name('modules.index');
-Route::get('/modules/dtajax', [App\Http\Controllers\ModuleController::class, 'dtajax'])->name('modules.dtajax');
-Route::get('/modules/add', [App\Http\Controllers\ModuleController::class, 'create'])->name('modules.add');
-Route::post('/modules/store', [App\Http\Controllers\ModuleController::class, 'store'])->name('modules.store');
-Route::get('/modules/show', [App\Http\Controllers\ModuleController::class, 'show'])->name('modules.show');
-Route::get('/modules/show/{id}', [App\Http\Controllers\ModuleController::class, 'show'])->name('modules.show');
-Route::get('/modules/edit', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
-Route::get('/modules/edit/{id}', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
-Route::post('/modules/update', [App\Http\Controllers\ModuleController::class, 'update'])->name('modules.update');
+Route::group(['middleware' => ['role:super admin']], function () {
+    Route::get('/modules/dtajax', [App\Http\Controllers\ModuleController::class, 'dtajax'])->name('modules.dtajax');
+    Route::get('modules/index','App\Http\Controllers\ModuleController@index')->name('modules.index');
+    Route::post('/modules/store', [App\Http\Controllers\ModuleController::class, 'store'])->name('modules.store');
+    Route::get('/modules/add', [App\Http\Controllers\ModuleController::class, 'create'])->name('modules.add');
+    Route::get('/modules/show/{id}', [App\Http\Controllers\ModuleController::class, 'show'])->name('modules.show');
+    Route::get('/modules/show', [App\Http\Controllers\ModuleController::class, 'show'])->name('modules.show');
+    Route::get('/modules/edit/{id}', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
+    Route::get('/modules/edit', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
+    Route::post('/modules/update', [App\Http\Controllers\ModuleController::class, 'update'])->name('modules.update');
+});
+
+Route::get('test',['middleware'=>'hasRole:admin', function(){
+    return "Access granted for this operation"; 
+   }]);
