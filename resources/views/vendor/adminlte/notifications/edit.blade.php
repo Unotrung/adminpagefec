@@ -6,13 +6,18 @@
 use App\Models\Notifications; 
 $nots = Notifications::find($not);
 @endphp
-@section('content')
+
+@section('content_header')
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="container-fluid">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h6 class="m-0 font-weight-bold text-primary">Edit Notifications</h6>
+            <a href="{{route('notifications.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
-        <div class="card-body">
+        @stop
+        @section('content')
+        <div class="card shadow mb-4">
             <form method="POST" action="{{route('notifications.update', 'id='.$not)}}">
                 @csrf
                 @method('POST')
@@ -35,17 +40,14 @@ $nots = Notifications::find($not);
                       <input type="String" class="form-control" name="Content" placeholder="Content" value="{{$nots->Content}}">
                     </div>
                   </div>
-                </div>
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block">
+                  <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Update
-                </button>
+                  </button>
+                  </div>
             </form>
-            <a href="{{route('notifications.index')}}" class="btn btn-success btn-user btn-block" style="background-color: #007BFF"><i
-                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
     </div>
-</div>
 
 
 @endsection

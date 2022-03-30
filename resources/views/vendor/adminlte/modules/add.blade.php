@@ -32,7 +32,7 @@
                     </div>
                 <!-- </div> -->
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block">
+                <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Save
                 </button>
 

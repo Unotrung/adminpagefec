@@ -49,7 +49,7 @@
                     </div>
                 <!-- </div> -->
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block" formaction="{{route('sendtxtmail')}}" >
+                <button type="submit" class="btn btn-success btn-user btn-block" formaction="{{route('sendemail')}}" >
                     Save
                 </button>
             </form>

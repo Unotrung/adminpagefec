@@ -170,6 +170,7 @@ Route::get('/notifications/delete/{id}', [App\Http\Controllers\NotificationsCont
 Route::get('sendtxtmail','App\Http\Controllers\MailController@txt_mail')->name('sendtxtmail');
 Route::get('sendhtmlmail','App\Http\Controllers\MailController@html_mail');
 Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_email');
+Route::get('sendemail','App\Http\Controllers\MailController@mailTemplate')->name('sendemail');
 
 //Modules
 Route::get('modules/index','App\Http\Controllers\ModuleController@index')->name('modules.index');
