@@ -31,12 +31,12 @@ class CustomerController extends Controller
          return ;
     }
 
-    public function mailTemplate()
+    public function mailTemplate(Request $request)
     {
-        $myEmail = 'vu.nguyen@wolfsolutions.vn';
+        $myEmail = $request['email'];
    
         $details = [
-            'title' => 'Mail Demo from ItSolutionStuff.com',
+            'title' => 'Verification Email',
             'url' => 'https://www.itsolutionstuff.com'
         ];
   
@@ -68,7 +68,7 @@ class CustomerController extends Controller
         $result = $customer->save();
         if($result == 1)
         {
-            $this->mailTemplate();
+            $this->mailTemplate($request);
             return redirect()->route("customer")->with('Create news successfully');
         }
     }
