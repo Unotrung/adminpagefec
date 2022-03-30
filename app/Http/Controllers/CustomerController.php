@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
+use Mail;
+use App\Mail\EmailTemplate;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+//use App\Http\Auth;
 
 class CustomerController extends Controller
 {
@@ -26,6 +31,17 @@ class CustomerController extends Controller
          return ;
     }
 
+    public function mailTemplate()
+    {
+        $myEmail = 'vu.nguyen@wolfsolutions.vn';
+   
+        $details = [
+            'title' => 'Mail Demo from ItSolutionStuff.com',
+            'url' => 'https://www.itsolutionstuff.com'
+        ];
+  
+        Mail::to($myEmail)->send(new EmailTemplate($details));
+    }
     /**
      * Show the application dashboard.
      *
@@ -49,9 +65,12 @@ class CustomerController extends Controller
         $customer->email = $request->email;
         $customer->phone = $request->phone;
         $customer->password = Hash::make($request->password);
-        $customer->save();
-
-        return redirect()->route("customer")->with('Create news successfully');
+        $result = $customer->save();
+        if($result == 1)
+        {
+            $this->mailTemplate();
+            return redirect()->route("customer")->with('Create news successfully');
+        }
     }
 
     public function show($id){
@@ -66,8 +85,6 @@ class CustomerController extends Controller
 				]);
 			}
     }
-
-
 
     public function dtajax(Request $request){
         if ($request->ajax()) {

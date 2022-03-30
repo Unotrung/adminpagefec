@@ -15,7 +15,6 @@ class MailController extends Controller
     public function mailTemplate()
     {
         $myEmail = 'vu.nguyen@wolfsolutions.vn';
-   
         $details = [
             'title' => 'Mail Demo from ItSolutionStuff.com',
             'url' => 'https://www.itsolutionstuff.com'
