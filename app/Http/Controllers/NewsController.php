@@ -82,7 +82,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {
+    { 
         $id = $request->id;
         $news = News::find($id);
         $news->Title = $request->Title_Edit;

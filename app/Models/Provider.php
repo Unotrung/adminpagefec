@@ -15,7 +15,9 @@ class Provider extends Model
 {
     use HasFactory,Authenticatable,Notifiable,HasApiTokens,HasRoles;
     protected $connection = 'mongodb';
-    protected $collection = 'providers'; 
+    protected $collection = 'bnpl_providers'; 
+
+    
 }
 
 ?>

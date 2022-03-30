@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bnpl;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 use DataTables;
-
-
+use MongoDB\Operation\Find;
 
 class BnplController extends Controller
 {
@@ -53,9 +53,11 @@ class BnplController extends Controller
 
     public function edit($id){
         $bnpl = Bnpl::find($id);
+        $bnpl_providers = $bnpl->providers;
+        $bnpl_provider = Provider::all();
 			if(isset($bnpl->_id)) {
 				$setErrorsBag = "khong hien thi";
-				return view('vendor.adminlte.bnpl.edit',[])->with('bnpl', $bnpl);
+				return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl,"bnpl_providers"=>$bnpl_providers,"bnpl_provider"=>$bnpl_provider]);
 			} else {
 				return view('errors.404', [
 					'record_id' => $id,
