@@ -16,14 +16,19 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+          <div class="col-sm-5">
+            <h1 class="m-0">Provider</h1>
+            <small class="text-muted"><cite title="Source Title">Providers listing</cite></small>
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          <div class="col-sm-5">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Provider</li>
             </ol>
+          </div><!-- /.col -->
+          <div class="col-sm-2">
+          <a href="{{route('providers.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus"></i> Add Provider</a>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -32,18 +37,11 @@
 @stop
 
 @section('content')
-
-
-    <!-- Main content -->
     <section class="content">
     <div class="container-fluid">
         <div class="row">
           <div class="col-12">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Provider</h1>
-              <a href="{{route('providers.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                  <i class="fas fa-plus"></i> Add New
-              </a>
           </div>
             <div class="card">
               <!-- /.card-header -->
