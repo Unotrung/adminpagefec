@@ -19,41 +19,44 @@
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
+          <div class="col-sm-5">
             <h1 class="m-0">Customers</h1>
+            <small class="text-muted"><cite title="Source Title">Customers listing</cite></small>
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          <div class="col-sm-5">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Customers</li>
             </ol>
           </div><!-- /.col -->
+          <div class="col-sm-2">
+          <a href="{{route('customer.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus"></i> Add Customer</a>
+          </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+    
 @stop
 
 @section('content')
 
     <!-- Main content -->
-    <section class="content">
     <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <div class="card">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"></h1>
-              <a href="{{route('customer.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                  <i class="fas fa-plus"></i> Add Customer
-              </a>
+            <div class="card-header">
+            <h3 class="card-title">DataTable with default features</h3>
             </div>
-              <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
-              </div>
+            <div class="d-sm-flex align-items-center justify-content-between mb-4" id="butlist">
+              <h1 class="h3 mb-0 text-gray-800"></h1> 
+            </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" style="overflow-x: scroll;">
                 <table id="example1" class="table table-bordered table-striped">
+
                   <thead>
                   <tr>
                     <th>Name</th>
@@ -98,7 +101,6 @@
         </div>
         <!-- /.row -->
       </div>
-    </section>
     <!-- /.content -->
 
 @stop
@@ -141,13 +143,14 @@
             {
                 data: 'action', 
                 name: 'action', 
-                orderable: false, 
-                searchable: false,
+                orderable: true, 
+                searchable: true,
             },
         ],
+        dom: 'Bfrtip',
         buttons: ["csv", "excel", "pdf", "print"]
     });
-    table.buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-  });
+    table.buttons().container().appendTo('#butlist .col-md-6:eq(0)');
+  });     
 </script>
 @stop

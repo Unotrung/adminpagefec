@@ -11,7 +11,7 @@ use Mail;
 use App\Mail\EmailTemplate;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-//use App\Http\Auth;
+use App\Jobs\SendEmailJob;
 
 class CustomerController extends Controller
 {
@@ -31,16 +31,10 @@ class CustomerController extends Controller
          return ;
     }
 
-    public function mailTemplate(Request $request)
+    public function mailTemplate()
     {
-        $myEmail = $request['email'];
-   
-        $details = [
-            'title' => 'Verification Email',
-            'url' => 'https://www.itsolutionstuff.com'
-        ];
-  
-        Mail::to($myEmail)->send(new EmailTemplate($details));
+        dispatch(new SendEmailJob());
+        //Mail::to($myEmail)->send(new EmailTemplate($details));
     }
     /**
      * Show the application dashboard.
@@ -64,7 +58,6 @@ class CustomerController extends Controller
         $customer->username = $request->username;
         $customer->email = $request->email;
         $customer->phone = $request->phone;
-        $customer->password = Hash::make($request->password);
         $result = $customer->save();
         if($result == 1)
         {
