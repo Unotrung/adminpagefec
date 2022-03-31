@@ -12,17 +12,39 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 
 @stop
+
+@section('content_header')
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-5">
+            <h1 class="m-0">Promotions</h1>
+            <small class="text-muted"><cite title="Source Title">Promotions listing</cite></small>
+          </div><!-- /.col -->
+          <div class="col-sm-5">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Promotions</li>
+            </ol>
+          </div><!-- /.col -->
+          <div class="col-sm-2">
+          <a href="{{route('promotions.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus"></i> Add Promotions</a>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+@stop
+
+
 @section('content')
 <section class="content">
     <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800">Promotions</h1>
-              <a href="{{route('promotions.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                  <i class="fas fa-plus"></i> Add New
-              </a>
-          </div>
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">

@@ -110,7 +110,7 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
     Route::group(['middleware' => ['permission:view']], function () {
         Route::get('/permission/index', [App\Http\Controllers\PermissionsController::class,'index'])->name('permission.index');
         Route::get('/permission/dtajax', [App\Http\Controllers\PermissionsController::class, 'dtajax'])->name('permission.dtajax');
-        Route::get('/permission/delete/{id}', [App\Http\Controllers\PermissionsController::class, 'destroy'])->name('permission.delete');
+        Route::post('/permission/delete', [App\Http\Controllers\PermissionsController::class, 'destroy'])->name('permission.delete');
     });
 });
 
@@ -242,13 +242,14 @@ Route::get('test',['middleware'=>'permission:update', function(){
     return "Access granted for this operation"; 
    }]);
 Route::group(['middleware' => ['role:admin||super admin']], function () {
-    Route::get('/notifications/delete/{id}', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
+    Route::post('/notifications/delete', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
     Route::post('/news/delete', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
-    Route::get('/promotions/delete/{id}', [App\Http\Controllers\PromotionsController::class, 'destroy'])->name('promotions.delete');
-    Route::get('/faqs/delete/{id}', [App\Http\Controllers\FaqController::class, 'destroy'])->name('faqs.delete');
+    Route::post('/promotions/delete', [App\Http\Controllers\PromotionsController::class, 'destroy'])->name('promotions.delete');
+    Route::post('/faqs/delete}', [App\Http\Controllers\FaqController::class, 'destroy'])->name('faqs.delete');
     Route::get('/department/delete/{id}', [App\Http\Controllers\DepartmentController::class, 'destroy'])->name('department.delete');
-    Route::get('/roles/delete/{id}', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.delete');
+    Route::post('/roles/delete', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.delete');
     Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
+    Route::post('/providers/delete', [App\Http\Controllers\ProviderController::class, 'destroy'])->name('providers.delete');
 });
 
 //Providers
@@ -261,4 +262,3 @@ Route::get('/providers/show/{id}', [App\Http\Controllers\ProviderController::cla
 Route::get('/providers/edit', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
 Route::get('/providers/edit/{id}', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
 Route::post('/providers/update', [App\Http\Controllers\ProviderController::class, 'update'])->name('providers.update');
-Route::get('/providers/delete/{id}', [App\Http\Controllers\ProviderController::class, 'destroy'])->name('providers.delete');

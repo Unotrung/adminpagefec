@@ -102,7 +102,7 @@ $config = [
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                <a href="http://127.0.0.1:8000/news/index" class="btn btn-primary">Back</a>
+                <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
                   <!-- <button type="submit" class="btn btn-default">Cancel</button> -->
                   <!-- <button type="submit" class="btn btn-info float-right" >Sign in</button> -->
                   <!-- <li class=""><a href="http://127.0.0.1:8000/bnpl" data-toggle="tooltip" data-placement="right" title="Back to Customers"><i class="fa fa-chevron-left"></i>Cancel</a></li> -->

@@ -106,22 +106,45 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $faq = Faqs::find($id);
-        $faq->delete();
+        $faqs = Faqs::find($request->id);
+        $faqs->is_delete = 1;
+        $faqs->save();
         return redirect()->route('faqs.index')->with('FAQs deleted successfull');
     }
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-        $out =  DataTables::of(Faqs::All())->make(true);
+        $out =  DataTables::of(Faqs::whereNull("is_delete")->get())->make(true);
            $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
                $output .= ' <a href="'.url(route('faqs.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-               $output .= ' <a href="'.url(route('faqs.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+               $output .= ' <a data-toggle="modal" data-target="#demoModal" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                $output .= '    
+                <form method="post" action="'.url(route('faqs.delete')).'">
+                     <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                     <input type="hidden" name="_token" value="'.csrf_token().'" />
+                         <div class="modal" id="demoModal">
+                                 <div class="modal-dialog">
+                                     <div class="modal-content">
+                                     <!-- Modal Header -->
+                                     <div class="modal-header">
+                                         <h4 class="modal-title">Do you want delete? </h4>
+                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                     </div>
+                                     <!-- Modal footer -->  
+                                     <div class="modal-footer">
+                                         <button type="submit" class="btn btn-danger">Delete</button>
+                                         <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                     </div>
+                                     </div>
+                             </div>
+                             </div>
+                     </form>
+                ';
                $data->data[$i]->action = (string)$output;
            //     if($this->show_action) {
            //         $output = '';
