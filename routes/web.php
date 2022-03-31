@@ -149,7 +149,7 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
 });
 
 //FAQs
-Route::group(['middleware' => ['role:super admin']], function () {
+Route::group(['middleware' => ['role:super admin|admin']], function () {
     Route::group(['middleware' => ['permission:update']], function () {
         Route::get('/faqs/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
         Route::get('/faqs/edit/{id}', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
@@ -165,7 +165,7 @@ Route::group(['middleware' => ['role:super admin']], function () {
     });
 });
 //Promotions
-Route::group(['middleware' => ['role:super admin']], function () {
+Route::group(['middleware' => ['role:super admin|admin']], function () {
     Route::group(['middleware' => ['permission:update']], function () {
         Route::get('/promotions/edit', [App\Http\Controllers\PromotionsController::class, 'edit'])->name('promotions.edit');
         Route::get('/promotions/edit/{id}', [App\Http\Controllers\PromotionsController::class, 'edit'])->name('promotions.edit');
@@ -181,7 +181,7 @@ Route::group(['middleware' => ['role:super admin']], function () {
     });
 });
 //News
-Route::group(['middleware' => ['role:super admin']], function () {
+Route::group(['middleware' => ['role:super admin|admin']], function () {
     Route::group(['middleware' => ['permission:update']], function () {
         Route::get('/news/add', [App\Http\Controllers\NewsController::class, 'create'])->name('news.add');
         Route::post('/news/store', [App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
@@ -197,7 +197,7 @@ Route::group(['middleware' => ['role:super admin']], function () {
     });
 });
 //Notifications
-Route::group(['middleware' => ['role:super admin,admin']], function () {
+Route::group(['middleware' => ['role:super admin|admin']], function () {
     Route::group(['middleware' => ['permission:update']], function () {
         Route::get('/notifications/add', [App\Http\Controllers\NotificationsController::class, 'create'])->name('notifications.add');
         Route::post('/notifications/store', [App\Http\Controllers\NotificationsController::class, 'store'])->name('notifications.store');
