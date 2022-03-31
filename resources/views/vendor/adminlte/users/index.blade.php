@@ -14,16 +14,20 @@
 @section('content_header')
 <div class="container-fluid">
   <div class="row mb-2">
-    <div class="col-sm-6">
+    <div class="col-sm-5">
       <h1 class="m-0">Users</h1>
       <small class="text-muted"><cite title="Source Title">Users listing</cite></small>
     </div><!-- /.col -->
-    <div class="col-sm-6">
+    <div class="col-sm-5">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item active">Users</li>
       </ol>
     </div><!-- /.col -->
+    <div class="col-sm-2">
+      <a href="{{route('users.create')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-plus"></i> Add user</a>
+      </div><!-- /.col -->
   </div><!-- /.container-fluid -->
 </div><!-- /.row -->
 @stop
