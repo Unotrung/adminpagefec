@@ -30,7 +30,9 @@
                   <thead>
                   <tr>
                     <th>Module</th>
-                    <th>Action</th>
+                    @foreach ( $permissions as $permission )
+                      <th>{{$permission['name']}}</th>
+                    @endforeach
                   </tr>
                   </thead>
                   <tbody>
@@ -88,6 +90,10 @@ var editor;
           },
         ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
+    $.each(data, function(i, record) {
+    $("#example1").append("<input type='checkbox' id='chk-" + i + "' name='" + record + "' /> " + record);
+    });
+    //$("#example1").append('<input type="checkbox" value="{{$permission->name}}" onClick="btnPer(this.checked,this.value)"/>');
   });
 </script>
 
