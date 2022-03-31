@@ -241,9 +241,9 @@ Route::group(['middleware' => ['role:super admin,admin']], function () {
 Route::get('test',['middleware'=>'permission:update', function(){
     return "Access granted for this operation"; 
    }]);
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['role:admin||super admin']], function () {
     Route::get('/notifications/delete/{id}', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
-    Route::get('/news/delete/{id}', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
+    Route::post('/news/delete', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
     Route::get('/promotions/delete/{id}', [App\Http\Controllers\PromotionsController::class, 'destroy'])->name('promotions.delete');
     Route::get('/faqs/delete/{id}', [App\Http\Controllers\FaqController::class, 'destroy'])->name('faqs.delete');
     Route::get('/department/delete/{id}', [App\Http\Controllers\DepartmentController::class, 'destroy'])->name('department.delete');

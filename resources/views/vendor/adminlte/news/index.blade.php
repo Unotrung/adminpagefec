@@ -36,6 +36,7 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
 @stop
 
 
@@ -98,8 +99,11 @@
 
 <!-- Page specific script -->
 <script>
+  
 var editor;
   $(function () {
+    
+
     $("#example1").DataTable({
       processing: true,
         serverSide: true,
@@ -111,12 +115,15 @@ var editor;
           {
                   data: 'action', 
                   name: 'action', 
-                  orderable: true, 
-                  searchable: true
+                  orderable: false, 
+                  searchable: false,
+                  
           },
         ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
   });
+
+  
 </script>
 
 <!-- <script>
