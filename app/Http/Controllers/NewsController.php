@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
@@ -38,7 +39,18 @@ class NewsController extends Controller
     {
         $news = new News;
         $news->Title = $request->Title_Create;
+        $news->Content = $request->Content_Create;
         $news->Description = $request->Description_Create;
+        $news->URL = $request->Url_Create;
+        //$news->Image = $request->Img_Create;
+
+        $inputImg = $request->Img_Create;
+        $extension = $request->Img_Create->extension();
+        $imgName = time().'-1.'.$extension;
+        $inputImg->move(public_path('ImagesNews'), $imgName);
+        $request->Img_Create = $imgName;
+        $news->Image = $request->Img_Create;
+        $news->Author = $request->Author_Create;
         $news->save();
         return redirect()->route("news.index")->with('Create news successfully');
     }
@@ -52,15 +64,7 @@ class NewsController extends Controller
     public function show($id)
     {
         $news = News::find($id);
-			if(isset($news->_id)) {
-				$setErrorsBag = "khong hien thi";
-				return view('vendor.adminlte.news.show',[])->with('news', $news);
-			} else {
-				return view('errors.404', [
-					'record_id' => $id,
-					'record_name' => ucfirst("news"),
-				]);
-			}
+        return view('vendor.adminlte.news.show',['news'=>$news]);
     }
 
     /**
@@ -74,7 +78,9 @@ class NewsController extends Controller
         $news = News::find($id);
         return view('vendor.adminlte.news.edit', ['new' => $news]);
     }
-
+    public function getUrl($url){
+        return view('vendor.adminlte.news.getUrl',[])->with('url', $url);
+    } 
     /**
      * Update the specified resource in storage.
      *
@@ -88,8 +94,27 @@ class NewsController extends Controller
         $news = News::find($id);
         $news->Title = $request->Title_Edit;
         $news->Description = $request->Description_Edit;
+        $news->Content = $request->Content_Edit;
+        $news->URL = $request->Url_Edit;
+        $news->Author = $request->Author_Edit;
+        //image
+        if(empty($request->Img_Edit)){
+            $news->Image = $request->Image_Create;
+        }
+        else{
+            $img_path = 'ImagesNews/'.$request->Image_Create;
+            if(File::exists($img_path)){
+                File::delete($img_path);
+            }
+            $inputImg = $request->Img_Edit;
+            $extension = $request->Img_Edit->extension();
+            $imgName = time().'-1.'.$extension;
+            $inputImg->move(public_path('ImagesNews'), $imgName);
+            $request->Img_Edit = $imgName;
+            $news->Image = $request->Img_Edit;
+        }
         $news->save();
-            
+        
         return redirect()->route('news.index')->with('success','News updated successfully.');
     }
 
@@ -99,9 +124,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request )
     {
-        $promotion = News::find($id);
+        $promotion = News::find($request->id);
         $promotion->is_delete = 1;
         $promotion->save();
         return redirect()->route('news.index')->with('News deleted successfull');
@@ -115,7 +140,29 @@ class NewsController extends Controller
                $output = '';
                $output .= ' <a href="'.url(route('news.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $output .= ' <a href="'.url(route('news.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-               $output .= ' <a href="'.url(route('news.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+               $output .= ' <a data-toggle="modal" data-target="#demoModal" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+               $output .= '
+               <form method="post" action="'.url(route('news.delete')).'">
+                    <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                    <input type="hidden" name="_token" value="'.csrf_token().'" />
+                        <div class="modal" id="demoModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Do you want delete? </h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                    </div>
+                                    </div>
+                            </div>
+                            </div>
+                    </form>
+               ';
                $data->data[$i]->action = (string)$output;
            //     if($this->show_action) {
            //         $output = '';

@@ -24,17 +24,7 @@
 
 
 @stop
-@section('css')
 
-
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-
-@stop
 @section('content')
 
 @php
@@ -80,13 +70,39 @@ $config = [
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
                     <div class="col-md-10 fvalue">{!!$news->Description!!}</div>
+                    
                     </div>
                   </div>
-                  
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Content</label>
+                    <div class="col-sm-10">
+                    <div class="col-md-10 fvalue">{!!$news->Content!!}</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Author</label>
+                    <div class="col-sm-10">
+                    <div class="col-md-10 fvalue">{{$news->Author}}</div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">URL</label>
+                      <div class="col-sm-10">
+                      <div class="col-md-10 fvalue">{{$news->URL}} &nbsp; <a style="text-decoration: none; color: white; background-color: rgb(63, 62, 62)"> Get URL</a></div>
+                      
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Images</label>
+                      <div class="col-sm-10">
+                        <img class="col-md-10 fvalue" src="{{ asset("./ImagesNews/$news->Image") }} " alt="">
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                <a href="{{ URL::previous()}}" class="btn btn-primary">Back</a>
+                <a href="http://127.0.0.1:8000/news/index" class="btn btn-primary">Back</a>
                   <!-- <button type="submit" class="btn btn-default">Cancel</button> -->
                   <!-- <button type="submit" class="btn btn-info float-right" >Sign in</button> -->
                   <!-- <li class=""><a href="http://127.0.0.1:8000/bnpl" data-toggle="tooltip" data-placement="right" title="Back to Customers"><i class="fa fa-chevron-left"></i>Cancel</a></li> -->
