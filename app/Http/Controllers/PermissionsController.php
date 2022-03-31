@@ -76,7 +76,7 @@ class PermissionsController extends Controller
 
         $permission->save();
 
-        return redirect()->route("permissions.index")->with('Permission created succesfull');
+        return redirect()->route("permission.index")->with('Permission created succesfull');
         
     }
 
@@ -100,7 +100,8 @@ class PermissionsController extends Controller
     public function edit($id)
     {
         $permission = Permission::find($id);
-        return view('vendor.adminlte.permissions.edit', ['permission' => $permission->id]);
+        $roles = Role::all();
+        return view('vendor.adminlte.permissions.edit', ['permission' => $permission->id, 'roles'=>$roles]);
     }
 
     /**

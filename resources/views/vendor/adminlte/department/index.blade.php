@@ -18,7 +18,6 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">All Departments</h6>
-            
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -63,22 +62,23 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-
+<script src="../../dist/js/adminlte.min.js"></script>
 <!-- Page specific script -->
 <script>
 var editor;
   $(function () {
     $("#example1").DataTable({
+      responsive: true, 
       processing: true,
         serverSide: true,
-        "ajax": "{{ route('department.dtajax') }}",
+        ajax: "{{ route('department.dtajax') }}",
         columns: [
-          {data: 'name', name: 'Name'},
-          {data: 'phone', name: 'Phone'},
-          {data: 'website', name: 'Website'},
-          {data: 'email', name: 'Email'},
-          {data: 'address', name: 'Address'},
-          {data: 'description', name: 'Description'},
+          {data: 'name', name: 'name'},
+          {data: 'phone', name: 'phone'},
+          {data: 'website', name: 'website'},
+          {data: 'email', name: 'email'},
+          {data: 'address', name: 'address'},
+          {data: 'description', name: 'description'},
           {
                   data: 'action', 
                   name: 'action', 

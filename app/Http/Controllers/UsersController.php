@@ -50,7 +50,8 @@ class UsersController extends Controller
 
     public function create()
     {
-        return view('vendor.adminlte.users.create');
+        $roles = Role::All();
+        return view('vendor.adminlte.users.create',['roles'=>$roles]);
     }
 
     public function store(Request $request)
@@ -62,7 +63,7 @@ class UsersController extends Controller
         $user->role = $request->role;
         $user->status = 1;
         $user->save();
-        return redirect()->route('users.index')->with('success','User created successfully.');
+        return redirect()->route('users')->with('success','User created successfully.');
     }
 
     public function show($id)
@@ -81,13 +82,20 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone; 
-        $user->save();
-
-        return redirect()->route('users.edit', ['id' => $request->id])->with('success','User updated successfully.');
+        $result = $user->save();
+        if($result == 1){
+            return redirect()->route('users.show', ['id' => $request->id])->with('success','User updated successfully.');
+        }
+        else
+        {
+            return 2;
+        }
+        
     }
 
     public function assignRole(Request $request){
         $user = User::find($request->id);
+        
         return $user->assignRole($request->role);
 
     }

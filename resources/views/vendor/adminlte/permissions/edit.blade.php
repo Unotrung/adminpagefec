@@ -60,8 +60,9 @@ $old = Permission::find($permission);
                         <span style="color:red;">*</span>Role</label>
                         <select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
                             <option selected disabled>Select Role</option>
-                            <option value="admin">admin</option>
-                            <option value="user">user</option>
+                            @foreach ($roles as $role)
+                            <option value="{{$role['name']}}">{{$role['name']}}</option>
+                            @endforeach
                         </select>
                         @error('name')
                             <span class="text-danger">{{$message}}</span>

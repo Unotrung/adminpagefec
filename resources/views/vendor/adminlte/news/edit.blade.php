@@ -2,10 +2,6 @@
 
 @section('title', 'Edit News')
 
-@php
-use App\Models\News; 
-$new = News::find($news);
-@endphp
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 @stop
@@ -15,8 +11,10 @@ $new = News::find($news);
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Edit News</h6>
         </div>
-        <div class="card-body">
-            <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
+        @stop
+        @section('content')
+        <div class="card shadow mb-4">
+            <form method="POST" action="{{route('news.update')}}">
                 @csrf
                 @method('POST')
                 <div class="card-body">

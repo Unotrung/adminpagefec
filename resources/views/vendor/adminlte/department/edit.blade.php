@@ -19,7 +19,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Edit Department</h6>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{route('permission.update', 'id='.$department['id'])}}">
+            <form method="POST" action="{{route('department.update')}}">
                 @csrf
                 @method('POST')
                 <div class="form-group row">
@@ -115,7 +115,8 @@
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
-                    </div>             
+                    </div>
+                    <input type="hidden" name="id" value="{{$department['id']}}">             
                 </div>
                 {{-- Save Button --}}
                 <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">

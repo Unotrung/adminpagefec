@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Modules;
 use DataTables;
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 
 class ModuleController extends Controller
@@ -16,7 +17,8 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        return view('vendor.adminlte.modules.index');
+        $permissions = Permission::all();
+        return view('vendor.adminlte.modules.index',['permissions'=>$permissions]);
     }
 
     /**
@@ -121,7 +123,7 @@ class ModuleController extends Controller
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
                //$output .= ' <a href="'.url(route('modules.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                $output .= ' <a href="'.url(route('modules.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                //$output .= ' <a href="'.url(route('modules.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                //$output .= ' <a href="'.url(route('modules.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                $data->data[$i]->action = (string)$output;
            //     if($this->show_action) {
