@@ -7,7 +7,7 @@
     
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h2 class="h3 mb-0 text-gray-800">Create New User</h2>
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('users.index') }}"><i
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('users') }}"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
 
@@ -33,14 +33,15 @@
 				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
 					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{ old('email') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Password --}}
 				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Password: </label>
-					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Password" name="password" value="{{ old('password') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Confirm Password --}}
+					<input type="password" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Password" name="password" value="{{ old('password') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Confirm Password --}}
 				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Confirm Password: </label>
 					<input type="password" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleConfirmPassword" placeholder="Confirm Password" name="confirm_password" value="{{ old('password') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Role --}}
 				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Role: </label>
 					<select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
 						<option selected disabled>Select Role</option>
-						<option value="admin" selected>Admin</option>
-						<option value="user">User</option>
+						@foreach ($roles as $role)
+							<option value="{{$role->name}}">{{$role->name}}</option>
+						@endforeach
 					</select> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 text-center">
