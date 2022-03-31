@@ -21,7 +21,11 @@
       </div>
     </div> -->
 
-
+    <div class="col-sm-5">
+                    <h1 class="m-0">BNPL Infomation</h1>
+                    <!-- <small class="text-muted"><cite title="Source Title">BNPL listing</cite></small> -->
+                    
+    </div>
 
 @stop
 
@@ -65,77 +69,76 @@ $config = [
               <!-- form start -->
               <div class="card-body div-container" style="display: flex; flex-direction: row">
                   <div class="col-6">
-                    
                     <div class="form-group row">
-                      <label for="inputPassword3" class="col-sm-2 col-form-label">Phone Customer</label>
-                      <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$bnpl->phone}}</div>
+                      <label for="inputPassword3" class="col-sm-4 col-form-label">Phone Customer</label>
+                      <div class="col-sm-6">
+                      <div class="col-md-6 fvalue">{{$bnpl->phone}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">Gender</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->sex}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">Gender</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->sex}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">Date of Birth</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue" >{{$bnpl->birthday}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">Date of Birth</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue" >{{$bnpl->birthday}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">CitizenID</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->citizenId}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">CitizenID</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->citizenId}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">IssueDate</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->issueDate}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">IssueDate</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->issueDate}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">City</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->city}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">City</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->city}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">District</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->district}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">District</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->district}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">Ward</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->ward}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">Ward</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->ward}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">Street</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->street}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">Street</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->street}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">Danh xưng</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->personal_title_ref}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">Danh xưng</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->personal_title_ref}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">Tên người tham chiếu</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->name_ref}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">Tên người tham chiếu</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->name_ref}}</div>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-2 col-form-label">Phone Number</label>
-                      <div class="col-sm-10">
-                        <div class="col-md-10 fvalue">{{$bnpl->phone_ref}}</div>
+                      <label for="inputPassword4" class="col-sm-4 col-form-label">Phone Number</label>
+                      <div class="col-sm-6">
+                        <div class="col-md-6 fvalue">{{$bnpl->phone_ref}}</div>
                       </div>
                     </div>
                   </div>

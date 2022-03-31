@@ -13,11 +13,7 @@
 @section('content')
 <section class="content">
   <div class="card">
-    <div class="card-header p-2">
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Details</a></li>
-      </ul>
-    </div><!-- /.card-header -->
+<!-- /.card-header -->
     <div class="card-body">
       <div class="tab-content">
         <div class="active tab-pane" id="activity">
