@@ -21,7 +21,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Add News</h6>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{route('news.store')}}">
+            <form method="POST" action="{{route('news.store')}}" enctype="multipart/form-data" >
                 @csrf
                 <!-- <div class="form-group row"> -->
                     <div class="form-group row">
@@ -31,20 +31,46 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label">Description</label>
-                        <textarea name="Description_Create" id="summernote" cols="30" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                        <input type="string" class="form-control" name="Description_Create" placeholder="Description" >
+                        </div>
                     </div>
-                    
-                <!-- </div> -->
-
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Content</label>
+                        <textarea name="Content_Create" id="summernote" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
+                        
+                        <div class="col-sm-10">
+                            <div id="img-preview"></div>
+                            <label for="file_Edit_News" class="btn btn-primary col-md-5 fvalue">Thêm ảnh</label>
+                            <input id="file_Edit_News" name="Img_Create" placeholder="Image" style="visibility:hidden;" type="file">
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Author</label>
+                        <div class="col-sm-10">
+                        <input type="String" class="form-control" name="Author_Create" placeholder="Author" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">URL</label>
+                        <div class="col-sm-10">
+                        <input type="string" class="form-control" name="Url_Create" placeholder="URL" >
+                        </div>
+                    </div>
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+                <button type="submit" class="btn btn-success btn-user btn-block">
                     Save
                 </button>
 
             </form>
         </div>
     </div>
+
 </div>
 
 
@@ -55,5 +81,22 @@
     $(function () {
       $('#summernote').summernote();
     })
+    const chooseFile = document.getElementById("file_Edit_News");
+    const imgPreview = document.getElementById("img-preview");
+    
+    chooseFile.addEventListener("change", function () {
+      getImgData();
+    });
+    
+    function getImgData() {
+      const files = chooseFile.files[0];
+      if (files) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(files);
+        fileReader.addEventListener("load", function () {
+          imgPreview.innerHTML = '<img class=" col-md-5 fvalue" src="' + this.result + '" />';
+        });    
+      }
+    }
 </script>
 @stop

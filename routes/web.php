@@ -185,15 +185,16 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
     Route::group(['middleware' => ['permission:update']], function () {
         Route::get('/news/add', [App\Http\Controllers\NewsController::class, 'create'])->name('news.add');
         Route::post('/news/store', [App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
-        Route::get('/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
         Route::get('/news/edit', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
+        Route::get('/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
         Route::post('/news/update', [App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
     });
     Route::group(['middleware' => ['permission:view']], function () {
         Route::get('/news/index', [App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
         Route::get('/news/dtajax', [App\Http\Controllers\NewsController::class, 'dtajax'])->name('news.dtajax');
-        Route::get('/news/show/{id}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
         Route::get('/news/show', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+        Route::get('/news/show/{id}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+        
     });
 });
 //Notifications
@@ -240,7 +241,7 @@ Route::group(['middleware' => ['role:super admin,admin']], function () {
 Route::get('test',['middleware'=>'permission:update', function(){
     return "Access granted for this operation"; 
    }]);
-Route::group(['middleware' => ['permission:delete']], function () {
+Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/notifications/delete/{id}', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
     Route::get('/news/delete/{id}', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
     Route::get('/promotions/delete/{id}', [App\Http\Controllers\PromotionsController::class, 'destroy'])->name('promotions.delete');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
@@ -37,7 +38,18 @@ class NewsController extends Controller
     {
         $news = new News;
         $news->Title = $request->Title_Create;
+        $news->Content = $request->Content_Create;
         $news->Description = $request->Description_Create;
+        $news->URL = $request->Url_Create;
+        //$news->Image = $request->Img_Create;
+
+        $inputImg = $request->Img_Create;
+        $extension = $request->Img_Create->extension();
+        $imgName = time().'-1.'.$extension;
+        $inputImg->move(public_path('ImagesNews'), $imgName);
+        $request->Img_Create = $imgName;
+        $news->Image = $request->Img_Create;
+        $news->Author = $request->Author_Create;
         $news->save();
         return redirect()->route("news.index")->with('Create news successfully');
     }
@@ -51,15 +63,7 @@ class NewsController extends Controller
     public function show($id)
     {
         $news = News::find($id);
-			if(isset($news->_id)) {
-				$setErrorsBag = "khong hien thi";
-				return view('vendor.adminlte.news.show',[])->with('news', $news);
-			} else {
-				return view('errors.404', [
-					'record_id' => $id,
-					'record_name' => ucfirst("news"),
-				]);
-			}
+        return view('vendor.adminlte.news.show',['news'=>$news]);
     }
 
     /**
@@ -73,7 +77,9 @@ class NewsController extends Controller
         $news = News::find($id);
         return view('vendor.adminlte.news.edit', ['news' => $news->id]);
     }
-
+    public function getUrl($url){
+        return view('vendor.adminlte.news.getUrl',[])->with('url', $url);
+    } 
     /**
      * Update the specified resource in storage.
      *
@@ -87,8 +93,27 @@ class NewsController extends Controller
         $news = News::find($id);
         $news->Title = $request->Title_Edit;
         $news->Description = $request->Description_Edit;
+        $news->Content = $request->Content_Edit;
+        $news->URL = $request->Url_Edit;
+        $news->Author = $request->Author_Edit;
+        //image
+        if(empty($request->Img_Edit)){
+            $news->Image = $request->Image_Create;
+        }
+        else{
+            $img_path = 'ImagesNews/'.$request->Image_Create;
+            if(File::exists($img_path)){
+                File::delete($img_path);
+            }
+            $inputImg = $request->Img_Edit;
+            $extension = $request->Img_Edit->extension();
+            $imgName = time().'-1.'.$extension;
+            $inputImg->move(public_path('ImagesNews'), $imgName);
+            $request->Img_Edit = $imgName;
+            $news->Image = $request->Img_Edit;
+        }
         $news->save();
-            
+        
         return redirect()->route('news.index')->with('success','News updated successfully.');
     }
 
