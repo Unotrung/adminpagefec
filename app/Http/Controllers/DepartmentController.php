@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\DB;
 //use Maklad\Permission\Models\Role;
-use App\Models\Provider;
+use App\Models\Department;
 use DataTables;
 
 class DepartmentController extends Controller
@@ -69,7 +69,7 @@ class DepartmentController extends Controller
         //     DB::rollback();
         //     return redirect()->route('permission.add')->with('error',$th->getMessage());
         // }
-        $department = new Provider;
+        $department = new Department;
         $department->name = $request->name;
         $department->phone = $request->phone;
         $department->website = $request->website;
@@ -92,7 +92,7 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        $department = Provider::find($id);
+        $department = Department::find($id);
         return view('vendor.adminlte.department.show',['department'=>$department]);
     }
 
@@ -104,7 +104,7 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        $department = Provider::find($id);
+        $department = Department::find($id);
         // $permission = Permission::whereId($id)->first();
         return view('vendor.adminlte.department.edit', ['department' => $department]);
     }
@@ -118,17 +118,18 @@ class DepartmentController extends Controller
      */
     public function update(Request $request)
     {
-        //DB::beginTransaction();
-            $request->validate([
-                'name' => 'required',
-                'guard_name' => 'required'
-            ]);
-            $id = $request['id'];
-            $role = Provider::Where($id)->first();
-            $role->name = $request->name;
-            $role->guard_name = $request->guard_name;
-            $role->id = $id;
-            $role->save();
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $id = $request['id'];
+        $department = Department::find($id);
+        $department->name = $request->name;
+        $department->phone = $request->phone;
+        $department->website = $request->website;
+        $department->email = $request->email;
+        $department->address = $request->address;
+        $department->description = $request->description;
+        $department->save();
             
         return redirect()->route('department.index')->with('success','Permissions updated successfully.');
     }
@@ -141,14 +142,14 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        $department = Provider::find($id);
+        $department = Department::find($id);
         $department->delete();
         return redirect()->route('department.index')->with('Department deleted successfull');
     }
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-        $out =  DataTables::of(Provider::All())->make(true);
+        $out =  DataTables::of(Department::All())->make(true);
            $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';

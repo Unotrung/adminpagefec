@@ -23,9 +23,9 @@
                 @csrf
                 <!-- <div class="form-group row"> -->
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Username</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="username" placeholder="Username" >
+                        <input type="string" class="form-control" name="username" placeholder="Name" >
                         </div>
                     </div>
                     <div class="form-group row">

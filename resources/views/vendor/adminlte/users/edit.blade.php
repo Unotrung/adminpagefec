@@ -69,7 +69,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 						</div>
 						<div id="admin">
 							<h6><b>Admin's Permissions Set Up</b></h6>
-			
 								@foreach ($permissions as $permission)
 									   @if (Str::contains($permission['name'],'customer') == true)
 									   <h6><b>Module Customers</b></h6>
@@ -84,23 +83,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary" onClick="btnSubmit(this.value)">Submit</button>
 						</div>
-						<script>
-							   function displayDivDemo(id, elementValue) {  
-								var role = elementValue.value;
-								console.log(id);
-								if(role == 'admin' && id == 'admin' ){
-									document.getElementById(id).style.display = 'block';
-								}
-								else
-								{
-									document.getElementById(id).style.display = 'block';
-								}
-								  //document.getElementById(id).style.display = elementValue.value == 'admin' ? 'block' : 'none';
-			
-							   }
-						</script>
 					</form>
 				</div>
 			</div>
@@ -157,6 +141,11 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 					icon: 'success',
 					title: "Update Successful"
 				});
+			}).fail(function(msg){
+				Toast.fire({
+					icon: 'error',
+					title: "Update Fail"
+				});
 			});
 		}else{
 			$.ajax({
@@ -172,8 +161,21 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 					icon: 'success',
 					title: "Update Successful"
 				});
+			}).fail(function(msg){
+				Toast.fire({
+					icon: 'error',
+					title: "Update Fail"
+				});
 			});
 		}
+	};
+	function btnSubmit(){
+		$('.swalDefaultSuccess').click(function() {
+      		Toast.fire({
+        		icon: 'success',
+        		title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      		})
+    	});
 	};
 </script>
 @stop

@@ -2,10 +2,6 @@
 
 @section('title', 'Edit News')
 
-@php
-use App\Models\News; 
-$new = News::find($news);
-@endphp
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 @stop
@@ -20,7 +16,7 @@ $new = News::find($news);
         @stop
         @section('content')
         <div class="card shadow mb-4">
-            <form method="POST" action="{{route('news.update', 'id='.$news)}}">
+            <form method="POST" action="{{route('news.update')}}">
                 @csrf
                 @method('POST')
                 <div class="card-body">

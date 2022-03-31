@@ -81,13 +81,20 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone; 
-        $user->save();
-
-        return redirect()->route('users.edit', ['id' => $request->id])->with('success','User updated successfully.');
+        $result = $user->save();
+        if($result == 1){
+            return redirect()->route('users.show', ['id' => $request->id])->with('success','User updated successfully.');
+        }
+        else
+        {
+            return 2;
+        }
+        
     }
 
     public function assignRole(Request $request){
         $user = User::find($request->id);
+        
         return $user->assignRole($request->role);
 
     }

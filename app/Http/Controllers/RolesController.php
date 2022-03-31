@@ -105,13 +105,14 @@ class RolesController extends Controller
             $role->name = $request->name;
             $role->guard_name = $request->guard_name;
             $rPer = $request->permission;
-            $role->revokePermissionTo(Permission::All());
-            foreach ($rPer as $per){
-                $role->givePermissionTo(Permission::find($per));
+            if( $rPer != null){
+                $role->revokePermissionTo(Permission::All());
+                foreach ($rPer as $per){
+                    $role->givePermissionTo(Permission::find($per));
+                }
             }
 
             $role->save();
-            
         return redirect()->route('roles.index')->with('success','Permissions updated successfully.');
     }
 

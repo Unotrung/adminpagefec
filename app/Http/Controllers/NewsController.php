@@ -14,7 +14,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('vendor.adminlte.news.index');
+        $news = News::All();
+        return view('vendor.adminlte.news.index',['news'=>$news]);
     }
 
     /**
@@ -71,7 +72,7 @@ class NewsController extends Controller
     public function edit($id)
     {
         $news = News::find($id);
-        return view('vendor.adminlte.news.edit', ['news' => $news->id]);
+        return view('vendor.adminlte.news.edit', ['new' => $news]);
     }
 
     /**

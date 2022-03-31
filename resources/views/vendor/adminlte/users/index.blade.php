@@ -16,6 +16,7 @@
   <div class="row mb-2">
     <div class="col-sm-6">
       <h1 class="m-0">Users</h1>
+      <small class="text-muted"><cite title="Source Title">Users listing</cite></small>
     </div><!-- /.col -->
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
@@ -29,16 +30,12 @@
 
 @section('content')
     <!-- Main content -->
-    <section class="content">
     <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
-              </div>
               <!-- /.card-header -->
-              <div class="card-body">
+              <div class="card-body" >
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
 
@@ -65,7 +62,6 @@
         </div>
         <!-- /.row -->
       </div>
-    </section>
     <!-- /.content -->
 
 @stop
@@ -86,29 +82,31 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-
+<script src="../../dist/js/adminlte.min.js"></script>
 <!-- Page specific script -->
 <script>
-var editor;
   $(function () {
-    $("#example1").DataTable({
+    var table = $("#example1").DataTable({
+      lengthChange: true, 
+      responsive: true, 
       processing: true,
         serverSide: true,
-        "ajax": "{{ route('users.dtajax') }}",
+        ajax: "{{ route('users.dtajax') }}",
         columns: [
-          {data: 'name', name: 'Name'},
-          {data: 'email', name: 'Email'},
-          {data: 'phone', name: 'Phone'},
-          {data: 'status', name: 'Status'},
-          {data: 'created_at', name: 'Created Time'},
+          {data: 'name', name: 'name'},
+          {data: 'email', name: 'email'},
+          {data: 'phone', name: 'phone'},
+          {data: 'status', name: 'status'},
+          {data: 'created_at', name: 'created_at'},
           {
-                  data: 'action', 
-                  name: 'action', 
-                  orderable: true, 
-                  searchable: true
+              data: 'action', 
+              name: 'action', 
+              orderable: true, 
+              searchable: true,
           },
         ],
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6');
+    });
+    table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
   });
 </script>
 

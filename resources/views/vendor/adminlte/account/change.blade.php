@@ -27,24 +27,24 @@
             @csrf
 
             <!-- Password Reset Token -->
-            <input type="hidden" name="token" value="{{ Auth::user()->token }}">
+            <input type="hidden" name="token" value="{{ Auth::user()->remember_token }}">
 
             <!-- Email Address -->
-            <div>
-                <x-label for="old_password" :value="__('Old Password')" />
+            <div class="mt-4" style="width:30%; display:block;">
+                <x-label for="email" :value="__('Email')" />
 
-                <x-input id="old_password" class="block mt-1 w-full" type="password" name="old_password" value="" required />
+                <x-input id="email" class="block mt-1 w-full" type="text" name="email" value="" required />
             </div>
 
             <!-- Password -->
-            <div class="mt-4">
+            <div class="mt-4" style="width:30%; display:block;">
                 <x-label for="password" :value="__('Password')" />
 
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
             </div>
 
             <!-- Confirm Password -->
-            <div class="mt-4">
+            <div class="mt-4" style="width:30%; display:block;">
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full"

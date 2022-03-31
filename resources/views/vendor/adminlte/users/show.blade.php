@@ -44,13 +44,11 @@
                             </tr>
                             <tr>
                                 <td>Role:</td>
-                                <tr>
                                     @if(!empty($user->getRoleNames()))
                                     @foreach($user->getRoleNames() as $v)
                                     <td>{{ $v }}</td>
                                     @endforeach
                                     @endif
-                                </tr>
                             </tbody>
                         </table>
                 </div>
