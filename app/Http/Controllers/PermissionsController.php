@@ -115,18 +115,17 @@ class PermissionsController extends Controller
     {
         //DB::beginTransaction();
             $request->validate([
-                'name' => 'required',
+                'display_name' => 'required',
                 'guard_name' => 'required'
             ]);
             $id = $request['id'];
             $permission = Permission::find($id);
-            $permission->name = $request->name;
+            $permission->display_name = $request->display_name;
             if($request->guard_name == 'admin' ){
                 $role = Role::Where('name','=',$request->guard_name)->get();
                 $permission->assignRole($role);
             }
-            $permission->save();
-            
+            $permission->save();    
         return redirect()->route('permission.index')->with('success','Permissions updated successfully.');
     }
 

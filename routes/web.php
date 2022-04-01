@@ -219,8 +219,8 @@ Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_ema
 Route::get('sendemail','App\Http\Controllers\MailController@mailTemplate')->name('sendemail');
 
 //Modules
-Route::group(['middleware' => ['role:super admin,admin']], function () {
-    Route::group(['middleware' => ['permission:update']], function () {
+Route::group(['middleware' => ['role:super admin|admin']], function () {
+    Route::group(['middleware' => ['permission:edit']], function () {
         Route::get('/modules/add', [App\Http\Controllers\ModuleController::class, 'create'])->name('modules.add');
         Route::get('/modules/edit/{id}', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
         //Route::get('/modules/edit', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
