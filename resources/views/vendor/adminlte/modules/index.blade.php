@@ -26,13 +26,15 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped" style="width:100%" cellspacing="0">
                   <thead>
                   <tr>
-                    <th>Module</th>
-                    @foreach ( $permissions as $permission )
-                      <th>{{$permission['name']}}</th>
-                    @endforeach
+                    <th width="40%">Module</th>
+                    <th>View</th>
+                    <th>Create</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                    <th>Previlege Fields</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -83,28 +85,59 @@ var editor;
         columns: [
           {data: 'module', name: 'module'},
           {
-                  data: 'action', 
-                  name: 'action', 
-                  orderable: true, 
-                  searchable: true
+              data: 'action', 
+              name: 'action', 
+              orderable: false, 
+              searchable: false,
+              render: function (data, type, full, meta){
+                return '<input type="checkbox" name="checkbox1" value="' + $('<div/>').text(data).html() + '">';
+              }
+          },
+          {
+              data: 'action', 
+              name: 'action', 
+              orderable: false, 
+              searchable: false,
+              render: function (data, type, full, meta){
+                return '<input type="checkbox" name="checkbox2" value="' + $('<div/>').text(data).html() + '">';
+              }
+          },
+          {
+              data: 'action', 
+              name: 'action', 
+              orderable: false, 
+              searchable: false,
+              render: function (data, type, full, meta){
+                return '<input type="checkbox" name="checkbox3" value="' + $('<div/>').text(data).html() + '">';
+              }
+          },
+          {
+              data: 'action', 
+              name: 'action', 
+              orderable: false, 
+              searchable: false,
+              render: function (data, type, full, meta){
+                return '<input type="checkbox" name="checkbox4" value="' + $('<div/>').text(data).html() + '">';
+              }
+          },
+          {
+              data: 'action', 
+              name: 'action', 
+              orderable: false, 
+              searchable: false,
+              render: function (data, type, full, meta){
+                return '<input type="checkbox" name="checkbox5" onclick="handleClick(this.name);"' + $('<div/>').text(data).html() + '">';
+              }
           },
         ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
-    $.each(data, function(i, record) {
-    $("#example1").append("<input type='checkbox' id='chk-" + i + "' name='" + record + "' /> " + record);
-    });
-    //$("#example1").append('<input type="checkbox" value="{{$permission->name}}" onClick="btnPer(this.checked,this.value)"/>');
   });
 </script>
 
-<!-- <script>
-  $(document).ready( function () {
-    $('#example1').DataTable(
-      {
-        "buttons": [ "excel", "pdf"]
-      }
-    ).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)') ;
-} );
-</script>  -->
+<script>
+function handleClick(cb) {
+  console.log("Clicked, new value = " + cb.checked);
+}
+</script>
 
 @stop

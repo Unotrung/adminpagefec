@@ -36,8 +36,8 @@ $old = Permission::find($permission);
                             class="form-control form-control-user @error('name') is-invalid @enderror" 
                             id="exampleName"
                             placeholder="Name" 
-                            name="name" 
-                            value="{{ old('name') ? old('name') : $old['name'] }}">
+                            name="display_name" 
+                            value="{{ old('display_name') ? old('display_name') : $old['display_name'] }}">
 
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
@@ -61,7 +61,7 @@ $old = Permission::find($permission);
                         <select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
                             <option selected disabled>Select Role</option>
                             @foreach ($roles as $role)
-                            <option value="{{$role['name']}}">{{$role['name']}}</option>
+                            <option value="{{$role['display_name']}}">{{$role['display_name']}}</option>
                             @endforeach
                         </select>
                         @error('name')
