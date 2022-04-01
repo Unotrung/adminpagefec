@@ -183,8 +183,8 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
     Route::group(['middleware' => ['permission:update']], function () {
         Route::get('/news/add', [App\Http\Controllers\NewsController::class, 'create'])->name('news.add');
         Route::post('/news/store', [App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
+        // Route::get('/news/edit', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
         Route::get('/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
-        //Route::get('/news/edit', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
         Route::post('/news/update', [App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
     });
     Route::group(['middleware' => ['permission:view']], function () {
