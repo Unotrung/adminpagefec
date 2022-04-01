@@ -56,8 +56,8 @@ Route::get('/account/change', function(){
 //BNPL
 Route::group(['middleware' => ['role:admin|super admin']], function (){
     Route::group(['middleware' => ['permission:update']], function () {
+        // Route::get('/bnpl/edit', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
         Route::get('/bnpl/edit/{id}', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
-        //Route::get('/bnpl/edit', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
     });
     Route::group(['middleware' => ['permission:view']], function () {
         Route::get('/bnpl', [App\Http\Controllers\BnplController::class, 'index'])->name('bnpl');
@@ -235,9 +235,6 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
     });
 });
 
-Route::get('test',['middleware'=>'permission:update', function(){
-    return "Access granted for this operation"; 
-   }]);
 Route::group(['middleware' => ['role:admin||super admin']], function () {
     Route::post('/notifications/delete', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
     Route::post('/news/delete', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
