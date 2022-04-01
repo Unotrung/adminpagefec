@@ -235,9 +235,6 @@ Route::group(['middleware' => ['role:super admin,admin']], function () {
     });
 });
 
-Route::get('test',['middleware'=>'permission:update', function(){
-    return "Access granted for this operation"; 
-   }]);
 Route::group(['middleware' => ['role:admin||super admin']], function () {
     Route::post('/notifications/delete', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
     Route::post('/news/delete', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
