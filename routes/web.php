@@ -56,8 +56,8 @@ Route::get('/account/change', function(){
 //BNPL
 Route::group(['middleware' => ['role:admin|super admin']], function (){
     Route::group(['middleware' => ['permission:update']], function () {
+        // Route::get('/bnpl/edit', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
         Route::get('/bnpl/edit/{id}', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
-        //Route::get('/bnpl/edit', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
     });
     Route::group(['middleware' => ['permission:view']], function () {
         Route::get('/bnpl', [App\Http\Controllers\BnplController::class, 'index'])->name('bnpl');
