@@ -84,7 +84,7 @@ $config = [
                     <div class="form-group row">
                       <label for="inputPassword4" class="col-sm-4 col-form-label">Date of Birth</label>
                       <div class="col-sm-6">
-                        <div class="col-md-6 fvalue" >{{$bnpl->birthday}}</div>
+                        <div class="col-md-6 fvalue" >{{$bnpl['birthday']->toDateTime()->format('d-m-Y') }}</div>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -96,7 +96,7 @@ $config = [
                     <div class="form-group row">
                       <label for="inputPassword4" class="col-sm-4 col-form-label">IssueDate</label>
                       <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->issueDate}}</div>
+                        <div class="col-md-6 fvalue">{{$bnpl['issueDate']->toDateTime()->format('d-m-Y') }}</div>
                       </div>
                     </div>
                     <div class="form-group row">

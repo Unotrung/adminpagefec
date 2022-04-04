@@ -146,8 +146,6 @@
                 searchable: true,
             },
         ],
-        dom: 'Bfrtip',
-        buttons: ["csv", "excel", "pdf", "print"]
     });
     table.buttons().container().appendTo('#butlist .col-md-6:eq(0)');
   });     

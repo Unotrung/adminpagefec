@@ -5,13 +5,29 @@
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 @stop
-@section('content')
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit News</h6>
-        </div>
-        @stop
+@section('content_header')
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-5">
+            <h1 class="m-0">New</h1>
+            <small class="text-muted"><cite title="Source Title">News Editor</cite></small>
+          </div><!-- /.col -->
+          <div class="col-sm-7">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">New</li>
+              <li class="breadcrumb-item active">Edit</li>
+            </ol>
+          </div><!-- /.col -->
+          <!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+@stop
         @section('content')
         <div class="card shadow mb-4">
             <form method="POST" action="{{route('news.update')}}">

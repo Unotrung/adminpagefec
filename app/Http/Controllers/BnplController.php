@@ -55,6 +55,7 @@ class BnplController extends Controller
         $bnpl = Bnpl::find($id);
         $bnpl_providers = $bnpl->providers;
         $bnpl_provider = Provider::all();
+        
 			if(isset($bnpl->_id)) {
 				$setErrorsBag = "khong hien thi";
 				return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl,"bnpl_providers"=>$bnpl_providers,"bnpl_provider"=>$bnpl_provider]);

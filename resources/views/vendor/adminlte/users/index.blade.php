@@ -87,6 +87,14 @@
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/adminlte.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script> -->
+
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
+  
 <!-- Page specific script -->
 <script>
   $(function () {
@@ -109,6 +117,10 @@
               searchable: true,
           },
         ],
+        columnDefs: [ {
+        targets: 4,
+        render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
+        } ]
     });
     table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
   });
