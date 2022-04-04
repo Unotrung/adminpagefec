@@ -151,12 +151,12 @@ class PermissionsController extends Controller
                $output = '';
                //$output .= ' <a href="'.url(route('roles.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $output .= ' <a href="'.url(route('permission.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-                $output .= ' <a data-toggle="modal" data-target="#demoModal" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                 $output .= '
                 <form method="post" action="'.url(route('permission.delete')).'">
                      <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
                      <input type="hidden" name="_token" value="'.csrf_token().'" />
-                         <div class="modal" id="demoModal">
+                         <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
                                  <div class="modal-dialog">
                                      <div class="modal-content">
                                      <!-- Modal Header -->
