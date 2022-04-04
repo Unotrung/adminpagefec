@@ -2,6 +2,11 @@
 
 @section('title', 'Modules')
 @section('css')
+<style>
+.box {
+  display: none;
+}
+</style>
 
 
   <!-- DataTables -->
@@ -37,9 +42,7 @@
                     <th>Previlege Fields</th>
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                  </tr>
+                  <tbody >
                   </tbody>
                 </table>
               </div>
@@ -77,67 +80,76 @@
 <!-- Page specific script -->
 <script>
 var editor;
+var table = "";
   $(function () {
-    $("#example1").DataTable({
+    let table = $("#example1").DataTable({
       processing: true,
         serverSide: true,
         "ajax": "{{ route('modules.dtajax') }}",
         columns: [
           {data: 'module', name: 'module'},
           {
-              data: 'action', 
+              data: 'module', 
               name: 'action', 
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" name="checkbox1" value="' + $('<div/>').text(data).html() + '">';
+                return '<input type="checkbox" id="checkbox1" value="View '+ data +'"  onclick="handleClick(this.value,this.id);">';
               }
           },
           {
-              data: 'action', 
+              data: 'module', 
               name: 'action', 
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" name="checkbox2" value="' + $('<div/>').text(data).html() + '">';
+                return '<input type="checkbox" id="checkbox2" value="Create '+ data +'" onclick="handleClick(this.value,this.id);">';
               }
           },
           {
-              data: 'action', 
+              data: 'module', 
               name: 'action', 
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" name="checkbox3" value="' + $('<div/>').text(data).html() + '">';
+                return '<input type="checkbox" id="checkbox3" value="Update '+ data +'" onclick="handleClick(this.value,this.id);">';
               }
           },
           {
-              data: 'action', 
+              data: 'module', 
               name: 'action', 
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" name="checkbox4" value="' + $('<div/>').text(data).html() + '">';
+                return '<input type="checkbox" id="checkbox4" value="Delete '+ data +'" onclick="handleClick(this.value,this.id);">';
               }
           },
           {
-              data: 'action', 
+              data: 'module', 
               name: 'action', 
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" name="checkbox5" onclick="handleClick(this.name);"' + $('<div/>').text(data).html() + '">';
+                return '<input id="checkbox5" class="toggle-adv-access btn btn-default btn-sm hide_row" type="checkbox" name="checkbox5" value="'+data+'" onclick="handleClick(this.name);">';        
               }
           },
         ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
-  });
-</script>
-
-<script>
-function handleClick(cb) {
-  console.log("Clicked, new value = " + cb.checked);
+});
+for (var i = 0; i <= $("#example1_wrapper").length; i++){
+  function handleClick(value,id) {
+  console.log($("#example1").length);
+  if(document.getElementById(id).checked){
+    $(".box").show();
+    console.log(value);
+  }
+  else {
+    $(".box").hide();
+  }
 }
+
+};
+
 </script>
 
 @stop
