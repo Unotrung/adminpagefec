@@ -75,8 +75,12 @@ class BnplController extends Controller
         // $json_data = file_get_contents($api_url);
         // $response_data = json_decode($json_data);
         // $user_data = $response_data->data;
+        $name_array = Bnpl::Where('name','=',null)->get();
+        $phone_array = Bnpl::Where('phone','=',null)->get();
+        $identify_array = Bnpl::Where('name','!=',null)->get();
+           
         $bnpl = Bnpl::all();
-        return view('vendor.adminlte.bnpl.bnpl',compact('bnpl'));
+        return view('vendor.adminlte.bnpl.bnpl',['bnpl'=>$bnpl,'identify'=>$identify_array,'phone'=>$phone_array,'name'=>$name_array]);
     }
 
     // public function destroy($id)
