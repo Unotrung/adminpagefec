@@ -239,6 +239,7 @@ Route::group(['middleware' => ['role:admin||super admin']], function () {
     Route::post('/notifications/delete', [App\Http\Controllers\NotificationsController::class, 'destroy'])->name('notifications.delete');
     Route::post('/news/delete', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.delete');
     Route::post('/promotions/delete', [App\Http\Controllers\PromotionsController::class, 'destroy'])->name('promotions.delete');
+    Route::post('/customer/delete', [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customer.delete');
     Route::post('/faqs/delete}', [App\Http\Controllers\FaqController::class, 'destroy'])->name('faqs.delete');
     Route::get('/department/delete/{id}', [App\Http\Controllers\DepartmentController::class, 'destroy'])->name('department.delete');
     Route::post('/roles/delete', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.delete');
