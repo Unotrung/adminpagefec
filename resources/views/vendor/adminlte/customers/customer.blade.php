@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
 @stop
 @php
   $customers = App\Models\Customer::all();
@@ -54,16 +55,31 @@
               <!-- /.card-header -->
           <div class="card-body" style="overflow-x: scroll;">
             <div class="form-group row">
-							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="username" placeholder="Name" name="username" value=""> <span class="text-danger"></span>  </div> 
-							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="Email" name="email" value="">  <span class="text-danger"></span> </div> 
-							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="phone" placeholder="Phone number" name="phone" value="">  <span class="text-danger"></span> </div> 
-              <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>From Date </label>
+							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="username" placeholder="" name="username" value=""> <span class="text-danger"></span>  </div> 
+							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Email: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="" name="email" value="">  <span class="text-danger"></span> </div> 
+							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Phone: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="phone" placeholder="" name="phone" value="">  <span class="text-danger"></span> </div> 
+              <!-- <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>From Date </label>
                 <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="from_date" placeholder="" name="from_date" value="">  <span class="text-danger"></span> </div> 
               <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>To Date </label>
-                <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="to_date" placeholder="" name="to_date" value="">  <span class="text-danger"></span> </div> 
+               <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="to_date" placeholder="" name="to_date" value="">  <span class="text-danger"></span> </div>  -->
+               <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Date Range: </label>
+								<input type="text" class="form-control float-right" id="reservation" placeholder="" name="reservation" value="">  <span class="text-danger"><i class="far fa-calendar-alt"></i></span> </div> 
+                <!-- <div class="form-group">
+                    <label>Date range:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservation">
+                    </div>
+
+                </div>
+               </div> -->
               <div class="col-sm-1 mb-1 mb-sm-0 p-0">
                 <div class="mt-4"></div>
                   <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
@@ -80,7 +96,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Date Regis</th>
+                    <th>Registered Date</th>
                     <!-- <th>Phone</th>
                     <th>Status</th>
                     <th>Created Time</th> -->
@@ -120,9 +136,14 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
+<script src="../../plugins/moment/moment.min.js"></script>
 <script src="../../dist/js/adminlte.min.js"></script>
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE for demo purposes -->
-
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1phpN8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" /> -->
 <!-- Page specific script -->
 <script>
 
@@ -130,9 +151,11 @@
 
 $(document).ready(function(){
 
+$('#reservation').daterangepicker();
+
 fill_datatable();
 
-function fill_datatable(username = '',email=  '',action='',phone='',from_date = '', to_date = '')
+function fill_datatable(username = '',email=  '',action='',phone='',reservation = '')
 {
     var dataTable = $('#example1').DataTable({
         processing: true,
@@ -140,7 +163,7 @@ function fill_datatable(username = '',email=  '',action='',phone='',from_date = 
         searching: false,
         ajax:{
             url: "{{ route('customer.dtajax') }}",
-            data:{username:username , email:email , action:action , phone:phone ,from_date:from_date, to_date:to_date}
+            data:{username:username , email:email , action:action , phone:phone ,reservation:reservation}
         },
         columns: [
             {
@@ -183,18 +206,18 @@ $('#filter').click(function(){
     var username = $('#username').val();
     var email = $('#email').val();
     var phone = $('#phone').val();
-    var from_date = $('#from_date').val();
-    var to_date = $('#to_date').val();
+    var reservation = $('#reservation').val();
+    // var to_date = $('#to_date').val();
     $('#example1').DataTable().destroy();
-    fill_datatable(username,email,action="search",phone,from_date, to_date);
+    fill_datatable(username,email,action="search",phone,reservation);
 });
 
 $('#reset').click(function(){
     $('#username').val('');
     $('#email').val('');
     $('#phone').val('');
-    $('#from_date').val('');
-    $('#to_date').val('');
+    $('#reservation').val('');
+    // $('#to_date').val('');
     $('#example1').DataTable().destroy();
     fill_datatable();
 });

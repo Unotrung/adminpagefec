@@ -12,7 +12,7 @@ use App\Mail\EmailTemplate;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailJob;
-
+use Carbon\Carbon;
 use function PHPUnit\Framework\isNull;
 
 class CustomerController extends Controller
@@ -98,10 +98,11 @@ class CustomerController extends Controller
                 if(!empty($request->username)) $cus->where("username",$request->username);
                 if(!empty($request->email)) $cus->where("email",$request->email);
                 if(!empty($request->phone)) $cus->where("phone",$request->phone);
-                if(!empty($request->from_date) && !empty($request->to_date)) {
-                    $from = new \DateTime($request->from_date);
-                    $to = new \DateTime($request->to_date.' 23:59');
-                    $cus->whereBetween("createdAt", [$from, $to]);
+                if(!empty($request->reservation)) {
+                    $date = explode(" - ",$request->reservation);
+                    $from = Carbon::parse($date[0]);
+                    $to = Carbon::parse($date[1].' 23:59');
+                    $cus->whereBetween("createdAt", [$from,$to]);
                     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
                 }
                 $out =  Datatables::of($cus->get())->make(true);
