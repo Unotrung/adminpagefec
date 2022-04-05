@@ -93,9 +93,21 @@ class BnplController extends Controller
 
     public function dtajax(Request $request){
          if ($request->ajax()) {
-            $out =  Datatables::of(Bnpl::All())->make(true);
-            $data = $out->getData();
-            for($i=0; $i < count($data->data); $i++) {
+            if(!empty($request->action))
+            {
+                $bnpl = Bnpl::whereNull("isDelete");
+                if(!empty($request->name)) $bnpl->where("name",$request->name);
+                //if(!empty($request->status)) $bnpl->where("email",$request->status);
+                if(!empty($request->phone)) $bnpl->where("phone",$request->phone);
+                if(!empty($request->from_date) && !empty($request->to_date)) {
+                    $from = new \DateTime($request->from_date);
+                    $to = new \DateTime($request->to_date.' 23:59');
+                    $bnpl->whereBetween("createdAt", [$from, $to]);
+                    // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
+                }
+                $out =  Datatables::of(Bnpl::All())->make(true);
+                $data = $out->getData();
+                for($i=0; $i < count($data->data); $i++) {
                 $output = '';
                 $output .= ' <a href="'.url(route('bnpl.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $data->data[$i]->action = (string)$output;
@@ -109,9 +121,15 @@ class BnplController extends Controller
             //             // $output .= Form::close();
             //         $data->data[$i]->action = (string)$output;
             //     }
-             }
-            $out->setData($data);
-            return $out;
+                }
+                $out->setData($data);
+                return $out;
+            }
+            else
+            {
+                $out =  Datatables::of(Bnpl::All())->make(true);
+                return $out;      
+            }
         }
     }
 

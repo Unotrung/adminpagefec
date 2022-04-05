@@ -95,10 +95,30 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">
+            <div class="form-group row">
+							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value=""> <span class="text-danger"></span>  </div> 
+							<!-- <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Status: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="Status" name="status" value="">  <span class="text-danger"></span> </div>  -->
+							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="phone" placeholder="Phone number" name="phone" value="">  <span class="text-danger"></span> </div> 
+              <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>From Date </label>
+                <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="from_date" placeholder="" name="from_date" value="">  <span class="text-danger"></span> </div> 
+              <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>To Date </label>
+                <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="to_date" placeholder="" name="to_date" value="">  <span class="text-danger"></span> </div> 
+              <div class="col-sm-1 mb-1 mb-sm-0 p-0">
+                <div class="mt-4"></div>
+                  <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
+						  </div>
+              <div class="col-sm-1 mb-1 mb-sm-0 pl-1">
+                <div class="mt-4"></div>
+                  <button type="button" name="reset" id="reset" class="btn btn-default w-100">Reset</button>
+              </div>
+            </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Customer name</th>
+                    <th>Name</th>
                     <th>Phone</th>
                     <!-- <th>Image</th>
                     <th>NID</th>
@@ -119,7 +139,6 @@
                     <th>Contract</th> -->
                     <th>Stage</th>
                     <th>Status</th>
-                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -167,6 +186,7 @@ var editor;
     $("#example1").DataTable({
       processing: true,
         serverSide: true,
+        searching: false,
         "ajax": "{{ route('bnpl.dtajax') }}",
         columns: [
           {data: 'name', name: 'name'},
@@ -209,7 +229,27 @@ var editor;
                   searchable: true
           },
         ],
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6');
+    });
+
+    $('#filter').click(function(){
+    var name = $('#name').val();
+    //var status = $('#status').val();
+    var phone = $('#phone').val();
+    var from_date = $('#from_date').val();
+    var to_date = $('#to_date').val();
+    $('#example1').DataTable().destroy();
+    fill_datatable(name,action="search",phone,from_date, to_date);
+});
+
+$('#reset').click(function(){
+    $('#name').val('');
+    //$('#status').val('');
+    $('#phone').val('');
+    $('#from_date').val('');
+    $('#to_date').val('');
+    $('#example1').DataTable().destroy();
+    fill_datatable();
+});
   });
 </script>
 
