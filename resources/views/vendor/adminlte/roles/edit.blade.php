@@ -72,9 +72,25 @@ $old = Role::find($role);
                     </div>
                 </div>
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+                <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Update
-                </button>
+                </div>
+                <div class="modal" id="demoModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Do you want to edit role?  </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Yes</button>
+                            <button type="button" class="btn" data-dismiss="modal">No</button>
+                        </div>
+                        </div>
+                </div>
+                </div>
             </form>
         </div>
     </div>

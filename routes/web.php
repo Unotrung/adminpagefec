@@ -89,13 +89,14 @@ Route::group(['middleware' => ['role:super admin|admin','permission:update']], f
     Route::get('/users/edit/{id}', [App\Http\Controllers\UsersController::class,'edit'])->name('users.edit');
     Route::post('/users/store', [App\Http\Controllers\UsersController::class,'store'])->name('users.store');
     Route::post('/users/update', [App\Http\Controllers\UsersController::class,'update'])->name('users.update');
-    Route::get('/users/create', [App\Http\Controllers\UsersController::class,'create'])->name('users.create');
+        
 });
 Route::group(['middleware' => ['role:super admin|admin','permission:view']], function () {
     Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
     //Route::get('/users/show', [App\Http\Controllers\UsersController::class,'show'])->name('users.show');
     Route::get('/users/show/{id}', [App\Http\Controllers\UsersController::class,'show'])->name('users.show');
     Route::get('/users/dtajax', [App\Http\Controllers\UsersController::class, 'dtajax'])->name('users.dtajax');
+    Route::get('/users/create', [App\Http\Controllers\UsersController::class,'create'])->name('users.create');
 });
 
 // Permissions
@@ -226,6 +227,7 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
         //Route::get('/modules/edit', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
         Route::post('/modules/update', [App\Http\Controllers\ModuleController::class, 'update'])->name('modules.update');
         Route::post('/modules/store', [App\Http\Controllers\ModuleController::class, 'store'])->name('modules.store');
+        
     });
     Route::group(['middleware' => ['permission:view']], function () {
         Route::get('/modules/dtajax', [App\Http\Controllers\ModuleController::class, 'dtajax'])->name('modules.dtajax');

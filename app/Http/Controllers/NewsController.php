@@ -76,7 +76,7 @@ class NewsController extends Controller
     public function edit($id)
     {
         $news = News::find($id);
-        return view('vendor.adminlte.news.edit', ['new' => $news]);
+        return view('vendor.adminlte.news.edit', ['news' => $news->id]);
     }
     public function getUrl($url){
         return view('vendor.adminlte.news.getUrl',[])->with('url', $url);
@@ -115,7 +115,7 @@ class NewsController extends Controller
         }
         $news->save();
         
-        return redirect()->route('news.index')->with('success','News updated successfully.');
+        return redirect()->route('news.index')->with('success','Update success');
     }
 
     /**
@@ -129,7 +129,7 @@ class NewsController extends Controller
         $promotion = News::find($request->id);
         $promotion->is_delete = 1;
         $promotion->save();
-        return redirect()->route('news.index')->with('News deleted successfull');
+        return redirect()->route('news.index')->with('delete','News deleted successfull');
     }
 
     public function dtajax(Request $request){

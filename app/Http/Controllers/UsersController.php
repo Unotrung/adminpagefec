@@ -77,7 +77,7 @@ class UsersController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('users')->with('user registed successfull');
+        return redirect()->route('users')->with('add','User Registed Successfull');
     }
 
     public function show($id)
@@ -124,12 +124,11 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-<<<<<<< HEAD
+
         $user->delete();
-=======
+
         $user->delete_at = 1;
         $user->save();
->>>>>>> cfd73c3a850d1e1c9bb839f316522e661a8e03f6
         return redirect()->route('users')->with('User deleted successfull');
     }
 

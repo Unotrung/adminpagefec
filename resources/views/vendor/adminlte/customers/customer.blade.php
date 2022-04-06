@@ -150,11 +150,8 @@
 
 
 $(document).ready(function(){
-
-  $('#reservation').daterangepicker().val('');
-
 fill_datatable();
-
+$('#reservation').attr('readonly', true);
 function fill_datatable(username = '',email=  '',action='',phone='',reservation = '')
 {
     var dataTable = $('#example1').DataTable({
@@ -199,7 +196,12 @@ function fill_datatable(username = '',email=  '',action='',phone='',reservation 
     });
 }
 
-
+$('#username').on('change',function(){
+  var user = $('#username').val();
+  if(user != ''){
+    $('#reservation').daterangepicker().val('').attr('readonly', false);
+  }
+});
 
 
 $('#filter').click(function(){

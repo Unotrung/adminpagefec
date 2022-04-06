@@ -59,7 +59,7 @@ class RolesController extends Controller
 
         $role->save();
 
-        return view("vendor.adminlte.roles.index");
+        return redirect()->route('roles.index')->with('ad','Role Assigned Successfull');;
         
     }
 
@@ -113,7 +113,7 @@ class RolesController extends Controller
             }
 
             $role->save();
-        return redirect()->route('roles.index')->with('success','Permissions updated successfully.');
+        return redirect()->route('roles.index')->with('success','Role updated successfully.');
     }
 
     /**
@@ -127,7 +127,7 @@ class RolesController extends Controller
         $promotion = Role::find($request->id);
         $promotion->is_delete = 1;
         $promotion->save();
-        return redirect()->route('roles.index')->with('roles deleted successfull');
+        return redirect()->route('roles.index')->with('delete','Roles deleted successfull');
     }
 
     public function dtajax(Request $request){

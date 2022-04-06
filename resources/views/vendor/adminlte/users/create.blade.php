@@ -26,21 +26,7 @@
 	<div class="card-header py-3">
 		<h6 class="m-0 font-weight-bold text-primary">Add New User</h6> </div>
 	<div class="card-body">
-<<<<<<< HEAD
-		<form method="post" action="{{route('register')}}"> 
-			@csrf
-			<div class="form-group row"> {{-- Name --}}
-				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
-					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{ old('name') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Email --}}
-				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
-					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{ old('email') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Password --}}
-				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Password: </label>
-					<input type="password" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Password" name="password" value="{{ old('password') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Confirm Password --}}
-				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Confirm Password: </label>
-					<input type="password" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleConfirmPassword" placeholder="Confirm Password" name="confirm_password" value="{{ old('password') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Role --}}
-				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Role: </label>
-					<select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
-=======
+
 		<form method="post" action="{{route('users.store')}}"> 
 			@csrf
 			<div class="form-group row"> 
@@ -120,7 +106,6 @@
 
 				<div class="input-group mb-3">
 					<select class="form-control form-control-user @error('role') is-invalid @enderror" name="role">
->>>>>>> cfd73c3a850d1e1c9bb839f316522e661a8e03f6
 						<option selected disabled>Select Role</option>
 						@foreach ($roles as $role)
 							<option value="{{$role->name}}">{{$role->name}}</option>
@@ -128,7 +113,25 @@
 					</select> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block">
+					Submit
+				</div>
+				<div class="modal" id="demoModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">Do you want to add a new user?  </h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger">Yes</button>
+							<button type="button" class="btn" data-dismiss="modal">No</button>
+						</div>
+						</div>
+				</div>
+				</div>
 			</div>
 		</form>
 	</div>

@@ -176,7 +176,7 @@
 
 $(document).ready(function(){
 
-  $('#reservation').daterangepicker().val('');
+  $('#reservation').attr('readonly', true);
 
   fill_datatable();
   function fill_datatable(name = '',action='',phone='',reservation = '')
@@ -232,12 +232,17 @@ $(document).ready(function(){
     });
 }
     
+$('#name').on('change',function(){
+  var user = $('#name').val();
+  if(user != ''){
+    $('#reservation').daterangepicker().val('').attr('readonly', false);
+  }
+});
 
     $('#filter').click(function(){
     var name = $('#name').val();
     var phone = $('#phone').val();
     var reservation = $('#reservation').val();
-    console.log(name);
     $('#example1').DataTable().destroy();
     fill_datatable(name,action="search",phone,reservation);
 });

@@ -99,11 +99,18 @@ class CustomerController extends Controller
                 if(!empty($request->email)) $cus->where("email",$request->email);
                 if(!empty($request->phone)) $cus->where("phone",$request->phone);
                 if(!empty($request->reservation)) {
+                    if(!empty($request->username)){
                     $date = explode(" - ",$request->reservation);
                     $from = Carbon::parse($date[0]);
                     $to = Carbon::parse($date[1].' 23:59');
                     $cus->whereBetween("createdAt", [$from,$to]);
                     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
+                    }
+                    else
+                {
+                    $out =  Datatables::of(Customer::where("_id",1)->get())->make(true);
+                    return $out;      
+                }
                 }
                 $out =  Datatables::of($cus->get())->make(true);
                 $data = $out->getData();        

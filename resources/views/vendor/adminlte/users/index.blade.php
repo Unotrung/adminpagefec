@@ -8,6 +8,10 @@
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" 
+     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 @stop
@@ -44,7 +48,7 @@
                   <thead>
 
                   <tr>
-                    <th>Name</th>
+                    <th>Full Name</th>
                     <th>Email</th>
                     <th>Status</th>
                     <th>Created Time</th>
@@ -66,7 +70,16 @@
         <!-- /.row -->
       </div>
     <!-- /.content -->
-
+    <script>
+      @if(Session::has('add'))
+      toastr.options =
+      {
+        "closeButton" : true,
+        "progressBar" : true
+      }
+          toastr.success("{{ session('add') }}");
+      @endif
+    </script>
 @stop
 
 
