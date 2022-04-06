@@ -26,7 +26,10 @@
 	<div class="card-header py-3">
 		<h6 class="m-0 font-weight-bold text-primary">Add New User</h6> </div>
 	<div class="card-body">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59800fe (t fix error user)
 		<form method="post" action="{{route('users.store')}}"> 
 			@csrf
 			<div class="form-group row"> 

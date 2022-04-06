@@ -134,6 +134,10 @@ var editor;
                   searchable: true
           },
         ],
+        "columnDefs": [{
+          "defaultContent": "-",
+          "targets": "_all"
+        }],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
   });
 </script>
