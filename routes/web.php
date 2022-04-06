@@ -45,7 +45,7 @@ Route::group(['middleware' => ['role:super admin']], function (){
     Route::post('/users/removerole', [App\Http\Controllers\UsersController::class, 'removeRole'])->name('user.removerole');
 });
 
-Route::post('/modules/givepermission', [App\Http\Controllers\ModuleController::class, 'givePermission'])->name('modules.givepermission');
+Route::post('/modules/givepermission', [App\Http\Controllers\ModuleController::class, 'givePermissionTo'])->name('modules.givepermission');
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
 });

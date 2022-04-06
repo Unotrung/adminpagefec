@@ -34,10 +34,10 @@
               <div class="card-body" style="overflow-x: scroll;">
                 <table id="example1" class="table table-bordered table-striped" style="width:100%" cellspacing="0">
                   <thead>
-                  <label for="users" style="width:15%; margin-left: 200px;">Choose a user:</label>
+                  <label for="users" style="width:15%; margin-left: 200px;">Choose a role:</label>
                 <select id="user" style="width:30%; margin: right auto;">
-                  @foreach ($users as $user)
-                  <option value="{{$user['id']}}">{{$user['name']}}</option>
+                  @foreach ($roles as $role)
+                  <option value="{{$role['id']}}">{{$role['name']}}</option>
                   @endforeach
                 </select>
                   <tr>
@@ -154,23 +154,27 @@ $(".fields").hide();
         ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 });
-var user_id = "";
-var total = [];
+var permission_list = [];
+var total = {};
+var role_id = {};
+var id = "";
 
 function handleClick(value,name) {
-  if($('input[name="'+name+'"]').is(":checked")){
-    if(user_id != null && total.includes("user_id") === false){
-      total.push(user_id);
+  if($('input[name="'+name+'"]').is(":checked")){  
+    if(permission_list.includes(value.toLowerCase() +"-"+name.toLowerCase()) === false){
+      permission_list.push(value.toLowerCase() +"-"+name.toLowerCase());
     }
-    total.push(name +" "+value);
-    console.log(total);
+  }
+  else{
+    permission_list.pop(value);
   }
 }
 
 $(function () {
     $("select").on('change',function(){
         var selectedCountry = $(this).children("option:selected").val();
-        user_id = $(this).val();
+          id = $(this).val();
+          console.log({ id,"permissions":permission_list });
     });
 });
 
@@ -190,7 +194,7 @@ $(function () {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
       type: "POST",
       url: "{{ route('modules.givepermission') }}",
-      data: { total },
+      data: { id,"permissions":permission_list },
       success:function(response){
     }
   })

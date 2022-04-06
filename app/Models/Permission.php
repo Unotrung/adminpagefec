@@ -16,6 +16,7 @@ class Permission extends Model
     use HasFactory,Authenticatable,Notifiable,HasApiTokens,HasRoles;
     protected $connection = 'mongodb';
     protected $collection = 'permissions'; 
+    protected $fillable = ['name'];
 }
 
 ?>

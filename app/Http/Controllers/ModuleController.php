@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Modules;
 use DataTables;
-use App\Models\Role;
 use App\Models\User;
-use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Role;
+use App\Models\Permission;
 
 class ModuleController extends Controller
 {
@@ -20,8 +20,8 @@ class ModuleController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        $users = User::all();
-        return view('vendor.adminlte.modules.index',['permissions'=>$permissions,'users'=>$users]);
+        $roles = Role::all();
+        return view('vendor.adminlte.modules.index',['permissions'=>$permissions,'roles'=>$roles]);
     }
 
     /**
@@ -106,14 +106,24 @@ class ModuleController extends Controller
     }
 
     public function givePermissionTo(Request $request)
-    { 
-        $array = $request->total;
-        $id = $request->total[0];
-        $user = User::find($id)->get();
-        unset($array[0]);
-        foreach ($array as $ele){
-            return $ele;
-            $user->givePermissionTo($ele);
+    {
+        $id = $request->id;
+        $role = Role::find($id)->get();
+        $permissions = $request->permissions;
+        foreach ($permissions as $ele){
+            $is_exist = Permission::Where('name','=',$ele)->get();
+            if(count($is_exist) === 0){
+                $response = Permission::create(['name' => $ele, 'guard_name'=>'web','display_name'=>$ele]);
+                if(count($response->created_at) > 0 ){
+                    $response->assignRole($role);
+                }
+            }
+            else{
+                // $is_exist->assignRole($role);
+                print_r($role->givePermissionTo("customers-view"));
+                exit;
+                $role->givePermissionTo("customers-view");
+            }
         }
         return redirect()->route('modules.index');
     }

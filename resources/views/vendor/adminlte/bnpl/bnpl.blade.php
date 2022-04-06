@@ -40,17 +40,20 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="info-box bg-info">
+            <div class="small-box bg-info">
               <div class="inner">
                 <h3>{{count($bnpl)}}</h3>
                 <p>Total BNPL Registers</p>
+              </div>
+              <div class="icon">
+              <i class="fas fa-user-plus"></i>
               </div>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="info-box bg-success">
+            <div class="small-box bg-success">
               <div class="inner">
                 <h3>
                 {{count($name)}}
@@ -58,33 +61,33 @@
                 <p>Stage: Nhập Thông Tin</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-user-check"></i>
               </div>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="info-box bg-warning">
+            <div class="small-box bg-warning">
               <div class="inner">
                 <h3> {{count($phone)}}</h3>
                 <p>Stage: Cài đặt Pin Code</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-user-lock"></i>
               </div>
             </div>
           </div>
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="info-box bg-danger">
+            <div class="small-box bg-danger">
               <div class="inner">
                 <h3>{{count($identify)}}</h3>
                 <p>Stage: Xác thực người dùng</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-user-shield"></i>
               </div>
             </div>
           </div>
