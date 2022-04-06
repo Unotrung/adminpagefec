@@ -104,7 +104,6 @@ class UsersController extends Controller
         {
             return 2;
         }
-        
     }
 
     public function assignRole(Request $request){
@@ -124,13 +123,18 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-<<<<<<< HEAD
-        $user->delete();
-=======
+
         $user->delete_at = 1;
         $user->save();
->>>>>>> cfd73c3a850d1e1c9bb839f316522e661a8e03f6
-        return redirect()->route('users')->with('User deleted successfull');
+        return redirect()->route('users')->with('User Inactive successfull');
+    }
+
+    public function restore($id)
+    {
+        $user = User::find($id);
+        $user->delete_at = "";
+        $user->save();
+        return redirect()->route('users')->with('User restore successfull');
     }
 
     public function dtajax(Request $request){
@@ -139,13 +143,14 @@ class UsersController extends Controller
            $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
-               $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                 if(empty($data->data[$i]->delete_at)){
                     $data->data[$i]->delete_at = "";
+                    $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                    $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                     $output .= ' <a href="'.url(route('users.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-ban"></i></a>';
                 }else{
-                    $output .= ' <a href="'.url(route('users.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-sync"></i></a>';
+                    $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                    $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-sync"></i></a>';
                 }
                $data->data[$i]->action = (string)$output;
                 if(empty($data->data[$i]->status)){

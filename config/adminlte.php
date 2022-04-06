@@ -294,7 +294,7 @@ return [
                     'url'  => 'department/index',
                 ],
                 [
-                    'text' => 'Modules',
+                    'text' => 'Modules & Fields Permissions',
                     'url'  => 'modules/index',
                 ],
                 [
