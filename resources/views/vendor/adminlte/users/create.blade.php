@@ -26,7 +26,9 @@
 	<div class="card-header py-3">
 		<h6 class="m-0 font-weight-bold text-primary">Add New User</h6> </div>
 	<div class="card-body">
-		<form method="post" action="{{route('register')}}"> @csrf
+<<<<<<< HEAD
+		<form method="post" action="{{route('register')}}"> 
+			@csrf
 			<div class="form-group row"> {{-- Name --}}
 				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
 					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{ old('name') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Email --}}
@@ -38,6 +40,87 @@
 					<input type="password" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleConfirmPassword" placeholder="Confirm Password" name="confirm_password" value="{{ old('password') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Role --}}
 				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Role: </label>
 					<select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
+=======
+		<form method="post" action="{{route('users.store')}}"> 
+			@csrf
+			<div class="form-group row"> 
+				{{-- Name field --}}
+				<div class="input-group mb-3">
+					<input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+						   value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
+		
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
+						</div>
+					</div>
+		
+					@error('name')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div>
+				{{-- Email field --}}
+				<div class="input-group mb-3">
+					<input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+						value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}">
+
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>
+						</div>
+					</div>
+
+					@error('email')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div>
+
+				{{-- Password field --}}
+				<div class="input-group mb-3">
+					<input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+						placeholder="{{ __('adminlte::adminlte.password') }}">
+
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+						</div>
+					</div>
+
+					@error('password')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div>
+
+				{{-- Confirm password field --}}
+				<div class="input-group mb-3">
+					<input type="password" name="password_confirmation"
+						class="form-control @error('password_confirmation') is-invalid @enderror"
+						placeholder="{{ __('adminlte::adminlte.retype_password') }}">
+
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+						</div>
+					</div>
+
+					@error('password_confirmation')
+						<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror
+				</div>
+
+
+
+				<div class="input-group mb-3">
+					<select class="form-control form-control-user @error('role') is-invalid @enderror" name="role">
+>>>>>>> cfd73c3a850d1e1c9bb839f316522e661a8e03f6
 						<option selected disabled>Select Role</option>
 						@foreach ($roles as $role)
 							<option value="{{$role->name}}">{{$role->name}}</option>

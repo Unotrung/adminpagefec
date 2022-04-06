@@ -8,6 +8,9 @@ use App\Models\Role;
 use DataTables;
 use App\Models\Permission;
 use Session;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Illuminate\Auth\Events\Registered;
 
 class UsersController extends Controller
 {
@@ -56,14 +59,25 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->role = $request->role;
-        $user->status = 1;
-        $user->save();
-        return redirect()->route('users')->with('success','User created successfully.');
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' =>['required'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->assignRole($request->role);
+
+        event(new Registered($user));
+
+        return redirect()->route('users')->with('user registed successfull');
     }
 
     public function show($id)
@@ -110,8 +124,13 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+<<<<<<< HEAD
         $user->delete();
-        return redirect()->route('users')->with('Promotions deleted successfull');
+=======
+        $user->delete_at = 1;
+        $user->save();
+>>>>>>> cfd73c3a850d1e1c9bb839f316522e661a8e03f6
+        return redirect()->route('users')->with('User deleted successfull');
     }
 
     public function dtajax(Request $request){
@@ -122,18 +141,13 @@ class UsersController extends Controller
                $output = '';
                $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-               $output .= ' <a href="'.url(route('users.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                if(empty($data->data[$i]->delete_at)){
+                    $data->data[$i]->delete_at = "";
+                    $output .= ' <a href="'.url(route('users.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-ban"></i></a>';
+                }else{
+                    $output .= ' <a href="'.url(route('users.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-sync"></i></a>';
+                }
                $data->data[$i]->action = (string)$output;
-           //     if($this->show_action) {
-           //         $output = '';
-           // //         // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
-           //         $output .= ' <a href="'.url(route('bnpl.edit').'/'.$data->data[$i]->_id).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-           // //         // $output .= ' <a href="'.url(route('employee.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-           // //         // $output .= Form::open(['route' => [config('employee') . '.employee', $data->data[$i]->_id], 'method' => 'delete', 'style'=>'display:inline']);
-           // //         // $output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
-           //             // $output .= Form::close();
-           //         $data->data[$i]->action = (string)$output;
-           //     }
                 if(empty($data->data[$i]->status)){
                     $data->data[$i]->status = "";
                 }
