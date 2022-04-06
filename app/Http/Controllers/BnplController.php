@@ -7,6 +7,7 @@ use App\Models\Provider;
 use Illuminate\Http\Request;
 use DataTables;
 use MongoDB\Operation\Find;
+use Carbon\Carbon;
 
 class BnplController extends Controller
 {
@@ -100,10 +101,11 @@ class BnplController extends Controller
                 if(!empty($request->name)) $bnpl->where("name",$request->name);
                 //if(!empty($request->status)) $bnpl->where("email",$request->status);
                 if(!empty($request->phone)) $bnpl->where("phone",$request->phone);
-                if(!empty($request->from_date) && !empty($request->to_date)) {
-                    $from = new \DateTime($request->from_date);
-                    $to = new \DateTime($request->to_date.' 23:59');
-                    $bnpl->whereBetween("createdAt", [$from, $to]);
+                if(!empty($request->reservation)) {
+                    $date = explode(" - ",$request->reservation);
+                    $from = Carbon::parse($date[0]);
+                    $to = Carbon::parse($date[1].' 23:59');
+                    $bnpl->whereBetween("createdAt", [$from,$to]);
                     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
                 }
                 $out =  Datatables::of($bnpl->get())->make(true);
@@ -128,8 +130,8 @@ class BnplController extends Controller
             }
             else
             {
-                $out =  Datatables::of(Bnpl::All())->make(true);
-                return $out;      
+                $out =  Datatables::of(Bnpl::where("_id",1)->get())->make(true);
+                return $out;  
             }
         }
     }

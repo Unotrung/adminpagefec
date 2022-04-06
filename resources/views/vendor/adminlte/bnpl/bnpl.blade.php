@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
 
 @stop
 
@@ -96,23 +97,25 @@
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">
             <div class="form-group row">
-							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value=""> <span class="text-danger"></span>  </div> 
+							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="" name="name" value=""> <span class="text-danger"></span>  </div> 
 							<!-- <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Status: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="Status" name="status" value="">  <span class="text-danger"></span> </div>  -->
-							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="phone" placeholder="Phone number" name="phone" value="">  <span class="text-danger"></span> </div> 
-              <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>From Date </label>
+							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Phone: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="phone" placeholder="" name="phone" value="">  <span class="text-danger"></span> </div> 
+              <!-- <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>From Date </label>
                 <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="from_date" placeholder="" name="from_date" value="">  <span class="text-danger"></span> </div> 
               <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>To Date </label>
-                <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="to_date" placeholder="" name="to_date" value="">  <span class="text-danger"></span> </div> 
-              <div class="col-sm-1 mb-1 mb-sm-0 p-0">
+                <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="to_date" placeholder="" name="to_date" value="">  <span class="text-danger"></span> </div>  -->
+                <div class="col-sm-4 mb-4 mb-sm-0"> <span style="color:red;"></span>Date Range: </label>
+								<input type="text" class="form-control float-right" id="reservation" placeholder="" name="reservation" value="">  <span class="text-danger"><i class="far fa-calendar-alt"></i></span> </div> 
+                <div class="col-sm-1 mb-1 mb-sm-0 p-0">
                 <div class="mt-4"></div>
                   <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
 						  </div>
               <div class="col-sm-1 mb-1 mb-sm-0 pl-1">
                 <div class="mt-4"></div>
-                  <button type="button" name="reset" id="reset" class="btn btn-default w-100">Reset</button>
+                  <button type="button" name="reset" id="reset" class="btn btn-danger w-100">Reset</button>
               </div>
             </div>
                 <table id="example1" class="table table-bordered table-striped">
@@ -120,25 +123,10 @@
                   <tr>
                     <th>Name</th>
                     <th>Phone</th>
-                    <!-- <th>Image</th>
-                    <th>NID</th>
-                    <th>NID Image</th>
-                    <th>Gender</th>
-                    <th>Pin Code</th>
-                    <th>DOB</th>
-                    <th>DON</th> -->
-                    <th>Date Regis</th>
-                    <!-- <th>Address</th>
-                    <th>Code</th>
-                    <th>Code Name</th>
-                    <th>Division Type</th>
-                    <th>District</th>
-                    <th>Type Relation</th>
-                    <th>Phone Relation</th>
-                    <th>Name Relation</th>
-                    <th>Contract</th> -->
+                    <th>Registered Date</th>
                     <th>Stage</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -178,15 +166,20 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
+<script src="../../plugins/moment/moment.min.js"></script>
 <script src="../../dist/js/adminlte.min.js"></script>
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
 <!-- AdminLTE for demo purposes -->
 
 <!-- Page specific script -->
 <script>
 
 $(document).ready(function(){
+
+  $('#reservation').daterangepicker().val('');
+
   fill_datatable();
-  function fill_datatable(name = '',action='',phone='',from_date = '', to_date = '')
+  function fill_datatable(name = '',action='',phone='',reservation = '')
 {
   var dataTable = $("#example1").DataTable({
       processing: true,
@@ -194,7 +187,7 @@ $(document).ready(function(){
         searching: false,
         ajax: {
           url:"{{ route('bnpl.dtajax') }}",
-          data:{name:name , action:action, phone:phone ,from_date:from_date, to_date:to_date}
+          data:{name:name , action:action, phone:phone ,reservation:reservation}
         },
         columns: [
           {data: 'name', name: 'Name'},
@@ -229,6 +222,12 @@ $(document).ready(function(){
           {
             "defaultContent": "<i>Waiting</i>"
           },
+          {
+                data: 'action', 
+                name: 'action', 
+                orderable: true, 
+                searchable: true,
+            },
         ],
     });
 }
@@ -237,18 +236,16 @@ $(document).ready(function(){
     $('#filter').click(function(){
     var name = $('#name').val();
     var phone = $('#phone').val();
-    var from_date = $('#from_date').val();
-    var to_date = $('#to_date').val();
+    var reservation = $('#reservation').val();
     console.log(name);
     $('#example1').DataTable().destroy();
-    fill_datatable(name,action="search",phone,from_date, to_date);
+    fill_datatable(name,action="search",phone,reservation);
 });
 
 $('#reset').click(function(){
     $('#name').val('');
     $('#phone').val('');
-    $('#from_date').val('');
-    $('#to_date').val('');
+    $('#reservation').val('');
     $('#example1').DataTable().destroy();
     fill_datatable();
 });

@@ -151,7 +151,7 @@
 
 $(document).ready(function(){
 
-$('#reservation').daterangepicker();
+  $('#reservation').daterangepicker().val('');
 
 fill_datatable();
 

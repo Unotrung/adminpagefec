@@ -111,7 +111,7 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('users')->with('Promotions deleted successfull');
+        return redirect()->route('users')->with('User deleted successfull');
     }
 
     public function dtajax(Request $request){
