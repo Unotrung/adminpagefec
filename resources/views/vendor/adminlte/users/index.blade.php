@@ -46,7 +46,6 @@
                   <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Phone</th>
                     <th>Status</th>
                     <th>Created Time</th>
                     <th>Action</th>
@@ -107,8 +106,9 @@
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
-          {data: 'phone', name: 'phone'},
-          {data: 'status', name: 'status'},
+          {data: 'delete_at', name: 'status', render: function(data){
+            return (data==1)?"<span class='badge bg-danger'> Deleted</span>":"";
+          }},
           {data: 'created_at', name: 'created_at'},
           {
               data: 'action', 
@@ -118,7 +118,7 @@
           },
         ],
         columnDefs: [ {
-        targets: 4,
+        targets: 3,
         render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
         } ]
     });
