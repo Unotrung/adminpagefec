@@ -26,7 +26,7 @@
     </div><!-- /.col -->
     <div class="col-sm-2">
       <a href="{{route('users.create')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-plus"></i> Add user</a>
+                <i class="fas fa-plus"></i> Add</a>
       </div><!-- /.col -->
   </div><!-- /.container-fluid -->
 </div><!-- /.row -->

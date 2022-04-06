@@ -26,17 +26,17 @@
 	<div class="card-header py-3">
 		<h6 class="m-0 font-weight-bold text-primary">Add New User</h6> </div>
 	<div class="card-body">
-		<form method="POST" action="{{route('users.store')}}"> @csrf
+		<form method="post" action="{{route('register')}}"> @csrf
 			<div class="form-group row"> {{-- Name --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
+				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
 					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{ old('name') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Email --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
+				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
 					<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{ old('email') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Password --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Password: </label>
+				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Password: </label>
 					<input type="password" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Password" name="password" value="{{ old('password') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Confirm Password --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Confirm Password: </label>
+				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Confirm Password: </label>
 					<input type="password" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleConfirmPassword" placeholder="Confirm Password" name="confirm_password" value="{{ old('password') }}"> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div> {{-- Role --}}
-				<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Role: </label>
+				<div class="col-sm-7 mb-3 mb-sm-0"> <span style="color:red;">*</span>Role: </label>
 					<select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
 						<option selected disabled>Select Role</option>
 						@foreach ($roles as $role)
