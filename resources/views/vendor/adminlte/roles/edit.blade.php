@@ -45,8 +45,28 @@ $old = Role::find($role);
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    {{-- Guard Name --}}
                     <div class="col-sm-6 mb-3 mb-sm-0">
+                        <span style="color:red;">*</span>Display Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-user @error('name') is-invalid @enderror" 
+                            id="display_name"
+                            placeholder="Name" 
+                            name="display_name" 
+                            value="{{ $old['display_name'] }}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        Description</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-user @error('name') is-invalid @enderror" 
+                            id="description"
+                            placeholder="Name" 
+                            name="description" 
+                            value="{{ $old['description'] }}">
+                    </div>
+                    {{-- Guard Name --}}
+                    <div class="col-sm-6 mb-3 mb-sm-0" style="display: none;">
                         <span style="color:red;">*</span>Guard Name</label>
                         <select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
                             <option selected disabled>Select Guard Name</option>

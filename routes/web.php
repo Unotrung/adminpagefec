@@ -45,7 +45,7 @@ Route::group(['middleware' => ['role:super admin']], function (){
     Route::post('/users/removerole', [App\Http\Controllers\UsersController::class, 'removeRole'])->name('user.removerole');
 });
 
-Route::post('/modules/givepermission', [App\Http\Controllers\ModuleController::class, 'givePermission'])->name('modules.givepermission');
+Route::post('/modules/givepermission', [App\Http\Controllers\ModuleController::class, 'givePermissionTo'])->name('modules.givepermission');
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
 });
@@ -247,6 +247,7 @@ Route::group(['middleware' => ['role:admin||super admin']], function () {
     Route::post('/roles/delete', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.delete');
     Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
     Route::post('/providers/delete', [App\Http\Controllers\ProviderController::class, 'destroy'])->name('providers.delete');
+    Route::get('/users/restore/{id}', [App\Http\Controllers\UsersController::class, 'restore'])->name('users.restore');
 });
 
 //Providers

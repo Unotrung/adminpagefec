@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('title', 'Roles')
+@section('css')
+    <link rel="stylesheet" href="/css/app.css">
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+@stop
 
 
 @section('css')
@@ -22,43 +33,41 @@
 
 @section('content_header')
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Roles</h1>
         <a href="{{route('roles.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus"></i> Add New
+            <i class="fas fa-plus"></i> Add
         </a>
     </div>
+</div>
 @stop
 
 @section('content')
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">All Roles</h6>
-            
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body" style="overflow-x: scroll;">
+              <table class="table table-bordered table-striped" id="example1">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Display Name</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr></tr>
+                </tbody>
+              </table>
+          </div>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="example1" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Guard Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
+      </div>
     </div>
-
 </div>
 <script>
   @if(Session::has('success'))
@@ -86,6 +95,8 @@
       toastr.success("{{ session('delete') }}");
   @endif
 </script>
+</div>
+</section>
 @endsection
 
 @section('js')
@@ -114,7 +125,8 @@ var editor;
         "ajax": "{{ route('roles.dtajax') }}",
         columns: [
           {data: 'name', name: 'name'},
-          {data: 'guard_name', name: 'guard_name'},
+          {data: 'display_name', name: 'display_name'},
+          {data: 'description', name: 'description'},
           {
                   data: 'action', 
                   name: 'action', 

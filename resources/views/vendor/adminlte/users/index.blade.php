@@ -120,7 +120,7 @@
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
           {data: 'delete_at', name: 'status', render: function(data){
-            return (data==1)?"<span class='badge bg-danger'> Deleted</span>":"";
+            return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
           }},
           {data: 'created_at', name: 'created_at'},
           {

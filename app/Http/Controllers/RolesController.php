@@ -55,6 +55,8 @@ class RolesController extends Controller
     {
         $role = new Role;
         $role->name = $request->name;
+        $role->display_name = $request->display_name;
+        $role->description = $request->description;
         $role->guard_name = $request->guard_name;
 
         $role->save();
