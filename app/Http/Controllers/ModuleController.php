@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Modules;
 use DataTables;
 use App\Models\Role;
+use App\Models\User;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ModuleController extends Controller
 {
@@ -18,7 +20,8 @@ class ModuleController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        return view('vendor.adminlte.modules.index',['permissions'=>$permissions]);
+        $users = User::all();
+        return view('vendor.adminlte.modules.index',['permissions'=>$permissions,'users'=>$users]);
     }
 
     /**
@@ -100,6 +103,19 @@ class ModuleController extends Controller
         $module->save();
             
         return redirect()->route('modules.index')->with('success','modules updated successfully.');
+    }
+
+    public function givePermissionTo(Request $request)
+    { 
+        $array = $request->total;
+        $id = $request->total[0];
+        $user = User::find($id)->get();
+        unset($array[0]);
+        foreach ($array as $ele){
+            return $ele;
+            $user->givePermissionTo($ele);
+        }
+        return redirect()->route('modules.index');
     }
 
     /**

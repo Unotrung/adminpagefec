@@ -177,23 +177,30 @@
 <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 
 <!-- Page specific script -->
 <script>
-var editor;
-  $(function () {
-    $("#example1").DataTable({
+
+$(document).ready(function(){
+  fill_datatable();
+  function fill_datatable(name = '',action='',phone='',from_date = '', to_date = '')
+{
+  var dataTable = $("#example1").DataTable({
       processing: true,
         serverSide: true,
         searching: false,
-        "ajax": "{{ route('bnpl.dtajax') }}",
+        ajax: {
+          url:"{{ route('bnpl.dtajax') }}",
+          data:{name:name , action:action, phone:phone ,from_date:from_date, to_date:to_date}
+        },
         columns: [
-          {data: 'name', name: 'name'},
-          {data: 'phone', name: 'phone'},
-          {data: 'createdAt', name: 'issueDate',
+          {data: 'name', name: 'Name'},
+          {data: 'phone', name: 'Phone'},
+          {data: 'createdAt', name: 'Date Regis',
             render: function ( data, type, row ) {
-              console.log(data);
               if ( type === 'display' || type === 'filter' ) {
                   var d = new Date( data.milliseconds*1);
                   return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
@@ -222,28 +229,23 @@ var editor;
           {
             "defaultContent": "<i>Waiting</i>"
           },
-          {
-                  data: 'action', 
-                  name: 'action', 
-                  orderable: true, 
-                  searchable: true
-          },
         ],
     });
+}
+    
 
     $('#filter').click(function(){
     var name = $('#name').val();
-    //var status = $('#status').val();
     var phone = $('#phone').val();
     var from_date = $('#from_date').val();
     var to_date = $('#to_date').val();
+    console.log(name);
     $('#example1').DataTable().destroy();
     fill_datatable(name,action="search",phone,from_date, to_date);
 });
 
 $('#reset').click(function(){
     $('#name').val('');
-    //$('#status').val('');
     $('#phone').val('');
     $('#from_date').val('');
     $('#to_date').val('');

@@ -29,10 +29,17 @@
               </a>
           </div>
             <div class="card">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">
                 <table id="example1" class="table table-bordered table-striped" style="width:100%" cellspacing="0">
                   <thead>
+                  <label for="users" style="width:15%; margin-left: 200px;">Choose a user:</label>
+                <select id="user" style="width:30%; margin: right auto;">
+                  @foreach ($users as $user)
+                  <option value="{{$user['id']}}">{{$user['name']}}</option>
+                  @endforeach
+                </select>
                   <tr>
                     <th width="40%">Module</th>
                     <th>View</th>
@@ -42,12 +49,23 @@
                     <th>Previlege Fields</th>
                   </tr>
                   </thead>
-                  <tbody >
+                  <tbody>
                   </tbody>
                 </table>
+                <fieldset class="fields">
+                    <div class= "card">
+                    <label for="coupon_field">Name</label>
+                    <input type="text" name="coupon_field" id="coupon_field" style="width:40%"/>
+                    <label for="coupon_field">Phone</label>
+                    <input type="text" name="coupon_field" id="coupon_field" style="width:40%"/>
+                    </div>
+                  </fieldset>
               </div>
               <!-- /.card-body -->
             </div>
+            <button type="submit" name="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+                    Save
+            </button>
             <!-- /.card -->
           </div>
           <!-- /.col -->
@@ -79,10 +97,9 @@
 
 <!-- Page specific script -->
 <script>
-var editor;
-var table = "";
+$(".fields").hide();
   $(function () {
-    let table = $("#example1").DataTable({
+    var table = $("#example1").DataTable({
       processing: true,
         serverSide: true,
         "ajax": "{{ route('modules.dtajax') }}",
@@ -91,10 +108,11 @@ var table = "";
           {
               data: 'module', 
               name: 'action', 
+              targets: 0,
               orderable: false, 
               searchable: false,
-              render: function (data, type, full, meta){
-                return '<input type="checkbox" id="checkbox1" value="View '+ data +'"  onclick="handleClick(this.value,this.id);">';
+              render: function (data, type, row, meta){
+                return '<input type="checkbox" name="View" value="'+ data +'" onclick="handleClick(this.value,this.name);">';
               }
           },
           {
@@ -103,7 +121,16 @@ var table = "";
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" id="checkbox2" value="Create '+ data +'" onclick="handleClick(this.value,this.id);">';
+                return '<input type="checkbox" id="checkbox2" name="Create" value="'+ data +'" onclick="handleClick(this.value,this.name);">';
+              }
+          },
+          {
+              data: 'module', 
+              name: 'action', 
+              orderable: false, 
+              searchable: false,
+              render: function (data, type, row, meta){
+                return '<input type="checkbox" id="checkbox3" name="Update"  value="'+ data +'" onclick="handleClick(this.value,this.name);">';
               }
           },
           {
@@ -112,7 +139,7 @@ var table = "";
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" id="checkbox3" value="Update '+ data +'" onclick="handleClick(this.value,this.id);">';
+                return '<input type="checkbox" id="checkbox4" name="Delete"  value="'+ data +'" onclick="handleClick(this.value,this.name);">';
               }
           },
           {
@@ -120,36 +147,55 @@ var table = "";
               name: 'action', 
               orderable: false, 
               searchable: false,
-              render: function (data, type, full, meta){
-                return '<input type="checkbox" id="checkbox4" value="Delete '+ data +'" onclick="handleClick(this.value,this.id);">';
-              }
-          },
-          {
-              data: 'module', 
-              name: 'action', 
-              orderable: false, 
-              searchable: false,
-              render: function (data, type, full, meta){
-                return '<input id="checkbox5" class="toggle-adv-access btn btn-default btn-sm hide_row" type="checkbox" name="checkbox5" value="'+data+'" onclick="handleClick(this.name);">';        
+              render: function (data, type, row, meta){
+                return '<input id="checkbox5" class="toggle-adv-access btn btn-default btn-sm hide_row" type="checkbox" name="check['+data+']" value="'+row+'" onclick="FieldsClick(this.name);">';        
               }
           },
         ],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 });
-for (var i = 0; i <= $("#example1_wrapper").length; i++){
-  function handleClick(value,id) {
-  console.log($("#example1").length);
-  if(document.getElementById(id).checked){
-    $(".box").show();
-    console.log(value);
-  }
-  else {
-    $(".box").hide();
+var user_id = "";
+var total = [];
+
+function handleClick(value,name) {
+  if($('input[name="'+name+'"]').is(":checked")){
+    if(user_id != null && total.includes("user_id") === false){
+      total.push(user_id);
+    }
+    total.push(name +" "+value);
+    console.log(total);
   }
 }
 
-};
+$(function () {
+    $("select").on('change',function(){
+        var selectedCountry = $(this).children("option:selected").val();
+        user_id = $(this).val();
+    });
+});
 
+function FieldsClick(name) {
+  if($('input[name="'+name+'"]').is(":checked")){
+    $(".fields").show();
+  }
+  else{
+    $(".fields").hide();
+  }
+}
+
+$(function () {
+  $('button').on('click', function (){
+    $.ajax({
+      headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      type: "POST",
+      url: "{{ route('modules.givepermission') }}",
+      data: { total },
+      success:function(response){
+    }
+  })
+})
+});
 </script>
 
 @stop

@@ -83,6 +83,7 @@ class BnplController extends Controller
         return view('vendor.adminlte.bnpl.bnpl',['bnpl'=>$bnpl,'identify'=>$identify_array,'phone'=>$phone_array,'name'=>$name_array]);
     }
 
+
     // public function destroy($id)
     // {
     //     $promotion = News::find($id);
@@ -105,7 +106,7 @@ class BnplController extends Controller
                     $bnpl->whereBetween("createdAt", [$from, $to]);
                     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
                 }
-                $out =  Datatables::of(Bnpl::All())->make(true);
+                $out =  Datatables::of($bnpl->get())->make(true);
                 $data = $out->getData();
                 for($i=0; $i < count($data->data); $i++) {
                 $output = '';
