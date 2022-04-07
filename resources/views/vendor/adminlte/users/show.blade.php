@@ -70,7 +70,7 @@
                 "closeButton" : true,
                 "progressBar" : true
             }
-                toastr.success("{{ session('success') }}");
+            toastr.success("{{ session('success') }}");
         @endif
     </script>
 </section>

@@ -6,7 +6,7 @@
 <div class="container-fluid">
     
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h2 class="h3 mb-0 text-gray-800">Create New User</h2>
+            <h2 class="h3 mb-0 text-gray-800">Add User</h2>
             <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('users') }}"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
@@ -24,7 +24,7 @@
 
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">Add New User</h6> </div>
+		<h6 class="m-0 font-weight-bold text-primary"></h6> </div>
 	<div class="card-body">
 		<form method="post" action="{{route('users.store')}}"> 
 			@csrf

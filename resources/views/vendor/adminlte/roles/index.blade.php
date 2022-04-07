@@ -11,25 +11,12 @@
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-@stop
-
-
-@section('css')
-    <link rel="stylesheet" href="/css/app.css">
-    <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" 
      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 @stop
-
 
 @section('content_header')
 <div class="container-fluid">
@@ -76,7 +63,7 @@
     "closeButton" : true,
     "progressBar" : true
   }
-      toastr.success("{{ session('success') }}");
+  toastr.success("{{ session('success') }}");
   @endif
   @if(Session::has('ad'))
   toastr.options =
@@ -95,7 +82,6 @@
       toastr.success("{{ session('delete') }}");
   @endif
 </script>
-</div>
 </section>
 @endsection
 

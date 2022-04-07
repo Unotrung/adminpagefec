@@ -84,7 +84,7 @@
 
                 {{-- Save Button --}}
                 <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
-                    Save
+                    Submit
                 </div>
                 <div class="modal" id="demoModal">
                     <div class="modal-dialog">
