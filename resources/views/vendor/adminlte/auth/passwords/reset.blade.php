@@ -20,7 +20,7 @@
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                   value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" style="display: none;" autofocus>
+                   value="{{ $email }}" placeholder="{{ __('adminlte::adminlte.email') }}" style="display: none;" autofocus>
 
             <div class="input-group-append" style="display: none;">
                 <div class="input-group-text">
@@ -56,7 +56,7 @@
         <div class="input-group mb-3">
             <input type="password" name="password_confirmation"
                    class="form-control @error('password_confirmation') is-invalid @enderror"
-                   placeholder="Retype new Password">
+                   placeholder="Retype New Password">
 
             <div class="input-group-append">
                 <div class="input-group-text">
