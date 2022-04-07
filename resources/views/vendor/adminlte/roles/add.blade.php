@@ -23,7 +23,16 @@
             <form method="POST" action="{{route('roles.store')}}">
                 @csrf
                 <div class="form-group row">
-
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <span style="color:red;">*</span>Display Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-user @error('name') is-invalid @enderror" 
+                            id="display_name"
+                            placeholder="Display Name" 
+                            name="display_name" 
+                            value="">
+                    </div>
                     {{-- Name --}}
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         <span style="color:red;">*</span>Name</label>
@@ -33,17 +42,8 @@
                             id="exampleName"
                             placeholder="Name" 
                             name="name" 
-                            value="">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                    <span style="color:red;">*</span>Display Name</label>
-                        <input 
-                            type="text" 
-                            class="form-control form-control-user @error('name') is-invalid @enderror" 
-                            id="display_name"
-                            placeholder="Display Name" 
-                            name="display_name" 
-                            value="">
+                            value=""
+                            readonly>
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         Description</label>
@@ -83,3 +83,10 @@
 
 
 @endsection
+
+
+<script>
+        $('#display_name').on('change', function(){
+        console.log($('#display_name').val());
+    });
+</script>

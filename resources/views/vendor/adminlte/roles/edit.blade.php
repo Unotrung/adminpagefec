@@ -20,7 +20,7 @@ $old = Role::find($role);
 
 @section('content')
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-6">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Edit Role</h6>
         </div>
@@ -29,7 +29,16 @@ $old = Role::find($role);
                 @csrf
                 @method('POST')
                 <div class="form-group row">
-
+                    <div class="col-sm-6 mb-3 mb-sm-0">
+                        <span style="color:red;">*</span>Display Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-user @error('name') is-invalid @enderror" 
+                            id="display_name"
+                            placeholder="Name" 
+                            name="display_name" 
+                            value="{{ $old['display_name'] }}">
+                    </div>
                     {{-- Name --}}
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         <span style="color:red;">*</span>Name</label>
@@ -44,16 +53,6 @@ $old = Role::find($role);
                         @error('name')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <span style="color:red;">*</span>Display Name</label>
-                        <input 
-                            type="text" 
-                            class="form-control form-control-user @error('name') is-invalid @enderror" 
-                            id="display_name"
-                            placeholder="Name" 
-                            name="display_name" 
-                            value="{{ $old['display_name'] }}">
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         Description</label>
