@@ -83,7 +83,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-							<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Submit </div>
+							<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Update </div>
 							<div class="modal" id="demoModal">
 								<div class="modal-dialog">
 									<div class="modal-content">
