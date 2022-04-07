@@ -6,7 +6,14 @@
     img  {
   float: left;
 }
-    </style>
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" 
+   href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<!-- Theme style -->
+<link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+@stop
 @section('content_header')
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4"> 
@@ -31,11 +38,11 @@
         </div>
         <div class="card-body">
             <p>
-            <div class="col-md-4">
+            <div class="col-md-6">
                     <table class="table table-bordered table-striped" id="user">
                         <tbody>
                             <tr>
-                                <td>Name:</td>
+                                <td>Full name:</td>
                                 <td>{{ $user->name }}</td>
                             </tr>
                             <tr>
@@ -56,5 +63,15 @@
             </div>
         </div>
     </div>
+    <script>
+         @if(Session::has('success'))
+            toastr.options =
+            {
+                "closeButton" : true,
+                "progressBar" : true
+            }
+                toastr.success("{{ session('success') }}");
+        @endif
+    </script>
 </section>
 @endsection

@@ -83,7 +83,23 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-							<button type="submit" class="btn btn-primary" onClick="btnSubmit(this.value)">Submit</button>
+							<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Submit </div>
+							<div class="modal" id="demoModal">
+								<div class="modal-dialog">
+									<div class="modal-content">
+									<!-- Modal Header -->
+									<div class="modal-header">
+										<h4 class="modal-title">Do you want to submit? </h4>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<!-- Modal footer -->
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-danger">Yes</button>
+										<button type="button" class="btn" data-dismiss="modal">No</button>
+									</div>
+									</div>
+							</div>
+							</div>
 						</div>
 					</form>
 				</div>

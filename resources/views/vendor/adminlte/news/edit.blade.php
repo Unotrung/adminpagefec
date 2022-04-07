@@ -2,35 +2,21 @@
 
 @section('title', 'Edit News')
 
+@php
+use App\Models\News; 
+$new = News::find($news);
+@endphp
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 @stop
-@section('content_header')
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-5">
-            <h1 class="m-0">New</h1>
-            <small class="text-muted"><cite title="Source Title">News Editor</cite></small>
-          </div><!-- /.col -->
-          <div class="col-sm-7">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">New</li>
-              <li class="breadcrumb-item active">Edit</li>
-            </ol>
-          </div><!-- /.col -->
-          <!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-@stop
-        @section('content')
-        <div class="card shadow mb-4">
-            <form method="POST" action="{{route('news.update')}}">
+@section('content')
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Edit News</h6>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="card-body">
@@ -70,10 +56,11 @@
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
-                      <div id="img-preview"><img class=" col-md-10 fvalue" src="{{ asset("./ImagesNews/$new->Image") }} " alt=""></div>
-                      
-                        <label for="file_Edit_News" class="btn btn-primary col-md-10 fvalue">Change image</label>
-                        <input id="file_Edit_News" name="Img_Edit" placeholder="Image" style="visibility:hidden;" type="file">
+                      <div id="img-preview">
+                        <img class=" col-md-10 fvalue" src="{{ asset("./ImagesNews/$new->Image") }} " alt="">
+                      </div>
+                      <label for="file_Edit_News" class="btn btn-primary col-md-10 fvalue">Change image</label>
+                      <input id="file_Edit_News" name="Img_Edit" placeholder="Image" style="visibility:hidden;" type="file">
                     </div>
                   </div>
                 </div>
