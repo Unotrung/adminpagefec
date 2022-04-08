@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Maklad\Permission\PermissionServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
     ],
 
@@ -235,6 +236,7 @@ return [
         'permission' => Maklad\Permission\Middlewares\PermissionMiddleware::class,
         'role'       => Maklad\Permission\Middlewares\RoleMiddleware::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ],
 
 ];

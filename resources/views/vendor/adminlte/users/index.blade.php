@@ -46,10 +46,10 @@
               <div class="card-body" >
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-
                   <tr>
                     <th>Full Name</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Status</th>
                     <th>Created Time</th>
                     <th>Action</th>
@@ -119,6 +119,7 @@
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
+          {data: 'role_ids', name: 'role'},
           {data: 'delete_at', name: 'status', render: function(data){
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
           }},

@@ -284,6 +284,7 @@ return [
         [
             'text'    => 'Team',
             'icon'    => 'fas fa-fw fa-share',
+            'can'     => 'admin-access',
             'submenu' => [
                 [
                     'text' => 'Users',

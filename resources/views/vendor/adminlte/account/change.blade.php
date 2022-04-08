@@ -21,42 +21,58 @@
 @stop
 @section('content')
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.update') }}">
+       <!-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> -->
+       <div class="container-fluid">
+        <div class="card">
+          <div class="card-header">
+        <form method="POST" action="{{ route('password.edit') }}">
             @csrf
-
             <!-- Password Reset Token -->
-            <input type="hidden" name="token" value="{{ Auth::user()->remember_token }}">
+            <input type="hidden" name="token" value="{{ csrf_token() }}">
 
             <!-- Email Address -->
-            <div class="mt-4" style="width:30%; display:block;">
+            <div class="mt-4" style="width:30%; display:none;">
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="text" name="email" value="" required />
+                <x-input id="email" class="block mt-1 w-full" type="text" name="email" value="{{Auth::user()->email}}" required />
+            </div>
+
+             <!-- Old Password -->
+             <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
+                <x-label for="current_password" :value="__('Current Password')" />
+
+                <x-input id="current_password" class="block mt-1 w-full" type="password" name="current_password" required />
             </div>
 
             <!-- Password -->
-            <div class="mt-4" style="width:30%; display:block;">
-                <x-label for="password" :value="__('Password')" />
+            <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
+                <x-label for="password" :value="__('New Password')" />
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+                <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
 
             <!-- Confirm Password -->
-            <div class="mt-4" style="width:30%; display:block;">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+            <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
+                <x-label for="password" :value="__('Confirm New Password')" />
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
+                <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror"
                                     type="password"
-                                    name="password_confirmation" required />
+                                    name="password_confirmation" required autocomplete="current-password"/>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="mt-4" style="width:18%; margin-left: auto;margin-right: auto;">
                 <x-button>
-                    {{ __('Reset Password') }}
+                    {{ __('Change Password') }}
                 </x-button>
             </div>
         </form>
-        @stop
+      </div>
+    </div>
+</div>
 </x-guest-layout>
+@endsection

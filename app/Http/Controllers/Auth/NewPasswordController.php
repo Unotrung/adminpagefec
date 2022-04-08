@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
+use RealRashid\SweetAlert\Facades\Alert;
+use Auth;
+
 
 class NewPasswordController extends Controller
 {
@@ -33,6 +36,7 @@ class NewPasswordController extends Controller
      */
     public function store(Request $request)
     {
+        print_r($request);
         $request->validate([
             'token' => ['required'],
             'email' => ['required', 'email'],
@@ -61,5 +65,31 @@ class NewPasswordController extends Controller
                     ? redirect()->route('login')->with('status', __($status))
                     : back()->withInput($request->only('email'))
                             ->withErrors(['email' => __($status)]);
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+          'current_password' => 'required',
+          'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            Alert::error('Error!!', 'Your current password is wrong!');
+            return back();
+        }
+        
+        // if (Hash::check($new_password, $password_confirm)){
+        //     Alert::error('Error!!', 'Your new password and password confirm did not match!');
+        //     return back();
+        // }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+        
+        Alert::success('Success!!', 'Password changed successfully!!');
+        return redirect()->route('users');
     }
 }

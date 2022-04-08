@@ -159,6 +159,13 @@ class UsersController extends Controller
                     $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                     $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-sync"></i></a>';
                 }
+                if(empty($data->data[$i]->role_ids)){
+                    $data->data[$i]->role_ids = "";
+                }
+                else{
+                    $role_data = Role::find($data->data[$i]->role_ids);
+                    $data->data[$i]->role_ids = $role_data[0]['display_name'];
+                }
                $data->data[$i]->action = (string)$output;
                 if(empty($data->data[$i]->status)){
                     $data->data[$i]->status = "";
