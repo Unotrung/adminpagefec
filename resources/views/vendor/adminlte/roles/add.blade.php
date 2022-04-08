@@ -15,7 +15,7 @@
 @stop
 @section('content')
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
+    <div class="card shadow md-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Add New Role</h6>
         </div>
@@ -23,30 +23,37 @@
             <form method="POST" action="{{route('roles.store')}}">
                 @csrf
                 <div class="form-group row">
-
+                    <div class="input-group mb-3 ">
+                        <input 
+                            type="text" 
+                            class="form-control form-control-user @error('name') is-invalid @enderror" 
+                            id="display_name"
+                            placeholder="Display Name" 
+                            name="displayName" 
+                            value="" autofocus>
+                            <div class="input-group-append">
+						        <div class="input-group-text">
+                                <span class="fas fa-user-tag "></span>
+                            </div>
+                        </div>
+                    </div>
                     {{-- Name --}}
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <span style="color:red;">*</span>Name</label>
+                    <div class="input-group mb-3 ">
                         <input 
                             type="text" 
                             class="form-control form-control-user @error('name') is-invalid @enderror" 
                             id="exampleName"
                             placeholder="Name" 
                             name="name" 
-                            value="">
+                            value=""
+                            readonly>
+                            <div class="input-group-append">
+						        <div class="input-group-text">
+                                <span class="fas fa-signature "></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                    <span style="color:red;">*</span>Display Name</label>
-                        <input 
-                            type="text" 
-                            class="form-control form-control-user @error('name') is-invalid @enderror" 
-                            id="display_name"
-                            placeholder="Display Name" 
-                            name="display_name" 
-                            value="">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        Description</label>
+                    <div class="input-group mb-3 ">
                         <input 
                             type="text" 
                             class="form-control form-control-user @error('name') is-invalid @enderror" 
@@ -54,6 +61,11 @@
                             placeholder="Description" 
                             name="description" 
                             value="">
+                            <div class="input-group-append">
+						        <div class="input-group-text">
+                                <span class="fas fa-scroll"></span>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -99,3 +111,13 @@
 
 
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#display_name').on('change', function(){
+        console.log($('#display_name').val());
+        $('#exampleName').val($('#display_name').val());
+    });
+});
+</script>

@@ -41,8 +41,8 @@
               <table class="table table-bordered table-striped" id="example1">
                 <thead>
                   <tr>
+                  <th>Display Name</th>
                     <th>Name</th>
-                    <th>Display Name</th>
                     <th>Description</th>
                     <th>Action</th>
                   </tr>
@@ -110,8 +110,8 @@ var editor;
         serverSide: true,
         "ajax": "{{ route('roles.dtajax') }}",
         columns: [
-          {data: 'name', name: 'name'},
           {data: 'display_name', name: 'display_name'},
+          {data: 'name', name: 'name'},
           {data: 'description', name: 'description'},
           {
                   data: 'action', 
