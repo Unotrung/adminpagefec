@@ -89,7 +89,6 @@ $config = [
                       <label for="inputEmail3" class="col-sm-2 col-form-label">URL</label>
                       <div class="col-sm-10">
                       <div class="col-md-10 fvalue">{{$news->URL}} &nbsp; <a style="text-decoration: none; color: white; background-color: rgb(63, 62, 62)"> Get URL</a></div>
-                      
                       </div>
                     </div>
                     <div class="form-group row">

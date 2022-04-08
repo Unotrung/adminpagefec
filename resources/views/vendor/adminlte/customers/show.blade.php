@@ -82,6 +82,12 @@ $config = [
                       <div class="col-md-10 fvalue">{{$cus->phone}}</div>
                     </div>
                   </div>
+                  <div class="form-group row">
+                    <label for="inputPassword4" class="col-sm-2 col-form-label">Resent OTP</label>
+                     <div class="col-sm-10">
+                     <button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success">Send OTP</button>
+                     </div>
+                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

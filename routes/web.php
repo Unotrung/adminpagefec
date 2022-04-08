@@ -52,7 +52,9 @@ Route::get('/account/show', function(){
 Route::get('/account/change', function(){
     return view('vendor.adminlte.account.change');
 });
-
+Route::get('/configuration/index', function(){
+    return view('vendor.adminlte.configuration.index');
+});
 //BNPL
 Route::group(['middleware' => ['role:admin|super admin']], function (){
     Route::group(['middleware' => ['permission:update']], function () {

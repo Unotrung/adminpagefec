@@ -43,7 +43,6 @@ class NewsController extends Controller
         $news->Description = $request->Description_Create;
         $news->URL = $request->Url_Create;
         //$news->Image = $request->Img_Create;
-
         $inputImg = $request->Img_Create;
         $extension = $request->Img_Create->extension();
         $imgName = time().'-1.'.$extension;

@@ -131,9 +131,6 @@ class UsersController extends Controller
         $user->save();
         return redirect()->route('users')->with('User deleted successfull');
 
-        $user->delete_at = 1;
-        $user->save();
-        return redirect()->route('users')->with('User Inactive successfull');
     }
 
     public function restore($id)
@@ -170,12 +167,44 @@ class UsersController extends Controller
                 if(empty($data->data[$i]->status)){
                     $data->data[$i]->status = "";
                 }
-                if(empty($data->data[$i]->phone)){
-                    $data->data[$i]->phone = "";
+                if(!empty($request->reservation)) {
+                    if(!empty($request->name)){
+                    $date = explode(" - ",$request->reservation);
+                    $from = Carbon::parse($date[0]);
+                    $to = Carbon::parse($date[1].' 23:59');
+                    $user->whereBetween("created_at", [$from,$to]);
+                    // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
+                    }
+                    else
+                    {
+                        $out =  Datatables::of(User::where("_id",1)->get())->make(true);
+                        return $out;      
+                    }
                 }
-            }
-           $out->setData($data);
-           return $out;
+                $out =  Datatables::of($user->get())->make(true);
+                $data = $out->getData();   
+                for($i=0; $i < count($data->data); $i++) {
+                    $output = '';
+                        if(empty($data->data[$i]->delete_at)){
+                            $data->data[$i]->delete_at = "";
+                            $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                            $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                            $output .= ' <a href="'.url(route('users.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-ban"></i></a>';
+                        }else{
+                            $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                            $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-sync"></i></a>';
+                        }
+                        $data->data[$i]->action = (string)$output;
+                        if(empty($data->data[$i]->status)){
+                            $data->data[$i]->status = "";
+                        }
+                        if(empty($data->data[$i]->phone)){
+                            $data->data[$i]->phone = "";
+                        }
+                    }
+                $out->setData($data);
+                return $out;
+            
         }
     }
 
