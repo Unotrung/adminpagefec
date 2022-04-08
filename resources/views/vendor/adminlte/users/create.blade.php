@@ -11,7 +11,7 @@
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
 
-@if (count($errors) > 0)
+{{-- @if (count($errors) > 0)
   <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
@@ -20,7 +20,7 @@
        @endforeach
     </ul>
   </div>
-@endif
+@endif --}}
 
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
@@ -109,7 +109,14 @@
 						@foreach ($roles as $role)
 							<option value="{{$role->name}}">{{$role->name}}</option>
 						@endforeach
-					</select> @error('name') <span class="text-danger">{{$message}}</span> @enderror </div>
+					</select> 
+					
+					@error('name') 
+					<span class="invalid-feedback" role="alert">
+							<strong>{{ $message }}</strong>
+						</span>
+					@enderror 
+				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 text-center">
 				<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block">

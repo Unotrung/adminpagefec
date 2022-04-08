@@ -5,6 +5,7 @@ use App\Models\Notifications;
 use App\Models\Promotions;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class NotificationsController extends Controller
 {
@@ -37,9 +38,16 @@ class NotificationsController extends Controller
     public function store(Request $request)
     {
         $not = new Notifications;
+        $not->Type = $request->type_notic;
         $not->Title = $request->Title;
         $not->Content = $request->Content;
         $not->Description = $request->Description;
+        $inputImg = $request->Img_Create;
+        $extension = $request->Img_Create->extension();
+        $imgName = time().'-1.'.$extension;
+        $inputImg->move(public_path('ImagesNotifications'), $imgName);
+        $request->Img_Create = $imgName;
+        $not->Image = $request->Img_Create;
         $not->save();
         return redirect()->route("notifications.index")->with('Create news successfully');
     }

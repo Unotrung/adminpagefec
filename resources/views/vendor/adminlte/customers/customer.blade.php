@@ -11,6 +11,12 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <link href="toastr.css" rel="stylesheet"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" 
+     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  
 @stop
 @php
   $customers = App\Models\Customer::all();
@@ -61,25 +67,8 @@
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="" name="email" value="">  <span class="text-danger"></span> </div> 
 							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Phone: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="phone" placeholder="" name="phone" value="">  <span class="text-danger"></span> </div> 
-              <!-- <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>From Date </label>
-                <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="from_date" placeholder="" name="from_date" value="">  <span class="text-danger"></span> </div> 
-              <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>To Date </label>
-               <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="to_date" placeholder="" name="to_date" value="">  <span class="text-danger"></span> </div>  -->
                <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Date Range: </label>
 								<input type="text" class="form-control float-right" id="reservation" placeholder="" name="reservation" value="">  <span class="text-danger"><i class="far fa-calendar-alt"></i></span> </div> 
-                <!-- <div class="form-group">
-                    <label>Date range:</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="far fa-calendar-alt"></i>
-                        </span>
-                      </div>
-                      <input type="text" class="form-control float-right" id="reservation">
-                    </div>
-
-                </div>
-               </div> -->
               <div class="col-sm-1 mb-1 mb-sm-0 p-0">
                 <div class="mt-4"></div>
                   <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
@@ -139,6 +128,7 @@
 <script src="../../plugins/moment/moment.min.js"></script>
 <script src="../../dist/js/adminlte.min.js"></script>
 <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<script src="toastr.js"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
@@ -151,7 +141,7 @@
 
 $(document).ready(function(){
 fill_datatable();
-$('#reservation').attr('readonly', true);
+$('#reservation').daterangepicker().val('');
 function fill_datatable(username = '',email=  '',action='',phone='',reservation = '')
 {
     var dataTable = $('#example1').DataTable({
@@ -195,26 +185,41 @@ function fill_datatable(username = '',email=  '',action='',phone='',reservation 
         ]
     });
 }
-
-$('#username').on('change',function(){
-  var user = $('#username').val();
-  if(user != ''){
-    $('#reservation').daterangepicker().val('').attr('readonly', false);
-  }
-});
-
-
 $('#filter').click(function(){
     var username = $('#username').val();
     var email = $('#email').val();
     var phone = $('#phone').val();
     var reservation = $('#reservation').val();
     // var to_date = $('#to_date').val();
-    $('#example1').DataTable().destroy();
-    fill_datatable(username,email,action="search",phone,reservation);
+    if(reservation != '' &&  username == '')
+    {
+      toastr["error"]("Please select username!")
+      toastr.options = {
+        "closeButton": false,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
+    }
+    else
+    {
+      $('#example1').DataTable().destroy();
+      fill_datatable(username,email,action="search",phone,reservation);
+    }
 });
 
-$('#reset').click(function(){
+$('#reset').click(function(){ 
     $('#username').val('');
     $('#email').val('');
     $('#phone').val('');

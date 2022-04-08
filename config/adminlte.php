@@ -258,8 +258,23 @@ return [
         ],
         [
             'text' => 'Notifications',
-            'url'  => 'notifications/index',
+            // 'url'  => 'notifications/index',
             'icon' => 'nav-icon fas fa-solid fa-bell',
+            'submenu' => [
+                [
+                    'text' => 'Notifications List',
+                    'url'  => 'notifications/index',
+                    'icon' => 'nav-icon fa-solid fa-list',
+                ],
+                [
+                    'text' => 'Notifications Push',
+                    'url'  => 'notificationspush/index',
+                ],
+                [
+                    'text' => 'Notifications Tracking',
+                    'url'  => 'notificationstracking/index',
+                ],
+            ],
         ],
         [
             'text' => 'News',
@@ -317,6 +332,11 @@ return [
         [
             'text' => 'change_password',
             'url'  => '/account/change',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Configuration',
+            'url'  => 'configuration/index',
             'icon' => 'fas fa-fw fa-lock',
         ],
     ],

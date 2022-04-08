@@ -14,6 +14,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
 @stop
 @section('content_header')
 <div class="container-fluid">
@@ -45,8 +46,25 @@
               <!-- /.card-header -->
               <div class="card-body" >
                 <table id="example1" class="table table-bordered table-striped">
+                  <div class="form-group row">
+							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Full Name: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="" name="name" value=""> <span class="text-danger"></span>  </div> 
+							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Email: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="" name="email" value="">  <span class="text-danger"></span> </div> 
+							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Status: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="status" placeholder="" name="status" value="">  <span class="text-danger"></span> </div> 
+               <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Date Range: </label>
+								<input type="text" class="form-control float-right" id="reservation" placeholder="" name="reservation" value="">  <span class="text-danger"><i class="far fa-calendar-alt"></i></span> </div> 
+              <div class="col-sm-1 mb-1 mb-sm-0 p-0">
+                <div class="mt-4"></div>
+                  <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
+						  </div>
+              <div class="col-sm-1 mb-1 mb-sm-0 pl-1">
+                <div class="mt-4"></div>
+                  <button type="button" name="reset" id="reset" class="btn btn-default w-100">Reset</button>
+              </div>
+            </div>
                   <thead>
-
                   <tr>
                     <th>Full Name</th>
                     <th>Email</th>
@@ -98,24 +116,30 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE for demo purposes -->
+<script src="../../plugins/moment/moment.min.js"></script>
 <script src="../../dist/js/adminlte.min.js"></script>
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
 
-    <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script> -->
-
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
-  
 <!-- Page specific script -->
 <script>
-  $(function () {
+$(document).ready(function(){
+  fill_datatable();
+  $('#reservation').daterangepicker().val('');
+  function fill_datatable(name = '',email=  '',action='',status='',reservation = '')
+  {
     var table = $("#example1").DataTable({
       lengthChange: true, 
       responsive: true, 
       processing: true,
+      searching: false,
         serverSide: true,
-        ajax: "{{ route('users.dtajax') }}",
+        ajax:{ 
+          url: "{{ route('users.dtajax') }}",
+          data:{name:name , email:email , action:action , status:status ,reservation:reservation}
+        },
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
@@ -136,7 +160,58 @@
         } ]
     });
     table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
+  }
+
+  $('#filter').click(function(){
+    var name = $('#name').val();
+    var email = $('#email').val();
+    var status = $('#status').val();
+    var reservation = $('#reservation').val();
+    // var to_date = $('#to_date').val();
+    if((reservation != '' &&  name == '')||(reservation != '' &&  status == '' )||(reservation != '' &&  email == '' ))
+    {
+      toastr["error"]("Please select Full name or Email or Status to search!")
+      toastr.options = {
+        "closeButton": false,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
+    }
+    else
+    {
+      $('#example1').DataTable().destroy();
+      fill_datatable(name,email,action="search",status,reservation);
+    }
   });
+
+  $('#reset').click(function(){ 
+      $('#name').val('');
+      $('#email').val('');
+      $('#status').val('');
+      $('#reservation').val('');
+      // $('#to_date').val('');
+      $('#example1').DataTable().destroy();
+      fill_datatable();
+  });
+
+});
+
+
+
+
+
 </script>
 
 <!-- <script>

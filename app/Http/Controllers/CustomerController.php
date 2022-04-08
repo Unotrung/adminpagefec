@@ -107,10 +107,10 @@ class CustomerController extends Controller
                     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
                     }
                     else
-                {
-                    $out =  Datatables::of(Customer::where("_id",1)->get())->make(true);
-                    return $out;      
-                }
+                    {
+                        $out =  Datatables::of(Customer::where("_id",1)->get())->make(true);
+                        return $out;      
+                    }
                 }
                 $out =  Datatables::of($cus->get())->make(true);
                 $data = $out->getData();        
@@ -155,7 +155,7 @@ class CustomerController extends Controller
             }
             else
             {
-                $out =  Datatables::of(Customer::where("_id",1)->get())->make(true);
+                $out =  Datatables::of(Customer::where("_id",0)->get())->make(true);
                 return $out;      
             }
             
