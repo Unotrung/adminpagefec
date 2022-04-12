@@ -190,7 +190,7 @@ $(document).ready(function(){
   var dataTable = $("#example1").DataTable({
       processing: true,
         serverSide: true,
-        searching: false,
+        searching: true,
         ajax: {
           url:"https://admin-voolo.herokuapp.com/v1/admin/search",
           data:{search:keywork}
@@ -230,8 +230,8 @@ $(document).ready(function(){
           },
           {
             "defaultContent": "<i>null</i>"
-            },
-        ],
+          },
+        ]
     });
 }
     
