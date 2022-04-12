@@ -253,12 +253,19 @@ Route::group(['middleware' => ['role:admin||super admin']], function () {
 });
 
 //Providers
-Route::get('/providers/index', [App\Http\Controllers\ProviderController::class, 'index'])->name('providers.index');
-Route::get('/providers/add', [App\Http\Controllers\ProviderController::class, 'create'])->name('providers.add');
-Route::post('/providers/store', [App\Http\Controllers\ProviderController::class, 'store'])->name('providers.store');
-Route::get('/providers/dtajax', [App\Http\Controllers\ProviderController::class, 'dtajax'])->name('providers.dtajax');
-Route::get('/providers/show', [App\Http\Controllers\ProviderController::class, 'show'])->name('providers.show');
-Route::get('/providers/show/{id}', [App\Http\Controllers\ProviderController::class, 'show'])->name('providers.show');
-Route::get('/providers/edit', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
-Route::get('/providers/edit/{id}', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
-Route::post('/providers/update', [App\Http\Controllers\ProviderController::class, 'update'])->name('providers.update');
+Route::group(['middleware' => ['role:admin||super admin']], function () {
+    Route::group(['middleware' => ['permission:view']], function () {
+        Route::get('/providers/index', [App\Http\Controllers\ProviderController::class, 'index'])->name('providers.index');
+        Route::get('/providers/show', [App\Http\Controllers\ProviderController::class, 'show'])->name('providers.show');
+        Route::get('/providers/show/{id}', [App\Http\Controllers\ProviderController::class, 'show'])->name('providers.show');
+        Route::get('/providers/dtajax', [App\Http\Controllers\ProviderController::class, 'dtajax'])->name('providers.dtajax');
+    });
+    Route::group(['middleware' => ['permission:update']], function () {
+        Route::get('/providers/add', [App\Http\Controllers\ProviderController::class, 'create'])->name('providers.add');
+        Route::post('/providers/store', [App\Http\Controllers\ProviderController::class, 'store'])->name('providers.store');
+        Route::get('/providers/edit', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
+        Route::get('/providers/edit/{id}', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
+        Route::post('/providers/update', [App\Http\Controllers\ProviderController::class, 'update'])->name('providers.update');
+    });
+
+});

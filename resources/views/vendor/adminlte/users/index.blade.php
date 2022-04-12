@@ -144,7 +144,17 @@ $(document).ready(function(){
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
-          {data: 'role_ids', name: 'role'},
+          {data: 'role_ids', name: 'role',render:function(data){
+            var roles = <?php echo $roles; ?>;
+            var display = "";
+            roles.forEach(element => {
+              if(data == element._id){
+                console.log(element.display_name);
+                display = element.display_name;
+              }
+            });
+            return display;
+          }},
           {data: 'delete_at', name: 'status', render: function(data){
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
           }},
