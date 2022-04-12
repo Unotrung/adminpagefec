@@ -14,15 +14,14 @@ class MailController extends Controller
 
     public function mailTemplate()
     {
-        $myEmail = 'vu.nguyen@wolfsolutions.vn';
+        $myEmail = Auth::user()->email;
         $details = [
-            'title' => 'Mail Demo from ItSolutionStuff.com',
-            'url' => 'https://www.itsolutionstuff.com'
+            'title' => 'Mail Demo',
+            'url' => ''
         ];
   
         Mail::to($myEmail)->send(new EmailTemplate($details));
    
-        dd("Mail Send Successfully");
     }
 
     public function txt_mail(Request $request)

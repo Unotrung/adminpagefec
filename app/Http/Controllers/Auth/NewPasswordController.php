@@ -80,11 +80,6 @@ class NewPasswordController extends Controller
             Alert::error('Error!!', 'Your current password is wrong!');
             return back();
         }
-        
-        // if (Hash::check($new_password, $password_confirm)){
-        //     Alert::error('Error!!', 'Your new password and password confirm did not match!');
-        //     return back();
-        // }
 
         $user->password = Hash::make($request->password);
         $user->save();
