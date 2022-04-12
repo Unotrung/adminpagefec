@@ -159,7 +159,10 @@ $(document).ready(function(){
         columnDefs: [ {
         targets: 3,
         render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
-        } ]
+        },{
+          targets: '_all',
+          defaultContent: ""
+        }]
     });
     table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
   }
