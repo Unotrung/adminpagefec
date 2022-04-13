@@ -299,7 +299,7 @@ return [
         [
             'text'    => 'Team',
             'icon'    => 'fas fa-fw fa-share',
-            'can'     => 'admin-access',
+            'can'     => 'users-view',
             'submenu' => [
                 [
                     'text' => 'Users',

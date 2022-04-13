@@ -39,7 +39,7 @@ class UsersController extends Controller
         // $role = Role::all();
         // return view('vendor.adminlte.users.index',['users'=> $users,"role"=>$role]);
 
-        $roles = Role::All();
+        $roles = Role::All()->where('name','!=', 'super admin');
         return view('vendor.adminlte.users.index',['users'=> $users,'roles'=>$roles]);
 
     }
