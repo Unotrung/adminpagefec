@@ -152,14 +152,14 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
 
 //FAQs
 Route::group(['middleware' => ['role:super admin|admin']], function () {
-    Route::group(['middleware' => ['permission:update']], function () {
+    Route::group(['middleware' => ['permission:faqs-update']], function () {
         Route::get('/faqs/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
         Route::get('/faqs/edit/{id}', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
         Route::get('/faqs/add', [App\Http\Controllers\FaqController::class, 'create'])->name('faqs.add');
         Route::post('/faqs/update', [App\Http\Controllers\FaqController::class, 'update'])->name('faqs.update');
         Route::post('/faqs/store', [App\Http\Controllers\FaqController::class, 'store'])->name('faqs.store');
     });
-    Route::group(['middleware' => ['permission:view']], function () {
+    Route::group(['middleware' => ['permission:faqs-view']], function () {
         Route::get('/faqs/index', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
         Route::get('/faqs/show', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
         Route::get('/faqs/show/{id}', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
@@ -168,14 +168,14 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
 });
 //Promotions
 Route::group(['middleware' => ['role:super admin|admin']], function () {
-    Route::group(['middleware' => ['permission:update']], function () {
+    Route::group(['middleware' => ['permission:promotions-update']], function () {
         //Route::get('/promotions/edit', [App\Http\Controllers\PromotionsController::class, 'edit'])->name('promotions.edit');
         Route::get('/promotions/edit/{id}', [App\Http\Controllers\PromotionsController::class, 'edit'])->name('promotions.edit');
         Route::get('/promotions/add', [App\Http\Controllers\PromotionsController::class, 'create'])->name('promotions.add');
         Route::post('/promotions/update', [App\Http\Controllers\PromotionsController::class, 'update'])->name('promotions.update');
         Route::post('/promotions/store', [App\Http\Controllers\PromotionsController::class, 'store'])->name('promotions.store');
     });
-    Route::group(['middleware' => ['permission:view']], function () {
+    Route::group(['middleware' => ['permission:promotions-view']], function () {
         Route::get('/promotions/index', [App\Http\Controllers\PromotionsController::class, 'index'])->name('promotions.index');
         //Route::get('/promotions/show', [App\Http\Controllers\PromotionsController::class, 'show'])->name('promotions.show');
         Route::get('/promotions/show/{id}', [App\Http\Controllers\PromotionsController::class, 'show'])->name('promotions.show');
@@ -200,7 +200,7 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
 });
 //Notifications
 Route::group(['middleware' => ['role:super admin|admin']], function () {
-    Route::group(['middleware' => ['permission:update']], function () {
+    Route::group(['middleware' => ['permission:notifications-update']], function () {
         Route::get('/notifications/add', [App\Http\Controllers\NotificationsController::class, 'create'])->name('notifications.add');
         Route::post('/notifications/store', [App\Http\Controllers\NotificationsController::class, 'store'])->name('notifications.store');
         //Route::get('/notifications/edit', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
@@ -208,7 +208,7 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
         Route::post('/notifications/update', [App\Http\Controllers\NotificationsController::class, 'update'])->name('notifications.update');
         
     });
-    Route::group(['middleware' => ['permission:view']], function () {
+    Route::group(['middleware' => ['permission:notifications-view']], function () {
         Route::get('/notifications/index', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications.index');
         Route::get('/notifications/dtajax', [App\Http\Controllers\NotificationsController::class, 'dtajax'])->name('notifications.dtajax');
         //Route::get('/notifications/show', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
@@ -223,7 +223,7 @@ Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_ema
 Route::get('sendemail','App\Http\Controllers\MailController@mailTemplate')->name('sendemail');
 
 //Modules
-Route::group(['middleware' => ['role:super admin|admin']], function () {
+Route::group(['middleware' => ['role:super admin']], function () {
     Route::group(['middleware' => []], function () {
         Route::get('/modules/add', [App\Http\Controllers\ModuleController::class, 'create'])->name('modules.add');
         Route::get('/modules/edit/{id}', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
@@ -255,13 +255,13 @@ Route::group(['middleware' => ['role:admin||super admin']], function () {
 
 //Providers
 Route::group(['middleware' => ['role:admin||super admin']], function () {
-    Route::group(['middleware' => ['permission:view']], function () {
+    Route::group(['middleware' => ['permission:providers-view']], function () {
         Route::get('/providers/index', [App\Http\Controllers\ProviderController::class, 'index'])->name('providers.index');
         Route::get('/providers/show', [App\Http\Controllers\ProviderController::class, 'show'])->name('providers.show');
         Route::get('/providers/show/{id}', [App\Http\Controllers\ProviderController::class, 'show'])->name('providers.show');
         Route::get('/providers/dtajax', [App\Http\Controllers\ProviderController::class, 'dtajax'])->name('providers.dtajax');
     });
-    Route::group(['middleware' => ['permission:update']], function () {
+    Route::group(['middleware' => ['permission:providers-update']], function () {
         Route::get('/providers/add', [App\Http\Controllers\ProviderController::class, 'create'])->name('providers.add');
         Route::post('/providers/store', [App\Http\Controllers\ProviderController::class, 'store'])->name('providers.store');
         Route::get('/providers/edit', [App\Http\Controllers\ProviderController::class, 'edit'])->name('providers.edit');
