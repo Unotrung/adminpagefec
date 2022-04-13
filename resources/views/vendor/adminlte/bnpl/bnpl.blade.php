@@ -182,6 +182,7 @@
 $(document).ready(function(){
   fill_datatable("a");
   $('#reservation').daterangepicker().val('');
+
   function fill_datatable(name = '',action='',phone='',reservation = '')
   {
   var keywork = (name=='')?((phone=='')?"":phone):name;

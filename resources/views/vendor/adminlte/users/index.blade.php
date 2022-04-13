@@ -46,7 +46,12 @@
               <!-- /.card-header -->
               <div class="card-body" >
                 <table id="example1" class="table table-bordered table-striped">
+<<<<<<< HEAD
                   {{-- <div class="form-group row">
+=======
+                  <!-- 
+<div class="form-group row">
+>>>>>>> cdd087dfb0fec0bc7527abe3962cdac7592fa2a7
 							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Username: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="" name="name" value=""> <span class="text-danger"></span>  </div> 
 							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Email: </label>
@@ -66,6 +71,7 @@
                   <button type="button" name="reset" id="reset" class="btn btn-default w-100">Reset</button>
               </div> --}}
             </div>
+                  -->
                   <thead>
                     <label for="status" style="width:20%; margin-left: 200px;">Choose status of user:</label>
                     <select id="status" style="width:30%; margin: right auto;">
@@ -152,7 +158,7 @@ $(document).ready(function(){
       lengthChange: true, 
       responsive: true, 
       processing: true,
-      searching: false,
+      searching: true,
         serverSide: true,
         ajax:{ 
           url: "{{ route('users.dtajax') }}",
@@ -162,6 +168,7 @@ $(document).ready(function(){
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
           {data:'role',name:'Role'},
+<<<<<<< HEAD
 
           // {data: 'role_ids', name: 'role',render:function(data){
           //   var roles = <?php echo $roles; ?>;
@@ -175,6 +182,8 @@ $(document).ready(function(){
           //   return display;
           // }},
           
+=======
+>>>>>>> cdd087dfb0fec0bc7527abe3962cdac7592fa2a7
           {data: 'delete_at', name: 'status', render: function(data){
             if(status == 1)
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
