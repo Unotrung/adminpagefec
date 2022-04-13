@@ -52,5 +52,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
     protected $dates = ['email_verified_at'];
     protected $guard_name = 'web';
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 
 }

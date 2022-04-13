@@ -46,7 +46,8 @@
               <!-- /.card-header -->
               <div class="card-body" >
                 <table id="example1" class="table table-bordered table-striped">
-                  <div class="form-group row">
+                  <!-- 
+<div class="form-group row">
 							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Username: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="" name="name" value=""> <span class="text-danger"></span>  </div> 
 							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Email: </label>
@@ -66,6 +67,7 @@
                   <button type="button" name="reset" id="reset" class="btn btn-default w-100">Reset</button>
               </div>
             </div>
+                  -->
                   <thead>
                   <tr>
                     <th>Username</th>
@@ -146,7 +148,7 @@ $(document).ready(function(){
       lengthChange: true, 
       responsive: true, 
       processing: true,
-      searching: false,
+      searching: true,
         serverSide: true,
         ajax:{ 
           url: "{{ route('users.dtajax') }}",
@@ -156,19 +158,6 @@ $(document).ready(function(){
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
           {data:'role',name:'Role'},
-
-          // {data: 'role_ids', name: 'role',render:function(data){
-          //   var roles = <?php echo $roles; ?>;
-          //   var display = "";
-          //   roles.forEach(element => {
-          //     if(data == element._id){
-          //       console.log(element.display_name);
-          //       display = element.display_name;
-          //     }
-          //   });
-          //   return display;
-          // }},
-
           {data: 'delete_at', name: 'status', render: function(data){
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
           }},

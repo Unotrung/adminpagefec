@@ -47,7 +47,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::All();
+        $roles = Role::All()->where('name','!=', 'super admin');
         $permissions = Permission::All();
         return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles, 'permissions'=>$permissions]);
     }
@@ -147,7 +147,9 @@ class UsersController extends Controller
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-                $user = User::whereNull("isDelete");
+                $user = User::whereNull("isDelete")->whereHas('roles', function ($query) {
+                    return $query->where('name','!=', 'super admin');
+                });
                 if(!empty($request->name)) $user->where("name",$request->name);
                 if(!empty($request->email)) $user->where("email",$request->email);
                 if(!empty($request->status)) 
@@ -181,7 +183,7 @@ class UsersController extends Controller
                 for($i=0; $i < count($data->data); $i++) {
                     $roles = new Role;
                     if(empty($data->data[$i]->role_ids[0])){
-                    $data->data[$i]->role = " ";
+                        $data->data[$i]->role = " ";
                     }
                     else{
                      $role = $roles->find($data->data[$i]->role_ids[0]);

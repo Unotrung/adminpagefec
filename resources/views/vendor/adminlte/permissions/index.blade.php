@@ -71,7 +71,7 @@ var editor;
         serverSide: true,
         "ajax": "{{ route('permission.dtajax') }}",
         columns: [
-          {data: 'display_name', name: 'name'},
+          {data: 'name', name: 'name'},
           {data: 'guard_name', name: 'guard_name'},
           {
                   data: 'action', 
