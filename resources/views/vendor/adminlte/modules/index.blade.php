@@ -36,8 +36,9 @@
                   <thead>
                   <label for="users" style="width:15%; margin-left: 200px;">Choose a role:</label>
                 <select id="user" style="width:30%; margin: right auto;">
+                  <option value="" selected >Select a role</option>
                   @foreach ($roles as $role)
-                  <option value="{{$role['id']}}">{{$role['name']}}</option>
+                  <option value="{{$role['id']}}" >{{$role['name']}}</option>
                   @endforeach
                 </select>
                   <tr>
@@ -187,7 +188,17 @@ function handleClick(value,name) {
 $(function () {
     $("select").on('change',function(){
         var selectedCountry = $(this).children("option:selected").val();
-          id = $(this).val();
+          $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url:"{{route('modules.getAllPermissions')}}",
+            method:"post",
+            data:{
+              id:id
+            },
+            success:function(response){
+              console.log(response);
+            }
+          });
           console.log({ id,"permissions":permission_list });
     });
 });
@@ -203,12 +214,17 @@ function FieldsClick(name) {
 
 $(function () {
   $('button').on('click', function (){
+    var role = $('#user').find(":selected").val();
+    if(role == ""){
+      alert("pls choose a role");
+      return;
+    }
     $.ajax({
       headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
       type: "POST",
       url: "{{ route('modules.givepermission') }}",
-      data: { id,"permissions":permission_list },
+      data: { "id":role,"permissions":permission_list },
       success:function(response){
     }
   })

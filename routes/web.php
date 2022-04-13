@@ -46,6 +46,7 @@ Route::group(['middleware' => ['role:super admin']], function (){
 });
 
 Route::post('/modules/givepermission', [App\Http\Controllers\ModuleController::class, 'givePermissionTo'])->name('modules.givepermission');
+Route::post('/modules/getAllPermissions', [App\Http\Controllers\ModuleController::class, 'getAllPermissions'])->name('modules.getAllPermissions');
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
 });

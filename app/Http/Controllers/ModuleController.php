@@ -7,8 +7,8 @@ use DataTables;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Role;
-use App\Models\Permission;
+use Maklad\Permission\Models\Role;
+use Maklad\Permission\Models\Permission;
 
 class ModuleController extends Controller
 {
@@ -108,24 +108,19 @@ class ModuleController extends Controller
     public function givePermissionTo(Request $request)
     {
         $id = $request->id;
-        $role = Role::find($id)->get();
+        $role = Role::find($id);
         $permissions = $request->permissions;
         foreach ($permissions as $ele){
-            $is_exist = Permission::Where('name','=',$ele)->get();
-            if(count($is_exist) === 0){
-                $response = Permission::create(['name' => $ele, 'guard_name'=>'web','display_name'=>$ele]);
-                if(count($response->created_at) > 0 ){
-                    $response->assignRole($role);
-                }
-            }
-            else{
-                // $is_exist->assignRole($role);
-                print_r($role->givePermissionTo("customers-view"));
-                exit;
-                $role->givePermissionTo("customers-view");
-            }
+            $is_exist = Permission::findByName($ele);//firstOrCreate
+            $role->givePermissionTo($is_exist);
         }
         return redirect()->route('modules.index');
+    }
+
+    public function getAllPermissions(Request $request ){
+        $id = $request->id;
+        print_r(Permission::with('roles')->find($id));
+        return false;
     }
 
     /**
