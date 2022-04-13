@@ -58,11 +58,11 @@ Route::get('/configuration/index', function(){
 });
 //BNPL
 Route::group(['middleware' => ['role:admin|super admin']], function (){
-    Route::group(['middleware' => ['permission:update']], function () {
+    Route::group(['middleware' => ['permission:bnpl-update']], function () {
         // Route::get('/bnpl/edit', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
         Route::get('/bnpl/edit/{id}', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
     });
-    Route::group(['middleware' => ['permission:view']], function () {
+    Route::group(['middleware' => ['permission:bnpl-view']], function () {
         Route::get('/bnpl', [App\Http\Controllers\BnplController::class, 'index'])->name('bnpl');
         Route::get('/bnpl/dtajax', [App\Http\Controllers\BnplController::class, 'dtajax'])->name('bnpl.dtajax');
     });
@@ -70,11 +70,11 @@ Route::group(['middleware' => ['role:admin|super admin']], function (){
 
 //Customer
 Route::group(['middleware' => ['role:super admin|admin']], function (){
-    Route::group(['middleware' => ['permission:update']], function () {
+    Route::group(['middleware' => ['permission:customers-update']], function () {
         Route::get('/customer/add', [App\Http\Controllers\CustomerController::class, 'create'])->name('customer.add');
         Route::post('/customer/store', [App\Http\Controllers\CustomerController::class, 'store'])->name('customer.store');
     });
-    Route::group(['middleware' => ['permission:view']], function () {
+    Route::group(['middleware' => ['permission:customers-view']], function () {
         Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index'])->name('customer');
         //Route::get('/customer/show', [App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show');
         Route::get('/customer/show/{id}', [App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show');
