@@ -206,7 +206,7 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
         //Route::get('/notifications/edit', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
         Route::get('/notifications/edit/{id}', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
         Route::post('/notifications/update', [App\Http\Controllers\NotificationsController::class, 'update'])->name('notifications.update');
-        
+
     });
     Route::group(['middleware' => ['permission:notifications-view']], function () {
         Route::get('/notifications/index', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications.index');
