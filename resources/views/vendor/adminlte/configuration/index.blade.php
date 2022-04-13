@@ -53,16 +53,15 @@
               <!-- form start -->
                 <div class="card-body">
                   <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-4 col-form-label">Sent OTP To Mobile Phone</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue"><input type="checkbox" name="View" value="Customers" onclick="handleClick(this.value,this.name);"></div>
+                    <label for="inputEmail3" class="col-sm-4 col-form-label">Sent OTP To Mobile Phone</label>
+                      <input type="checkbox" name="View" value="" onclick="handleClick(this.value,this.name);">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Sent OTP To Email Address</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue"><input type="checkbox" name="View" value="Customers" onclick="handleClick(this.value,this.name);"></div>
-                    
+                      <label for="inputPassword3" class="col-sm-4 col-form-label">Sent OTP To Email Address</label>
+                      <input type="checkbox" name="View" value="" onclick="handleClick(this.value,this.name);">
                     </div>
                   </div>
                   <div class="form-group">

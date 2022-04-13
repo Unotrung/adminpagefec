@@ -11,6 +11,7 @@ use Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersController extends Controller
 {

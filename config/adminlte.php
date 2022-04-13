@@ -266,14 +266,14 @@ return [
                     'url'  => 'notifications/index',
                     'icon' => 'nav-icon fa-solid fa-list',
                 ],
-                [
-                    'text' => 'Notifications Push',
-                    'url'  => 'notificationspush/index',
-                ],
-                [
-                    'text' => 'Notifications Tracking',
-                    'url'  => 'notificationstracking/index',
-                ],
+                // [
+                //     'text' => 'Notifications Push',
+                //     'url'  => 'notificationspush/index',
+                // ],
+                // [
+                //     'text' => 'Notifications Tracking',
+                //     'url'  => 'notificationstracking/index',
+                // ],
             ],
         ],
         [
