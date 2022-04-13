@@ -147,35 +147,38 @@ class UsersController extends Controller
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-                $user = User::whereNull("isDelete");
-                if(!empty($request->name)) $user->where("name",$request->name);
-                if(!empty($request->email)) $user->where("email",$request->email);
-                if(!empty($request->status)) 
-                {
-                    if($request->status == 'Active')
-                    {
-                        $user->where("delete_at",'');
+                $user = User::whereNull("delete_att");
+                // if(!empty($request->name)) $user->where("name",$request->name);
+                // if(!empty($request->email)) $user->where("email",$request->email);
+                
+                // if(!empty($request->status)) 
+                // {
+                //     return $request->status;
+                //     // return $request->status;
+                //     if($request->status == "Active")
+                //     {
+                //         $user->where("delete_at",'');
                         
-                    }
-                    else
-                    {
-                        $user->where("delete_at",1);
-                    }
-                }
-                if(!empty($request->reservation)) {
-                    if(!empty($request->name)){
-                    $date = explode(" - ",$request->reservation);
-                    $from = Carbon::parse($date[0]);
-                    $to = Carbon::parse($date[1].' 23:59');
-                    $user->whereBetween("created_at", [$from,$to]);
-                    // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
-                    }
-                    else
-                    {
-                        $out =  Datatables::of(User::where("_id",1)->get())->make(true);
-                        return $out;      
-                    }
-                }
+                //     }
+                //     else
+                //     {
+                //         $user->where("delete_at",1);
+                //     }
+                // }
+                // if(!empty($request->reservation)) {
+                //     if(!empty($request->name)){
+                //     $date = explode(" - ",$request->reservation);
+                //     $from = Carbon::parse($date[0]);
+                //     $to = Carbon::parse($date[1].' 23:59');
+                //     $user->whereBetween("created_at", [$from,$to]);
+                //     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
+                //     }
+                //     else
+                //     {
+                //         $out =  Datatables::of(User::where("_id",1)->get())->make(true);
+                //         return $out;      
+                //     }
+                // }
                 $out =  Datatables::of($user->get())->make(true);
                 $data = $out->getData();   
                 for($i=0; $i < count($data->data); $i++) {

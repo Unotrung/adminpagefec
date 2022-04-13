@@ -46,39 +46,18 @@
               <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
                   <!-- Horizontal Form -->
             <div class="card card-info">
-              <!-- <div class="card-header">
-                <h3 class="card-title">Edit user</h3>
-              </div> -->
-              <!-- /.card-header -->
-              <!-- form start -->
                 <div class="card-body">
                   <div class="form-group">
                     {{-- <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label> --}}
                     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success ">
                       {{-- <div class="col-sm-3 mb-3 mb-sm-0">  --}}
                     <input type="checkbox" class="custom-control-input" id="customSwitch3"><label class="custom-control-label" for="customSwitch3">Sent OTP To Mobile Phone</label>
-                    {{-- </div> --}}
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                    <label for="inputEmail3" class="col-sm-4 col-form-label">Sent OTP To Mobile Phone</label>
-                      <input type="checkbox" name="View" value="" onclick="handleClick(this.value,this.name);">
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-sm-10">
-                      <label for="inputPassword3" class="col-sm-4 col-form-label">Sent OTP To Email Address</label>
-                      <input type="checkbox" name="View" value="" onclick="handleClick(this.value,this.name);">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    {{-- <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label> --}}
                     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success ">
-                      {{-- <div class="col-sm-3 mb-3 mb-sm-0">  --}}
-                    <input type="checkbox" class="custom-control-input" id="customSwitch4"><label class="custom-control-label" for="customSwitch4">Sent OTP To Email Address</label>
-                    {{-- </div> --}}
+                    <input type="checkbox" class="custom-control-input" id="customSwitch4"><label class="custom-control-label" for="customSwitch4">Sent OTP To Mobile Phone</label>
                   </div>
-                  </div>
-                  </div>
+                </div>
+              </div>
                 </div>
                 <!-- /.card-body -->
                     

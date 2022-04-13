@@ -46,7 +46,7 @@
               <!-- /.card-header -->
               <div class="card-body" >
                 <table id="example1" class="table table-bordered table-striped">
-                  <div class="form-group row">
+                  {{-- <div class="form-group row">
 							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Username: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="" name="name" value=""> <span class="text-danger"></span>  </div> 
 							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Email: </label>
@@ -64,9 +64,15 @@
               <div class="col-sm-1 mb-1 mb-sm-0 pl-1">
                 <div class="mt-4"></div>
                   <button type="button" name="reset" id="reset" class="btn btn-default w-100">Reset</button>
-              </div>
+              </div> --}}
             </div>
                   <thead>
+                    <label for="status" style="width:20%; margin-left: 200px;">Choose status of user:</label>
+                    <select id="status" style="width:30%; margin: right auto;">
+                      <option value="" selected >Select status</option>
+                      <option value="Active" >Active</option>
+                      <option value="InActive" >InActive</option>
+                  </select>
                   <tr>
                     <th>Username</th>
                     <th>Email</th>
@@ -168,8 +174,9 @@ $(document).ready(function(){
           //   });
           //   return display;
           // }},
-
+          
           {data: 'delete_at', name: 'status', render: function(data){
+            if(status == 1)
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
           }},
           {data: 'created_at', name: 'created_at'},
@@ -234,8 +241,16 @@ $(document).ready(function(){
       $('#reservation').val('');
       // $('#to_date').val('');
       $('#example1').DataTable().destroy();
-      fill_datatable();
+      fill_datatable(); 
   });
+
+  $('#status').on('change',function()
+  {
+    var status = $('#status').val();
+    console.log(status);
+    $('#example1').DataTable().destroy();
+    fill_datatable(status);
+});
 
 });
 

@@ -1,3 +1,5 @@
+
+
 @extends('layouts.app')
 @section('title', 'Dashboard')
 @section('css')
@@ -179,37 +181,26 @@
 
 $(document).ready(function(){
   fill_datatable("a");
-  $('#reservation').attr('readonly', true);
-<<<<<<< HEAD
-=======
-
-  // fill_datatable();
->>>>>>> 4315bf2aba7298ba8578e44fe2c81463ef975877
+  $('#reservation').daterangepicker().val('');
   function fill_datatable(name = '',action='',phone='',reservation = '')
   {
-  
   var keywork = (name=='')?((phone=='')?"":phone):name;
   var type = (name=='')?((phone=='')?"createAt":"phone"):"name";
-  var from = "";
+  var from = reservation.endDate;
   var to = "";
+  console.log(from);
   console.log(keywork);//"https://admin-voolo.herokuapp.com/v1/admin/search"    url:"{{route('bnpl.dtajax')}}",
   var dataTable = $("#example1").DataTable({
       processing: true,
         serverSide: true,
-        searching: true,
+        searching: false,
         ajax: {
           url:"https://admin-voolo.herokuapp.com/v1/admin/search",
-<<<<<<< HEAD
           data:{
             search:type,
             value:keywork,
             from: from,
             to: to,
-=======
-          data:{search:keywork}
-          success:function(){
-
->>>>>>> 4315bf2aba7298ba8578e44fe2c81463ef975877
           }
         },
         columns: [
@@ -251,19 +242,20 @@ $(document).ready(function(){
         ]
     });
 }
-    
-$('#name').on('change',function(){
-  var user = $('#name').val();
-  if(user != ''){
-    $('#reservation').daterangepicker().val('').attr('readonly', false);
-  }
-});
+ 
+// $('#name').on('change',function(){
+//   var user = $('#name').val();
+//   if(user != ''){
+//     $('#reservation').daterangepicker().val('');
+//   }
+// });
 
 $('#filter').click(function(){
     var name = $('#name').val();
     var phone = $('#phone').val();
     var reservation = $('#reservation').val();
-    console.log(reservation);
+    var to = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
+    console.log(to);
     $('#example1').DataTable().destroy();
     fill_datatable(name,action="search",phone,reservation);
 });
@@ -273,9 +265,11 @@ $('#reset').click(function(){
     $('#phone').val('');
     $('#reservation').val('');
     $('#example1').DataTable().destroy();
-    fill_datatable();
+    fill_datatable("a");
 });
   });
+
+  
 </script>
 
 <!-- <script>
