@@ -181,7 +181,7 @@ $(document).ready(function(){
 
   $('#reservation').attr('readonly', true);
 
-  fill_datatable();
+  // fill_datatable();
   function fill_datatable(name = '',action='',phone='',reservation = '')
 {
   
@@ -194,6 +194,9 @@ $(document).ready(function(){
         ajax: {
           url:"https://admin-voolo.herokuapp.com/v1/admin/search",
           data:{search:keywork}
+          success:function(){
+
+          }
         },
         columns: [
           {data: 'name', name: 'Name'},

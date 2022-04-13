@@ -153,6 +153,10 @@ $(".fields").hide();
               }
           },
         ],
+        columnDefs: [{
+          targets: '_all',
+          defaultContent: ""
+        }]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 });
 var permission_list = [];
