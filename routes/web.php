@@ -249,7 +249,7 @@ Route::group(['middleware' => ['role:admin||super admin']], function () {
     Route::post('/roles/delete', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.delete');
     Route::post('/users/delete', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
     Route::post('/providers/delete', [App\Http\Controllers\ProviderController::class, 'destroy'])->name('providers.delete');
-    Route::get('/users/restore/{id}', [App\Http\Controllers\UsersController::class, 'restore'])->name('users.restore');
+    Route::post('/users/restore', [App\Http\Controllers\UsersController::class, 'restore'])->name('users.restore');
 });
 
 //Providers

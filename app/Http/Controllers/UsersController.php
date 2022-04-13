@@ -34,13 +34,13 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::All();
-<<<<<<< HEAD
-        $role = Role::all();
-        return view('vendor.adminlte.users.index',['users'=> $users,"role"=>$role]);
-=======
+
+        // $role = Role::all();
+        // return view('vendor.adminlte.users.index',['users'=> $users,"role"=>$role]);
+
         $roles = Role::All();
         return view('vendor.adminlte.users.index',['users'=> $users,'roles'=>$roles]);
->>>>>>> 71c06de8dc13e121e4a2037816234a07f0142cc1
+
     }
 
     public function edit($id)
@@ -216,7 +216,30 @@ class UsersController extends Controller
                             ';
                         }else{
                             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                            $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-sync"></i></a>';
+                            // $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class=""></i></a>';
+                            $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-sync"></i></a>';
+                            $output .= '
+                            <form method="post" action="'.url(route('users.restore')).'">
+                                    <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                        <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Do you want to Active User? </h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                            </div>
+                                            </div>
+                                    </form>
+                            ';
                         }
                         $data->data[$i]->action = (string)$output;
                         if(empty($data->data[$i]->status)){
