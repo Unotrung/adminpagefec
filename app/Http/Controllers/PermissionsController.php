@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Maklad\Permission\Models\Role;
 use Maklad\Permission\Models\Permission;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Permission as DB;
 use DataTables;
 
@@ -69,6 +70,12 @@ class PermissionsController extends Controller
         //     DB::rollback();
         //     return redirect()->route('permission.add')->with('error',$th->getMessage());
         // }
+        $data = Permission::Where('name','=',$request->name)->get();
+        if (count($data) > 0)
+        {
+            Alert::error('Error!!','Permission had already existed!');
+            return back();
+        }
         $permission = new Permission;
         $permission->name = $request->name;
         $permission->display_name = $request->name;

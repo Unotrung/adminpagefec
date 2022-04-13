@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Maklad\Permission\Models\Role;
 use Maklad\Permission\Models\Permission;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Role as DB;
 use DataTables;
 
@@ -53,9 +54,14 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
+        $data = Role::Where('name','=',$request->name)->get();
+        if(count($data) > 0){
+            Alert::error('Error!!','Role had already existed!');
+            return back();
+        }
         $role = new Role;
         $role->name = $request->name;
-        $role->display_name = $request->display_name;
+        $role->display_name = $request->displayName;
         $role->description = $request->description;
         $role->guard_name = $request->guard_name;
 
@@ -86,7 +92,7 @@ class RolesController extends Controller
     {
         $role = Role::find($id);
         $permissions = Permission::All();
-        return view('vendor.adminlte.roles.edit', ['role' => $role->id, 'permissions'=>$permissions]);
+        return view('vendor.adminlte.roles.edit', ['role' => $id, 'permissions'=>$permissions]);
     }
 
     /**
@@ -98,24 +104,24 @@ class RolesController extends Controller
      */
     public function update(Request $request)
     {
-            $request->validate([
-                'name' => 'required',
-                'guard_name' => 'required'
-            ]);
-            $id = $request['id'];
-            $role = Role::find($id);
-            $role->name = $request->name;
-            $role->display_name = $request->display_name;
-            $role->description = $request->description;
-            $role->guard_name = $request->guard_name;
-            $rPer = $request->permission;
-            if( $rPer != null){
-                $role->revokePermissionTo(Permission::All());
-                foreach ($rPer as $per){
-                    $role->givePermissionTo(Permission::find($per));
-                }
+        $request->validate([
+        'name' => 'required',
+        'guard_name' => 'required'
+        ]);
+        $id = $request['id'];
+        $role = Role::find($id);
+        $role->name = $request->name;
+        $role->display_name = $request->display_name;
+        $role->description = $request->description;
+        $role->guard_name = $request->guard_name;
+        $rPer = $request->permission;
+        if( $rPer != null){
+            $role->revokePermissionTo(Permission::All());
+            foreach ($rPer as $per){
+                $role->givePermissionTo(Permission::find($per));
             }
-            $role->save();
+        }
+        $role->save();
         return redirect()->route('roles.index')->with('success','Role updated successfully.');
     }
 

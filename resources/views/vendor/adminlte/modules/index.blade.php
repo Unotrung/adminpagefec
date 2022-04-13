@@ -36,8 +36,9 @@
                   <thead>
                   <label for="users" style="width:15%; margin-left: 200px;">Choose a role:</label>
                 <select id="user" style="width:30%; margin: right auto;">
+                  <option value="" selected >Select a role</option>
                   @foreach ($roles as $role)
-                  <option value="{{$role['id']}}">{{$role['name']}}</option>
+                  <option value="{{$role['id']}}" >{{$role['name']}}</option>
                   @endforeach
                 </select>
                   <tr>
@@ -160,20 +161,44 @@ var role_id = {};
 var id = "";
 
 function handleClick(value,name) {
-  if($('input[name="'+name+'"]').is(":checked")){  
-    if(permission_list.includes(value.toLowerCase() +"-"+name.toLowerCase()) === false){
-      permission_list.push(value.toLowerCase() +"-"+name.toLowerCase());
-    }
+  if($('input[name="'+name+'"]').on("click")){
+    Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Assign',
+    denyButtonText: `No`,
+    }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success')
+        if(permission_list.includes(value.toLowerCase() +"-"+name.toLowerCase()) === false){
+          permission_list.push(value.toLowerCase() +"-"+name.toLowerCase());
+        }
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })  
   }
   else{
     permission_list.pop(value);
   }
 }
-
+//if($('input[name="'+name+'"]').is(":checked")){
 $(function () {
     $("select").on('change',function(){
         var selectedCountry = $(this).children("option:selected").val();
-          id = $(this).val();
+          $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url:"{{route('modules.getAllPermissions')}}",
+            method:"post",
+            data:{
+              id:id
+            },
+            success:function(response){
+              console.log(response);
+            }
+          });
           console.log({ id,"permissions":permission_list });
     });
 });
@@ -189,12 +214,17 @@ function FieldsClick(name) {
 
 $(function () {
   $('button').on('click', function (){
+    var role = $('#user').find(":selected").val();
+    if(role == ""){
+      alert("pls choose a role");
+      return;
+    }
     $.ajax({
       headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
       type: "POST",
       url: "{{ route('modules.givepermission') }}",
-      data: { id,"permissions":permission_list },
+      data: { "id":role,"permissions":permission_list },
       success:function(response){
     }
   })

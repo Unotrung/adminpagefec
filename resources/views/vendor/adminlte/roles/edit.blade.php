@@ -82,7 +82,7 @@ $old = Role::find($role);
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         @foreach ($permissions as $permission)
                         <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" @if($old->hasPermissionTo($permission->name)) checked @endif >
+                          <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
                           <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
                         </div>
                         @endforeach

@@ -67,20 +67,17 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- Guard Name --}}
-                    <div class="col-sm-6 mb-3 mb-sm-0 hidden" style="display: none;">
-                        <span style="color:red;">*</span>Guard Name</label>
-                        <select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
-                            <option selected disabled value="web" selected>Web</option>
-                        </select>
-                        @error('guard_name')
-                            <span class="text-danger">{{$message}}</span>
-                        @enderror
+                        <div class="col-sm-6 mb-3 mb-sm-0" style="display: none;">
+                            Guard Name</label>
+                            <select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
+                                <option value="web" selected>Web</option>
+                            </select>
+                            @error('guard_name')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
                     </div>
-
-                </div>
-
                 {{-- Save Button --}}
                 <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Submit

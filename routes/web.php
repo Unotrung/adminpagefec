@@ -46,6 +46,7 @@ Route::group(['middleware' => ['role:super admin']], function (){
 });
 
 Route::post('/modules/givepermission', [App\Http\Controllers\ModuleController::class, 'givePermissionTo'])->name('modules.givepermission');
+Route::post('/modules/getAllPermissions', [App\Http\Controllers\ModuleController::class, 'getAllPermissions'])->name('modules.getAllPermissions');
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
 });
@@ -152,7 +153,7 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
 //FAQs
 Route::group(['middleware' => ['role:super admin|admin']], function () {
     Route::group(['middleware' => ['permission:update']], function () {
-        //Route::get('/faqs/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
+        Route::get('/faqs/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
         Route::get('/faqs/edit/{id}', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
         Route::get('/faqs/add', [App\Http\Controllers\FaqController::class, 'create'])->name('faqs.add');
         Route::post('/faqs/update', [App\Http\Controllers\FaqController::class, 'update'])->name('faqs.update');
@@ -160,7 +161,7 @@ Route::group(['middleware' => ['role:super admin|admin']], function () {
     });
     Route::group(['middleware' => ['permission:view']], function () {
         Route::get('/faqs/index', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
-        //Route::get('/faqs/show', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
+        Route::get('/faqs/show', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
         Route::get('/faqs/show/{id}', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
         Route::get('/faqs/dtajax', [App\Http\Controllers\FaqController::class, 'dtajax'])->name('faqs.dtajax');
     });
