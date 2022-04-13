@@ -180,11 +180,6 @@
 $(document).ready(function(){
   fill_datatable("a");
   $('#reservation').attr('readonly', true);
-<<<<<<< HEAD
-=======
-
-  // fill_datatable();
->>>>>>> 4315bf2aba7298ba8578e44fe2c81463ef975877
   function fill_datatable(name = '',action='',phone='',reservation = '')
   {
   
@@ -199,17 +194,11 @@ $(document).ready(function(){
         searching: true,
         ajax: {
           url:"https://admin-voolo.herokuapp.com/v1/admin/search",
-<<<<<<< HEAD
           data:{
             search:type,
             value:keywork,
             from: from,
             to: to,
-=======
-          data:{search:keywork}
-          success:function(){
-
->>>>>>> 4315bf2aba7298ba8578e44fe2c81463ef975877
           }
         },
         columns: [
