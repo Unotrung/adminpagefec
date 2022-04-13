@@ -184,13 +184,16 @@ $(document).ready(function(){
   fill_datatable();
   function fill_datatable(name = '',action='',phone='',reservation = '')
 {
+  
+  var keywork = (name=='')?((phone=='')?((reservation=='')?'':reservation):phone):name;
+  console.log(keywork);
   var dataTable = $("#example1").DataTable({
       processing: true,
         serverSide: true,
-        searching: false,
+        searching: true,
         ajax: {
-          url:"{{ route('bnpl.dtajax') }}",
-          data:{name:name , action:action, phone:phone ,reservation:reservation}
+          url:"https://admin-voolo.herokuapp.com/v1/admin/search",
+          data:{search:keywork}
         },
         columns: [
           {data: 'name', name: 'Name'},
@@ -226,12 +229,9 @@ $(document).ready(function(){
             "defaultContent": "<i>Waiting</i>"
           },
           {
-                data: 'action', 
-                name: 'action', 
-                orderable: true, 
-                searchable: true,
-            },
-        ],
+            "defaultContent": "<i>null</i>"
+          },
+        ]
     });
 }
     
@@ -242,7 +242,7 @@ $('#name').on('change',function(){
   }
 });
 
-    $('#filter').click(function(){
+$('#filter').click(function(){
     var name = $('#name').val();
     var phone = $('#phone').val();
     var reservation = $('#reservation').val();
