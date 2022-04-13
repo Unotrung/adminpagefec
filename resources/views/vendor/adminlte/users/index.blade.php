@@ -47,13 +47,15 @@
               <div class="card-body" >
                 <table id="example1" class="table table-bordered table-striped">
                   <div class="form-group row">
-							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Full Name: </label>
+							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Username: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="" name="name" value=""> <span class="text-danger"></span>  </div> 
 							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Email: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="" name="email" value="">  <span class="text-danger"></span> </div> 
-							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Status: </label>
+                <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Role: </label>
+                  <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="role" placeholder="" name="role" value=""> <span class="text-danger"></span>  </div> 
+                <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Status: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="status" placeholder="" name="status" value="">  <span class="text-danger"></span> </div> 
-               <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Date Range: </label>
+               <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Created Date </label>
 								<input type="text" class="form-control float-right" id="reservation" placeholder="" name="reservation" value="">  <span class="text-danger"><i class="far fa-calendar-alt"></i></span> </div> 
               <div class="col-sm-1 mb-1 mb-sm-0 p-0">
                 <div class="mt-4"></div>
@@ -66,11 +68,13 @@
             </div>
                   <thead>
                   <tr>
-                    <th>Full Name</th>
+                    <th>Username</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Status</th>
-                    <th>Created Time</th>
+                    <th>Created Date</th>
                     <th>Action</th>
+                    
                   </tr>
                   </thead>
                   <tbody>
@@ -97,6 +101,14 @@
       }
           toastr.success("{{ session('add') }}");
       @endif
+      @if(Session::has('delete'))
+        toastr.options =
+        {
+          "closeButton" : true,
+          "progressBar" : true
+        }
+            toastr.success("{{ session('delete') }}");
+        @endif
     </script>
 @stop
 
@@ -128,7 +140,7 @@
 $(document).ready(function(){
   fill_datatable();
   $('#reservation').daterangepicker().val('');
-  function fill_datatable(name = '',email=  '',action='',status='',reservation = '')
+  function fill_datatable(name = '',email=  '',action='',status='',reservation = '',role='')
   {
     var table = $("#example1").DataTable({
       lengthChange: true, 
@@ -143,6 +155,7 @@ $(document).ready(function(){
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
+          {data:'role',name:'Role'},
           {data: 'delete_at', name: 'status', render: function(data){
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
           }},
@@ -155,7 +168,7 @@ $(document).ready(function(){
           },
         ],
         columnDefs: [ {
-        targets: 3,
+        targets: 4,
         render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
         } ]
     });
@@ -165,6 +178,7 @@ $(document).ready(function(){
   $('#filter').click(function(){
     var name = $('#name').val();
     var email = $('#email').val();
+    var role = $('#role').val();
     var status = $('#status').val();
     var reservation = $('#reservation').val();
     // var to_date = $('#to_date').val();
@@ -192,7 +206,7 @@ $(document).ready(function(){
     else
     {
       $('#example1').DataTable().destroy();
-      fill_datatable(name,email,action="search",status,reservation);
+      fill_datatable(name,email,role,action="search",status,reservation);
     }
   });
 
@@ -200,6 +214,7 @@ $(document).ready(function(){
       $('#name').val('');
       $('#email').val('');
       $('#status').val('');
+      $('#role').val('');
       $('#reservation').val('');
       // $('#to_date').val('');
       $('#example1').DataTable().destroy();

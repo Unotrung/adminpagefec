@@ -247,7 +247,7 @@ Route::group(['middleware' => ['role:admin||super admin']], function () {
     Route::post('/faqs/delete}', [App\Http\Controllers\FaqController::class, 'destroy'])->name('faqs.delete');
     Route::get('/department/delete/{id}', [App\Http\Controllers\DepartmentController::class, 'destroy'])->name('department.delete');
     Route::post('/roles/delete', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.delete');
-    Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
+    Route::post('/users/delete', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
     Route::post('/providers/delete', [App\Http\Controllers\ProviderController::class, 'destroy'])->name('providers.delete');
     Route::get('/users/restore/{id}', [App\Http\Controllers\UsersController::class, 'restore'])->name('users.restore');
 });

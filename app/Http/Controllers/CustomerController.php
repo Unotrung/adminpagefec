@@ -64,7 +64,7 @@ class CustomerController extends Controller
         if($result == 1)
         {
             $this->mailTemplate($request);
-            return redirect()->route("customer")->with('Create news successfully');
+            return redirect()->route("customer")->with('add','Create news successfully');
         }
     }
 
@@ -86,7 +86,7 @@ class CustomerController extends Controller
         $promotion = Customer::find($request->id);
         $promotion->isDelete = 1;
         $promotion->save();
-        return redirect()->route('customer')->with('Customers deleted successfull');
+        return redirect()->route('customer')->with('delete','Customers deleted successfull');
     }
 
 

@@ -52,24 +52,20 @@
               <!-- /.card-header -->
               <!-- form start -->
                 <div class="card-body">
-                  <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-4 col-form-label">Sent OTP To Mobile Phone</label>
-                    <div class="col-sm-10">
-                    <div class="col-md-10 fvalue"><input type="checkbox" name="View" value="Customers" onclick="handleClick(this.value,this.name);"></div>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Sent OTP To Email Address</label>
-                    <div class="col-sm-10">
-                    <div class="col-md-10 fvalue"><input type="checkbox" name="View" value="Customers" onclick="handleClick(this.value,this.name);"></div>
-                    
-                    </div>
+                  <div class="form-group">
+                    {{-- <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label> --}}
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success ">
+                      {{-- <div class="col-sm-3 mb-3 mb-sm-0">  --}}
+                    <input type="checkbox" class="custom-control-input" id="customSwitch3"><label class="custom-control-label" for="customSwitch3">Sent OTP To Mobile Phone</label>
+                    {{-- </div> --}}
                   </div>
                   <div class="form-group">
-                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch3">
-                    <label class="custom-control-label" for="customSwitch3">Toggle this custom switch element with custom colors danger/success</label>
-                    </div>
+                    {{-- <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label> --}}
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success ">
+                      {{-- <div class="col-sm-3 mb-3 mb-sm-0">  --}}
+                    <input type="checkbox" class="custom-control-input" id="customSwitch4"><label class="custom-control-label" for="customSwitch4">Sent OTP To Email Address</label>
+                    {{-- </div> --}}
+                  </div>
                   </div>
                   </div>
                 </div>

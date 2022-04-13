@@ -103,6 +103,24 @@
         <!-- /.row -->
       </div>
     <!-- /.content -->
+    <script>
+      @if(Session::has('success'))
+      toastr.options =
+      {
+        "closeButton" : true,
+        "progressBar" : true
+      }
+          toastr.success("{{ session('success') }}");
+      @endif
+      @if(Session::has('delete'))
+      toastr.options =
+      {
+        "closeButton" : true,
+        "progressBar" : true
+      }
+          toastr.success("{{ session('delete') }}");
+      @endif
+    </script>
 
 @stop
 
