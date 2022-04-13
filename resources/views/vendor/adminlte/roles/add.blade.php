@@ -68,7 +68,6 @@
                         </div>
                     </div>
 
-
                     {{-- Guard Name --}}
                     <div class="col-sm-6 mb-3 mb-sm-0 hidden" style="display: none;">
                         <span style="color:red;">*</span>Guard Name</label>

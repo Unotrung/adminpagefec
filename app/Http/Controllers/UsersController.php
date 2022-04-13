@@ -34,8 +34,13 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::All();
+<<<<<<< HEAD
         $role = Role::all();
         return view('vendor.adminlte.users.index',['users'=> $users,"role"=>$role]);
+=======
+        $roles = Role::All();
+        return view('vendor.adminlte.users.index',['users'=> $users,'roles'=>$roles]);
+>>>>>>> 71c06de8dc13e121e4a2037816234a07f0142cc1
     }
 
     public function edit($id)

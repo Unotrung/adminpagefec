@@ -58,10 +58,10 @@ $old = Permission::find($permission);
                     {{-- Role --}}
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         <span style="color:red;">*</span>Role</label>
-                        <select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="guard_name">
+                        <select class="form-control form-control-user @error('guard_name') is-invalid @enderror" name="role">
                             <option selected disabled>Select Role</option>
                             @foreach ($roles as $role)
-                            <option value="{{$role['display_name']}}">{{$role['display_name']}}</option>
+                            <option value="{{$role['name']}}">{{$role['name']}}</option>
                             @endforeach
                         </select>
                         @error('name')

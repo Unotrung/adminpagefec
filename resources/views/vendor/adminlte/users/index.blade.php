@@ -155,7 +155,21 @@ $(document).ready(function(){
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
+
           {data:'role',name:'Role'},
+
+          {data: 'role_ids', name: 'role',render:function(data){
+            var roles = <?php echo $roles; ?>;
+            var display = "";
+            roles.forEach(element => {
+              if(data == element._id){
+                console.log(element.display_name);
+                display = element.display_name;
+              }
+            });
+            return display;
+          }},
+
           {data: 'delete_at', name: 'status', render: function(data){
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
           }},
@@ -170,7 +184,10 @@ $(document).ready(function(){
         columnDefs: [ {
         targets: 4,
         render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
-        } ]
+        },{
+          targets: '_all',
+          defaultContent: ""
+        }]
     });
     table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
   }

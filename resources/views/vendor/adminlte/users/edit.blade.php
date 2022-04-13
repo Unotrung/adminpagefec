@@ -16,12 +16,16 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </style>
 @section('content_header')
 <div class="container-fluid">
-    
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="row mb-2">
+<div class="col-sm-11">
             <h2 class="h3 mb-0 text-gray-800">Edit User </h2>
+			<small class="text-muted"><cite title="Source Title">Edit Users's Details and User's Role </cite></small>
+</div>
+<div class="col-sm-1">
             <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('users') }}"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
+</div>
 @stop
 
 @section('content')

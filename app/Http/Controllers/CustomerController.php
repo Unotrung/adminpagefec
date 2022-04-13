@@ -65,6 +65,7 @@ class CustomerController extends Controller
         {
             $this->mailTemplate($request);
             return redirect()->route("customer")->with('add','Create news successfully');
+            // return redirect()->route("customer");
         }
     }
 

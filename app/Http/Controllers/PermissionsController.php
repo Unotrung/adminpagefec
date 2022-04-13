@@ -114,7 +114,6 @@ class PermissionsController extends Controller
      */
     public function update(Request $request)
     {
-        //DB::beginTransaction();
             $request->validate([
                 'display_name' => 'required',
                 'guard_name' => 'required'
@@ -122,8 +121,8 @@ class PermissionsController extends Controller
             $id = $request['id'];
             $permission = Permission::find($id);
             $permission->display_name = $request->display_name;
-            if($request->guard_name == 'admin' ){
-                $role = Role::Where('name','=',$request->guard_name)->get();
+            if(!empty($request->role)){
+                $role = Role::Where('name','=',$request->role)->get();
                 $permission->assignRole($role);
             }
             $permission->save();    
