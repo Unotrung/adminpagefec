@@ -69,14 +69,14 @@
                   <button type="button" name="reset" id="reset" class="btn btn-default w-100">Reset</button>
               </div> --}}
             </div>
-                  -->
-                  <thead>
-                    <label for="status" style="width:20%; margin-left: 200px;">Choose status of user:</label>
+            <label for="status" style="width:20%; margin-left: 200px;">Choose status of user:</label>
                     <select id="status" style="width:30%; margin: right auto;">
                       <option value="" selected >Select status</option>
                       <option value="Active" >Active</option>
                       <option value="InActive" >InActive</option>
                   </select>
+                  -->
+                  <thead>
                   <tr>
                     <th>Username</th>
                     <th>Email</th>
