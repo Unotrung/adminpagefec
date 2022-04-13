@@ -111,7 +111,7 @@ class ModuleController extends Controller
         $role = Role::find($id);
         $permissions = $request->permissions;
         foreach ($permissions as $ele){
-            $is_exist = Permission::findByName($ele);//firstOrCreate
+            $is_exist = Permission::firstOrCreate(['name' => $ele]);
             $role->givePermissionTo($is_exist);
         }
         return redirect()->route('modules.index');
