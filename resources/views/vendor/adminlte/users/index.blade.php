@@ -42,33 +42,43 @@
 @section('content')
     <!-- Main content -->
     <div class="container-fluid">
-        <div class="row">
-          <div class="col-6">
-            <div class="input-group input-group-sm">
-              <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-lg btn-default" id="search">
-                  <i class="fa fa-search"></i>
-                  </button>
-                </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="input-group input-group-sm">
-              <select class="select2" style="width: 100%;" id="type" name="type">
-                <option value="name">Username</option>
-                <option value="email">Email</option>
-                <option value="role">Role</option>
-                <option value="delete_at">Status</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        
         <div class="row">
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body" >
+                <div class="row" style="margin-bottom: 20px;">
+                  <div class="col-2">
+                    <div class="input-group input-group-sm" id="st" name="st">
+                      <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="delete_at">
+                        <option value="">Active</option>
+                        <option value="1">Inactive</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="input-group input-group-sm">
+                      <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="type" name="type">
+                        <option value="" >Select...  </option>
+                        <option value="name">Username</option>
+                        <option value="email">Email</option>
+                        <option value="role">Role</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="input-group input-group-sm">
+                      <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-lg btn-default" id="search">
+                          <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                    </div>
+                  </div>
+                  
+                </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     {{-- <label for="status" style="width:20%; margin-left: 200px;">Choose status of user:</label>
@@ -84,7 +94,6 @@
                     <th>Status</th>
                     <th>Created Date</th>
                     <th>Action</th>
-                    
                   </tr>
                   </thead>
                   <tbody>
@@ -118,7 +127,16 @@
           "progressBar" : true
         }
             toastr.success("{{ session('delete') }}");
+      @endif
+      @if(Session::has('update'))
+        toastr.options =
+        {
+          "closeButton" : true,
+          "progressBar" : true
+        }
+            toastr.success("{{ session('delete') }}");
         @endif
+
     </script>
 @stop
 
@@ -150,10 +168,9 @@
 <!-- Page specific script -->
 <script>
 $(document).ready(function(){
-  
   fill_datatable();
   $('#reservation').daterangepicker().val('');
-  function fill_datatable(input,type)
+  function fill_datatable(input,type,status)
   {
     var table = $("#example1").DataTable({
       lengthChange: true, 
@@ -163,14 +180,13 @@ $(document).ready(function(){
         serverSide: true,
         ajax:{ 
           url: "{{ route('users.dtajax') }}",
-          data:{input:input,type:type}
+          data:{input:input,type:type,status:status}
         },
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
           {data:'role',name:'Role'},
           {data: 'delete_at', name: 'status', render: function(data){
-            if(status == 1)
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
           }},
           {data: 'created_at', name: 'created_at'},
@@ -193,10 +209,13 @@ $(document).ready(function(){
   }
 
   $('#search').click(function(){
+    
     var input = $('#input').val();
     console.log(input);
     var type = $('#type').val();
     console.log(type);
+    var status = $('#status').val();
+    console.log(status);
     var to_date = $('#to_date').val();
     if( input == '')
     {
@@ -222,7 +241,7 @@ $(document).ready(function(){
     else
     {
       $('#example1').DataTable().destroy();
-      fill_datatable(input,type);
+      fill_datatable(input,type,status);
     }
   });
 
@@ -237,12 +256,30 @@ $(document).ready(function(){
   //     fill_datatable(); 
   // });
 
-  $('#type').change(function()
+  $('#status').change(function()
   {
+    var input = $('#input').val();
+    console.log(input);
     var type = $('#type').val();
     console.log(type);
+    var status = $('#status').val();
+    console.log(status);
+    $('#example1').DataTable().destroy();
+    fill_datatable(input,type,status);
   });
+
+
+
+
   $('.select2').select2();
+  $('input[type=search]').val("").attr("readonly",true);
+  $('#type').on('change',function(){
+    if($(this).val() == ""){
+      $('input[type=search]').val("").attr("readonly",true);
+    }else{
+      $('input[type=search]').attr("readonly",false);
+    }
+  });
 });
 
 

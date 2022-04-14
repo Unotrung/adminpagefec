@@ -137,32 +137,38 @@ class UsersController extends Controller
 
     }
 
-    public function restore($id)
+    public function restore(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find($request->id);
         $user->delete_at = "";
         $user->save();
-        return redirect()->route('users')->with('User restore successfull');
+        return redirect()->route('users')->with('Update','User restore successfull');
     }
 
     public function dtajax(Request $request){
         if ($request->ajax()) 
         {
-                $user = User::whereNull("delete_at");
+                $user = User::where('delete_at',1);
+                if(empty($request->status)){
+                    $user = User::whereNull('delete_at');
+                }
                 if(!empty($request->type))
                 {
                     if($request->type != "role"){
                         $user->where($request->type,$request->input);
-                    }else{
+                    }
+                    else{
                         $data = $request->input;
                         $user->whereHas('roles', function ($query) use ($data) {
                             return $query->where('name',"like", $data."%");
                         });
                     }
-                    $user->whereHas('roles', function ($query) {
-                        return $query->where('name','!=', 'super admin');
-                    });
+                }else{
+                    // $user->whereHas('roles', function ($query) {
+                    //     return $query->where('name','!=', 'super admin');
+                    // });
                 }
+                
                 $out =  Datatables::of($user->get())->make(true);
                 $data = $out->getData();   
                 for($i=0; $i < count($data->data); $i++) {
@@ -220,7 +226,7 @@ class UsersController extends Controller
                                                     </div>
                                                     <!-- Modal footer -->
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="submit" class="btn btn-success">Restore</button>
                                                         <button type="button" class="btn" data-dismiss="modal">Close</button>
                                                     </div>
                                                     </div>
