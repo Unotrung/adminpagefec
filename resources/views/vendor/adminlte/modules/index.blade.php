@@ -34,8 +34,8 @@
                 <table id="example1" class="table table-bordered table-striped" style="width:100%" cellspacing="0">
                   <thead>
                   <label for="users" style="width:15%; margin-left: 200px;">Choose a role:</label>
-                <select id="user" style="width:30%; margin: right auto;">
-                <option value="" selected>Select a role</option>
+                <select id="user" style="width:30%; margin: right auto;" class="custom-select custom-select-sm form-control form-control-sm">
+                <option value="" selected>Select a role...</option>
                   @foreach ($roles as $role)
                   <option value="{{$role['id']}}">{{$role['name']}}</option>
                   @endforeach
