@@ -20,7 +20,7 @@ class ModuleController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        $roles = Role::all();
+        $roles = Role::all()->where('name','!=', 'super admin');
         return view('vendor.adminlte.modules.index',['permissions'=>$permissions,'roles'=>$roles]);
     }
 
@@ -109,6 +109,11 @@ class ModuleController extends Controller
     {
         $id = $request->id;
         $role = Role::find($id);
+        /*
+        * Detroy all permission
+        */
+        $role->permission_ids = [];
+        $role->save();
         $permissions = $request->permissions;
         foreach ($permissions as $ele){
             $is_exist = Permission::firstOrCreate(['name' => $ele]);

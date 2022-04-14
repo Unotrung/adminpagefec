@@ -7,14 +7,13 @@
   display: none;
 }
 </style>
-
-
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
 
 @stop
 @section('content')
@@ -36,9 +35,9 @@
                   <thead>
                   <label for="users" style="width:15%; margin-left: 200px;">Choose a role:</label>
                 <select id="user" style="width:30%; margin: right auto;">
-                  <option value="" selected >Select a role</option>
+                <option value="" selected>Select a role</option>
                   @foreach ($roles as $role)
-                  <option value="{{$role['id']}}" >{{$role['name']}}</option>
+                  <option value="{{$role['id']}}">{{$role['name']}}</option>
                   @endforeach
                 </select>
                   <tr>
@@ -81,6 +80,7 @@
 
 @section('js')
  
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- DataTables  & Plugins -->
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -98,9 +98,15 @@
 
 <!-- Page specific script -->
 <script>
+var id = "";
+var role_data = <?php echo $roles?>;
+var per_data = <?php echo $permissions?>;
+var existed_per = [];
+var table = "";
+
 $(".fields").hide();
   $(function () {
-    var table = $("#example1").DataTable({
+    table = $("#example1").DataTable({
       processing: true,
         serverSide: true,
         "ajax": "{{ route('modules.dtajax') }}",
@@ -113,7 +119,14 @@ $(".fields").hide();
               orderable: false, 
               searchable: false,
               render: function (data, type, row, meta){
-                return '<input type="checkbox" name="View" value="'+ data +'" onclick="handleClick(this.value,this.name);">';
+                  const str = data.toLowerCase() + "-" + "view";    
+                  var checked = '';
+                  if(existed_per.includes(str)){
+                    checked = 'checked';
+                  }else{
+                    checked = '';
+                  }
+                  return '<input type="checkbox" name="view" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
               }
           },
           {
@@ -122,7 +135,14 @@ $(".fields").hide();
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" id="checkbox2" name="Create" value="'+ data +'" onclick="handleClick(this.value,this.name);">';
+                const str = data.toLowerCase() + "-" + "create";    
+                  var checked = '';
+                  if(existed_per.includes(str)){
+                    checked = 'checked';
+                  }else{
+                    checked = '';
+                  }
+                  return '<input type="checkbox" name="create" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
               }
           },
           {
@@ -131,7 +151,14 @@ $(".fields").hide();
               orderable: false, 
               searchable: false,
               render: function (data, type, row, meta){
-                return '<input type="checkbox" id="checkbox3" name="Update"  value="'+ data +'" onclick="handleClick(this.value,this.name);">';
+                const str = data.toLowerCase() + "-" + "update";    
+                  var checked = '';
+                  if(existed_per.includes(str)){
+                    checked = 'checked';
+                  }else{
+                    checked = '';
+                  }
+                  return '<input type="checkbox" name="update" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
               }
           },
           {
@@ -140,7 +167,14 @@ $(".fields").hide();
               orderable: false, 
               searchable: false,
               render: function (data, type, full, meta){
-                return '<input type="checkbox" id="checkbox4" name="Delete"  value="'+ data +'" onclick="handleClick(this.value,this.name);">';
+                const str = data.toLowerCase() + "-" + "delete";    
+                  var checked = '';
+                  if(existed_per.includes(str)){
+                    checked = 'checked';
+                  }else{
+                    checked = '';
+                  }
+                  return '<input type="checkbox" name="delete" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
               }
           },
           {
@@ -158,50 +192,19 @@ $(".fields").hide();
 var permission_list = [];
 var total = {};
 var role_id = {};
-var id = "";
 
 function handleClick(value,name) {
-  if($('input[name="'+name+'"]').on("click")){
-    Swal.fire({
-    title: 'Do you want to save the changes?',
-    showDenyButton: true,
-    showCancelButton: true,
-    confirmButtonText: 'Assign',
-    denyButtonText: `No`,
-    }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
-        if(permission_list.includes(value.toLowerCase() +"-"+name.toLowerCase()) === false){
-          permission_list.push(value.toLowerCase() +"-"+name.toLowerCase());
-        }
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
-      }
-    })  
+  if($('input[name="'+name+'"]').is(":checked")){  
+    if(existed_per.includes(value.toLowerCase() +"-"+name.toLowerCase()) === false){
+      existed_per.push(value.toLowerCase() +"-"+name.toLowerCase());
+    }
   }
   else{
-    permission_list.pop(value);
+    existed_per = jQuery.grep(existed_per,function(e) {
+      return e != value.toLowerCase() +"-"+name.toLowerCase();
+    });
   }
 }
-//if($('input[name="'+name+'"]').is(":checked")){
-$(function () {
-    $("select").on('change',function(){
-        var selectedCountry = $(this).children("option:selected").val();
-          $.ajax({
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            url:"{{route('modules.getAllPermissions')}}",
-            method:"post",
-            data:{
-              id:id
-            },
-            success:function(response){
-              console.log(response);
-            }
-          });
-          console.log({ id,"permissions":permission_list });
-    });
-});
 
 function FieldsClick(name) {
   if($('input[name="'+name+'"]').is(":checked")){
@@ -213,21 +216,54 @@ function FieldsClick(name) {
 }
 
 $(function () {
+  $("select").on('change',function(){
+    existed_per = []; 
+      var selectedCountry = $(this).children("option:selected").val();
+        id = $(this).val();
+        $.each(role_data, function(index, value) {
+        if(id == value._id){
+          var permission_id = value.permission_ids;
+            $.each(permission_id, function(index, value) {
+              var ele_id = value;
+              $.each(per_data, function(index, value) {
+              if(ele_id == value._id){
+                existed_per.push(value.name)
+              }
+            })
+          })
+        }
+      })
+      console.log(existed_per);
+      $('#example1').DataTable().ajax.reload();
+    });
+});
+
+$(function () {
   $('button').on('click', function (){
-    var role = $('#user').find(":selected").val();
-    if(role == ""){
-      alert("pls choose a role");
-      return;
+    Swal.fire({
+    title: 'Do you want to save the changes?',
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: `Save`,
+    denyButtonText: `Don't save`,
+    }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: "POST",
+        url: "{{ route('modules.givepermission') }}",
+        data: { id,"permissions":existed_per },
+        success:function(response){
+          Swal.fire('Saved!', '', 'success')
+          location.reload(true);
+      }
+    })
+    } else if (result.isDenied) {
+      Swal.fire('Changes are not saved', '', 'info')
+      location.reload(true);
     }
-    $.ajax({
-      headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-      type: "POST",
-      url: "{{ route('modules.givepermission') }}",
-      data: { "id":role,"permissions":permission_list },
-      success:function(response){
-    }
-  })
+})
 })
 });
 </script>

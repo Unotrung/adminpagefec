@@ -75,6 +75,7 @@ $old = Role::find($role);
                         @enderror
                     </div>                  
                 </div>
+<!--                 
                 <div class="form-group row">
                     <div class="card-header">
                         <h6 class="m-0 font-weight-bold text-primary">Assign Permissions</h6>
@@ -87,7 +88,7 @@ $old = Role::find($role);
                         </div>
                         @endforeach
                     </div>
-                </div>
+                </div> -->
                 {{-- Save Button --}}
                 <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Update

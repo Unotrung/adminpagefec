@@ -249,16 +249,19 @@ return [
         [
             'text' => 'Customers',
             'url'  => 'customer',
+            'can'  => ['website-access','admin-access'],
             'icon'        => 'nav-icon fas fa-fw fa-users',
         ],
         [
             'text' => 'BNPL Registrations',
             'url'  => 'bnpl',
+            'can'  => ['website-access','admin-access'],
             'icon' => 'nav-icon fas fa-solid fa-id-card',
         ],
         [
             'text' => 'Notifications',
             // 'url'  => 'notifications/index',
+            'can'  => ['website-access','admin-access'],
             'icon' => 'nav-icon fas fa-solid fa-bell',
             'submenu' => [
                 [
@@ -279,25 +282,29 @@ return [
         [
             'text' => 'News',
             'url'  => 'news/index',
+            'can'  => ['website-access','admin-access'],
             'icon' => 'nav-icon fas fa-newspaper',
         ],
         [
             'text' => 'Providers',
             'url'  => 'providers/index',
+            'can'  => ['website-access','admin-access'],
             'icon' => 'nav-icon fas fa-building	',
         ],
         [
             'text' => 'Promotions',
             'url'  => 'promotions/index',
+            'can'  => ['website-access','admin-access'],
             'icon' => 'nav-icon fas fa-solid fa-tags',
         ],
         [
             'text' => 'FAQs',
             'url'  => 'faqs/index',
+            'can'  => ['website-access','admin-access'],
             'icon' => 'nav-icon fas fa-comments',
         ],
         [
-            'text'    => 'Team',
+            'text'    => 'Settings',
             'icon'    => 'fas fa-fw fa-share',
             'can'     => 'admin-access',
             'submenu' => [
@@ -305,10 +312,11 @@ return [
                     'text' => 'Users',
                     'url'  => 'users',
                 ],
-                [
-                    'text' => 'Department',
-                    'url'  => 'department/index',
-                ],
+
+                // [
+                //     'text' => 'Department',
+                //     'url'  => 'department/index',
+                // ],
                 [
                     'text' => 'Modules & Fields Permissions',
                     'url'  => 'modules/index',
@@ -317,10 +325,14 @@ return [
                     'text' => 'Roles',
                     'url'  => 'roles/index',
                 ],
+                // [
+                //     'text' => 'Permission',
+                //     'url'  => 'permission/index',
+                // ],
                 [
-                    'text' => 'Permission',
-                    'url'  => 'permission/index',
-                ],
+                    'text' => 'Configuration',
+                    'url'  => 'configuration/index',
+                ]
             ],
 
         ],
@@ -328,16 +340,13 @@ return [
         [
             'text' => 'profile',
             'url'  => 'account/show',
+            'can'  => ['system-access','website-access','admin-access'],
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
             'url'  => '/account/change',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'Configuration',
-            'url'  => 'configuration/index',
+            'can'  => ['system-access','website-access','admin-access'],
             'icon' => 'fas fa-fw fa-lock',
         ],
     ],
