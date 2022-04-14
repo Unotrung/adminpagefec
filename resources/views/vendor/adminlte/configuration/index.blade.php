@@ -36,7 +36,7 @@
           <div class="col-12">
             <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Setting Send OTP</a>
+                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Configuration</a>
               </li>
             </ul>
             <!-- <div class="tab-custom-content">
@@ -54,7 +54,7 @@
                     <input type="checkbox" class="custom-control-input" id="customSwitch3"><label class="custom-control-label" for="customSwitch3">Sent OTP To Mobile Phone</label>
                     </div>
                     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success ">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch4"><label class="custom-control-label" for="customSwitch4">Sent OTP To Mobile Phone</label>
+                    <input type="checkbox" class="custom-control-input" id="customSwitch4"><label class="custom-control-label" for="customSwitch4">Sent OTP To Email Address</label>
                   </div>
                 </div>
               </div>
