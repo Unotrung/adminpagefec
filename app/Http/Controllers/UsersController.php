@@ -146,9 +146,32 @@ class UsersController extends Controller
     }
 
     public function dtajax(Request $request){
-        if ($request->ajax()) {
-
+        if ($request->ajax()) 
+        {
                 $user = User::whereNull("delete_att");
+                if(!empty($request->type))
+                {
+                    if(($request->type)=="Username")
+                    {
+                        $user->where("name",$request->input);
+                    }
+                    elseif (($request->type)=="Email")
+                    {
+                        $user->where("email",$request->email);
+                    }
+                    elseif (($request->type)=="Status")
+                    {
+                        if($request->status == "Active")
+                        {
+                            $user->where("delete_at",'');
+                        }
+                        else
+                        {
+                            $user->where("delete_at",1);
+                        }
+                    }
+
+                }
                 // if(!empty($request->name)) $user->where("name",$request->name);
                 // if(!empty($request->email)) $user->where("email",$request->email);
                 
@@ -159,16 +182,16 @@ class UsersController extends Controller
                 //     if($request->status == "Active")
                 //     {
                 //         $user->where("delete_at",'');
-                $user = User::whereNull("isDelete")->whereHas('roles', function ($query) {
-                    return $query->where('name','!=', 'super admin');
-                });
-                if(!empty($request->name)) $user->where("name",$request->name);
-                if(!empty($request->email)) $user->where("email",$request->email);
-                if(!empty($request->status)) 
-                {
-                    if($request->status == 'Active')
-                    {
-                        $user->where("delete_at",'');
+                // $user = User::whereNull("isDelete")->whereHas('roles', function ($query) {
+                // return $query->where('name','!=', 'super admin');
+                // });
+                // if(!empty($request->name)) $user->where("name",$request->name);
+                // if(!empty($request->email)) $user->where("email",$request->email);
+                // if(!empty($request->status)) 
+                // {
+                //     if($request->status == 'Active')
+                //     {
+                //         $user->where("delete_at",'');
 
                         
                 //     }

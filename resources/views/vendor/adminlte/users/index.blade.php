@@ -8,13 +8,14 @@
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <link rel="stylesheet" type="text/css" 
      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
 @stop
 @section('content_header')
 <div class="container-fluid">
@@ -41,44 +42,40 @@
     <!-- Main content -->
     <div class="container-fluid">
         <div class="row">
+          <div class="col-6">
+            <div class="input-group input-group-sm">
+              <input type="search" class="form-control form-control-lg" id = "input" placeholder="Type your keywords here" >
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-lg btn-default" id="search">
+                  <i class="fa fa-search"></i>
+                  </button>
+                </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="input-group input-group-sm">
+              <select class="select2" style="width: 100%;" id="type">
+                <option>Username</option>
+                <option>Email</option>
+                <option>Role</option>
+                <option>Status</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body" >
                 <table id="example1" class="table table-bordered table-striped">
-<<<<<<< HEAD
-                  {{-- <div class="form-group row">
-=======
-                  <!-- 
-<div class="form-group row">
->>>>>>> cdd087dfb0fec0bc7527abe3962cdac7592fa2a7
-							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Username: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="" name="name" value=""> <span class="text-danger"></span>  </div> 
-							<div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Email: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="" name="email" value="">  <span class="text-danger"></span> </div> 
-                <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Role: </label>
-                  <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="role" placeholder="" name="role" value=""> <span class="text-danger"></span>  </div> 
-                <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Status: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="status" placeholder="" name="status" value="">  <span class="text-danger"></span> </div> 
-               <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;"></span>Created Date </label>
-								<input type="text" class="form-control float-right" id="reservation" placeholder="" name="reservation" value="">  <span class="text-danger"><i class="far fa-calendar-alt"></i></span> </div> 
-              <div class="col-sm-1 mb-1 mb-sm-0 p-0">
-                <div class="mt-4"></div>
-                  <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
-						  </div>
-              <div class="col-sm-1 mb-1 mb-sm-0 pl-1">
-                <div class="mt-4"></div>
-                  <button type="button" name="reset" id="reset" class="btn btn-default w-100">Reset</button>
-              </div> --}}
-            </div>
-                  -->
                   <thead>
-                    <label for="status" style="width:20%; margin-left: 200px;">Choose status of user:</label>
+                    {{-- <label for="status" style="width:20%; margin-left: 200px;">Choose status of user:</label>
                     <select id="status" style="width:30%; margin: right auto;">
                       <option value="" selected >Select status</option>
                       <option value="Active" >Active</option>
                       <option value="InActive" >InActive</option>
-                  </select>
+                  </select> --}}
                   <tr>
                     <th>Username</th>
                     <th>Email</th>
@@ -146,29 +143,31 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
+<script src="../../plugins/select2/js/select2.full.min.js"></script>
+
 
 <!-- Page specific script -->
 <script>
 $(document).ready(function(){
+  
   fill_datatable();
   $('#reservation').daterangepicker().val('');
-  function fill_datatable(name = '',email=  '',action='',status='',reservation = '',role='')
+  function fill_datatable(input)
   {
     var table = $("#example1").DataTable({
       lengthChange: true, 
       responsive: true, 
       processing: true,
-      searching: true,
+      searching: false,
         serverSide: true,
         ajax:{ 
           url: "{{ route('users.dtajax') }}",
-          data:{name:name , email:email , action:action , status:status ,reservation:reservation}
+          data:{input}
         },
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
           {data:'role',name:'Role'},
-<<<<<<< HEAD
 
           // {data: 'role_ids', name: 'role',render:function(data){
           //   var roles = <?php echo $roles; ?>;
@@ -182,8 +181,6 @@ $(document).ready(function(){
           //   return display;
           // }},
           
-=======
->>>>>>> cdd087dfb0fec0bc7527abe3962cdac7592fa2a7
           {data: 'delete_at', name: 'status', render: function(data){
             if(status == 1)
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
@@ -207,16 +204,15 @@ $(document).ready(function(){
     table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
   }
 
-  $('#filter').click(function(){
-    var name = $('#name').val();
-    var email = $('#email').val();
-    var role = $('#role').val();
-    var status = $('#status').val();
-    var reservation = $('#reservation').val();
-    // var to_date = $('#to_date').val();
-    if((reservation != '' &&  name == '')||(reservation != '' &&  status == '' )||(reservation != '' &&  email == '' ))
+  $('#search').click(function(){
+    var input = $('#input').val();
+    console.log(input);
+    var type = $('#type').val();
+    console.log(type);
+    var to_date = $('#to_date').val();
+    if( input == '')
     {
-      toastr["error"]("Please select Full name or Email or Status to search!")
+      toastr["error"]("Please select input data to search!")
       toastr.options = {
         "closeButton": false,
         "debug": true,
@@ -238,29 +234,27 @@ $(document).ready(function(){
     else
     {
       $('#example1').DataTable().destroy();
-      fill_datatable(name,email,role,action="search",status,reservation);
+      fill_datatable(input);
     }
   });
 
-  $('#reset').click(function(){ 
-      $('#name').val('');
-      $('#email').val('');
-      $('#status').val('');
-      $('#role').val('');
-      $('#reservation').val('');
-      // $('#to_date').val('');
-      $('#example1').DataTable().destroy();
-      fill_datatable(); 
-  });
+  // $('#reset').click(function(){ 
+  //     $('#name').val('');
+  //     $('#email').val('');
+  //     $('#status').val('');
+  //     $('#role').val('');
+  //     $('#reservation').val('');
+  //     // $('#to_date').val('');
+  //     $('#example1').DataTable().destroy();
+  //     fill_datatable(); 
+  // });
 
-  $('#status').on('change',function()
+  $('#type').change(function()
   {
-    var status = $('#status').val();
-    console.log(status);
-    $('#example1').DataTable().destroy();
-    fill_datatable(status);
-});
-
+    var type = $('#type').val();
+    console.log(type);
+  });
+  $('.select2').select2();
 });
 
 
