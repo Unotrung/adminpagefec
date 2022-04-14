@@ -257,7 +257,7 @@ Route::group(['middleware' => ['role:super admin']], function () {
         Route::post('/customer/delete', [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customer.delete');
     });
     Route::group(['middleware' => ['permission:faqs-delete']], function () {
-        Route::post('/faqs/delete}', [App\Http\Controllers\FaqController::class, 'destroy'])->name('faqs.delete');
+        Route::post('/faqs/delete', [App\Http\Controllers\FaqController::class, 'destroy'])->name('faqs.delete');
     });
     Route::group(['middleware' => ['permission:department-delete']], function () {
         Route::get('/department/delete/{id}', [App\Http\Controllers\DepartmentController::class, 'destroy'])->name('department.delete');
@@ -266,8 +266,8 @@ Route::group(['middleware' => ['role:super admin']], function () {
         Route::post('/roles/delete', [App\Http\Controllers\RolesController::class, 'destroy'])->name('roles.delete');
     });
     Route::group(['middleware' => ['permission:users-delete']], function () {
-        Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
-        Route::get('/users/restore/{id}', [App\Http\Controllers\UsersController::class, 'restore'])->name('users.restore');
+        Route::post('/users/delete', [App\Http\Controllers\UsersController::class, 'destroy'])->name('users.delete');
+        Route::post('/users/restore', [App\Http\Controllers\UsersController::class, 'restore'])->name('users.restore');
     });
 });
 

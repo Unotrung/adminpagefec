@@ -145,7 +145,6 @@
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
 <script src="../../plugins/select2/js/select2.full.min.js"></script>
-<script src="toastr.js"></script>
 
 <!-- Page specific script -->
 <script>
