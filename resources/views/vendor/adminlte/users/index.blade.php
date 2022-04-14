@@ -168,19 +168,6 @@ $(document).ready(function(){
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
           {data:'role',name:'Role'},
-
-          // {data: 'role_ids', name: 'role',render:function(data){
-          //   var roles = <?php echo $roles; ?>;
-          //   var display = "";
-          //   roles.forEach(element => {
-          //     if(data == element._id){
-          //       console.log(element.display_name);
-          //       display = element.display_name;
-          //     }
-          //   });
-          //   return display;
-          // }},
-          
           {data: 'delete_at', name: 'status', render: function(data){
             if(status == 1)
             return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";

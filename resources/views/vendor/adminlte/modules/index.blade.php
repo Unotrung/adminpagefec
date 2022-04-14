@@ -166,23 +166,9 @@ var id = "";
 
 function handleClick(value,name) {
   if($('input[name="'+name+'"]').on("click")){
-    Swal.fire({
-    title: 'Do you want to save the changes?',
-    showDenyButton: true,
-    showCancelButton: true,
-    confirmButtonText: 'Assign',
-    denyButtonText: `No`,
-    }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
-        if(permission_list.includes(value.toLowerCase() +"-"+name.toLowerCase()) === false){
+    if(permission_list.includes(value.toLowerCase() +"-"+name.toLowerCase()) === false){
           permission_list.push(value.toLowerCase() +"-"+name.toLowerCase());
         }
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
-      }
-    })  
   }
   else{
     permission_list.pop(value);

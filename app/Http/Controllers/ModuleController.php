@@ -20,7 +20,7 @@ class ModuleController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        $roles = Role::all();
+        $roles = Role::all()->where('name','!=', 'super admin');
         return view('vendor.adminlte.modules.index',['permissions'=>$permissions,'roles'=>$roles]);
     }
 
