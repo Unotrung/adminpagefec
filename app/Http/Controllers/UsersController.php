@@ -35,14 +35,19 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::All();
-        $roles = Role::All();
+
+        // $role = Role::all();
+        // return view('vendor.adminlte.users.index',['users'=> $users,"role"=>$role]);
+
+        $roles = Role::All()->where('name','!=', 'super admin');
         return view('vendor.adminlte.users.index',['users'=> $users,'roles'=>$roles]);
+
     }
 
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::All();
+        $roles = Role::All()->where('name','!=', 'super admin');
         $permissions = Permission::All();
         return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles, 'permissions'=>$permissions]);
     }
@@ -122,16 +127,13 @@ class UsersController extends Controller
 
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $user = User::find($id);
-
-
+        $user = User::find($request->id);
         $user->delete();
-
         $user->delete_at = 1;
         $user->save();
-        return redirect()->route('users')->with('User deleted successfull');
+        return redirect()->route('users')->with('delete','User Deleted Successfull');
 
     }
 
@@ -144,57 +146,88 @@ class UsersController extends Controller
     }
 
     public function dtajax(Request $request){
-        if ($request->ajax()) {
-        $out =  DataTables::of(User::All())->make(true);
-        //    $data = $out->getData();
-        //    for($i=0; $i < count($data->data); $i++) {
-        //        $output = '';
-        //         if(empty($data->data[$i]->delete_at)){
-        //             $data->data[$i]->delete_at = "";
-        //             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-        //             $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-        //             $output .= ' <a href="'.url(route('users.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-ban"></i></a>';
-        //         }else{
-        //             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-        //             $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-sync"></i></a>';
-        //         }
-        //         if(empty($data->data[$i]->role_ids)){
-        //             $data->data[$i]->role_ids = "";
-        //         }
-        //         else{
-        //             $role_data = Role::find($data->data[$i]->role_ids);
-        //             $data->data[$i]->role_ids = $role_data[0]['display_name'];
-        //         }
-        //        $data->data[$i]->action = (string)$output;
-        //         if(empty($data->data[$i]->status)){
-        //             $data->data[$i]->status = "";
-        //         }
-        //         if(!empty($request->reservation)) {
-        //             if(!empty($request->name)){
-        //             $date = explode(" - ",$request->reservation);
-        //             $from = Carbon::parse($date[0]);
-        //             $to = Carbon::parse($date[1].' 23:59');
-        //             $user->whereBetween("created_at", [$from,$to]);
-        //             // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
-        //             }
-        //             else
-        //             {
-        //                 $out =  Datatables::of(User::where("_id",1)->get())->make(true);
-        //                 return $out;      
-        //             }
-        //         }
-        //         $out =  Datatables::of($user->get())->make(true);
+        if ($request->ajax()) 
+        {
+                $user = User::whereNull("delete_at");
+                if(!empty($request->type))
+                {
+                    if($request->type != "role"){
+                        $user->where($request->type,$request->input);
+                    }else{
+                        $data = $request->input;
+                        $user->whereHas('roles', function ($query) use ($data) {
+                            return $query->where('name',"like", $data."%");
+                        });
+                    }
+                    $user->whereHas('roles', function ($query) {
+                        return $query->where('name','!=', 'super admin');
+                    });
+                }
+                $out =  Datatables::of($user->get())->make(true);
                 $data = $out->getData();   
                 for($i=0; $i < count($data->data); $i++) {
+                    $roles = new Role;
+                    if(empty($data->data[$i]->role_ids[0])){
+                        $data->data[$i]->role = " ";
+                    }
+                    else{
+                     $role = $roles->find($data->data[$i]->role_ids[0]);
+                     $data->data[$i]->role =$role->name;
+                    }
                     $output = '';
                         if(empty($data->data[$i]->delete_at)){
                             $data->data[$i]->delete_at = "";
                             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                             $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-                            $output .= ' <a href="'.url(route('users.delete',['id'=>$data->data[$i]->_id])).'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-ban"></i></a>';
+                            $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                            $output .= '
+                            <form method="post" action="'.url(route('users.delete')).'">
+                                    <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                        <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Do you want to Deactive User? </h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                            </div>
+                                            </div>
+                                    </form>
+                            ';
                         }else{
                             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                            $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class="fa fa-sync"></i></a>';
+                            // $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class=""></i></a>';
+                            $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-sync"></i></a>';
+                            $output .= '
+                            <form method="post" action="'.url(route('users.restore')).'">
+                                    <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                                    <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                        <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Do you want to Active User? </h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                    </div>
+                                            </div>
+                                            </div>
+                                    </form>
+                            ';
                         }
                         $data->data[$i]->action = (string)$output;
                         if(empty($data->data[$i]->status)){

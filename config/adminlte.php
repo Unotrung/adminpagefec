@@ -306,7 +306,7 @@ return [
         [
             'text'    => 'Settings',
             'icon'    => 'fas fa-fw fa-share',
-            'can'     => 'admin-access',
+            'can'     => 'users-view',
             'submenu' => [
                 [
                     'text' => 'Users',

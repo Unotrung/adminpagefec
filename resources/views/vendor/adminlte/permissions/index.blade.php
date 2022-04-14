@@ -71,7 +71,7 @@ var editor;
         serverSide: true,
         "ajax": "{{ route('permission.dtajax') }}",
         columns: [
-          {data: 'display_name', name: 'display_name'},
+          {data: 'name', name: 'name'},
           {data: 'guard_name', name: 'guard_name'},
           {
                   data: 'action', 
@@ -80,6 +80,10 @@ var editor;
                   searchable: true
           },
         ],
+        columnDefs: [{
+          targets: '_all',
+          defaultContent: ""
+        }]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
   });
 </script>

@@ -58,7 +58,7 @@ Route::get('/configuration/index', function(){
 });
 //BNPL
 Route::group(['middleware' => ['role:System Admin|Website Admin|super admin']], function (){
-    Route::group(['middleware' => ['permission:update']], function () {
+    Route::group(['middleware' => ['permission:bnpl-update']], function () {
         // Route::get('/bnpl/edit', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
         Route::get('/bnpl/edit/{id}', [App\Http\Controllers\BnplController::class, 'edit'])->name('bnpl.edit');
     });
@@ -206,7 +206,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         //Route::get('/notifications/edit', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
         Route::get('/notifications/edit/{id}', [App\Http\Controllers\NotificationsController::class, 'edit'])->name('notifications.edit');
         Route::post('/notifications/update', [App\Http\Controllers\NotificationsController::class, 'update'])->name('notifications.update');
-        
+
     });
     Route::group(['middleware' => ['permission:notifications-view']], function () {
         Route::get('/notifications/index', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications.index');
