@@ -148,71 +148,20 @@ class UsersController extends Controller
     public function dtajax(Request $request){
         if ($request->ajax()) 
         {
-                $user = User::whereNull("delete_att");
+                $user = User::whereNull("delete_at");
                 if(!empty($request->type))
                 {
-                    if(($request->type)=="Username")
-                    {
-                        $user->where("name",$request->input);
+                    if($request->type != "role"){
+                        $user->where($request->type,$request->input);
+                    }else{
+                        $data = $request->input;
+                        $user->whereHas('roles', function ($query) use ($data) {
+                            return $query->where('name',"like", $data."%");
+                        });
                     }
-                    elseif (($request->type)=="Email")
-                    {
-                        $user->where("email",$request->email);
-                    }
-                    elseif (($request->type)=="Status")
-                    {
-                        if($request->status == "Active")
-                        {
-                            $user->where("delete_at",'');
-                        }
-                        else
-                        {
-                            $user->where("delete_at",1);
-                        }
-                    }
-
-                }
-                // if(!empty($request->name)) $user->where("name",$request->name);
-                // if(!empty($request->email)) $user->where("email",$request->email);
-                
-                // if(!empty($request->status)) 
-                // {
-                //     return $request->status;
-                //     // return $request->status;
-                //     if($request->status == "Active")
-                //     {
-                //         $user->where("delete_at",'');
-                // $user = User::whereNull("isDelete")->whereHas('roles', function ($query) {
-                // return $query->where('name','!=', 'super admin');
-                // });
-                // if(!empty($request->name)) $user->where("name",$request->name);
-                // if(!empty($request->email)) $user->where("email",$request->email);
-                // if(!empty($request->status)) 
-                // {
-                //     if($request->status == 'Active')
-                //     {
-                //         $user->where("delete_at",'');
-
-                        
-                    }
-                    else
-                    {
-                        $user->where("delete_at",1);
-                    }
-                }
-                if(!empty($request->reservation)) {
-                    if(!empty($request->name)){
-                    $date = explode(" - ",$request->reservation);
-                    $from = Carbon::parse($date[0]);
-                    $to = Carbon::parse($date[1].' 23:59');
-                    $user->whereBetween("created_at", [$from,$to]);
-                    // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
-                    }
-                    else
-                    {
-                        $out =  Datatables::of(User::where("_id",1)->get())->make(true);
-                        return $out;      
-                    }
+                    $user->whereHas('roles', function ($query) {
+                        return $query->where('name','!=', 'super admin');
+                    });
                 }
                 $out =  Datatables::of($user->get())->make(true);
                 $data = $out->getData();   

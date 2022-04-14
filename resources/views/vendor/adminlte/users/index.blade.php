@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" 
      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -44,7 +45,7 @@
         <div class="row">
           <div class="col-6">
             <div class="input-group input-group-sm">
-              <input type="search" class="form-control form-control-lg" id = "input" placeholder="Type your keywords here" >
+              <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
                 <div class="input-group-append">
                   <button type="submit" class="btn btn-lg btn-default" id="search">
                   <i class="fa fa-search"></i>
@@ -54,11 +55,11 @@
           </div>
           <div class="col-3">
             <div class="input-group input-group-sm">
-              <select class="select2" style="width: 100%;" id="type">
-                <option>Username</option>
-                <option>Email</option>
-                <option>Role</option>
-                <option>Status</option>
+              <select class="select2" style="width: 100%;" id="type" name="type">
+                <option value="name">Username</option>
+                <option value="email">Email</option>
+                <option value="role">Role</option>
+                <option value="delete_at">Status</option>
               </select>
             </div>
           </div>
@@ -144,7 +145,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
 <script src="../../plugins/select2/js/select2.full.min.js"></script>
-
+<script src="toastr.js"></script>
 
 <!-- Page specific script -->
 <script>
@@ -152,7 +153,7 @@ $(document).ready(function(){
   
   fill_datatable();
   $('#reservation').daterangepicker().val('');
-  function fill_datatable(input)
+  function fill_datatable(input,type)
   {
     var table = $("#example1").DataTable({
       lengthChange: true, 
@@ -162,7 +163,7 @@ $(document).ready(function(){
         serverSide: true,
         ajax:{ 
           url: "{{ route('users.dtajax') }}",
-          data:{input}
+          data:{input:input,type:type}
         },
         columns: [
           {data: 'name', name: 'name'},
@@ -221,7 +222,7 @@ $(document).ready(function(){
     else
     {
       $('#example1').DataTable().destroy();
-      fill_datatable(input);
+      fill_datatable(input,type);
     }
   });
 
