@@ -46,7 +46,6 @@
                     <th>Create</th>
                     <th>Update</th>
                     <th>Delete</th>
-                    <th>Previlege Fields</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -109,6 +108,7 @@ $(".fields").hide();
     table = $("#example1").DataTable({
       processing: true,
         serverSide: true,
+        pageLength: 100,
         "ajax": "{{ route('modules.dtajax') }}",
         columns: [
           {data: 'module', name: 'module'},
@@ -175,15 +175,6 @@ $(".fields").hide();
                     checked = '';
                   }
                   return '<input type="checkbox" name="delete" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
-              }
-          },
-          {
-              data: 'module', 
-              name: 'action', 
-              orderable: false, 
-              searchable: false,
-              render: function (data, type, row, meta){
-                return '<input id="checkbox5" class="toggle-adv-access btn btn-default btn-sm hide_row" type="checkbox" name="check['+data+']" value="'+row+'" onclick="FieldsClick(this.name);">';        
               }
           },
         ],
