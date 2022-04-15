@@ -112,7 +112,7 @@
                 <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="from_date" placeholder="" name="from_date" value="">  <span class="text-danger"></span> </div> 
               <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>To Date </label>
                 <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="to_date" placeholder="" name="to_date" value="">  <span class="text-danger"></span> </div>  -->
-                <div class="col-sm-4 mb-4 mb-sm-0"> <span style="color:red;"></span>Date Range: </label>
+                <div class="col-sm-4 mb-4 mb-sm-0"> <span style="color:red;"></span>Date Registers: </label>
 								<input type="text" class="form-control float-right" id="reservation" placeholder="" name="reservation" value="">  <span class="text-danger"><i class="far fa-calendar-alt"></i></span> </div> 
                 <div class="col-sm-1 mb-1 mb-sm-0 p-0">
                 <div class="mt-4"></div>
