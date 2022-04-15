@@ -37,7 +37,11 @@
                 <select id="user" style="width:30%; margin: right auto;" class="custom-select custom-select-sm form-control form-control-sm">
                 <option value="" selected>Select a role...</option>
                   @foreach ($roles as $role)
-                  <option value="{{$role['id']}}">{{$role['name']}}</option>
+                    @if ($role['name'] == 'System Admin' && Auth::user()->hasRole('System Admin'))
+                      <option value="{{$role['id']}}" disabled>{{$role['name']}}</option>
+                    @else
+                    <option value="{{$role['id']}}">{{$role['name']}}</option>
+                    @endif
                   @endforeach
                 </select>
                   <tr>
