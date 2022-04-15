@@ -126,7 +126,7 @@ $(".fields").hide();
                   }else{
                     checked = '';
                   }
-                  return '<input type="checkbox" name="view" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
+                  return '<input type="checkbox" name="'+ data.toLowerCase() +'-view" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
               }
           },
           {
@@ -142,7 +142,7 @@ $(".fields").hide();
                   }else{
                     checked = '';
                   }
-                  return '<input type="checkbox" name="create" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
+                  return '<input type="checkbox" name="'+ data.toLowerCase() +'-create" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
               }
           },
           {
@@ -158,7 +158,7 @@ $(".fields").hide();
                   }else{
                     checked = '';
                   }
-                  return '<input type="checkbox" name="update" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
+                  return '<input type="checkbox" name="'+ data.toLowerCase() +'-update" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
               }
           },
           {
@@ -174,7 +174,7 @@ $(".fields").hide();
                   }else{
                     checked = '';
                   }
-                  return '<input type="checkbox" name="delete" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
+                  return '<input type="checkbox" name="'+ data.toLowerCase() +'-delete" value="'+ data.toLowerCase() +'" onclick="handleClick(this.value,this.name);" '+checked+' >';
               }
           },
         ],
@@ -190,14 +190,15 @@ var role_id = {};
 
 function handleClick(value,name) {
   if($('input[name="'+name+'"]').is(":checked")){  
-    if(existed_per.includes(value.toLowerCase() +"-"+name.toLowerCase()) === false){
-      existed_per.push(value.toLowerCase() +"-"+name.toLowerCase());
+    if(existed_per.includes(name.toLowerCase()) === false){
+      existed_per.push(name.toLowerCase());
     }
   }
-  else{
+  else {
     existed_per = jQuery.grep(existed_per,function(e) {
-      return e != value.toLowerCase() +"-"+name.toLowerCase();
+      return e != name.toLowerCase();
     });
+    console.log(existed_per);
   }
 }
 
