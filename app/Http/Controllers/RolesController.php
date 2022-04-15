@@ -116,13 +116,22 @@ class RolesController extends Controller
         $role->display_name = $request->display_name;
         $role->description = $request->description;
         $role->guard_name = $request->guard_name;
-        $rPer = $request->permission;
-        if( $rPer != null){
-            $role->revokePermissionTo(Permission::All());
-            foreach ($rPer as $per){
-                $role->givePermissionTo(Permission::find($per));
-            }
+        // $rPer = $request->permission;
+        // if( $rPer != null){
+        //     $role->revokePermissionTo(Permission::All());
+        //     foreach ($rPer as $per){
+        //         $role->givePermissionTo(Permission::find($per));
+        //     }
+        // }
+        $role->permission_ids = [];
+        // $role->save();
+
+        $permissions = $request->permissions;
+        foreach ($permissions as $ele){
+            $is_exist = Permission::firstOrCreate(['name' => $ele]);
+            $role->givePermissionTo($is_exist);
         }
+        // return redirect()->route('modules.index');
         $role->save();
         return redirect()->route('roles.index')->with('success','Role updated successfully.');
     }

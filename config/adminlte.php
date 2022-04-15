@@ -249,13 +249,13 @@ return [
         [
             'text' => 'Customers',
             'url'  => 'customer',
-            'can'  => ['website-access','admin-access'],
+            'can'  => ['admin-access'],
             'icon'        => 'nav-icon fas fa-fw fa-users',
         ],
         [
             'text' => 'BNPL Registrations',
             'url'  => 'bnpl',
-            'can'  => ['website-access','admin-access'],
+            'can'  => ['admin-access'],
             'icon' => 'nav-icon fas fa-solid fa-id-card',
         ],
         [
@@ -287,7 +287,7 @@ return [
         [
             'text' => 'Providers',
             'url'  => 'providers/index',
-            'can'  => ['website-access','admin-access'],
+            'can'  => ['admin-access'],
             'icon' => 'nav-icon fas fa-building	',
         ],
         [
@@ -339,13 +339,13 @@ return [
         [
             'text' => 'profile',
             'url'  => 'account/show',
-            'can'  => ['system-access','website-access','admin-access'],
+            // 'can'  => ['website-access','admin-access'],
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => 'change_password',
             'url'  => '/account/change',
-            'can'  => ['system-access','website-access','admin-access'],
+            // 'can'  => ['website-access','admin-access'],
             'icon' => 'fas fa-fw fa-lock',
         ],
     ],
