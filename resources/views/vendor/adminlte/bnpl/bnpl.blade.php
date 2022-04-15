@@ -46,7 +46,7 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>{{count($bnpl)}}</h3>
-                <p>Total BNPL Registers</p>
+                <p>Total BNPL Registing</p>
               </div>
               <div class="icon">
               <i class="fas fa-user-plus"></i>
@@ -61,7 +61,7 @@
                 <h3>
                 {{count($name)}}
                   <sup style="font-size: 20px"></sup></h3>
-                <p>Stage: Nhập Thông Tin</p>
+                <p>Stage: Input informations</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-check"></i>
@@ -74,7 +74,7 @@
             <div class="small-box bg-warning">
               <div class="inner">
                 <h3> {{count($phone)}}</h3>
-                <p>Stage: Cài đặt Pin Code</p>
+                <p>Stage: Setup pincode</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-lock"></i>
@@ -87,7 +87,7 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 <h3>{{count($identify)}}</h3>
-                <p>Stage: Xác thực người dùng</p>
+                <p>Stage: Verify registers</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-shield"></i>
@@ -189,14 +189,20 @@ $(document).ready(function(){
   var type = (name=='')?((phone=='')?"createAt":"phone"):"name";
   var from = reservation.endDate;
   var to = "";
+  var jsonData = [
+    { "meta": { "version": 1, "type": "test" } }
+];
   console.log(from);
-  console.log(keywork);//"https://admin-voolo.herokuapp.com/v1/admin/search"    url:"{{route('bnpl.dtajax')}}",
+  console.log(keywork);//"https://admin-voolo.herokuapp.com/v1/admin/searchBNPL"    url:"{{route('bnpl.dtajax')}}",
   var dataTable = $("#example1").DataTable({
       processing: true,
         serverSide: true,
         searching: false,
+        language : {
+            "zeroRecords": " "             
+        },
         ajax: {
-          url:"https://admin-voolo.herokuapp.com/v1/admin/search",
+          url:"{{route('bnpl.dtajax')}}",
           data:{
             search:type,
             value:keywork,

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use MongoDB\Operation\Find;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class BnplController extends Controller
 {
@@ -95,20 +96,29 @@ class BnplController extends Controller
 
     public function dtajax(Request $request){
          if ($request->ajax()) {
-            if(!empty($request->action))
+            if(!empty($request->search))
             {
-                $bnpl = Bnpl::whereNull("isDelete");
-                if(!empty($request->name)) $bnpl->where("name",$request->name);
-                //if(!empty($request->status)) $bnpl->where("email",$request->status);
-                if(!empty($request->phone)) $bnpl->where("phone",$request->phone);
-                if(!empty($request->reservation)) {
-                    $date = explode(" - ",$request->reservation);
-                    $from = Carbon::parse($date[0]);
-                    $to = Carbon::parse($date[1].' 23:59');
-                    $bnpl->whereBetween("createdAt", [$from,$to]);
-                    // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
-                }
-                $out =  Datatables::of($bnpl->get())->make(true);
+                // $bnpl = Bnpl::whereNull("isDelete");
+                // if(!empty($request->name)) $bnpl->where("name",$request->name);
+                // //if(!empty($request->status)) $bnpl->where("email",$request->status);
+                // if(!empty($request->phone)) $bnpl->where("phone",$request->phone);
+                // if(!empty($request->reservation)) {
+                //     $date = explode(" - ",$request->reservation);
+                //     $from = Carbon::parse($date[0]);
+                //     $to = Carbon::parse($date[1].' 23:59');
+                //     $bnpl->whereBetween("createdAt", [$from,$to]);
+                //     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
+                // }
+                $response = Http::get('https://admin-voolo.herokuapp.com/v1/admin/searchBNPL', [
+                    'search' => $request->search,
+                    'value' => $request->value,
+                    'form' => $request->from,
+                    'to' => $request->to
+                ]);
+                $result = $response->json();
+                // print_r(); exit;
+                $out =  Datatables::of($result["data"])->make(true);
+                
                 $data = $out->getData();
                 for($i=0; $i < count($data->data); $i++) {
                 $output = '';
