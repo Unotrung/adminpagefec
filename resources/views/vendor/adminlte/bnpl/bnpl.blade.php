@@ -216,7 +216,7 @@ $(document).ready(function(){
           {data: 'createdAt', name: 'Date Regis',
             render: function ( data, type, row ) {
               if ( type === 'display' || type === 'filter' ) {
-                  var d = new Date( data.milliseconds*1);
+                  var d = new Date( data );
                   return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
               }
               return data;}

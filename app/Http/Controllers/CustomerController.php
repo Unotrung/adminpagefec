@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\SendEmailJob;
 use Carbon\Carbon;
 use function PHPUnit\Framework\isNull;
+use Illuminate\Support\Facades\Http;
 
 class CustomerController extends Controller
 {
@@ -93,8 +94,9 @@ class CustomerController extends Controller
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-            if(!empty($request->action))
+            if(!empty($request->search))
             {
+                /*
                 $cus = Customer::whereNull("isDelete");
                 if(!empty($request->username)) $cus->where("username",$request->username);
                 if(!empty($request->email)) $cus->where("email",$request->email);
@@ -114,6 +116,19 @@ class CustomerController extends Controller
                     }
                 }
                 $out =  Datatables::of($cus->get())->make(true);
+                */
+                //{{admin}}/v1/admin/getAllEAP
+                $response = Http::get('https://admin-voolo.herokuapp.com/v1/admin/searchEAP', [
+                    'search' => $request->search,
+                    'value' => $request->value,
+                    // 'from' => $request->from,
+                    // 'to' => $request->to
+                ]);
+                // print_r($request->search);
+                // print_r($request->value);
+                // exit;
+                $result = $response->json();
+                $out =  Datatables::of($result["data"])->make(true);
                 $data = $out->getData();        
                 for($i=0; $i < count($data->data); $i++) {
 
@@ -125,28 +140,7 @@ class CustomerController extends Controller
                     // $output .= Form::close();
                     // $data->data[$i]->index = $i;
                     $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
-                    $output .= '
-                    <form method="post" action="'.url(route('customer.delete')).'">
-                            <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
-                            <input type="hidden" name="_token" value="'.csrf_token().'" />
-                                <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Do you want delete? </h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                                <button type="button" class="btn" data-dismiss="modal">Close</button>
-                                            </div>
-                                            </div>
-                                    </div>
-                                    </div>
-                            </form>
-                    ';
+                    $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                     $data->data[$i]->action = (string)$output;
 
                 }
@@ -156,6 +150,10 @@ class CustomerController extends Controller
             }
             else
             {
+                // $response = Http::get('https://admin-voolo.herokuapp.com/v1/admin/getAllEAP');
+                // $result = $response->json();
+                // $out =  Datatables::of($result["data"])->make(true);
+                // return $out;
                 $out =  Datatables::of(Customer::where("_id",0)->get())->make(true);
                 return $out;      
             }
