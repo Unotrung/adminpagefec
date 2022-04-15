@@ -249,18 +249,18 @@ return [
         [
             'text' => 'Customers',
             'url'  => 'customer',
-            'can'  => ['admin-access'],
+            'can'  => ['admin-access','customers-view'],
             'icon'        => 'nav-icon fas fa-fw fa-users',
         ],
         [
             'text' => 'BNPL Registrations',
             'url'  => 'bnpl',
-            'can'  => ['admin-access'],
+            'can'  => ['admin-access','bnpl-view'],
             'icon' => 'nav-icon fas fa-solid fa-id-card',
         ],
         [
             'text'    => 'Notifications',
-            'can'     => ['website-access','admin-access'],
+            'can'     => ['website-access','admin-access','notifications-view'],
             'icon'    => 'nav-icon fas fa-solid fa-bell',
             'submenu' => [
                 [
@@ -281,25 +281,25 @@ return [
         [
             'text' => 'News',
             'url'  => 'news/index',
-            'can'  => ['website-access','admin-access'],
+            'can'  => ['website-access','admin-access','news-view'],
             'icon' => 'nav-icon fas fa-newspaper',
         ],
         [
             'text' => 'Providers',
             'url'  => 'providers/index',
-            'can'  => ['admin-access'],
+            'can'  => ['admin-access','providers-view'],
             'icon' => 'nav-icon fas fa-building	',
         ],
         [
             'text' => 'Promotions',
             'url'  => 'promotions/index',
-            'can'  => ['website-access','admin-access'],
+            'can'  => ['website-access','admin-access','promotions-view'],
             'icon' => 'nav-icon fas fa-solid fa-tags',
         ],
         [
             'text' => 'FAQs',
             'url'  => 'faqs/index',
-            'can'  => ['website-access','admin-access'],
+            'can'  => ['website-access','admin-access','faqs-view'],
             'icon' => 'nav-icon fas fa-comments',
         ],
         [
