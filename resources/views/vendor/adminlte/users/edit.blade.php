@@ -117,7 +117,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 				@foreach ($roles as $role)
 					<tr>
 						<td>
+							@if ($role->is_delete != 1)
 							<input type="checkbox" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif onClick="btnRole(this.checked,this.value)"/> {{$role->name}}
+							@endif
 						</td>
 					</tr>
 				@endforeach

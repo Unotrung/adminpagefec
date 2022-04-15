@@ -305,7 +305,7 @@ return [
         ],
         [
             'text'    => 'Settings',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fas fa-cog',
             'can'     => 'users-view',
             'submenu' => [
                 [
