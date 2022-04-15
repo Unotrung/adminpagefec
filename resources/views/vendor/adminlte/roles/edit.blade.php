@@ -75,20 +75,84 @@ $old = Role::find($role);
                         @enderror
                     </div>                  
                 </div>
-<!--                 
+                
                 <div class="form-group row">
                     <div class="card-header">
                         <h6 class="m-0 font-weight-bold text-primary">Assign Permissions</h6>
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        @foreach ($permissions as $permission)
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                            <th>Action</th>
+                            @foreach ($modules as $module)
+                            <?php
+                                    if (!str_starts_with ($module->module,'Super')) 
+                                        { ?>
+                                            <th>{{$module->module}}</th>
+                                        <?php 
+                                        }
+                                ?>
+                            
+                                
+                            
+                            @endforeach
+                        </tr>
+                        </thead>
+                       
+                        <tbody>
+                            @foreach ($permissions as $permission)
+                                <?php
+                                    if (str_starts_with ($permission->name,'customer')) 
+                                        { ?>
+                                            <td class=""><div class="custom-control custom-checkbox">
+                                                <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
+                                                <label for="{{$permission->id}}" class="custom-control-label"></label>
+                                              </div></td>
+                                        <?php 
+                                        }
+                                ?>
+                                <?php
+                                if (str_starts_with ($permission->name,'customer')) 
+                                    { ?>
+                                        <td class=""><div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
+                                            <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                          </div></td>
+                                    <?php 
+                                    }
+                            ?>
+                            <?php
+                            if (str_starts_with ($permission->name,'customer')) 
+                                { ?>
+                                    <td class=""><div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
+                                        <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                      </div></td>
+                                <?php 
+                                }
+                        ?>
+                        <?php
+                        if (str_starts_with ($permission->name,'customer')) 
+                            { ?>
+                                <td class=""><div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
+                                    <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                  </div></td>
+                            <?php 
+                            }
+                    ?>
+                            @endforeach
+                        </tbody>
+                        
+                        {{-- @foreach ($permissions as $permission)
                         <div class="custom-control custom-checkbox">
                           <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
                           <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
                         </div>
-                        @endforeach
-                    </div>
-                </div> -->
+                        
+                        @endforeach --}}
+                    </table>
+                </div> 
                 {{-- Save Button --}}
                 <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                     Update

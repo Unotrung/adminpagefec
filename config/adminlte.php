@@ -259,15 +259,14 @@ return [
             'icon' => 'nav-icon fas fa-solid fa-id-card',
         ],
         [
-            'text' => 'Notifications',
-            // 'url'  => 'notifications/index',
-            'can'  => ['website-access','admin-access'],
-            'icon' => 'nav-icon fas fa-solid fa-bell',
+            'text'    => 'Notifications',
+            'can'     => ['website-access','admin-access'],
+            'icon'    => 'nav-icon fas fa-solid fa-bell',
             'submenu' => [
                 [
                     'text' => 'Notifications List',
                     'url'  => 'notifications/index',
-                    'icon' => 'nav-icon fa-solid fa-list',
+                    // 'icon' => 'nav-icon fa-solid fa-list',
                 ],
                 // [
                 //     'text' => 'Notifications Push',

@@ -24,7 +24,7 @@
           </div><!-- /.col -->
           <div class="col-sm-5">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
               <li class="breadcrumb-item active">Promotion</li>
             </ol>
           </div><!-- /.col -->

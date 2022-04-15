@@ -11,7 +11,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
               <li class="breadcrumb-item active">Change Password</li>
             </ol>
           </div>
@@ -65,9 +65,9 @@
                                     name="password_confirmation" required autocomplete="current-password"/>
             </div>
 
-            <div class="mt-4" style="width:18%; margin-left: auto;margin-right: auto;">
-                <x-button>
-                    {{ __('Change Password') }}
+            <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto;" >
+                <x-button style="background-color: green">
+                    {{ __('Save') }}
                 </x-button>
             </div>
         </form>

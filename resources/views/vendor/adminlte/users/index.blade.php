@@ -27,7 +27,7 @@
     </div><!-- /.col -->
     <div class="col-sm-5">
       <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
         <li class="breadcrumb-item active">Users</li>
       </ol>
     </div><!-- /.col -->
@@ -199,7 +199,8 @@ $(document).ready(function(){
         columnDefs: [ {
         targets: 4,
         render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
-        },{
+        },
+        {
           targets: '_all',
           defaultContent: ""
         }]
