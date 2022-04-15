@@ -83,8 +83,7 @@ $old = Role::find($role);
                     <table class="table table-sm">
                         <thead>
                             <tr>
-                            {{-- <th>Modules</th>
-                            <th>View</th> --}}
+                            <th>Action</th>
                             @foreach ($modules as $module)
                             <?php
                                     if (!str_starts_with ($module->module,'Super')) 
@@ -99,14 +98,15 @@ $old = Role::find($role);
                             @endforeach
                         </tr>
                         </thead>
-                        @foreach ($permissions as $permission)
+                       
                         <tbody>
+                            @foreach ($permissions as $permission)
                                 <?php
                                     if (str_starts_with ($permission->name,'customer')) 
                                         { ?>
                                             <td class=""><div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
-                                                <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                                <label for="{{$permission->id}}" class="custom-control-label"></label>
                                               </div></td>
                                         <?php 
                                         }
@@ -141,9 +141,9 @@ $old = Role::find($role);
                             <?php 
                             }
                     ?>
-                            
+                            @endforeach
                         </tbody>
-                        @endforeach
+                        
                         {{-- @foreach ($permissions as $permission)
                         <div class="custom-control custom-checkbox">
                           <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 

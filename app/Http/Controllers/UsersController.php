@@ -174,11 +174,11 @@ class UsersController extends Controller
                 for($i=0; $i < count($data->data); $i++) {
                     $roles = new Role;
                     if(empty($data->data[$i]->role_ids[0])){
-                        $data->data[$i]->role = " ";
+                        $data->data[$i]->role = "";
                     }
                     else{
                      $role = $roles->find($data->data[$i]->role_ids[0]);
-                     $data->data[$i]->role =$role->name;
+                     $data->data[$i]->role =$role->name ?? '';
                     }
                     $output = '';
                         if(empty($data->data[$i]->delete_at)){

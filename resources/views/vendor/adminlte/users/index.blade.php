@@ -199,7 +199,8 @@ $(document).ready(function(){
         columnDefs: [ {
         targets: 4,
         render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
-        },{
+        },
+        {
           targets: '_all',
           defaultContent: ""
         }]
