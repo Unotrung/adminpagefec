@@ -36,7 +36,7 @@
 
         {{-- Password field --}}
         <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+            <input type="password" name="password" class="form-control "
                    placeholder="New Password">
 
             <div class="input-group-append">
@@ -45,17 +45,17 @@
                 </div>
             </div>
 
-            @error('password')
+            {{-- @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
-            @enderror
+            @enderror --}}
         </div>
 
         {{-- Password confirmation field --}}
         <div class="input-group mb-3">
             <input type="password" name="password_confirmation"
-                   class="form-control @error('password_confirmation') is-invalid @enderror"
+                   class="form-control @error('password') is-invalid @enderror"
                    placeholder="Retype New Password">
 
             <div class="input-group-append">
@@ -64,7 +64,12 @@
                 </div>
             </div>
 
-            @error('password_confirmation')
+            {{-- @error('password_confirmation')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror --}}
+            @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

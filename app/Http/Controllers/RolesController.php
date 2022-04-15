@@ -94,7 +94,7 @@ class RolesController extends Controller
         $role = Role::find($id);
         $permissions = Permission::All();
         $modules = Modules::All();
-        return view('vendor.adminlte.roles.edit', ['modules' => $modules,'role' => $id, 'permissions'=>$permissions]);
+        return view('vendor.adminlte.roles.edit', ['modules' => $modules,'role' => $id,'roles'=>$role, 'permissions'=>$permissions]);
     }
 
     /**

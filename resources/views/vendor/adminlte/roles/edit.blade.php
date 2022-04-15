@@ -83,65 +83,50 @@ $old = Role::find($role);
                     <table class="table table-sm">
                         <thead>
                             <tr>
-                            <th>Action</th>
-                            @foreach ($modules as $module)
-                            <?php
-                                    if (!str_starts_with ($module->module,'Super')) 
-                                        { ?>
-                                            <th>{{$module->module}}</th>
-                                        <?php 
-                                        }
-                                ?>
-                            
-                                
-                            
-                            @endforeach
+                            <th>Modules</th>  
                         </tr>
                         </thead>
                        
                         <tbody>
-                            @foreach ($permissions as $permission)
-                                <?php
-                                    if (str_starts_with ($permission->name,'customer')) 
-                                        { ?>
-                                            <td class=""><div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
-                                                <label for="{{$permission->id}}" class="custom-control-label"></label>
-                                              </div></td>
-                                        <?php 
-                                        }
-                                ?>
-                                <?php
-                                if (str_starts_with ($permission->name,'customer')) 
-                                    { ?>
-                                        <td class=""><div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
-                                            <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
-                                          </div></td>
-                                    <?php 
-                                    }
-                            ?>
-                            <?php
-                            if (str_starts_with ($permission->name,'customer')) 
-                                { ?>
-                                    <td class=""><div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
-                                        <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
-                                      </div></td>
-                                <?php 
-                                }
-                        ?>
-                        <?php
-                        if (str_starts_with ($permission->name,'customer')) 
-                            { ?>
-                                <td class=""><div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
-                                    <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
-                                  </div></td>
-                            <?php 
-                            }
-                    ?>
-                            @endforeach
+                           @foreach ($modules as $module)
+                           <tr>
+                           <?php
+                                   if (!str_starts_with ($module->module,'Super')) 
+                                       { ?>
+                                           <th>{{$module->module}}</th>
+                                       <?php 
+                                       }
+                                    $permission_ids = $roles->permission_ids;
+                                    // echo $permission_ids;
+                               ?>
+                               @foreach ($permissions as $permission)
+                               <?php
+                                   if (str_starts_with ($permission->name,strtolower($module->module))) 
+                                       { ?>
+                                               <td class=""><div class="custom-control custom-checkbox">
+                                                <?php if (in_array($permission->id, $permission_ids, TRUE))
+                                                {?>
+                                                    <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" checked> 
+                                                <?php 
+                                                }
+                                                else
+                                                {
+                                                    ?>
+                                                    <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]"> 
+                                                    <?php 
+                                                }
+                                                ?>
+                                                
+                                               <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                             </div></td>
+                                       <?php 
+                                       }
+                               ?>
+                                @endforeach
+                            </tr>
+                               
+                           @endforeach
+                            
                         </tbody>
                         
                         {{-- @foreach ($permissions as $permission)
