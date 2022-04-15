@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
 use RealRashid\SweetAlert\Facades\Alert;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -174,17 +175,20 @@ class UsersController extends Controller
                 for($i=0; $i < count($data->data); $i++) {
                     $roles = new Role;
                     if(empty($data->data[$i]->role_ids[0])){
-                        $data->data[$i]->role = "";
+                        $data->data[$i]->role = " ";
                     }
                     else{
                      $role = $roles->find($data->data[$i]->role_ids[0]);
-                     $data->data[$i]->role =$role->name ?? '';
+                     $data->data[$i]->role =$role->name;
                     }
                     $output = '';
                         if(empty($data->data[$i]->delete_at)){
                             $data->data[$i]->delete_at = "";
                             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                            if(Auth::user()->can('users-update')){
                             $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                            }
+                            if(Auth::user()->can('users-delete')){
                             $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                             $output .= '
                             <form method="post" action="'.url(route('users.delete')).'">
@@ -208,6 +212,7 @@ class UsersController extends Controller
                                             </div>
                                     </form>
                             ';
+                            }
                         }else{
                             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                             // $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class=""></i></a>';

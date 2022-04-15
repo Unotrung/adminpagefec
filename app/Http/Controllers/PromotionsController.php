@@ -110,8 +110,10 @@ class PromotionsController extends Controller
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
                $output .= ' <a href="'.url(route('promotions.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-               if(Auth::user()->can('update')){
+               if(Auth::user()->can('promotions-update')){
                 $output .= ' <a href="'.url(route('promotions.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+               }
+               if(Auth::user()->can('promotions-update')){
                 $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                 $output .= '
                 <form method="post" action="'.url(route('promotions.delete')).'">
