@@ -123,6 +123,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
     Route::group(['middleware' => ['permission:roles-update']], function () {
         Route::get('/roles/add', [App\Http\Controllers\RolesController::class, 'create'])->name('roles.add');
         Route::get('/roles/edit/{id}', [App\Http\Controllers\RolesController::class, 'edit'])->name('roles.edit');
+        // Route::get('/roles/edit/editajax', [App\Http\Controllers\RolesController::class, 'editajax'])->name('roles.edit.editajax');
         // Route::get('/roles/edit', [App\Http\Controllers\RolesController::class, 'edit'])->name('roles.edit');
         Route::post('/roles/store', [App\Http\Controllers\RolesController::class, 'store'])->name('roles.store');
         Route::post('/roles/update', [App\Http\Controllers\RolesController::class, 'update'])->name('roles.update');
