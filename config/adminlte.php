@@ -249,13 +249,13 @@ return [
         [
             'text' => 'Customers',
             'url'  => 'customer',
-            'can'  => ['website-access','admin-access'],
+            'can'  => 'admin-access',
             'icon'        => 'nav-icon fas fa-fw fa-users',
         ],
         [
             'text' => 'BNPL Registrations',
             'url'  => 'bnpl',
-            'can'  => ['website-access','admin-access'],
+            'can'  => 'admin-access',
             'icon' => 'nav-icon fas fa-solid fa-id-card',
         ],
         [
