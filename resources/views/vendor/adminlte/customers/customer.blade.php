@@ -262,19 +262,25 @@ $('#reset').click(function(){
     $('#example1').DataTable().destroy();
     fill_datatable();
 });
+
+}); 
 function delete1(data){
   var id = data.attr("data-id");
   if (confirm('Are you sure you want to delete this?')) {
+    var reservation = $('#reservation').val();
     $.ajax({
       url:"https://admin-voolo.herokuapp.com/v1/admin/deleteEAP/"+id,
       type:"delete",
       success:function(){
-        fill_datatable();
+        $('#name').val('');
+        $('#email').val('');
+        $('#phone').val('');
+        $('#reservation').val('');
+        // $('#to_date').val('');
+        $('#example1').DataTable().destroy();
       }
     });
   }
 }
-}); 
-
 </script>
 @stop
