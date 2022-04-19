@@ -53,9 +53,11 @@ Route::get('/account/show', function(){
 Route::get('/account/change', function(){
     return view('vendor.adminlte.account.change');
 });
-Route::get('/configuration/index', function(){
-    return view('vendor.adminlte.configuration.index');
-});
+//Configuration
+Route::get('/configuration/index', [App\Http\Controllers\ConfigurationController::class, 'index'])->name('configuration.index');
+Route::get('/configuration/add', [App\Http\Controllers\ConfigurationController::class, 'create'])->name('configuration.add');
+Route::post('/configuration/store', [App\Http\Controllers\ConfigurationController::class, 'store'])->name('configuration.store');
+Route::get('/configuration/index/status/update', [App\Http\Controllers\ConfigurationController::class, 'updateStatus'])->name('configuration.update.status');
 //BNPL
 Route::group(['middleware' => ['role:System Admin|Website Admin|super admin']], function (){
     Route::group(['middleware' => ['permission:bnpl-update']], function () {

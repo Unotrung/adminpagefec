@@ -290,11 +290,35 @@ fill_datatable();
       $('#email').val('');
       $('#phone').val('');
       $('#reservation').val('');
-      $('#check_phone').click();
-      $('#check_name').click();
-      $('#check_email').click();
-      $('#check_address').click();
-      $('#check_nid').click();
+      if($('#check_name').prop('checked',true))
+      {
+        $('#check_name').click();
+        $('#name').hide();
+        
+      }
+      if($('#check_phone').prop('checked',true))
+      {
+        $('#check_phone').click();
+        $('#phone').hide();
+      }
+      if($('#check_email').prop('checked',true))
+      {
+        $('#check_email').click();
+        $('#email').hide();
+      }
+      if($('#check_address').prop('checked',true))
+      {
+        $('#check_address').click();
+        $('#address').hide();
+      }
+      if($('#check_nid').prop('checked',true))
+      {
+        $('#check_nid').click();
+        $('#nid').hide();
+      }
+      // $('#check_email').click();
+      // $('#check_address').click();
+      // $('#check_nid').click();
       // $('#to_date').val('');
       $('#example1').DataTable().destroy();
       fill_datatable();
@@ -308,8 +332,11 @@ fill_datatable();
   // check for name field
   $('#check_name').change(function()
   {
-    $("#name").toggle();
-    $("#name").val("");
+  //   if($('#check_name').prop('checked',true))
+  //     {
+        $("#name").toggle();
+        $("#name").val("");
+      // }
   });
   // check for nid field
   $('#check_nid').change(function()

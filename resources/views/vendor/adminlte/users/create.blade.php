@@ -136,7 +136,7 @@
 							<button type="button" class="btn" data-dismiss="modal">No</button>
 						</div>
 						</div>
-				</div>
+					</div>
 				</div>
 			</div>
 		</form>

@@ -1,30 +1,26 @@
 @extends('layouts.app')
 
 @section('title', 'Configuration')
+
 @section('content_header')
-
-@stop
-{{-- @section('content')   
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Send OTP To Mobile</label>
-                <div class="col-md-10 fvalue"><input type="checkbox" name="View" value="Customers" onclick="handleClick(this.value,this.name);"></div>
-                </div>
-              </div>
-            <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Send OTP To Email</label>
-                <div class="col-md-10 fvalue"><input type="checkbox" name="View" value="Customers" onclick="handleClick(this.value,this.name);"></div>
-                </div>
-              </div>
-        </div>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="h3 mb-0 text-gray-800">Configuration Setting</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+              <li class="breadcrumb-item active">Configuration</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-
-</div>
-
-
-@endsection --}}
+    <!-- /.content-header -->
+@stop
 
 @section('content')  
 
@@ -32,12 +28,13 @@
 
 <section class="content">
     <div class="container-fluid">
+      
         <div class="row">
           <div class="col-12">
             <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">Configuration</a>
-              </li>
+              </li> --}}
             </ul>
             <!-- <div class="tab-custom-content">
               <p class="lead mb-0">"Information BNPL"</p>
@@ -47,26 +44,35 @@
                   <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-body">
-                  <div class="form-group">
-                    {{-- <div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label> --}}
-                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success ">
-                      {{-- <div class="col-sm-3 mb-3 mb-sm-0">  --}}
-                    <input type="checkbox" class="custom-control-input" id="customSwitch3"><label class="custom-control-label" for="customSwitch3">Sent OTP To Mobile Phone</label>
-                    </div>
-                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success ">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch4"><label class="custom-control-label" for="customSwitch4">Sent OTP To Email Address</label>
-                  </div>
-                  <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto;">
-                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" style="background-color: green">
-                        Save
-                    </button>
-                </div>
+                  <meta name="csrf-token" content="{{ csrf_token() }}">
+                  {{-- <form method="get" action="{{route('configuration.update.status')}}"> --}}
+                  <table class="table table-hover table-striped">
+                    {{-- <thead>
+                      <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Status</th>
+                      </tr>
+                  </thead> --}}
+                    <tbody>
+                      @foreach ($config as $configs)
+                      <tr>
+                        {{-- <th scope="row">{{ $configs->id }}</th> --}}
+                        <td>{{ $configs->name }}</td>
+                        <td><input type="checkbox" data-id="{{ $configs->id }}" name="status" class="js-switch" {{ $configs->status == 1 ? 'checked' : '' }}></td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+              {{-- </form> --}}
                 </div>
               </div>
                 </div>
                 <!-- /.card-body -->
-                    
-                <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+                <button type="submit" name="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+                  Save
+                </button>
+                
                 </div>
                 <!-- /.card-footer -->
             </div>
@@ -76,9 +82,9 @@
       <!-- /.timeline -->
 
     </section>
-</div>
+        </div>
 <!-- /.card -->
-  </div>
+    </div>
 @endsection
 
 
@@ -99,21 +105,78 @@
 <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- Page specific script -->
 <script>
+let status = "";
+let configId = "";
 $(document).ready(function()
 {
-
-  $('#customSwitch3').change(function()
-    {
-      var input = $('#customSwitch3').val();
-      console.log(input);
+  $('.js-switch').change(function () {
+        status = $(this).prop('checked') === true ? 1 : 0;
+        configId = $(this).data('id');
+        // $.ajax({
+        //     type: "GET",
+        //     dataType: "json",
+        //     url: '{{ route('configuration.update.status') }}',
+        //     data: {'status': status, 'config_id': configId},
+        //     success: function (data) {
+        //                 toastr.options.closeButton = true;
+        //                 toastr.options.closeMethod = 'fadeOut';
+        //                 toastr.options.closeDuration = 100;
+        //                 toastr.success(data.message);
+        //             }
+        // });
+        
     });
 });
+
+$(function () {
+    $('button').on('click', function (){
+      
+      console.log(status);
+      console.log(configId);
+      Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: `Save`,
+      denyButtonText: `Don't save`,
+      }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          type: "GET",
+          dataType: "json",
+          url: '{{ route('configuration.update.status') }}',
+          data: {'status': status, 'config_id': configId},
+          success:function(response){
+            Swal.fire('Saved!', '', 'success')
+            location.reload(true);
+        }
+      })
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+        location.reload(true);
+      }
+  })
+  })
+});
+
+let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+elems.forEach(function(html) {
+    let switchery = new Switchery(html,  { size: 'small' });
+});
+
 </script>
 
 @stop

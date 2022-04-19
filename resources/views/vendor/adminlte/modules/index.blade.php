@@ -238,33 +238,33 @@ $(function () {
     });
 });
 
-$(function () {
-  $('button').on('click', function (){
-    Swal.fire({
-    title: 'Do you want to save the changes?',
-    showDenyButton: true,
-    showCancelButton: false,
-    confirmButtonText: `Save`,
-    denyButtonText: `Don't save`,
-    }).then((result) => {
-    if (result.isConfirmed) {
-      $.ajax({
-        headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        type: "POST",
-        url: "{{ route('modules.givepermission') }}",
-        data: { id,"permissions":existed_per },
-        success:function(response){
-          Swal.fire('Saved!', '', 'success')
-          location.reload(true);
+  $(function () {
+    $('button').on('click', function (){
+      Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: `Save`,
+      denyButtonText: `Don't save`,
+      }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          type: "POST",
+          url: "{{ route('modules.givepermission') }}",
+          data: { id,"permissions":existed_per },
+          success:function(response){
+            Swal.fire('Saved!', '', 'success')
+            location.reload(true);
+        }
+      })
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+        location.reload(true);
       }
-    })
-    } else if (result.isDenied) {
-      Swal.fire('Changes are not saved', '', 'info')
-      location.reload(true);
-    }
-})
-})
+  })
+  })
 });
 </script>
 
