@@ -52,7 +52,29 @@
     <!-- Main content -->
     <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
+        <div class="col-2" >
+          <div class="card" style="text-align: left;padding: 12px 20px;">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4" id="butlist" >
+              <h3 class="h6 mb-0 text-gray-800"><b> Filter Customers by</b></h3> 
+            </div>
+            <form >
+              <div class="dropdown">
+              <input type="checkbox" name="name_filter">
+                <label for="name_filter"> Name</label><br>
+                <div id="checkbox_dropdown" style="display:none">
+                  <a href="#">Link 1</a>
+                  <a href="#">Link 2</a>
+                  <a href="#">Link 3</a>
+                </div>
+              </div>
+              <input type="checkbox" name="name_filter">
+                <label for="name_filter"> Email</label><br>
+              <input type="checkbox" name="name_filter">
+                <label for="name_filter"> Phone</label><br>
+            </form>
+          </div>
+        </div>
+          <div class="col-10">
             <div class="card">
             <div class="d-sm-flex align-items-center justify-content-between mb-4" id="butlist">
               <h1 class="h3 mb-0 text-gray-800"></h1> 
