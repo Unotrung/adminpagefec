@@ -112,8 +112,8 @@ class BnplController extends Controller
                 $response = Http::get('apiadmin.us-east-1.elasticbeanstalk.com/v1/admin/searchBNPL', [
                     'search' => $request->search,
                     'value' => $request->value,
-                    'form' => $request->from,
-                    'to' => $request->to
+                    // 'form' => $request->from,
+                    // 'to' => $request->to
                 ]);
                 $result = $response->json();
                 // print_r(); exit;
