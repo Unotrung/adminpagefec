@@ -12,6 +12,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  {{-- Style forr toast  --}}
 
 @stop
 
@@ -301,8 +302,34 @@ $('#filter').click(function(){
     var reservation = $('#reservation').val();
     // var to = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
     // console.log(to);
-    $('#example1').DataTable().destroy();
-    fill_datatable(name,action="search",phone,reservation);
+    if(false)
+      {
+        toastr["error"]("Please select username!")
+        toastr.options = {
+          "closeButton": false,
+          "debug": true,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+      }
+      else
+      {
+        $('#example1').DataTable().destroy();
+        fill_datatable(name,action="search",phone,reservation);
+      }
+    // $('#example1').DataTable().destroy();
+    // fill_datatable(name,action="search",phone,reservation);
 });
 
   $('#reset').click(function(){
