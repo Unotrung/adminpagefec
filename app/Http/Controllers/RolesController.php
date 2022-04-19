@@ -124,11 +124,12 @@ class RolesController extends Controller
         //     }
         // }
         $role->permission_ids = [];
-        // $role->save();
-
-        $permissions = $request->permissions;
+        $role->save();
+    
+        $permissions = $request->permission;
         foreach ($permissions as $ele){
-            $is_exist = Permission::firstOrCreate(['name' => $ele]);
+            $permission = Permission::find($ele);
+            $is_exist = Permission::firstOrCreate(['name' => $permission->name]);
             $role->givePermissionTo($is_exist);
         }
         // return redirect()->route('modules.index');
