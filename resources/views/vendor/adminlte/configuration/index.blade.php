@@ -56,6 +56,11 @@
                     <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success ">
                     <input type="checkbox" class="custom-control-input" id="customSwitch4"><label class="custom-control-label" for="customSwitch4">Sent OTP To Email Address</label>
                   </div>
+                  <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto;">
+                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" style="background-color: green">
+                        Save
+                    </button>
+                </div>
                 </div>
               </div>
                 </div>
@@ -66,7 +71,7 @@
                 <!-- /.card-footer -->
             </div>
             <!-- /.card -->
-              </div>
+          </div>
             
       <!-- /.timeline -->
 
@@ -100,10 +105,15 @@
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- Page specific script -->
 <script>
+$(document).ready(function()
+{
 
-
-    
-
+  $('#customSwitch3').change(function()
+    {
+      var input = $('#customSwitch3').val();
+      console.log(input);
+    });
+});
 </script>
 
 @stop
