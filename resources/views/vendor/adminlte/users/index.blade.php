@@ -67,7 +67,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-8">
+                  <div class="col-6">
                     <div class="input-group input-group-sm">
                       <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
                         <div class="input-group-append">
@@ -77,7 +77,10 @@
                         </div>
                     </div>
                   </div>
-                  
+                  <div class="col-sm-2 ">
+                      <button type="button" name="reset" id="reset" class="btn btn-light w-100">Reset</button>
+                      {{-- <div class="mt-4"></div> --}}
+                  </div>
                 </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>

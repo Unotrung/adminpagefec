@@ -118,7 +118,7 @@ class CustomerController extends Controller
                 $out =  Datatables::of($cus->get())->make(true);
                 */
                 //{{admin}}/v1/admin/getAllEAP
-                $response = Http::get('https://admin-voolo.herokuapp.com/v1/admin/searchEAP', [
+                $response = Http::get('apiadmin.us-east-1.elasticbeanstalk.com/v1/admin/searchEAP', [
                     'search' => $request->search,
                     'value' => $request->value,
                     // 'from' => $request->from,
