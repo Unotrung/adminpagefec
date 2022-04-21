@@ -77,8 +77,8 @@ class NewPasswordController extends Controller
         $user = Auth::user();
 
         if (!Hash::check($request->current_password, $user->password)) {
-            Alert::error('Error!!', 'Your current password is wrong!');
-            return back();
+            // Alert::error('Error!!', 'Your current password is wrong!');
+            return back()->with(['message' => "wrong passs"]);
         }
 
         $user->password = Hash::make($request->password);

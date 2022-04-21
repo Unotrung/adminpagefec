@@ -41,8 +41,9 @@
              <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
                 <x-label for="current_password" :value="__('Current Password')" />
 
-                <x-input id="current_password" class="block mt-1 w-full" type="password" name="current_password" required />
-            </div>
+                <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror" type="password" name="current_password" required />
+                <p class="text-danger" id="demo"></p>
+              </div>
 
             <!-- Password -->
             <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
@@ -76,3 +77,22 @@
 </div>
 </x-guest-layout>
 @endsection
+
+
+<?php
+    $stArray = Auth::user()->password;
+?>
+@section('js')
+<script>
+$(document).ready(function(){
+  $('#current_password').on('change',function(){
+    var current_password = $('#current_password').val();
+    // document.getElementById("demo").innerHTML = "Pass Word Is Not Correct";
+    var phpArray = <?php echo json_encode($stArray); ?>;
+    // var ab = current_password.hash;
+    console.log(phpArray);
+  })
+});
+
+</script>
+@stop

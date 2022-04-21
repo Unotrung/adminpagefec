@@ -118,10 +118,10 @@
 
                   <thead>
                   <tr>
-                    <th>Name</th>
+                    <th>EAP UserName</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Registered Date</th>
+                    <th>BNPL CitizenId</th>
                     <!-- <th>Phone</th>
                     <th>Status</th>
                     <th>Created Time</th> -->
@@ -194,17 +194,17 @@
 
 
 $(document).ready(function(){
-fill_datatable();
+fill_datatable('a');
   $('#reservation').daterangepicker().val('');
-  function fill_datatable(name = '',email=  '',action='',phone='',reservation = '')
+  function fill_datatable(username = '',email=  '',action='',phone='',reservation = '',citizenId='')
   {
-      var keywork = (name=='')?((phone=='')?(email=='')?"":email:phone):name;
-      var type = (name=='')?((phone=='')?(email=='')?"":"email":"phone"):"name";
-      var from = reservation.endDate;
-      var to = "";
-      var jsonData = [
-        { "meta": { "version": 1, "type": "test" } }
-    ];
+      var search = {};
+      search.username = ($("#check_name").is(":checked"))?username:"";
+      search.email = ($("#check_email").is(":checked"))?email:"";
+      search.phone = ($("#check_phone").is(":checked"))?phone:"";
+      search.citizenId = ($("#check_nid").is(":checked"))?citizenId:"";
+      // search["nid"] = ($("#check_nid").is(":checked"))?nid:"";
+
       var dataTable = $('#example1').DataTable({
           processing: true,
           serverSide: true,
@@ -212,35 +212,45 @@ fill_datatable();
           ajax:{
               url: "{{ route('customer.dtajax') }}",
               data:{
-              search:type,
-              value:keywork,
-              from: from,
-              to: to,
-            }
+                filter : search
+              }
           },
           columns: [
               {
                   data:'username',
-                  name:'Name'
+                  name:'EAP Username',
+                  render: function ( data, type, row ) {
+                    console.log(data);
+                    return (data!==undefined)?data:".";
+                  }
               },
               {
                   data:'email',
-                  name:'Email'
+                  name:'Email',
+                  render: function ( data, type, row ) {
+                    
+                    return (data!==undefined)?data:".";
+                  }
               },
               {
                   data:'phone',
-                  name:'Phone'
+                  name:'Phone',
+                  render: function ( data, type, row ) {
+                    console.log(data);
+                    return (data!==undefined)?data:".";
+                  }
               },
               {
-                  data:'createdAt',
-                  name:'Date Regis',
+                  data:'bnpl',
+                  name:'BNPL CitizenId',
                   render: function ( data, type, row ) {
-                console.log(data);
-                if ( type === 'display' || type === 'filter' ) {
-                    var d = new Date( data);
-                    return d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
-                }
-                return data;}
+                    console.log(data);
+                    var str="";
+                    data.forEach(element => {
+                      str += element.citizenId+"<br/>";
+                    });
+                    return str;
+                  }
               },
               {
                   data: 'action', 
@@ -248,6 +258,9 @@ fill_datatable();
                   orderable: true, 
                   searchable: true,
               },
+          ],
+          columnDefs: [
+              { targets: '_all', visible: true }
           ]
       });
   }
@@ -255,6 +268,7 @@ fill_datatable();
       var username = $('#name').val();
       var email = $('#email').val();
       var phone = $('#phone').val();
+      var citizenId = $('#nid').val();
       var reservation = $('#reservation').val();
       // var to_date = $('#to_date').val();
       if(false)
@@ -281,7 +295,7 @@ fill_datatable();
       else
       {
         $('#example1').DataTable().destroy();
-        fill_datatable(username,email,action="search",phone,reservation);
+        fill_datatable(username,email,action="search",phone,reservation,citizenId);
       }
   });
 

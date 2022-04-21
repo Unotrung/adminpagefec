@@ -222,7 +222,7 @@ $(document).ready(function(){
   fill_datatable("a");
   $('#reservation').daterangepicker().val('');
 
-  function fill_datatable(name = '',action='',phone='',reservation = '')
+  function fill_datatable(name = '',action='',phone='',reservation = '',nid='')
   {
   var keywork = (name=='')?((phone=='')?"":phone):name;
   var type = (name=='')?((phone=='')?"createAt":"phone"):"name";
@@ -300,6 +300,7 @@ $('#filter').click(function(){
     var name = $('#name').val();
     var phone = $('#phone').val();
     var reservation = $('#reservation').val();
+    var citizenId = $('#nid').val();
     // var to = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
     // console.log(to);
     if(false)
@@ -326,7 +327,7 @@ $('#filter').click(function(){
       else
       {
         $('#example1').DataTable().destroy();
-        fill_datatable(name,action="search",phone,reservation);
+        fill_datatable(name,action="search",phone,reservation,citizenId);
       }
     // $('#example1').DataTable().destroy();
     // fill_datatable(name,action="search",phone,reservation);
