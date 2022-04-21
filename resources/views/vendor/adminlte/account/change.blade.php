@@ -42,7 +42,7 @@
                 <x-label for="current_password" :value="__('Current Password')" />
 
                 <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror" type="password" name="current_password" required />
-                <p class="text-danger" id="demo"></p>
+                
               </div>
 
             <!-- Password -->
@@ -50,6 +50,8 @@
                 <x-label for="password" :value="__('New Password')" />
 
                 <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
+                <p class="text-danger" id="demo"></p>
+                <p class="text-danger" id="check_character"></p>
                 @error('password')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -87,10 +89,26 @@
 $(document).ready(function(){
   $('#current_password').on('change',function(){
     var current_password = $('#current_password').val();
-    // document.getElementById("demo").innerHTML = "Pass Word Is Not Correct";
-    var phpArray = <?php echo json_encode($stArray); ?>;
-    // var ab = current_password.hash;
-    console.log(phpArray);
+    console.log('current_password is ' +  current_password);
+  })
+  $('#password').on('change',function(){
+    var i=0;
+    var o=0;
+    var p=0;
+    var character='';
+    var current_password = $('#current_password').val();
+    var password = $('#password').val();
+    console.log('password is '+ password);
+    if(password !=null)
+    {
+      if(current_password == password){
+        document.getElementById("demo").innerHTML = "Password matches old password ";
+      }
+      else
+      {
+        document.getElementById("demo").innerHTML = "";
+      }
+    }
   })
 });
 

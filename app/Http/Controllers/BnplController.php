@@ -109,7 +109,7 @@ class BnplController extends Controller
                 //     $bnpl->whereBetween("createdAt", [$from,$to]);
                 //     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
                 // }
-                $response = Http::get('apiadmin.us-east-1.elasticbeanstalk.com/v1/admin/searchBNPL', [
+                $response = Http::get(env("API_PARTNER").'/v1/admin/searchBNPL', [
                     'search' => $request->search,
                     'value' => $request->value,
                     // 'form' => $request->from,

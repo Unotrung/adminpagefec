@@ -244,12 +244,19 @@ fill_datatable('a');
                   data:'bnpl',
                   name:'BNPL CitizenId',
                   render: function ( data, type, row ) {
+                    if(data!==undefined)
+                    {
                     console.log(data);
                     var str="";
                     data.forEach(element => {
                       str += element.citizenId+"<br/>";
                     });
                     return str;
+                    }
+                    else
+                    {
+                      return ".";
+                    }
                   }
               },
               {

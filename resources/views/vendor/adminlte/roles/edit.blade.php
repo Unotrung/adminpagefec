@@ -147,7 +147,7 @@ $old = Role::find($role);
                         <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Do you want to edit role?  </h4>
+                            <h4 class="modal-title">Do you want to update?  </h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal footer -->

@@ -107,7 +107,7 @@ class CustomerController extends Controller
                 
                 $strFilter = ($strFilter!="")?"?".$strFilter:"";
                 $strFilter = rtrim($strFilter, "&");
-                $response = Http::get('apiadmin.us-east-1.elasticbeanstalk.com/v1/admin/search'.$strFilter);
+                $response = Http::get(env("API_PARTNER").'/v1/admin/search'.$strFilter);
                 $result = $response->json();
                 
                 if($result["status"] != 1){
