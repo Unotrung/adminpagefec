@@ -44,7 +44,7 @@ $config = [
           <div class="col-12">
             <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">General Infomation</a>
+                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="false">General Infomation</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Timeline</a>
@@ -67,19 +67,19 @@ $config = [
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue">{{$cus->username}}</div>
+                    <div class="col-md-10 fvalue">{{$cus["username"]}}</div>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                    <div class="col-md-10 fvalue">{{$cus->email}}</div>
+                    <div class="col-md-10 fvalue">{{$cus["email"]}}</div>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="inputPassword4" class="col-sm-2 col-form-label">Phone</label>
                     <div class="col-sm-10">
-                      <div class="col-md-10 fvalue">{{$cus->phone}}</div>
+                      <div class="col-md-10 fvalue">{{$cus["phone"]}}</div>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -123,8 +123,8 @@ $config = [
               <div>
                 <i class="fas fa-sign-out-alt bg-red"></i>
                 <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> {{$cus->updatedAt}}</span>
-                  <h3 class="timeline-header"><a href="#">{{$cus->username}}</a> is logout </h3>
+                  {{-- <span class="time"><i class="fas fa-clock"></i> {{$cus->updatedAt}}</span> --}}
+                  <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> is logout </h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -133,7 +133,7 @@ $config = [
                 <i class="fas fa-upload bg-green"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#">{{$cus->username}}</a> has update password</h3>
+                  <h3 class="timeline-header no-border"><a href="#">{{$cus["username"]}}</a> has update password</h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -142,7 +142,7 @@ $config = [
                 <i class="fas fa-user-check bg-green"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 3 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#">{{$cus->username}}</a> has update information</h3>
+                  <h3 class="timeline-header no-border"><a href="#">{{$cus["username"]}}</a> has update information</h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -151,9 +151,9 @@ $config = [
                 <i class="fas fa-sign-in-alt bg-blue"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                  <h3 class="timeline-header"><a href="#">{{$cus->username}}</a> is login</h3>
+                  <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> is login</h3>
                   <div class="timeline-body">
-                    Welcome back {{$cus->username}}
+                    Welcome back {{$cus["username"]}}
                   </div>
                 </div>
               </div>

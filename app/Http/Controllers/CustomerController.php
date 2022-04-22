@@ -71,16 +71,33 @@ class CustomerController extends Controller
     }
 
     public function show($id){
-        $cus = Customer::find($id);
-			if(isset($cus->_id)) {
-				$setErrorsBag = "khong hien thi";
-				return view('vendor.adminlte.customers.show',[])->with('cus', $cus);
-			} else {
-				return view('errors.404', [
-					'record_id' => $id,
-					'record_name' => ucfirst("cus"),
-				]);
-			}
+        $data_eap = Http::get(env("API_PARTNER").'/v1/admin/getUserEAP/'.$id);
+        $eap = $data_eap->json();
+        $cus = $eap["data"];
+        $phone = $cus["phone"];
+        // print_r($phone);
+        // $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
+        // $bnpl = $data_bnpl->json();
+        // $cus_bnpl = $bnpl["data"];
+        // // print_r($cus["_id"]);
+        // if($cus_bnpl["BNPL"]!=null)
+        // {
+        //     print_r($cus_bnpl);
+        // }
+        // else
+        // {
+        //     print_r("abc");
+        // }
+		if(isset($cus["_id"])) {
+			$setErrorsBag = "khong hien thi";
+			return view('vendor.adminlte.customers.show',[])->with('cus', $cus);
+		} 
+            // else {
+			// 	return view('errors.404', [
+			// 		'record_id' => $id,
+			// 		'record_name' => ucfirst("cus"),
+			// 	]);
+			// }
     }
 
     public function destroy(Request $request )
@@ -107,7 +124,7 @@ class CustomerController extends Controller
                 
                 $strFilter = ($strFilter!="")?"?".$strFilter:"";
                 $strFilter = rtrim($strFilter, "&");
-                $response = Http::get(env("API_PARTNER").'/v1/admin/search'.$strFilter);
+                $response = Http::get(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
                 $result = $response->json();
                 
                 if($result["status"] != 1){
@@ -132,6 +149,9 @@ class CustomerController extends Controller
                         $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                         $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
+
+                        //config link for phonenumber
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#custom-content-above-profile" > '.$data->data[$i]->phone.' </a>';
 
                     }
                     $out->setData($data);
@@ -158,6 +178,9 @@ class CustomerController extends Controller
                         $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
 
+                        //config link for phonenumber
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#custom-content-above-profile" > '.$data->data[$i]->phone.' </a>';
+
                     }
                     $out->setData($data);
                     return $out;
@@ -180,6 +203,9 @@ class CustomerController extends Controller
                         $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                         $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
+
+                        //config link for phonenumber
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#custom-content-above-profile" > '.$data->data[$i]->phone.' </a>';
 
                     }
                     $out->setData($data);

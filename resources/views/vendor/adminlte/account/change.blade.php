@@ -63,7 +63,7 @@
                 <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror"
                                     type="password"
                                     name="password_confirmation" required autocomplete="current-password"/>
-                                    @error('password')
+                @error('password')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                 </span>

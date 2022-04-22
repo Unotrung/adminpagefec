@@ -220,7 +220,6 @@ fill_datatable('a');
                   data:'username',
                   name:'EAP Username',
                   render: function ( data, type, row ) {
-                    console.log(data);
                     return (data!==undefined)?data:".";
                   }
               },
@@ -228,15 +227,13 @@ fill_datatable('a');
                   data:'email',
                   name:'Email',
                   render: function ( data, type, row ) {
-                    
                     return (data!==undefined)?data:".";
                   }
               },
               {
-                  data:'phone',
+                  data:'urlphone',
                   name:'Phone',
                   render: function ( data, type, row ) {
-                    console.log(data);
                     return (data!==undefined)?data:".";
                   }
               },
@@ -246,7 +243,6 @@ fill_datatable('a');
                   render: function ( data, type, row ) {
                     if(data!==undefined)
                     {
-                    console.log(data);
                     var str="";
                     data.forEach(element => {
                       str += element.citizenId+"<br/>";
