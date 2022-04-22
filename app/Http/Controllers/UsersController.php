@@ -204,7 +204,7 @@ class UsersController extends Controller
                                                     </div>
                                                     <!-- Modal footer -->
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="submit" class="btn btn-danger">Deactive</button>
                                                         <button type="button" class="btn" data-dismiss="modal">Close</button>
                                                     </div>
                                                     </div>

@@ -57,7 +57,7 @@ class RolesController extends Controller
     {
         $data = Role::Where('name','=',$request->name)->get();
         if(count($data) > 0){
-            Alert::error('Error!!','Role had already existed!');
+            Alert::error('Error!!','This role has already existed');
             return back();
         }
         $role = new Role;

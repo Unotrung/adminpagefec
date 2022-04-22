@@ -36,22 +36,20 @@
 
         {{-- Password field --}}
         <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control "
-                   placeholder="New Password">
+            <input type="password" name="password" class="form-control " 
+                   id="password" 
+                   placeholder="New Password" required 
+                   oninvalid="this.setCustomValidity('Please Enter Password')">
 
             <div class="input-group-append">
                 <div class="input-group-text">
                     <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
                 </div>
             </div>
-
-            {{-- @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror --}}
+            
+            
         </div>
-
+        <p class="text-danger" id="check_length"></p>
         {{-- Password confirmation field --}}
         <div class="input-group mb-3">
             <input type="password" name="password_confirmation"
@@ -77,10 +75,71 @@
         </div>
 
         {{-- Confirm password reset button --}}
-        <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+        <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}  " id ="button">
             <span class="fas fa-sync-alt"></span>
             {{ __('adminlte::adminlte.reset_password') }}
         </button>
 
     </form>
+@stop
+@section('js')
+<script>
+$(document).ready(function(){
+  
+
+  function hasLowerCase(str) {
+    return str.toLowerCase() != str;
+  }  
+
+  function stringContainsNumber(_string) {
+    return /\d/.test(_string);
+  }
+
+  $('#password').on('change',function(){
+    var password = $('#password').val();
+    if(password.length === 0)
+    {
+      document.getElementById("check_length").innerHTML = "";
+    }
+    else
+    {
+      uppercase = hasLowerCase(password);
+      number = stringContainsNumber(password);
+      if((password.length<8 && password.length>0)&&((uppercase == false && number == false)))
+      {
+        document.getElementById("check_length").innerHTML = "Your Password must have 8 character at least one Uppercase & Number character";
+      }
+      else if((password.length<8 && password.length>0)&&((uppercase == true && number == false)))
+      {
+        document.getElementById("check_length").innerHTML = "Your Password must have 8 character at least one Number character";
+      }
+      else if((password.length<8 && password.length>0)&&((uppercase == false && number == true)))
+      {
+        document.getElementById("check_length").innerHTML = "Your Password must have 8 character at least one Uppercase character";
+      }
+      else if((password.length<8 && password.length>0)&&((uppercase == true && number == true)))
+      {
+        document.getElementById("check_length").innerHTML = "Your Password must have 8 character ";
+      }
+      else if((password.length>8)&&((uppercase == false && number == false)))
+      {
+        document.getElementById("check_length").innerHTML = "Your Password must have at least one Uppercase & Number character";
+      }
+      else if((password.length>8)&&((uppercase == true && number == false)))
+      {
+        document.getElementById("check_length").innerHTML = "Your Password must have at least one Number character";
+      }
+      else if((password.length>8)&&((uppercase == false && number == true)))
+      {
+        document.getElementById("check_length").innerHTML = "Your Password must have at least one Uppercase character";
+      }
+      else
+      {
+        document.getElementById("check_length").innerHTML = "";
+      }
+    }
+  })
+});
+
+</script>
 @stop

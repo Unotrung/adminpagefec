@@ -100,28 +100,46 @@ $old = Role::find($role);
                                     // echo $permission_ids;
                                ?>
                                @foreach ($permissions as $permission)
-                               <?php
-                                   if (str_starts_with ($permission->name,strtolower($module->module))) 
-                                       { ?>
-                                               <td class=""><div class="custom-control custom-checkbox">
-                                                <?php if (in_array($permission->id, $permission_ids, TRUE))
-                                                {?>
-                                                    <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" checked> 
+                               
+                                    <?php
+                                        if (str_starts_with ($permission->name,strtolower($module->module))) 
+                                            { ?>
+                                                <?php
+                                                 if (($permission_ids)!=null) 
+                                                { ?>
+                                                    <td class=""><div class="custom-control custom-checkbox">
+                                                        <?php if (in_array($permission->id, $permission_ids, TRUE))
+                                                        {?>
+                                                            <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" checked> 
+                                                        <?php 
+                                                        }
+                                                        else
+                                                        {
+                                                            ?>
+                                                            <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]"> 
+                                                            <?php 
+                                                        }
+                                                        ?>
+                                                        
+                                                    <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                                    </div></td>
                                                 <?php 
                                                 }
-                                                else
-                                                {
-                                                    ?>
-                                                    <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]"> 
-                                                    <?php 
-                                                }
                                                 ?>
-                                                
-                                               <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
-                                             </div></td>
-                                       <?php 
-                                       }
-                               ?>
+                                                <?php
+                                                    if (($permission_ids)==null)
+                                                    { 
+                                                ?>
+                                                        <td class=""><div class="custom-control custom-checkbox">
+                                                        <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
+                                                        <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                                        </div></td>
+                                                        <?php 
+                                                    }
+                                                ?>
+                                    <?php 
+                                }
+                        ?>
                                 @endforeach
                             </tr>
                                

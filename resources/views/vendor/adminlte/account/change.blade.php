@@ -52,11 +52,8 @@
                 <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
                 <p class="text-danger" id="demo"></p>
                 <p class="text-danger" id="check_character"></p>
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <p class="text-danger" id="check_length"></p>
+                
             </div>
 
             <!-- Confirm Password -->
@@ -66,6 +63,11 @@
                 <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror"
                                     type="password"
                                     name="password_confirmation" required autocomplete="current-password"/>
+                                    @error('password')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
 
             <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto;" >
@@ -91,24 +93,58 @@ $(document).ready(function(){
     var current_password = $('#current_password').val();
     console.log('current_password is ' +  current_password);
   })
+
+  function hasLowerCase(str) {
+    return str.toLowerCase() != str;
+  }  
+
+  function stringContainsNumber(_string) {
+    return /\d/.test(_string);
+  }
+
   $('#password').on('change',function(){
     var i=0;
     var o=0;
     var p=0;
+    console.log(o);
+    console.log(p);
     var character='';
     var current_password = $('#current_password').val();
     var password = $('#password').val();
     console.log('password is '+ password);
-    if(password !=null)
+    if(password.length === 0)
     {
+      document.getElementById("check_character").innerHTML = "";
+      document.getElementById("demo").innerHTML = "";
+      document.getElementById("check_length").innerHTML = "";
+    }
+    else
+    {
+      uppercase = hasLowerCase(password);
+      number = stringContainsNumber(password);
+      if(password.length<8 && password.length>0)
+      {
+        document.getElementById("check_length").innerHTML = "Your Password must have 8 character";
+      }
+     
       if(current_password == password){
         document.getElementById("demo").innerHTML = "Password matches old password ";
       }
-      else
+      if(uppercase == false && number == false)
       {
-        document.getElementById("demo").innerHTML = "";
+        document.getElementById("check_character").innerHTML = "Your Password must have Uppercase & Number character";
+      }
+      if(uppercase == false && number == true)
+      {
+        document.getElementById("check_character").innerHTML = "Your Password must have Uppercase  character";
+      }
+      if(uppercase == true && number == false)
+      {
+        document.getElementById("check_character").innerHTML = "Your Password must have Number character";
       }
     }
+    
+    
   })
 });
 

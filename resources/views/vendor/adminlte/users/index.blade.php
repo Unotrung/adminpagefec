@@ -219,7 +219,6 @@ $(document).ready(function(){
     console.log(type);
     var status = $('#status').val();
     console.log(status);
-    var to_date = $('#to_date').val();
     if( input == '')
     {
       toastr["error"]("Please select input data to search!")
@@ -248,16 +247,13 @@ $(document).ready(function(){
     }
   });
 
-  // $('#reset').click(function(){ 
-  //     $('#name').val('');
-  //     $('#email').val('');
-  //     $('#status').val('');
-  //     $('#role').val('');
-  //     $('#reservation').val('');
-  //     // $('#to_date').val('');
-  //     $('#example1').DataTable().destroy();
-  //     fill_datatable(); 
-  // });
+  $('#reset').click(function(){ 
+      $('#input').val('');
+      $('#type').val('');
+      $('#status').val('');
+      $('#example1').DataTable().destroy();
+      fill_datatable(); 
+  });
 
   $('#status').change(function()
   {

@@ -52,9 +52,11 @@
                             <tr>
                                 <td>Role:</td>
                                     @if(!empty($user->getRoleNames()))
-                                    @foreach($user->getRoleNames() as $v)
-                                    <td>{{ $v }}</td>
-                                    @endforeach
+                                    <td>
+                                        @foreach($user->getRoleNames() as $v)
+                                        {{ $v }}</br>
+                                        @endforeach
+                                    </td>
                                     @endif
                             </tbody>
                         </table>

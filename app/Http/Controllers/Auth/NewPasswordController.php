@@ -69,18 +69,17 @@ class NewPasswordController extends Controller
 
     public function changePassword(Request $request)
     {
-        $request->validate([
-          'current_password' => 'required',
-          'password' => 'required|min:6|confirmed',
-        ]);
+        
+        // $request->validate([
+        //   'current_password' => 'required',
+        //   'password' => 'required|min:6|confirmed',
+        // ]);
 
         $user = Auth::user();
-
         if (!Hash::check($request->current_password, $user->password)) {
-            // Alert::error('Error!!', 'Your current password is wrong!');
-            return back()->with(['message' => "wrong passs"]);
+            Alert::error('Error!!', 'Your current password is wrong!');
+            return back();
         }
-
         $user->password = Hash::make($request->password);
         $user->save();
         
