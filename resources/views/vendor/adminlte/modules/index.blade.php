@@ -246,23 +246,28 @@ $(function () {
       title: 'Do you want to save the changes?',
       showDenyButton: true,
       showCancelButton: false,
+      showLoaderOnConfirm: true,
+      timer: 2000,
       confirmButtonText: `Save`,
       denyButtonText: `Don't save`,
+      preConfirm: (login) => {
+        return $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: "POST",
+            url: "{{ route('modules.givepermission') }}",
+            data: { id,"permissions":existed_per },
+            success:function(response){
+              return response;
+          }
+        });
+      },
       }).then((result) => {
       if (result.isConfirmed) {
-        $.ajax({
-          headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-          type: "POST",
-          url: "{{ route('modules.givepermission') }}",
-          data: { id,"permissions":existed_per },
-          success:function(response){
-            Swal.fire('Saved!', '', 'success')
-            location.reload(true);
-        }
-      })
+        Swal.fire('Saved!', '', 'success');
+        $('#example1').DataTable().ajax.reload();
       } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
+        Swal.fire('Changes are not saved', '', 'info');
         location.reload(true);
       }
   })

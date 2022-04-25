@@ -113,6 +113,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		  <!-- /.tab-pane -->
 
 		  <div class="tab-pane" id="settings">
+			<form method="POST" action="{{route('user.assignrole', 'id='.$user->id)}}">
 			  <table>
 				@foreach ($roles as $role)
 					<tr>
@@ -124,6 +125,26 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 					</tr>
 				@endforeach
 			  </table>
+			  <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+				Submit
+			</div>
+			<div class="modal" id="demoModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Do you want to add a new role?  </h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-danger">Yes</button>
+						<button type="button" class="btn" data-dismiss="modal">No</button>
+					</div>
+					</div>
+			</div>
+			</div>
+			</form>
 		  </div>
 		  <!-- /.tab-pane -->
 		</div>
@@ -147,50 +168,50 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		showConfirmButton: false,
 		timer: 3000
 		});
-	function btnRole(e,d){
-		console.log(d);
-		if(e){
-			$.ajax({
-				url : "{{route('user.assignrole')}}",
-				type: "POST",
-				data : {
-					_token: "{{ csrf_token() }}",
-					id : "{{ $user->id }}",
-					role : d
-				}
-			}).done(function(msg){
-				Toast.fire({
-					icon: 'success',
-					title: "Update Successful"
-				});
-			}).fail(function(msg){
-				Toast.fire({
-					icon: 'error',
-					title: "Update Fail"
-				});
-			});
-		}else{
-			$.ajax({
-				url : "{{route('user.removerole')}}",
-				type: "POST",
-				data : {
-					_token: "{{ csrf_token() }}",
-					id : "{{ $user->id }}",
-					role : d
-				}
-			}).done(function(msg){
-				Toast.fire({
-					icon: 'success',
-					title: "Update Successful"
-				});
-			}).fail(function(msg){
-				Toast.fire({
-					icon: 'error',
-					title: "Update Fail"
-				});
-			});
-		}
-	};
+	// function btnRole(e,d){
+	// 	console.log(d);
+	// 	if(e){
+	// 		$.ajax({
+	// 			url : "{{route('user.assignrole')}}",
+	// 			type: "POST",
+	// 			data : {
+	// 				_token: "{{ csrf_token() }}",
+	// 				id : "{{ $user->id }}",
+	// 				role : d
+	// 			}
+	// 		}).done(function(msg){
+	// 			Toast.fire({
+	// 				icon: 'success',
+	// 				title: "Update Successful"
+	// 			});
+	// 		}).fail(function(msg){
+	// 			Toast.fire({
+	// 				icon: 'error',
+	// 				title: "Update Fail"
+	// 			});
+	// 		});
+	// 	}else{
+	// 		$.ajax({
+	// 			url : "{{route('user.removerole')}}",
+	// 			type: "POST",
+	// 			data : {
+	// 				_token: "{{ csrf_token() }}",
+	// 				id : "{{ $user->id }}",
+	// 				role : d
+	// 			}
+	// 		}).done(function(msg){
+	// 			Toast.fire({
+	// 				icon: 'success',
+	// 				title: "Update Successful"
+	// 			});
+	// 		}).fail(function(msg){
+	// 			Toast.fire({
+	// 				icon: 'error',
+	// 				title: "Update Fail"
+	// 			});
+	// 		});
+	// 	}
+	// };
 	function btnSubmit(){
 		$('.swalDefaultSuccess').click(function() {
       		Toast.fire({

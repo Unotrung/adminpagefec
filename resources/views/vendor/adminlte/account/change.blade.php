@@ -114,37 +114,53 @@ $(document).ready(function(){
     console.log('password is '+ password);
     if(password.length === 0)
     {
-      document.getElementById("check_character").innerHTML = "";
+      // document.getElementById("check_character").innerHTML = "";
       document.getElementById("demo").innerHTML = "";
       document.getElementById("check_length").innerHTML = "";
     }
+    
     else
     {
       uppercase = hasLowerCase(password);
       number = stringContainsNumber(password);
-      if(password.length<8 && password.length>0)
+      if(current_password == password)
       {
-        document.getElementById("check_length").innerHTML = "Your Password must have 8 character";
-      }
-     
-      if(current_password == password){
         document.getElementById("demo").innerHTML = "Password matches old password ";
       }
-      if(uppercase == false && number == false)
-      {
-        document.getElementById("check_character").innerHTML = "Your Password must have Uppercase & Number character";
-      }
-      if(uppercase == false && number == true)
-      {
-        document.getElementById("check_character").innerHTML = "Your Password must have Uppercase  character";
-      }
-      if(uppercase == true && number == false)
-      {
-        document.getElementById("check_character").innerHTML = "Your Password must have Number character";
-      }
+        else if((password.length<8 && password.length>0)&&((uppercase == false && number == false)))
+        {
+          document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 uppercase character and 1 number.";
+        }
+        else if((password.length<8 && password.length>0)&&((uppercase == true && number == false)))
+        {
+          document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 number.";
+        }
+        else if((password.length<8 && password.length>0)&&((uppercase == false && number == true)))
+        {
+          document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 uppercase";
+        }
+        else if((password.length<8 && password.length>0)&&((uppercase == true && number == true)))
+        {
+          document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters";
+        }
+        else if((password.length>8)&&((uppercase == false && number == false)))
+        {
+          document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 uppercase character and 1 number.";
+        }
+        else if((password.length>8)&&((uppercase == true && number == false)))
+        {
+          document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 number";
+        }
+        else if((password.length>8)&&((uppercase == false && number == true)))
+        {
+          document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 uppercase character";
+        }
+        else
+        {
+          document.getElementById("check_length").innerHTML = "";
+        }
+      
     }
-    
-    
   })
 });
 

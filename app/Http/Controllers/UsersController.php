@@ -61,7 +61,8 @@ class UsersController extends Controller
 
     public function create()
     {
-        $roles = Role::All();
+        // $roles = Role::All();
+        $roles = Role::All()->where('is_delete','==', null);
         return view('vendor.adminlte.users.create',['roles'=>$roles]);
     }
 
@@ -161,7 +162,7 @@ class UsersController extends Controller
                     else{
                         $data = $request->input;
                         $user->whereHas('roles', function ($query) use ($data) {
-                            return $query->where('name',"like", $data."%");
+                            return $query->where('name',"==", $data."%");
                         });
                     }
                 }else{
@@ -174,6 +175,8 @@ class UsersController extends Controller
                 $data = $out->getData();   
                 for($i=0; $i < count($data->data); $i++) {
                     $roles = new Role;
+                    $name_before = substr($data->data[$i]->email,0,3);
+                    $data->data[$i]->email = $name_before."***@***.***";
                     if(empty($data->data[$i]->role_ids[0])){
                         $data->data[$i]->role = " ";
                     }
@@ -181,6 +184,7 @@ class UsersController extends Controller
                      $role = $roles->find($data->data[$i]->role_ids[0]);
                      $data->data[$i]->role =$role->name;
                     }
+                    
                     $output = '';
                         if(empty($data->data[$i]->delete_at)){
                             $data->data[$i]->delete_at = "";

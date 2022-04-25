@@ -140,8 +140,10 @@ class BnplController extends Controller
             }
             else
             {
-                $out =  Datatables::of(Bnpl::where("_id",1)->get())->make(true);
-                return $out;  
+                $result["data"] = [];
+                // $result = $response->json();
+                $out =  Datatables::of($result)->make(false);
+                return $out;      
             }
         }
     }

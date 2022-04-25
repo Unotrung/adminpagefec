@@ -54,31 +54,31 @@
         <div class="row">
           <div class="col-3">
             <div class="card" style="text-align: left;padding:12px 20px">
-              <h3>Filter By </h3>
+              <h6 style="font-weight: bold">Filter By </h6>
               <div class="form-check">
-                <input class="form-check-input" id="check_name" type="checkbox">
-                <label class="form-check-label">Search by Name</label>
-                <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value="">  <span class="text-danger"></span>
+                <input class="form-check-input" id="check_name" type="checkbox" style="">
+                <label class="form-check-label" style="margin-left: 5px;" for="check_name">Search by Name</label>
+                <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
               </div>
               <div class="form-check">
                 <input class="form-check-input" id="check_phone" type="checkbox">
-                <label class="form-check-label">Search by Phone</label>
-                <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="">  <span class="text-danger"></span>
+                <label class="form-check-label" style="margin-left: 5px;" for="check_phone">Search by Phone</label>
+                <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
               </div>  
               <div class="form-check">
                 <input class="form-check-input" id="check_email" type="checkbox">
-                <label class="form-check-label">Search by Email</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="">  <span class="text-danger"></span>
+                <label class="form-check-label" style="margin-left: 5px;" for="check_email">Search by Email</label>
+                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
               </div>  
               <div class="form-check">
                 <input class="form-check-input" id="check_nid" type="checkbox">
-                <label class="form-check-label">Search by NID</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="nid" placeholder="" name="nid" value="">  <span class="text-danger"></span>
+                <label class="form-check-label" style="margin-left: 5px;" for="check_nid">Search by NID</label>
+                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="nid" placeholder="" name="nid" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
               </div>
               <div class="form-check">
                 <input class="form-check-input" id="check_address" type="checkbox">
-                <label class="form-check-label">Search by Address</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="address" placeholder="" name="address" value="">  <span class="text-danger"></span>
+                <label class="form-check-label" style="margin-left: 5px;" for="check_address">Search by Address</label>
+                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="address" placeholder="" name="address" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
               </div>
               <div class="form-group row" style="text-align: left;padding:12px 20px">
               <div class="col-sm-6 mb-6 mb-1 mb-sm-0 pl-1">
@@ -337,6 +337,8 @@ fill_datatable('a');
       // $('#check_address').click();
       // $('#check_nid').click();
       // $('#to_date').val('');
+      $('#filter').hide();
+      $('#reset').hide();
       $('#example1').DataTable().destroy();
       fill_datatable();
   });
@@ -346,6 +348,8 @@ fill_datatable('a');
   $('#email').hide();
   $('#nid').hide();
   $('#address').hide();
+  $('#filter').hide();
+  $('#reset').hide();
   // check for name field
   $('#check_name').change(function()
   {
@@ -353,6 +357,24 @@ fill_datatable('a');
   //     {
         $("#name").toggle();
         $("#name").val("");
+        if($('#check_name').prop('checked'))
+        {
+          $("#filter").show();
+          $("#reset").show();
+        }
+        else
+        {
+          if($('#check_nid').prop('checked') || $('#check_address').prop('checked') || $('#check_phone').prop('checked') || $('#check_email').prop('checked'))
+          {
+            $("#filter").show();
+            $("#reset").show();
+          }
+          else
+          {
+            $("#filter").hide();
+            $("#reset").hide();
+          }
+        }
       // }
   });
   // check for nid field
@@ -360,24 +382,96 @@ fill_datatable('a');
   {
     $("#nid").toggle();
     $("#nid").val("");
+    if($('#check_nid').prop('checked'))
+        {
+          $("#filter").show();
+          $("#reset").show();
+        }
+        else
+        {
+          if($('#check_name').prop('checked') || $('#check_address').prop('checked') || $('#check_phone').prop('checked') || $('#check_email').prop('checked'))
+          {
+            $("#filter").show();
+            $("#reset").show();
+          }
+          else
+          {
+            $("#filter").hide();
+            $("#reset").hide();
+          }
+        }
   });
 // check for address field
   $('#check_address').change(function()
   {
     $("#address").toggle();
     $("#address").val("");
+    if($('#check_address').prop('checked'))
+        {
+          $("#filter").show();
+          $("#reset").show();
+        }
+        else
+        {
+          if($('#check_nid').prop('checked') || $('#check_name').prop('checked') || $('#check_phone').prop('checked') || $('#check_email').prop('checked'))
+          {
+            $("#filter").show();
+            $("#reset").show();
+          }
+          else
+          {
+            $("#filter").hide();
+            $("#reset").hide();
+          }
+        }
   });
 // check for phone field
   $('#check_phone').change(function()
   {
     $("#phone").toggle();
     $("#phone").val("");
+    if($('#check_phone').prop('checked'))
+        {
+          $("#filter").show();
+          $("#reset").show();
+        }
+        else
+        {
+          if($('#check_nid').prop('checked') || $('#check_address').prop('checked') || $('#check_name').prop('checked') || $('#check_email').prop('checked'))
+          {
+            $("#filter").show();
+            $("#reset").show();
+          }
+          else
+          {
+            $("#filter").hide();
+            $("#reset").hide();
+          }
+        }
   });
 // check for email field
   $('#check_email').change(function()
   {
     $("#email").toggle();
     $("#email").val("");
+    if($('#check_email').prop('checked'))
+        {
+          $("#filter").show();
+          $("#reset").show();
+        }
+        else
+        {
+          if($('#check_nid').prop('checked') || $('#check_address').prop('checked') || $('#check_phone').prop('checked') || $('#check_name').prop('checked'))
+          {
+            $("#filter").show();
+            $("#reset").show();
+          }
+          else
+          {
+            $("#filter").hide();
+            $("#reset").hide();
+          }
+        }
   });
 }); 
 function delete1(data){

@@ -70,10 +70,10 @@ class NewPasswordController extends Controller
     public function changePassword(Request $request)
     {
         
-        // $request->validate([
-        //   'current_password' => 'required',
-        //   'password' => 'required|min:6|confirmed',
-        // ]);
+        $request->validate([
+          'current_password' => 'required',
+          'password' => 'required|min:8|confirmed',
+        ]);
 
         $user = Auth::user();
         if (!Hash::check($request->current_password, $user->password)) {

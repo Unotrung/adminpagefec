@@ -38,8 +38,7 @@
         <div class="input-group mb-3">
             <input type="password" name="password" class="form-control " 
                    id="password" 
-                   placeholder="New Password" required 
-                   oninvalid="this.setCustomValidity('Please Enter Password')">
+                   placeholder="New Password" >
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -107,31 +106,31 @@ $(document).ready(function(){
       number = stringContainsNumber(password);
       if((password.length<8 && password.length>0)&&((uppercase == false && number == false)))
       {
-        document.getElementById("check_length").innerHTML = "Your Password must have 8 character at least one Uppercase & Number character";
+        document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 uppercase character and 1 number.";
       }
       else if((password.length<8 && password.length>0)&&((uppercase == true && number == false)))
       {
-        document.getElementById("check_length").innerHTML = "Your Password must have 8 character at least one Number character";
+        document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 number.";
       }
       else if((password.length<8 && password.length>0)&&((uppercase == false && number == true)))
       {
-        document.getElementById("check_length").innerHTML = "Your Password must have 8 character at least one Uppercase character";
+        document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 uppercase";
       }
       else if((password.length<8 && password.length>0)&&((uppercase == true && number == true)))
       {
-        document.getElementById("check_length").innerHTML = "Your Password must have 8 character ";
+        document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters";
       }
       else if((password.length>8)&&((uppercase == false && number == false)))
       {
-        document.getElementById("check_length").innerHTML = "Your Password must have at least one Uppercase & Number character";
+        document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 uppercase character and 1 number.";
       }
       else if((password.length>8)&&((uppercase == true && number == false)))
       {
-        document.getElementById("check_length").innerHTML = "Your Password must have at least one Number character";
+        document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 number";
       }
       else if((password.length>8)&&((uppercase == false && number == true)))
       {
-        document.getElementById("check_length").innerHTML = "Your Password must have at least one Uppercase character";
+        document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 uppercase character";
       }
       else
       {
