@@ -47,6 +47,9 @@ $config = [
                 <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="false">General Infomation</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" id="custom-content-above-bnpl-tab" data-toggle="pill" href="#custom-content-above-bnpl" role="tab" aria-controls="custom-content-above-bnpl" aria-selected="false">BNPL Information</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Timeline</a>
               </li>
             </ul>

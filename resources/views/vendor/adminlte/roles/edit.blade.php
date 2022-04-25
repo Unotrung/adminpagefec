@@ -102,8 +102,10 @@ $old = Role::find($role);
                                @foreach ($permissions as $permission)
                                
                                     <?php
-                                        if (str_starts_with ($permission->name,strtolower($module->module))) 
-                                            { ?>
+                                        $name_permission = explode("-", $permission->name);
+                                        if (strtolower($name_permission[0]) == strtolower($module->module))
+                                            { 
+                                                ?>
                                                 <?php
                                                  if (($permission_ids)!=null) 
                                                 { ?>

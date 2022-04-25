@@ -324,10 +324,10 @@ return [
                     'text' => 'Roles',
                     'url'  => 'roles/index',
                 ],
-                // [
-                //     'text' => 'Permission',
-                //     'url'  => 'permission/index',
-                // ],
+                [
+                    'text' => 'Permission',
+                    'url'  => 'permission/index',
+                ],
                 [
                     'text' => 'Configuration',
                     'url'  => 'configuration/index',
