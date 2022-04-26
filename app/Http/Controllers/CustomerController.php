@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,6 +17,7 @@ use App\Jobs\SendEmailJob;
 use Carbon\Carbon;
 use function PHPUnit\Framework\isNull;
 use Illuminate\Support\Facades\Http;
+
 
 class CustomerController extends Controller
 {
@@ -75,6 +78,41 @@ class CustomerController extends Controller
         $eap = $data_eap->json();
         $cus = $eap["data"];
         $phone = $cus["phone"];
+        $response = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
+        $response = $response->json();
+        $bnpl = $response["data"]["BNPL"];
+        if(empty($bnpl))
+        {
+            $bnpl_info = "";
+        }
+        else
+        {
+            $bnpl_info = $bnpl[0];
+        }
+        $user = Auth::user();
+                $roles = new Role;
+                $permissions = new Permission;
+                $check_permission=[];
+                // print_r($user->role_ids[0]);
+                $role = Role::find($user->role_ids[0]);
+                $check_role = $role->permission_ids;
+                for($i=0;$i < count($check_role); $i++)
+                {
+                    if(empty($check_role[$i])){
+                        $user->permission = " ";
+                    }
+                    else
+                    {
+                    $permission = $permissions->find($check_role[$i]);
+                    $check_permission[$i]=$permission->name;
+                    }
+                }
+                $eap_check= in_array('customers-view-eap', $check_permission);
+                $bnpl_check = in_array('customers-view-bnpl', $check_permission);
+                // print_r($phone);
+                // print_r($bnpl_info);
+                // exit;
+
         // print_r($phone);
         // $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
         // $bnpl = $data_bnpl->json();
@@ -90,7 +128,7 @@ class CustomerController extends Controller
         // }
 		if(isset($cus["_id"])) {
 			$setErrorsBag = "khong hien thi";
-			return view('vendor.adminlte.customers.show',[])->with('cus', $cus);
+			return view('vendor.adminlte.customers.show',['cus'=>$cus ,'check_permission'=>$check_permission,'eap_check'=>$eap_check ,'bnpl_check'=> $bnpl_check,'bnpl_info'=>$bnpl_info]);
 		} 
             // else {
 			// 	return view('errors.404', [
@@ -114,8 +152,6 @@ class CustomerController extends Controller
             $strFilter = "";
             if(!empty($request->filter))
             {
-                //{{admin}}/v1/admin/getAllEAP
-                
                 foreach($request->filter as $key=>$val){
                     if($val != null){
                         $strFilter .= $key."=".$val."&";

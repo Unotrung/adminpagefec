@@ -87,8 +87,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-							<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Update </div>
-							<div class="modal" id="demoModal">
+							<div data-toggle="modal" data-target="#confirmModal" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Update </div>
+							<div class="modal" id="confirmModal">
 								<div class="modal-dialog">
 									<div class="modal-content">
 									<!-- Modal Header -->
@@ -113,13 +113,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		  <!-- /.tab-pane -->
 
 		  <div class="tab-pane" id="settings">
-			<form method="POST" action="{{route('user.assignrole', 'id='.$user->id)}}">
+			<form method="POST" action="{{route('user.assignrole')}}">
+				<input type="hidden" name="id" value="{{$user->id}}">
 			  <table>
 				@foreach ($roles as $role)
 					<tr>
 						<td>
 							@if ($role->is_delete != 1)
-							<input type="checkbox" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif onClick="btnRole(this.checked,this.value)"/> {{$role->name}}
+							<input type="checkbox" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif name="roleee"/> {{$role->name}}
 							@endif
 						</td>
 					</tr>
@@ -128,21 +129,22 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			  <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
 				Submit
 			</div>
+
 			<div class="modal" id="demoModal">
 				<div class="modal-dialog">
 					<div class="modal-content">
 					<!-- Modal Header -->
-					<div class="modal-header">
-						<h4 class="modal-title">Do you want to add a new role?  </h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<div class="modal-header">
+							<h4 class="modal-title">Do you want to add a new role?  </h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger">Yes</button>
+							<button type="button" class="btn" data-dismiss="modal">No</button>
+						</div>
 					</div>
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-danger">Yes</button>
-						<button type="button" class="btn" data-dismiss="modal">No</button>
-					</div>
-					</div>
-			</div>
+				</div>
 			</div>
 			</form>
 		  </div>
@@ -153,7 +155,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	</div>
 	<!-- /.card -->
   </div>
+	
   <!-- /.col -->
+</div>
 </div>
 @endsection
 @section('js')
@@ -161,64 +165,4 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="../../plugins/toastr/toastr.min.js"></script>
-<script>
-	var Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000
-		});
-	// function btnRole(e,d){
-	// 	console.log(d);
-	// 	if(e){
-	// 		$.ajax({
-	// 			url : "{{route('user.assignrole')}}",
-	// 			type: "POST",
-	// 			data : {
-	// 				_token: "{{ csrf_token() }}",
-	// 				id : "{{ $user->id }}",
-	// 				role : d
-	// 			}
-	// 		}).done(function(msg){
-	// 			Toast.fire({
-	// 				icon: 'success',
-	// 				title: "Update Successful"
-	// 			});
-	// 		}).fail(function(msg){
-	// 			Toast.fire({
-	// 				icon: 'error',
-	// 				title: "Update Fail"
-	// 			});
-	// 		});
-	// 	}else{
-	// 		$.ajax({
-	// 			url : "{{route('user.removerole')}}",
-	// 			type: "POST",
-	// 			data : {
-	// 				_token: "{{ csrf_token() }}",
-	// 				id : "{{ $user->id }}",
-	// 				role : d
-	// 			}
-	// 		}).done(function(msg){
-	// 			Toast.fire({
-	// 				icon: 'success',
-	// 				title: "Update Successful"
-	// 			});
-	// 		}).fail(function(msg){
-	// 			Toast.fire({
-	// 				icon: 'error',
-	// 				title: "Update Fail"
-	// 			});
-	// 		});
-	// 	}
-	// };
-	function btnSubmit(){
-		$('.swalDefaultSuccess').click(function() {
-      		Toast.fire({
-        		icon: 'success',
-        		title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-      		})
-    	});
-	};
-</script>
 @stop

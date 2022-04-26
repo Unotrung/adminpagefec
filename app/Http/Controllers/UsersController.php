@@ -117,8 +117,10 @@ class UsersController extends Controller
 
     public function assignRole(Request $request){
         $user = User::find($request->id);
-        
-        return $user->assignRole($request->role);
+        $role_checked = $request->roleee;
+        print_r($role_checked);
+        // return $user->assignRole($request->role);
+        return redirect()->route('users.edit',['id' => $request->id])->with('success','Role updated successfully.');
 
     }
 
