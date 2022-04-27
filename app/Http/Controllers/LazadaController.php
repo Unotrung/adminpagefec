@@ -35,7 +35,9 @@ class LazadaController extends Controller
         $lazada->phone = $request->phone;
         $lazada->name = $request->name;
 
-        return response($lazada->save());
+        $data["code"] = 200;
+        $data["message"] = "successful";
+        return response(($lazada->save())?$data:"code:404");
 
     }
 }
