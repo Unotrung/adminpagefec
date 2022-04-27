@@ -176,9 +176,11 @@ class CustomerController extends Controller
                     
                     for($i=0; $i < count($data->data); $i++) {
                         $name_before = substr($data->data[$i]->email,0,3);
-                        $data->data[$i]->email = $name_before."***@***.***";   
+                        $name_after = substr($data->data[$i]->email,-4,4);
+                        $data->data[$i]->email = $name_before."***@***".$name_after;   
                         $phone_before = substr($data->data[$i]->phone,0,3);
-                        $data->data[$i]->phone = $phone_before."***@***.***"; 
+                        $phone_after = substr($data->data[$i]->phone,-1,3);
+                        $data->data[$i]->phone = $phone_before."******".$phone_after;
                         $output = '';
                         $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                         $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
@@ -205,13 +207,15 @@ class CustomerController extends Controller
                     for($i=0; $i < count($data->data); $i++) {
                         $output = '';
                         $name_before = substr($data->data[$i]->email,0,3);
-                        $data->data[$i]->email = $name_before."***@***.***";   
+                        $name_after = substr($data->data[$i]->email,-4,4);
+                        $data->data[$i]->email = (Auth::user()->can("customers-unmask"))?$data->data[$i]->email:$name_before."***@***".$name_after;   
                         $phone_before = substr($data->data[$i]->phone,0,3);
-                        $data->data[$i]->phone = $phone_before."******";
+                        $phone_after = substr($data->data[$i]->phone,-1,3);
+                        $data->data[$i]->phone = (Auth::user()->can("customers-unmask"))?$data->data[$i]->phone:$phone_before."******".$phone_after;
                         for($j=0; $j < count($eap[0]["bnpl"]); $j++) 
                         {
                             $citizenID_before = substr($data->data[$i]->bnpl[$j]->citizenId,-3);
-                            $data->data[$i]->bnpl[$j]->citizenId = "*********".$citizenID_before;
+                            $data->data[$i]->bnpl[$j]->citizenId = (Auth::user()->can("customers-unmask"))?$data->data[$i]->bnpl[$j]->citizenId:"*********".$citizenID_before;
                         }
                         // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
                         $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';

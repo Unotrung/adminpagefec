@@ -36,7 +36,6 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::All();
-
         // $role = Role::all();
         // return view('vendor.adminlte.users.index',['users'=> $users,"role"=>$role]);
 
@@ -186,7 +185,8 @@ class UsersController extends Controller
                 for($i=0; $i < count($data->data); $i++) {
                     $roles = new Role;
                     $name_before = substr($data->data[$i]->email,0,3);
-                    $data->data[$i]->email = $name_before."***@***.***";
+                    $name_after = substr($data->data[$i]->email,-4,4);
+                    $data->data[$i]->email = (Auth::user()->can("users-unmask"))?$data->data[$i]->email:$name_before."***@***".$name_after;
                     if(empty($data->data[$i]->role_ids[0])){
                         $data->data[$i]->role = " ";
                     }

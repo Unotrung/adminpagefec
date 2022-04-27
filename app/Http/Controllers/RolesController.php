@@ -134,7 +134,7 @@ class RolesController extends Controller
         }
         // return redirect()->route('modules.index');
         $role->save();
-        return redirect()->route('roles.index')->with('success','Role updated successfully.');
+        return redirect()->route('roles.edit',["id"=>$id])->with('success','Role updated successfully.');
     }
 
     /**
