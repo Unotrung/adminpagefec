@@ -37,33 +37,33 @@ $config = [
 <div class="card card-primary card-outline">
   <div class="card-body">
     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
-      @if(($eap_check == 1 && $bnpl_check == 1)) 
+      @if(($eap_check == 1 && $bnpl_check == 1) && (!empty($cus) && !emtpy($bnpl_info))) 
       <li class="nav-item">
-      <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
+      <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
+        <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#custom-content-below-messages" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
+        <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
       </li>
-    @elseif(($eap_check == 1 && empty($bnpl_check))) 
+    @elseif(($eap_check == 1 && empty($bnpl_check)) && empty($bnpl_info)) 
     <li class="nav-item">
-    <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
+    <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
     </li>
     {{-- <li class="nav-item">
     <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
     </li> --}}
     <li class="nav-item">
-      <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#custom-content-below-messages" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
+      <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
     </li>
-    @elseif($bnpl_check == 1 && empty($_check)) 
+    @elseif(($bnpl_check == 1 && empty($_check)) && empty($cus)) 
     <li class="nav-item">
-    <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="true">BNPL Infomation</a>
+    <a class="nav-link " id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="true">BNPL Infomation</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#custom-content-below-messages" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
-    </li>
+    {{-- <li class="nav-item">
+      <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
+    </li> --}}
     @endif
     
     {{-- active show --}}
@@ -73,12 +73,13 @@ $config = [
     </ul>
     <div class="tab-content" id="custom-content-below-tabContent">
       @if($eap_check == 1 && $bnpl_check == 1)
-      <div class="tab-pane fade active show " id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+      <div class="tab-pane fade active show " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
       @elseif ($eap_check == 1 && empty($bnpl_check))
-      <div class="tab-pane fade active show" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+      <div class="tab-pane fade active show" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
       @elseif ($bnpl_check == 1 && empty($eap_check))
-      <div class="tab-pane fade" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+      <div class="tab-pane fade" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
       @endif
+      @if(!empty($cus))
       <div class="card-body">
         <div class="form-group row">
           <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
@@ -105,13 +106,14 @@ $config = [
            </div>
         </div>
       </div>
+      @endif
     </div>
-      @if($bnpl_check == 1 && $eap_check == 1 )
-      <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      @if(($bnpl_check == 1 && $eap_check == 1 ) && empty($cus) )
+      <div class="tab-pane fade active show " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @elseif($bnpl_check == 1 && empty($eap_check))
-      <div class="tab-pane fade active show" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      <div class="tab-pane fade active show" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @elseif ($eap_check == 1 && empty($bnpl_check))
-      <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @endif
       @if(!empty($bnpl_info))  
         <div class="form-group row">
@@ -141,13 +143,15 @@ $config = [
         <div class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Date of Birth</label>
           <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["birthday"]}}</div>
+            
+          <div class="col-md-10 fvalue">{{date('d-m-Y', strtotime($bnpl_info["birthday"]))}}</div>
           </div>
         </div>
         <div class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Issuedate</label>
           <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["issueDate"]}}</div>
+            
+          <div class="col-md-10 fvalue">{{date('d-m-Y', strtotime($bnpl_info["issueDate"]))}}</div>
           </div>
         </div>
         <div class="form-group row">
@@ -194,11 +198,12 @@ $config = [
         </div>
         @endif
     </div>
-    <div class="tab-pane fade" id="custom-content-below-messages" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
+    <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
       <section class="content" style="overflow:auto; height:400px;">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
+              @if(!empty($cus))
               <div class="timeline">
                 <div class="time-label">
                   <span class="bg-red">10 Feb. 2014</span>
@@ -248,13 +253,14 @@ $config = [
                     </div>
                 </div>
         
-        <div>
-        <i class="fas fa-clock bg-gray"></i>
-        </div>
-        </div>
-        </div>
+                <div>
+                <i class="fas fa-clock bg-gray"></i>
+                </div>
+              </div>
+              @endif
+            </div>
         
-        </div>
+          </div>
         </div>
         
         </section>
@@ -272,6 +278,21 @@ $config = [
 
 {{-- Minimal --}}
 @stop 
+@section('js')
 <script>
-  
+$('#custom-content-below-tab a').click(function(e) {
+  	e.preventDefault();
+  	$(this).tab('show');
+	});
+
+	// store the currently selected tab in the hash value
+	$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+	var id = $(e.target).attr("href").substr(1);
+	window.location.hash = id;
+	});
+
+	// on load of the page: switch to the currently selected tab
+	var hash = window.location.hash;
+	$('#myTab a[href="' + hash + '"]').tab('show');  
 </script>
+@stop

@@ -7,6 +7,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @section('css')
   <!-- SweetAlert2 -->
   <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
   <!-- Toastr -->
   <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
   <link href="toastr.css" rel="stylesheet"/>
@@ -51,14 +53,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <div class="col-md-12">
 	<div class="card">
 	  <div class="card-header p-2">
-		<ul class="nav nav-pills">
-		  <li class="nav-item"><a class="nav-link " href="#activity" data-toggle="tab">User</a></li>
-		  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Role</a></li>
+		<ul class="nav nav-tabs" id='myTab'>
+		  <li  class="active" ><a class="nav-link " href="#activity" data-toggle="tab" id="user_tab">User</a></li>
+		  <li><a class="nav-link" href="#settings" data-toggle="tab" id="role_tab">Role</a></li>
 		</ul>
 	  </div><!-- /.card-header -->
 	  <div class="card-body">
 		<div class="tab-content">
-		  <div class=" tab-pane" id="activity">
+		  <div class=" tab-pane active" id="activity">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary">
@@ -178,21 +180,51 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @endsection
 @section('js')
 <script>
-	$(function(){
-		var url = window.location.href;
-		console.log();
-		var activeTab;
-		if(url.indexOf("#") == -1){
-			activeTab = "activity";
-		}else{
-			activeTab = url.substring(url.indexOf("#") + 1);
-		}
-
-		$('a[href="#'+ activeTab +'"]').removeClass("active");
-		$("#" + activeTab).removeClass("active");
-		$("#" + activeTab).addClass("active");
-		$('a[href="#'+ activeTab +'"]').tab('show');
+	$('#myTab a').click(function(e) {
+  	e.preventDefault();
+  	$(this).tab('show');
 	});
+
+	// store the currently selected tab in the hash value
+	$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+	var id = $(e.target).attr("href").substr(1);
+	window.location.hash = id;
+	});
+
+	// on load of the page: switch to the currently selected tab
+	var hash = window.location.hash;
+	$('#myTab a[href="' + hash + '"]').tab('show');
+	// $(function(){
+	// 	var url = window.location.href;
+	// 	var activeTab;
+	// 	if(url.indexOf("#") == -1){
+	// 		activeTab = "activity";
+	// 	}else{
+	// 		activeTab = url.substring(url.indexOf("#") + 1);
+	// 	}
+
+	// 	$('a[href="#'+ activeTab +'"]').removeClass("active");
+	// 	$("#" + activeTab).removeClass("active");
+	// 	$("#" + activeTab).addClass("active");
+	// 	$('a[href="#'+ activeTab +'"]').tab('show');
+	// });
+
+
+	// $(document).ready(function() {
+	// 	$(document).on('click', 'li', function(e) {
+	// 		e.preventDefault();
+	// 		$(this).closest("ul").find("li").removeClass("active");
+	// 		$(this).addClass("active");
+	// 	});
+	// });
+	// $('#user_tab').click(function(){
+	// 	var url = window.location.href;
+	// 	var urls = url.split('#')[0];
+	// 	console.log(urls);
+	// 	var activeTab = "activity"
+	// 	window.open(urls+"#"+activeTab);
+	// });
+
 </script>
 <!-- SweetAlert2 -->
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>

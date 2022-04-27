@@ -74,45 +74,55 @@ class CustomerController extends Controller
     }
 
     public function show($id){
-        $data_eap = Http::get(env("API_PARTNER").'/v1/admin/getUserEAP/'.$id);
-        $eap = $data_eap->json();
-        $cus = $eap["data"];
-        $phone = $cus["phone"];
-        $response = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
-        $response = $response->json();
-        $bnpl = $response["data"]["BNPL"];
-        if(empty($bnpl))
+        if(!empty($data_eap))
         {
-            $bnpl_info = "";
+            $data_eap = Http::get(env("API_PARTNER").'/v1/admin/getUserEAP/'.$id);
+            $eap = $data_eap->json();
+            $cus = $eap["data"];
+            $phone = $cus["phone"];
+            $response = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
+            $response = $response->json();
+            $bnpl = $response["data"]["BNPL"];
+            if(empty($bnpl))
+            {
+                $bnpl_info = "";
+            }
+            else
+            {
+                $bnpl_info = $bnpl[0];
+            }
+            
+                    // print_r($phone);
+                    // print_r($bnpl_info);
+                    // exit;
         }
         else
         {
-            $bnpl_info = $bnpl[0];
+            $cus = "";
+            $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$id);
+            $bnpl = $data_bnpl->json();
+            $bnpl_info = $bnpl["data"];
         }
         $user = Auth::user();
-                $roles = new Role;
-                $permissions = new Permission;
-                $check_permission=[];
-                // print_r($user->role_ids[0]);
-                $role = Role::find($user->role_ids[0]);
-                $check_role = $role->permission_ids;
-                for($i=0;$i < count($check_role); $i++)
-                {
-                    if(empty($check_role[$i])){
-                        $user->permission = " ";
-                    }
-                    else
+                    $roles = new Role;
+                    $permissions = new Permission;
+                    $check_permission=[];
+                    // print_r($user->role_ids[0]);
+                    $role = Role::find($user->role_ids[0]);
+                    $check_role = $role->permission_ids;
+                    for($i=0;$i < count($check_role); $i++)
                     {
-                    $permission = $permissions->find($check_role[$i]);
-                    $check_permission[$i]=$permission->name;
+                        if(empty($check_role[$i])){
+                            $user->permission = "";
+                        }
+                        else
+                        {
+                        $permission = $permissions->find($check_role[$i]);
+                        $check_permission[$i]=$permission->name;
+                        }
                     }
-                }
-                $eap_check= in_array('customers-view-eap', $check_permission);
-                $bnpl_check = in_array('customers-view-bnpl', $check_permission);
-                // print_r($phone);
-                // print_r($bnpl_info);
-                // exit;
-
+                    $eap_check= in_array('customers-view-eap', $check_permission);
+                    $bnpl_check = in_array('customers-view-bnpl', $check_permission);
         // print_r($phone);
         // $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
         // $bnpl = $data_bnpl->json();
@@ -126,10 +136,10 @@ class CustomerController extends Controller
         // {
         //     print_r("abc");
         // }
-		if(isset($cus["_id"])) {
-			$setErrorsBag = "khong hien thi";
+		// if(isset($cus["_id"])) {
+		// 	$setErrorsBag = "khong hien thi";
 			return view('vendor.adminlte.customers.show',['cus'=>$cus ,'check_permission'=>$check_permission,'eap_check'=>$eap_check ,'bnpl_check'=> $bnpl_check,'bnpl_info'=>$bnpl_info]);
-		} 
+		// } 
             // else {
 			// 	return view('errors.404', [
 			// 		'record_id' => $id,
@@ -188,7 +198,7 @@ class CustomerController extends Controller
                         $data->data[$i]->action = (string)$output;
 
                         //config link for phonenumber
-                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#custom-content-above-profile" > '.$data->data[$i]->phone.' </a>';
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
 
                     }
                     $out->setData($data);
@@ -228,7 +238,7 @@ class CustomerController extends Controller
                         $data->data[$i]->action = (string)$output;
 
                         //config link for phonenumber
-                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#custom-content-above-profile" > '.$data->data[$i]->phone.' </a>';
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'eap_info" > '.$data->data[$i]->phone.' </a>';
 
                     }
                     $out->setData($data);
@@ -254,7 +264,7 @@ class CustomerController extends Controller
                         $data->data[$i]->action = (string)$output;
 
                         //config link for phonenumber
-                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#custom-content-above-profile" > '.$data->data[$i]->phone.' </a>';
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#bnpl_info" > '.$data->data[$i]->phone.' </a>';
 
                     }
                     $out->setData($data);
