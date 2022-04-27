@@ -25,5 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('lazada/apibnpl',[App\Http\Controllers\LazadaController::class,'checkbnpl']);
+Route::post('lazada/addLazada',[App\Http\Controllers\LazadaController::class,'addLazada']);
+
 
 Route::middleware('auth:sanctum')->post('/customer/create', [CustomerController::class, 'store']);
