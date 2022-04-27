@@ -117,16 +117,24 @@ class UsersController extends Controller
 
     public function assignRole(Request $request){
         $user = User::find($request->id);
-        $role_checked = $request->roleee;
-        print_r($role_checked);
-        // return $user->assignRole($request->role);
-        return redirect()->route('users.edit',['id' => $request->id])->with('success','Role updated successfully.');
+        $role_checked = $request->role;
+
+        $roles = Role::All()->whereNull('is_delete');
+        $str = "";
+        foreach($roles as $role){
+            //remove all role
+            $user->removeRole($role->name);
+            
+        }
+        if(isset($request->role)) $user->assignRole($request->role);
+        
+        // $user->save();
+        return redirect()->route('users.edit',['id' => $request->id."#settings"])->with('success','Role updated successfully.');
 
     }
 
     public function removeRole(Request $request){
         $user = User::find($request->id);
-         
          return $user->removeRole($request->role);
 
     }
@@ -192,7 +200,7 @@ class UsersController extends Controller
                             $data->data[$i]->delete_at = "";
                             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                             if(Auth::user()->can('users-update')){
-                            $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                            $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'#settings" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                             }
                             if(Auth::user()->can('users-delete')){
                             $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';

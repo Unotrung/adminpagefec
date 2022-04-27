@@ -37,7 +37,7 @@ $config = [
 <div class="card card-primary card-outline">
   <div class="card-body">
     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
-      @if($eap_check == 1 && $bnpl_check == 1) 
+      @if(($eap_check == 1 && $bnpl_check == 1)) 
       <li class="nav-item">
       <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
       </li>
@@ -47,7 +47,7 @@ $config = [
       <li class="nav-item">
         <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#custom-content-below-messages" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
       </li>
-    @elseif($eap_check == 1 && empty($bnpl_check)) 
+    @elseif(($eap_check == 1 && empty($bnpl_check))) 
     <li class="nav-item">
     <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
     </li>
@@ -107,11 +107,11 @@ $config = [
       </div>
     </div>
       @if($bnpl_check == 1 && $eap_check == 1 )
-      <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:scroll; height:400px;">
+      <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @elseif($bnpl_check == 1 && empty($eap_check))
-      <div class="tab-pane fade active show" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:scroll; height:400px;">
+      <div class="tab-pane fade active show" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @elseif ($eap_check == 1 && empty($bnpl_check))
-      <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:scroll; height:400px;">
+      <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @endif
       @if(!empty($bnpl_info))  
         <div class="form-group row">
@@ -194,8 +194,70 @@ $config = [
         </div>
         @endif
     </div>
-    <div class="tab-pane fade" id="custom-content-below-messages" role="tabpanel" aria-labelledby="custom-content-below-messages-tab">
-    Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
+    <div class="tab-pane fade" id="custom-content-below-messages" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
+      <section class="content" style="overflow:auto; height:400px;">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="timeline">
+                <div class="time-label">
+                  <span class="bg-red">10 Feb. 2014</span>
+                </div>
+        
+                <div>
+                  <i class="fas fa-envelope bg-blue"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                      <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> sent you an email</h3>
+                      <div class="timeline-body">
+                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                        quora plaxo ideeli hulu weebly balihoo...
+                      </div>
+                      <div class="timeline-footer">
+                        <a class="btn btn-primary btn-sm">Read more</a>
+                        <a class="btn btn-danger btn-sm">Delete</a>
+                      </div>
+                    </div>
+                </div>
+        
+        
+                <div>
+                  <i class="fas fa-user bg-green"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
+                      <h3 class="timeline-header no-border"><a href="#">{{$cus["username"]}}</a> accepted your friend request</h3>
+                    </div>
+                </div>
+        
+        
+                <div>
+                  <i class="fas fa-comments bg-yellow"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
+                      <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> commented on your post</h3>
+                      <div class="timeline-body">
+                        Take me to your leader!
+                        Switzerland is small and neutral!
+                        We are more like Germany, ambitious and misunderstood!
+                      </div>
+                      <div class="timeline-footer">
+                        <a class="btn btn-warning btn-sm">View comment</a>
+                      </div>
+                    </div>
+                </div>
+        
+        <div>
+        <i class="fas fa-clock bg-gray"></i>
+        </div>
+        </div>
+        </div>
+        
+        </div>
+        </div>
+        
+        </section>
     </div>
     <div class="tab-pane fade" id="custom-content-below-settings" role="tabpanel" aria-labelledby="custom-content-below-settings-tab">
     Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.

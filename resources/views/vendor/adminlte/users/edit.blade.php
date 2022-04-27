@@ -9,6 +9,11 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
+  <link href="toastr.css" rel="stylesheet"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" 
+     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <style>
    #admin {
       display: none;
@@ -47,13 +52,13 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<div class="card">
 	  <div class="card-header p-2">
 		<ul class="nav nav-pills">
-		  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">User</a></li>
+		  <li class="nav-item"><a class="nav-link " href="#activity" data-toggle="tab">User</a></li>
 		  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Role</a></li>
 		</ul>
 	  </div><!-- /.card-header -->
 	  <div class="card-body">
 		<div class="tab-content">
-		  <div class="active tab-pane" id="activity">
+		  <div class=" tab-pane" id="activity">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary">
@@ -114,13 +119,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 		  <div class="tab-pane" id="settings">
 			<form method="POST" action="{{route('user.assignrole')}}">
+				@csrf
 				<input type="hidden" name="id" value="{{$user->id}}">
 			  <table>
 				@foreach ($roles as $role)
 					<tr>
 						<td>
 							@if ($role->is_delete != 1)
-							<input type="checkbox" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif name="roleee"/> {{$role->name}}
+							<input type="radio" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif name="role"/> {{$role->name}}
 							@endif
 						</td>
 					</tr>
@@ -159,10 +165,39 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- /.col -->
 </div>
 </div>
+<script>
+	@if(Session::has('success'))
+	toastr.options =
+	{
+	  "closeButton" : true,
+	  "progressBar" : true
+	}
+		toastr.success("{{ session('success') }}");
+	@endif
+	</script>
 @endsection
 @section('js')
+<script>
+	$(function(){
+		var url = window.location.href;
+		console.log();
+		var activeTab;
+		if(url.indexOf("#") == -1){
+			activeTab = "activity";
+		}else{
+			activeTab = url.substring(url.indexOf("#") + 1);
+		}
+
+		$('a[href="#'+ activeTab +'"]').removeClass("active");
+		$("#" + activeTab).removeClass("active");
+		$("#" + activeTab).addClass("active");
+		$('a[href="#'+ activeTab +'"]').tab('show');
+	});
+</script>
 <!-- SweetAlert2 -->
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="../../plugins/toastr/toastr.min.js"></script>
+<script src="toastr.js"></script>
+
 @stop
