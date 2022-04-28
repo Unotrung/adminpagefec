@@ -36,9 +36,9 @@
 
         {{-- Password field --}}
         <div class="input-group mb-3">
-            <input type="password" name="password" class="form-control " 
+            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror " 
                    id="password" 
-                   placeholder="New Password" >
+                   placeholder="New Password"  >
 
             <div class="input-group-append">
                 <div class="input-group-text">
@@ -46,6 +46,11 @@
                 </div>
             </div>
             
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ 'Please Enter New Password' }}</strong>
+                </span>
+            @enderror
             
         </div>
         <p class="text-danger" id="check_length"></p>

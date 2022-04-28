@@ -41,10 +41,14 @@
              <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
                 <x-label for="current_password" :value="__('Current Password')" />
 
-                <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror" type="password" name="current_password" required />
-                
+                <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror" type="password" name="current_password" />
+                <span class="invalid-feedback" role="alert">
+                  {{-- @error('password')
+                  <strong>{{ "Current password is not correct" }}</strong>
+                  @enderror --}}
+                </span>
               </div>
-
+              
             <!-- Password -->
             <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
                 <x-label for="password" :value="__('New Password')" />
@@ -53,7 +57,6 @@
                 <p class="text-danger" id="demo"></p>
                 <p class="text-danger" id="check_character"></p>
                 <p class="text-danger" id="check_length"></p>
-                
             </div>
 
             <!-- Confirm Password -->

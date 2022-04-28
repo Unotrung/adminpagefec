@@ -79,35 +79,35 @@ $config = [
       @elseif ($bnpl_check == 1 && empty($eap_check))
       <div class="tab-pane fade" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
       @endif
-      @if(!empty($cus))
-      <div class="card-body">
-        <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$cus["username"]}}</div>
+        @if(!empty($cus))
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+            <div class="col-md-10 fvalue">{{$cus["username"]}}</div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+            <div class="col-md-10 fvalue">{{$cus["email"]}}</div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword4" class="col-sm-2 col-form-label">Phone</label>
+            <div class="col-sm-10">
+              <div class="col-md-10 fvalue">{{$cus["phone"]}}</div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword4" class="col-sm-2 col-form-label">Resent OTP</label>
+            <div class="col-sm-10">
+            <button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success">Send OTP</button>
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$cus["email"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword4" class="col-sm-2 col-form-label">Phone</label>
-          <div class="col-sm-10">
-            <div class="col-md-10 fvalue">{{$cus["phone"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword4" class="col-sm-2 col-form-label">Resent OTP</label>
-           <div class="col-sm-10">
-           <button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success">Send OTP</button>
-           </div>
-        </div>
+        @endif
       </div>
-      @endif
-    </div>
       @if(($bnpl_check == 1 && $eap_check == 1 ) && empty($cus) )
       <div class="tab-pane fade active show " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @elseif($bnpl_check == 1 && empty($eap_check))
