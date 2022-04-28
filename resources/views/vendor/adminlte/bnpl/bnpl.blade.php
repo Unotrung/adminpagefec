@@ -46,7 +46,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{count($bnpl)}}</h3>
+                <h3 class="total">{{count($bnpl)}}</h3>
                 <p>Total BNPL Registing</p>
               </div>
               <div class="icon">
@@ -59,10 +59,8 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>
-                {{count($name)}}
-                  <sup style="font-size: 20px"></sup></h3>
-                <p>Stage: Input informations</p>
+                <h3 class="step2">{{count($name)}}</h3>
+                <p>Stage: Input information</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-check"></i>
@@ -74,7 +72,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3> {{count($phone)}}</h3>
+                <h3 class="step3"> {{count($phone)}}</h3>
                 <p>Stage: Setup pincode</p>
               </div>
               <div class="icon">
@@ -87,8 +85,8 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>{{count($identify)}}</h3>
-                <p>Stage: Verify registers</p>
+                <h3 class="step4">{{count($identify)}}</h3>
+                <p>Stage: Verify registration</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-shield"></i>
@@ -480,6 +478,18 @@ $('#filter').click(function(){
   //   $("#email").toggle();
   //   $("#email").val("");
   // });
+  report();
+  function report(){
+    
+    $(this).load('{{env("API_PARTNER")}}/v1/admin/getReportBNPL',function (res) {
+      var response = $.parseJSON(res);
+      console.log();
+      $(".total").text(response.data.total);
+      $(".step2").text(response.data.step2);
+      $(".step3").text(response.data.step3);
+      $(".step4").text(response.data.step4);
+    });
+  }
 });
 
   
