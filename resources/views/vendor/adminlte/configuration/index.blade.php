@@ -28,7 +28,8 @@
 
 <section class="content">
     <div class="container-fluid">
-      
+      <form method="post" action="{{ route('configuration.update.status') }}" id="configForm">
+        @csrf
         <div class="row">
           <div class="col-12">
             <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
@@ -44,22 +45,15 @@
                   <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-body">
-                  <meta name="csrf-token" content="{{ csrf_token() }}">
                   {{-- <form method="get" action="{{route('configuration.update.status')}}"> --}}
                   <table class="table table-hover table-striped">
-                    {{-- <thead>
-                      <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Status</th>
-                      </tr>
-                  </thead> --}}
                     <tbody>
                       @foreach ($config as $configs)
                       <tr>
                         {{-- <th scope="row">{{ $configs->id }}</th> --}}
+                        <input type="hidden" name="status[{{ $configs->_id }}]" value="0">
                         <td>{{ $configs->name }}</td>
-                        <td><input type="checkbox" data-id="{{ $configs->id }}" name="status" class="js-switch" {{ $configs->status == 1 ? 'checked' : '' }}></td>
+                        <td><input type="checkbox" value="{{$configs->value}}" data-id="{{ $configs->_id }}" name="status[{{ $configs->_id }}]" class="js-switch" {{ $configs->value == 1 ? 'checked' : '' }}></td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -72,7 +66,7 @@
                 <button type="submit" name="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                   Save
                 </button>
-                
+              </form>
                 </div>
                 <!-- /.card-footer -->
             </div>
@@ -139,7 +133,7 @@ $(document).ready(function()
 });
 
 $(function () {
-    $('button').on('click', function (){
+    $('button').on('click', function (e){
       
       console.log(status);
       console.log(configId);
@@ -151,21 +145,23 @@ $(function () {
       denyButtonText: `Don't save`,
       }).then((result) => {
       if (result.isConfirmed) {
-        $.ajax({
-          headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-          type: "GET",
-          dataType: "json",
-          url: '{{ route('configuration.update.status') }}',
-          data: {'status': status, 'config_id': configId},
-          success:function(response){
-            Swal.fire('Saved!', '', 'success')
-            location.reload(true);
-        }
-      })
+        // $.ajax({
+        //   headers: {
+        //   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        //   type: "GET",
+        //   dataType: "json",
+        //   url: '{{ route('configuration.update.status') }}',
+        //   data: {'status': status, 'config_id': configId},
+        //   success:function(response){
+        //     Swal.fire('Saved!', '', 'success');
+        //     console.log(response);
+        //     // location.reload(true);
+        // }
+      // })
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
         location.reload(true);
+        e.preventDefault();
       }
   })
   })
