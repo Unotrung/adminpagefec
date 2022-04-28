@@ -73,11 +73,11 @@ $config = [
     </ul>
     <div class="tab-content" id="custom-content-below-tabContent">
       @if($eap_check == 1 && $bnpl_check == 1)
-      <div class="tab-pane fade  " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+      <div class="tab-pane fade active show " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
       @elseif ($eap_check == 1 && empty($bnpl_check))
-      <div class="tab-pane fade" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
-      @elseif ($bnpl_check == 1 && empty($eap_check))
       <div class="tab-pane fade active show" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+      @elseif ($bnpl_check == 1 && empty($eap_check))
+      <div class="tab-pane fade " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
       @endif
         @if(!empty($cus))
         <div class="card-body">
@@ -109,7 +109,7 @@ $config = [
         @endif
       </div>
       @if(($bnpl_check == 1 && $eap_check == 1 ) )
-      <div class="tab-pane fade active show " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @elseif($bnpl_check == 1 && empty($eap_check))
       <div class="tab-pane fade active show" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
       @elseif ($eap_check == 1 && empty($bnpl_check))
