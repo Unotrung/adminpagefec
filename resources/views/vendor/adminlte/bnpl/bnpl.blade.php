@@ -479,11 +479,13 @@ $('#filter').click(function(){
   //   $("#email").val("");
   // });
   report();
+  setInterval(function(){
+    report() // this will run after every 5 seconds
+}, 300000);
   function report(){
     
     $(this).load('{{env("API_PARTNER")}}/v1/admin/getReportBNPL',function (res) {
       var response = $.parseJSON(res);
-      console.log();
       $(".total").text(response.data.total);
       $(".step2").text(response.data.step2);
       $(".step3").text(response.data.step3);
