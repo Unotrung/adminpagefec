@@ -125,13 +125,16 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 				<input type="hidden" name="id" value="{{$user->id}}">
 			  <table>
 				@foreach ($roles as $role)
+					@if ($role->is_delete != 1)
 					<tr>
 						<td>
-							@if ($role->is_delete != 1)
-							<input type="radio" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif name="role"/> {{$role->name}}
-							@endif
+							
+							<input type="radio" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif name="role" id="role-{{$role->id}}"/> 
+							<label for="role-{{$role->id}}">{{$role->name}}</label>
+							
 						</td>
 					</tr>
+					@endif
 				@endforeach
 			  </table>
 			  <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">

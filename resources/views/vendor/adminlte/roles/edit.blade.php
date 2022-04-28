@@ -77,86 +77,71 @@ $old = Role::find($role);
                 </div>
                 
                 <div class="form-group row">
-                    <div class="card-header">
-                        <h6 class="m-0 font-weight-bold text-primary">Assign Permissions</h6>
-                    </div>
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                            <th>Modules</th>  
-                        </tr>
-                        </thead>
-                       
-                        <tbody>
-                           @foreach ($modules as $module)
-                           <tr>
-                           <?php
-                                   if (!str_starts_with ($module->module,'Super')) 
-                                       { ?>
-                                           <th>{{$module->module}}</th>
-                                       <?php 
-                                       }
-                                    $permission_ids = $roles->permission_ids;
-                                    // echo $permission_ids;
-                               ?>
-                               @foreach ($permissions as $permission)
-                               
-                                    <?php
-                                        $name_permission = explode("-", $permission->name);
-                                        if (strtolower($name_permission[0]) == strtolower($module->module))
-                                            { 
-                                                ?>
-                                                <?php
-                                                 if (($permission_ids)!=null) 
-                                                { ?>
-                                                    <td class=""><div class="custom-control custom-checkbox">
-                                                        <?php if (in_array($permission->id, $permission_ids, TRUE))
-                                                        {?>
-                                                            <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" checked> 
-                                                        <?php 
-                                                        }
-                                                        else
-                                                        {
-                                                            ?>
-                                                            <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]"> 
-                                                            <?php 
-                                                        }
-                                                        ?>
-                                                        
-                                                    <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
-                                                    </div></td>
-                                                <?php 
-                                                }
-                                                ?>
-                                                <?php
-                                                    if (($permission_ids)==null)
-                                                    { 
-                                                ?>
-                                                        <td class=""><div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
-                                                        <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
-                                                        </div></td>
-                                                        <?php 
-                                                    }
-                                                ?>
-                                    <?php 
-                                }
-                        ?>
-                                @endforeach
-                            </tr>
-                               
-                           @endforeach
-                            
-                        </tbody>
-                        
-                        {{-- @foreach ($permissions as $permission)
-                        <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
-                          <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                    <div class="card card-primary card-outline" style="width:100%">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-edit"></i>Assign Permissions</h6>
                         </div>
-                        
-                        @endforeach --}}
-                    </table>
+                        <div class="card-body">
+                          <h6><b>Modules name : </b></h6>
+                          <div class="row">
+                            <div class="col-5 col-sm-3">
+                              <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                @foreach ($modules as $module)
+                                <a class="nav-link" id="vert-tabs-{{$module->id}}-tab" data-toggle="pill" href="#vert-tabs-{{$module->id}}" role="tab" aria-controls="vert-tabs-{{$module->id}}" aria-selected="false">{{$module->module}}</a>
+                                @endforeach
+                              </div>
+                            </div>
+                            <div class="col-7 col-sm-9">
+                              <div class="tab-content" id="vert-tabs-tabContent">
+                                @foreach ($modules as $module)
+                                <div class="tab-pane fade" id="vert-tabs-{{$module->id}}" role="tabpanel" aria-labelledby="vert-tabs-{{$module->id}}-tab">
+                                    <table class="table table-lg">
+                                    @foreach ($permissions as $permission)
+                                        <?php
+                                            $name_permission = explode("-", $permission->name);
+                                            $permission_ids = $roles->permission_ids;
+                                        ?>
+                                        <tr>
+                                        @if (strtolower($name_permission[0]) == strtolower($module->module))
+                                            @if($permission_ids!=null)
+                                            <td class=""><div class="custom-control custom-checkbox">
+                                            <?php if (in_array($permission->id, $permission_ids, TRUE))
+                                            {
+                                            ?>
+                                                <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" checked> 
+                                            <?php 
+                                            }
+                                            else
+                                            {
+                                            ?>
+                                                <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]"> 
+                                            <?php 
+                                            }
+                                            ?>
+                                            @else
+                                                <td class=""><div class="custom-control custom-checkbox">
+                                                    <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
+                                                    <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                                    </div>
+                                                </td>
+                                            @endif
+                                        <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
+                                        </div></td>
+                                            
+                                        @endif
+                                        </tr>
+                                    @endforeach
+                                    </table>
+                                    
+                                    </div>
+                                @endforeach
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                      <!-- /.card -->
                 </div> 
                 {{-- Save Button --}}
                 <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
