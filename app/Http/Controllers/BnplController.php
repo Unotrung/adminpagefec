@@ -54,19 +54,68 @@ class BnplController extends Controller
 
 
     public function edit($id){
-        $bnpl = Bnpl::find($id);
-        $bnpl_providers = $bnpl->providers;
-        $bnpl_provider = Provider::all();
+        // $bnpl = Bnpl::find($id);
+        // $bnpl_providers = $bnpl->providers;
+        // $bnpl_provider = Provider::all();
         
-			if(isset($bnpl->_id)) {
-				$setErrorsBag = "khong hien thi";
-				return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl,"bnpl_providers"=>$bnpl_providers,"bnpl_provider"=>$bnpl_provider]);
-			} else {
-				return view('errors.404', [
-					'record_id' => $id,
-					'record_name' => ucfirst("bnpl"),
-				]);
-			}
+		// 	if(isset($bnpl->_id)) {
+		// 		$setErrorsBag = "khong hien thi";
+		// 		return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl,"bnpl_providers"=>$bnpl_providers,"bnpl_provider"=>$bnpl_provider]);
+		// 	} else {
+		// 		return view('errors.404', [
+		// 			'record_id' => $id,
+		// 			'record_name' => ucfirst("bnpl"),
+		// 		]);
+		// 	}
+        $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$id);
+        if(!empty($data_bnpl))
+        {
+            
+            $bnpls = $data_bnpl->json();
+            $bnpl = $bnpls["data"];
+        }
+        else
+        {
+            $bnpl = "";
+        }
+        // print_r($bnpl);
+        // exit;
+        // $user = Auth::user();
+        // $roles = new Role;
+        // $permissions = new Permission;
+        // $check_permission=[];
+        //             // print_r($user->role_ids[0]);
+        //             $role = Role::find($user->role_ids[0]);
+        //             $check_role = $role->permission_ids;
+        //             for($i=0;$i < count($check_role); $i++)
+        //             {
+        //                 if(empty($check_role[$i])){
+        //                     $user->permission = "";
+        //                 }
+        //                 else
+        //                 {
+        //                 $permission = $permissions->find($check_role[$i]);
+        //                 $check_permission[$i]=$permission->name;
+        //                 }
+        //             }
+        //             $eap_check= in_array('customers-view-eap', $check_permission);
+        //             $bnpl_check = in_array('customers-view-bnpl', $check_permission);
+        // print_r($phone);
+        // $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
+        // $bnpl = $data_bnpl->json();
+        // $cus_bnpl = $bnpl["data"];
+        // // print_r($cus["_id"]);
+        // if($cus_bnpl["BNPL"]!=null)
+        // {
+        //     print_r($cus_bnpl);
+        // }
+        // else
+        // {
+        //     print_r("abc");
+        // }
+		// if(isset($cus["_id"])) {
+		// 	$setErrorsBag = "khong hien thi";
+        return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl]);
     }
 
 
@@ -122,7 +171,7 @@ class BnplController extends Controller
                 $data = $out->getData();
                 for($i=0; $i < count($data->data); $i++) {
                 $output = '';
-                $output .= ' <a href="'.url(route('bnpl.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                $output .= ' <a href="'.url(route('bnpl.edit',['id'=>$data->data[$i]->_id])).'#bnpl_info" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $data->data[$i]->action = (string)$output;
             //     if($this->show_action) {
             //         $output = '';

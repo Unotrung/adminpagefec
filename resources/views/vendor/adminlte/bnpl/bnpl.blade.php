@@ -222,10 +222,10 @@ $(document).ready(function(){
   fill_datatable("a");
   $('#reservation').daterangepicker().val('');
 
-  function fill_datatable(name = '',action='',phone='',reservation = '',nid='')
+  function fill_datatable(name = '',action='',phone='',reservation = '',citizenId='')
   {
-  var keywork = (name=='')?((phone=='')?"":phone):name;
-  var type = (name=='')?((phone=='')?"createAt":"phone"):"name";
+  var keywork = (name=='')?((phone=='')?((citizenId=='')?"":citizenId):phone):name;
+  var type = (name=='')?((phone=='')?((citizenId=='')?"createAt":"citizenId"):"phone"):"name";
   var from = reservation.endDate;
   var to = "";
   var jsonData = [
@@ -267,7 +267,7 @@ $(document).ready(function(){
             "orderable":false,
             "render": function (data, type, row) {
               if (row.name === null) {
-                return "<i>Nhập  Thông Tin<i>";
+                return "<i>Nhập Thông Tin<i>";
             }
             else if(row.phone === null)
             {
@@ -282,8 +282,14 @@ $(document).ready(function(){
           {
             "defaultContent": "<i>Waiting</i>"
           },
+          // {
+          //   "defaultContent": "<i>null</i>"
+          // },
           {
-            "defaultContent": "<i>null</i>"
+              data: 'action', 
+              name: 'action', 
+              orderable: true, 
+              searchable: true,
           },
         ]
     });

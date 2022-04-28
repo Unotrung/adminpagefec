@@ -38,268 +38,197 @@ $config = [
 @endphp
 
 
-<div class="content">
-        <div class="container-fluid">
+<div class="card card-primary card-outline">
+  <div class="card-body">
+    <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="custom-content-below-tabContent">
+      <div class="tab-pane fade active show " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      @if(!empty($bnpl))  
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["name"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["phone"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">CitizenID</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["citizenId"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Sex</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["sex"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Date of Birth</label>
+          <div class="col-sm-10">
             
-    <!-- Main content -->
-    <section class="content">
-    <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" id="custom-content-above-home-tab" data-toggle="pill" href="#custom-content-above-home" role="tab" aria-controls="custom-content-above-home" aria-selected="true">General Infomation</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="custom-content-above-profile-tab" data-toggle="pill" href="#custom-content-above-profile" role="tab" aria-controls="custom-content-above-profile" aria-selected="false">Timeline</a>
-              </li>
-            </ul>
-            <!-- <div class="tab-custom-content">
-              <p class="lead mb-0">"Information BNPL"</p>
-            </div> -->
-            <div class="tab-content" id="custom-content-above-tabContent">
-              <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
-                <form method="POST" action="/users/store">
-                  <!-- Horizontal Form -->
-            <div class="card card-info">
-              <!-- <div class="card-header">
-                <h3 class="card-title">Edit user</h3>
-              </div> -->
-              <!-- /.card-header -->
-              <!-- form start -->
-              <div class="card-body div-container" style="display: flex; flex-direction: row">
-                  <div class="col-6">
-                    <div class="form-group row">
-                      <label for="inputPassword3" class="col-sm-4 col-form-label">Phone Customer</label>
-                      <div class="col-sm-6">
-                      <div class="col-md-6 fvalue">{{$bnpl->phone}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">Gender</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->sex}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">Date of Birth</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue" >{{$bnpl['birthday']->toDateTime()->format('d-m-Y') }}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">CitizenID</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->citizenId}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">IssueDate</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl['issueDate']->toDateTime()->format('d-m-Y') }}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">City</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->city}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">District</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->district}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">Ward</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->ward}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">Street</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->street}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">Danh xưng</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->personal_title_ref}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">Tên người tham chiếu</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->name_ref}}</div>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword4" class="col-sm-4 col-form-label">Phone Number</label>
-                      <div class="col-sm-6">
-                        <div class="col-md-6 fvalue">{{$bnpl->phone_ref}}</div>
-                      </div>
-                    </div>
-                  </div>
-                 <div class="col-6">
-                 <div class="form-group row">
-                    <label for="inputPassword4" class="col-sm-12 col-form-label">Providers</label>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-sm-12 dropdown">
-                        @foreach ($bnpl_providers as $bnpl_pro)
-                        @foreach ($bnpl_provider as $bnpl)
-                        @if ($bnpl->id == $bnpl_pro)
-                        <div class="col-md-10 fvalue">
-
-                          <img  class="col-md-7" src="{{ asset("./ImagesProvider/$bnpl->Image") }}" alt="">
-                          <label class="col-md-4 form-check-label" for="flexRadioDefault2">
-                            {{$bnpl->provider}}
-                            </label>
-                        </div>
-                        @endif
-                        @endforeach
-                        @endforeach
-                        
-                      </div>
-                    </div>
-                 </div>
-                    
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                <a href="{{ URL::previous() }}" class="btn btn-primary">Back</a>
-                  <!-- <button type="submit" class="btn btn-default">Cancel</button> -->
-                  <!-- <button type="submit" class="btn btn-info float-right" >Sign in</button> -->
-                  <!-- <li class=""><a href="http://127.0.0.1:8000/bnpl" data-toggle="tooltip" data-placement="right" title="Back to Customers"><i class="fa fa-chevron-left"></i>Cancel</a></li> -->
-                </div>
-                <!-- /.card-footer -->
-            </div>
-            <!-- /.card -->
-                </form>
-              </div>
-              <div class="tab-pane fade" id="custom-content-above-profile" role="" aria-labelledby="custom-content-above-profile-tab">
-                <form >
-                     <!-- select -->
-                <div class="form-group">
-                  <!-- <label>Select Role</label> -->
-                  <section class="content">
-      <div class="container-fluid">
-
-        <!-- Timelime example  -->
-        <div class="row">
-          <div class="col-md-12">
-            <!-- The time line -->
-            <div class="timeline">
-              <!-- timeline time label -->
-              <div class="time-label">
-                <span class="bg-red">10 Feb. 2014</span>
-              </div>
-              <!-- /.timeline-label -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-sign-out-alt bg-red"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                  <h3 class="timeline-header"><a href="#">{{$bnpl->name}}</a> is logout </h3>
-
-                  <div class="timeline-body">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                    quora plaxo ideeli hulu weebly balihoo...
-                  </div>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-upload bg-green"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#">{{$bnpl->name}}</a> has update password</h3>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-user-check bg-green"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 3 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#">{{$bnpl->name}}</a> has update information</h3>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-sign-in-alt bg-blue"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                  <h3 class="timeline-header"><a href="#">{{$bnpl->name}}</a> is login</h3>
-                  <div class="timeline-body">
-                    Welcome back {{$bnpl->name}}
-                  </div>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline time label -->
-              <div class="time-label">
-                <span class="bg-green">3 Jan. 2014</span>
-              </div>
-              <!-- /.timeline-label -->
-              <!-- timeline item -->
-              <div>
-                <i class="fa fa-camera bg-purple"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
-                  <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                  <div class="timeline-body">
-                    <img src="https://placehold.it/150x100" alt="...">
-                    <img src="https://placehold.it/150x100" alt="...">
-                    <img src="https://placehold.it/150x100" alt="...">
-                    <img src="https://placehold.it/150x100" alt="...">
-                    <img src="https://placehold.it/150x100" alt="...">
-                  </div>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <!-- END timeline item -->
-              <div>
-                <i class="fas fa-clock bg-gray"></i>
-              </div>
-            </div>
+          <div class="col-md-10 fvalue">{{date('d-m-Y', strtotime($bnpl["birthday"]))}}</div>
           </div>
-          <!-- /.col -->
         </div>
-      </div>
-      <!-- /.timeline -->
-
-    </section>
-                </div>
-                <div class="card-footer">
-                <a href="{{ URL::previous()}}" class="btn btn-primary">Back</a>
-                </div>
-                </form>
-              </div>
-            </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Issuedate</label>
+          <div class="col-sm-10">
+            
+          <div class="col-md-10 fvalue">{{date('d-m-Y', strtotime($bnpl["issueDate"]))}}</div>
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-      </div>
-    </section>
-    <!-- /.content -->
-
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">City</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["city"]}}</div>
+          </div>
         </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">District</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["district"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Ward</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["ward"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Street</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["street"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Personal Title Ref</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["personal_title_ref"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Name Ref</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["name_ref"]}}</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Phone Ref</label>
+          <div class="col-sm-10">
+          <div class="col-md-10 fvalue">{{$bnpl["phone_ref"]}}</div>
+          </div>
+        </div>
+        @endif
     </div>
-
+    <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
+      <section class="content" style="overflow:auto; height:400px;">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              @if(!empty($bnpl))
+              <div class="timeline">
+                <div class="time-label">
+                  <span class="bg-red">10 Feb. 2014</span>
+                </div>
+        
+                <div>
+                  <i class="fas fa-envelope bg-blue"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                      <h3 class="timeline-header"><a href="#">{{$bnpl["name"]}}</a> sent you an email</h3>
+                      <div class="timeline-body">
+                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                        quora plaxo ideeli hulu weebly balihoo...
+                      </div>
+                      <div class="timeline-footer">
+                        <a class="btn btn-primary btn-sm">Read more</a>
+                        <a class="btn btn-danger btn-sm">Delete</a>
+                      </div>
+                    </div>
+                </div>
+        
+        
+                <div>
+                  <i class="fas fa-user bg-green"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
+                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> accepted your friend request</h3>
+                    </div>
+                </div>
+        
+        
+                <div>
+                  <i class="fas fa-comments bg-yellow"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
+                      <h3 class="timeline-header"><a href="#">{{$bnpl["name"]}}</a> commented on your post</h3>
+                      <div class="timeline-body">
+                        Take me to your leader!
+                        Switzerland is small and neutral!
+                        We are more like Germany, ambitious and misunderstood!
+                      </div>
+                      <div class="timeline-footer">
+                        <a class="btn btn-warning btn-sm">View comment</a>
+                      </div>
+                    </div>
+                </div>
+        
+                <div>
+                <i class="fas fa-clock bg-gray"></i>
+                </div>
+              </div>
+              @endif
+            </div>
+        
+          </div>
+        </div>
+        
+        </section>
+    </div>
+    <div class="tab-pane fade" id="custom-content-below-settings" role="tabpanel" aria-labelledby="custom-content-below-settings-tab">
+    Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
+    </div>
+    </div>
+  </div>
+  
 </div>
 
 
 
 
 {{-- Minimal --}}
-<!-- <x-adminlte-input name="name" type="text" placeholder="" label="Name" fgroup-class="col-md-6" disable-feedback value="{{ $bnpl->name }}"/> -->
+<!-- <x-adminlte-input name="name" type="text" placeholder="" label="Name" fgroup-class="col-md-6" disable-feedback value="{{ $bnpl["name"] }}"/> -->
 @stop 
+@section('js')
+<script>
+$('#custom-content-below-tab a').click(function(e) {
+  	e.preventDefault();
+  	$(this).tab('show');
+	});
+
+	// store the currently selected tab in the hash value
+	$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+	var id = $(e.target).attr("href").substr(1);
+	window.location.hash = id;
+	});
+
+	// on load of the page: switch to the currently selected tab
+	var hash = window.location.hash;
+	$('#myTab a[href="' + hash + '"]').tab('show');  
+</script>
+@stop
