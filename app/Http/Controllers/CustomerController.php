@@ -186,12 +186,12 @@ class CustomerController extends Controller
                     $data = $out->getData();   
                     
                     for($i=0; $i < count($data->data); $i++) {
-                        $name_before = substr($data->data[$i]->email,0,3);
-                        $name_after = substr($data->data[$i]->email,-4,4);
-                        $data->data[$i]->email = $name_before."***@***".$name_after;   
-                        $phone_before = substr($data->data[$i]->phone,0,3);
-                        $phone_after = substr($data->data[$i]->phone,-1,3);
-                        $data->data[$i]->phone = $phone_before."******".$phone_after;
+                        // $name_before = substr($data->data[$i]->email,0,3);
+                        // $name_after = substr($data->data[$i]->email,-4,4);
+                        // $data->data[$i]->email = $name_before."***@***".$name_after;   
+                        // $phone_before = substr($data->data[$i]->phone,0,3);
+                        // $phone_after = substr($data->data[$i]->phone,-1,3);
+                        // $data->data[$i]->phone = $phone_before."******".$phone_after;
                         $output = '';
                         $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                         $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
