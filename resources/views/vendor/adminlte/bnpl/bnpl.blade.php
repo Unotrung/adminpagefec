@@ -224,76 +224,76 @@ $(document).ready(function(){
 
   function fill_datatable(name = '',action='',phone='',reservation = '',citizenId='')
   {
-  var keywork = (name=='')?((phone=='')?((citizenId=='')?"":citizenId):phone):name;
-  var type = (name=='')?((phone=='')?((citizenId=='')?"createAt":"citizenId"):"phone"):"name";
-  var from = reservation.endDate;
-  var to = "";
-  var jsonData = [
-    { "meta": { "version": 1, "type": "test" } }
-];
-  console.log(from);
-  console.log(keywork);//"https://admin-voolo.herokuapp.com/v1/admin/searchBNPL"    url:"{{route('bnpl.dtajax')}}",
-  var dataTable = $("#example1").DataTable({
-      processing: true,
-        serverSide: true,
-        searching: false,
-        language : {
-            "zeroRecords": " "             
-        },
-        ajax: {
-          url:"{{route('bnpl.dtajax')}}",
-          data:{
-            search:type,
-            value:keywork,
-            from: from,
-            to: to,
-          }
-        },
-        columns: [
-          {data: 'name', name: 'Name'},
-          {data: 'phone', name: 'Phone'},
-          {data: 'createdAt', name: 'Date Regis',
-            render: function ( data, type, row ) {
-              if ( type === 'display' || type === 'filter' ) {
-                  var d = new Date( data );
-                  return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
+    var keywork = (name=='')?((phone=='')?((citizenId=='')?"":citizenId):phone):name;
+    var type = (name=='')?((phone=='')?((citizenId=='')?"createAt":"citizenId"):"phone"):"name";
+    var from = reservation.endDate;
+    var to = "";
+    var jsonData = [
+      { "meta": { "version": 1, "type": "test" } }
+    ];
+    console.log(from);
+    console.log(keywork);//"https://admin-voolo.herokuapp.com/v1/admin/searchBNPL"    url:"{{route('bnpl.dtajax')}}",
+    var dataTable = $("#example1").DataTable({
+        processing: true,
+          serverSide: true,
+          searching: false,
+          language : {
+              "zeroRecords": " "             
+          },
+          ajax: {
+            url:"{{route('bnpl.dtajax')}}",
+            data:{
+              search:type,
+              value:keywork,
+              from: from,
+              to: to,
+            }
+          },
+          columns: [
+            {data: 'name', name: 'Name'},
+            {data: 'phone', name: 'Phone'},
+            {data: 'createdAt', name: 'Date Regis',
+              render: function ( data, type, row ) {
+                if ( type === 'display' || type === 'filter' ) {
+                    var d = new Date( data );
+                    return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
+                }
+                return data;}
+            
+            },
+            
+            {data:'sex',
+              "searchable": false,
+              "orderable":false,
+              "render": function (data, type, row) {
+                if (row.name === null) {
+                  return "<i>Nhập Thông Tin<i>";
+              }
+              else if(row.phone === null)
+              {
+                return "<i>Cài đặt Pin Code<i>";
+              }
+              else
+              {
+                return "<i>Xác thực người dùng<i>";
               }
               return data;}
-          
-          },
-          
-          {data:'sex',
-            "searchable": false,
-            "orderable":false,
-            "render": function (data, type, row) {
-              if (row.name === null) {
-                return "<i>Nhập Thông Tin<i>";
-            }
-            else if(row.phone === null)
+            },
             {
-              return "<i>Cài đặt Pin Code<i>";
-            }
-            else
+              "defaultContent": "<i>Waiting</i>"
+            },
+            // {
+            //   "defaultContent": "<i>null</i>"
+            // },
             {
-              return "<i>Xác thực người dùng<i>";
-            }
-            return data;}
-          },
-          {
-            "defaultContent": "<i>Waiting</i>"
-          },
-          // {
-          //   "defaultContent": "<i>null</i>"
-          // },
-          {
-              data: 'action', 
-              name: 'action', 
-              orderable: true, 
-              searchable: true,
-          },
-        ]
-    });
-}
+                data: 'action', 
+                name: 'action', 
+                orderable: true, 
+                searchable: true,
+            },
+          ]
+      });
+  }
  
 // $('#name').on('change',function(){
 //   var user = $('#name').val();

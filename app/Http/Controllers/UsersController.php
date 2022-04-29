@@ -82,7 +82,7 @@ class UsersController extends Controller
         ]);
 
         $user->assignRole($request->role);
-
+        $user->derpartment = $request->derpartment;
         event(new Registered($user));
 
         return redirect()->route('users')->with('add','User Registed Successfull');

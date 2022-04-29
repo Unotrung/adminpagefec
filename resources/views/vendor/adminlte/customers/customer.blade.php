@@ -52,45 +52,110 @@
     <!-- Main content -->
     <div class="container-fluid">
         <div class="row">
-          <div class="col-3">
-            <div class="card" style="text-align: left;padding:12px 20px">
-              <h6 style="font-weight: bold">Filter By </h6>
-              <div class="form-check">
-                <input class="form-check-input" id="check_name" type="checkbox" style="">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_name">Search by Name</label>
-                <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
+        <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+              <div class="row" style="margin-bottom: 20px;">
+                <div class="col-3">
+                  <label class="form-check-label" style="" for="">Search by Name</label>
+                  <div class="input-group input-group-sm">
+                    <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value="" style="">  <span class="text-danger"></span>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <label class="form-check-label" style="">Search by Phone</label>
+                  <div class="input-group input-group-sm">
+                    <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="">  <span class="text-danger"></span>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <label class="form-check-label" style="" >Search by Email</label>
+                  <div class="input-group input-group-sm">
+                    <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="" style="">  <span class="text-danger"></span>
+                  </div>
+                </div>
+                <div class="col-sm-1,5">
+                  <label>    </label>
+                    <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
+                
+                </div>
+                <div class="col-sm-1,5">
+                  <label>    </label>
+                    <button type="button" name="reset" id="reset" class="btn btn-light w-100">Reset</button>
+                  
+                </div>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" id="check_phone" type="checkbox">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_phone">Search by Phone</label>
-                <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
-              </div>  
-              <div class="form-check">
-                <input class="form-check-input" id="check_email" type="checkbox">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_email">Search by Email</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
-              </div>  
-              <div class="form-check">
-                <input class="form-check-input" id="check_nid" type="checkbox">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_nid">Search by NID</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="nid" placeholder="" name="nid" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
+              <div id="clicks">
+                <a href="#searchadvance" class="click" id="showInfo" data-target="searchadvance"><button><i class="fa fa-search"></i>Search Advance</button></a>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" id="check_address" type="checkbox">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_address">Search by Address</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="address" placeholder="" name="address" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
+              <div class="searchadvance target" style="display: none;"><a name="searchadvance">
+                <div class="row" style="margin-bottom: 20px;"> 
+                <div class="col-2">
+                  <label class="form-check-label" >Search by NID</label>
+                  <div class="input-group input-group-sm">
+                    <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="nid" placeholder="" name="nid" value="" style="">  <span class="text-danger"></span>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <label class="form-check-label">Date:</label>
+                  <div class="input-group input-group-sm" id="reservationdate" data-target-input="nearest">
+                  {{-- <div class="input-group date" > --}}
+                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  {{-- </div> --}}
+                  </div>
+                </div>
+                <div class="col-2">
+                  <label class="form-check-label">Thành phố/Tỉnh:</label>
+                  <div class="input-group input-group-sm">
+                  <select id="city" class="form-control" name="city">
+                    <option value="" selected="">TP.Hồ Chí Minh</option>																			
+                    <option value="623d5e16d2b54784ff29a332">TP.Hà Nội</option>
+                    <option value="623d5e2cc682d3f0ff4ced22">TP.Cần Thơ</option>
+                    {{-- <option value="623d5e2cc682d3f0ff4ced22">Center</option> --}}
+                  </select>
+                  </div>
+                </div> 
+                <div class="col-2">
+                  <label class="form-check-label">Quận/Huyện</label>
+                  <div class="input-group input-group-sm">
+                  <select id="Distric" class="form-control" name="Distric">
+                    <option value="" selected="">Quận 1</option>																			
+                    <option value="623d5e16d2b54784ff29a332">TP.Hà Nội</option>
+                    <option value="623d5e2cc682d3f0ff4ced22">TP.Cần Thơ</option>
+                    {{-- <option value="623d5e2cc682d3f0ff4ced22">Center</option> --}}
+                  </select>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <label class="form-check-label">Phường/Xã</label>
+                  <div class="input-group input-group-sm">
+                  <select id="ward" class="form-control" name="ward">
+                    <option value="" selected="">Bến Nghé</option>																			
+                    <option value="623d5e16d2b54784ff29a332">TP.Hà Nội</option>
+                    <option value="623d5e2cc682d3f0ff4ced22">TP.Cần Thơ</option>
+                    {{-- <option value="623d5e2cc682d3f0ff4ced22">Center</option> --}}
+                  </select>
+                  </div>
+                </div>
+                <div class="col-sm-1,5">
+                  <label>    </label>
+                    <button type="button" name="filter" id="filter1" class="btn btn-info w-100">Search</button>
+                
+                </div>
+                <div class="col-sm-1,5">
+                  <label>    </label>
+                    <button type="button" name="reset1" id="reset1" class="btn btn-light w-100">Reset</button>
+                  
+                </div>
               </div>
-              <div class="form-group row" style="text-align: left;padding:12px 20px">
-              <div class="col-sm-6 mb-6 mb-1 mb-sm-0 pl-1">
-                  <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
-              </div>
-              <div class="col-sm-6 mb-6 mb-1 mb-sm-0 pl-1">
-                <button type="button" name="reset" id="reset" class="btn btn-light w-100">Reset</button>
+              </a> 
               </div>
               </div>
             </div>
-          </div>
-          <div class="col-9">
+            
             <div class="card">
             <div class="d-sm-flex align-items-center justify-content-between mb-4" id="butlist">
               <h1 class="h3 mb-0 text-gray-800"></h1> 
@@ -98,22 +163,6 @@
             
               <!-- /.card-header -->
           <div class="card-body" style="overflow-x: scroll;">
-            {{-- <div class="form-group row">
-							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value=""> <span class="text-danger"></span>  </div> 
-							<div class="col-sm-3 mb-2 mb-sm-0"> <span style="color:red;"></span>Email: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="Email" name="email" value="">  <span class="text-danger"></span> </div>
-							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Phone: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="">  <span class="text-danger"></span> </div> 
-             <div class="col-sm-1 mb-1 mb-sm-0 p-0">
-                <div class="mt-4"></div>
-                  <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
-						  </div>
-              <div class="col-sm-1 mb-1 mb-sm-0 pl-1">
-                <div class="mt-4"></div>
-                  <button type="button" name="reset" id="reset" class="btn btn-danger w-100">Reset</button>
-              </div>
-            </div> --}}
                 <table id="example1" class="table table-bordered table-striped">
 
                   <thead>
@@ -182,6 +231,7 @@
 <script src="../../plugins/moment/moment.min.js"></script>
 <script src="../../dist/js/adminlte.min.js"></script>
 <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="toastr.js"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -199,10 +249,11 @@ fill_datatable('a');
   function fill_datatable(username = '',email=  '',action='',phone='',reservation = '',citizenId='')
   {
       var search = {};
-      search.username = ($("#check_name").is(":checked"))?username:"";
-      search.email = ($("#check_email").is(":checked"))?email:"";
-      search.phone = ($("#check_phone").is(":checked"))?phone:"";
-      search.citizenId = ($("#check_nid").is(":checked"))?citizenId:"";
+      search.username = ($('#name').val()!=null)?username:"";
+      search.email = ($('#email').val()!=null)?email:"";
+      search.phone = ($('#phone').val()!=null)?phone:"";
+      search.citizenId = ($('#nid').val()!=null)?citizenId:"";
+      console.log("aaaaaaaaaaaa" + citizenId)
       // search["nid"] = ($("#check_nid").is(":checked"))?nid:"";
 
       var dataTable = $('#example1').DataTable({
@@ -272,7 +323,7 @@ fill_datatable('a');
       var email = $('#email').val();
       var phone = $('#phone').val();
       var citizenId = $('#nid').val();
-      var reservation = $('#reservation').val();
+      // var reservation = $('#reservation').val();
       // var to_date = $('#to_date').val();
       if(false)
       {
@@ -298,15 +349,52 @@ fill_datatable('a');
       else
       {
         $('#example1').DataTable().destroy();
-        fill_datatable(username,email,action="search",phone,reservation,citizenId);
+        fill_datatable(username,email,action="search",phone,citizenId);
       }
   });
+
+
+  // $('#filter1').click(function(){
+  //     var username = $('#name').val();
+  //     var email = $('#email').val();
+  //     var phone = $('#phone').val();
+  //     var citizenId = $('#nid').val();
+  //     // console.log(citizenId);
+  //     // var reservation = $('#reservation').val();
+  //     // var to_date = $('#to_date').val();
+  //     if(false)
+  //     {
+  //       toastr["error"]("Please select username!")
+  //       toastr.options = {
+  //         "closeButton": false,
+  //         "debug": true,
+  //         "newestOnTop": false,
+  //         "progressBar": false,
+  //         "positionClass": "toast-top-right",
+  //         "preventDuplicates": false,
+  //         "onclick": null,
+  //         "showDuration": "300",
+  //         "hideDuration": "1000",
+  //         "timeOut": "5000",
+  //         "extendedTimeOut": "1000",
+  //         "showEasing": "swing",
+  //         "hideEasing": "linear",
+  //         "showMethod": "fadeIn",
+  //         "hideMethod": "fadeOut"
+  //       }
+  //     }
+  //     else
+  //     {
+  //       $('#example1').DataTable().destroy();
+  //       fill_datatable(username,email,action="search",phone,citizenId);
+  //     }
+  // });
 
   $('#reset').click(function(){ 
       $('#name').val('');
       $('#email').val('');
       $('#phone').val('');
-      $('#reservation').val('');
+      // $('#reservation').val('');
       if($('#check_name').prop('checked',true))
       {
         $('#check_name').click();
@@ -342,138 +430,40 @@ fill_datatable('a');
       $('#example1').DataTable().destroy();
       fill_datatable();
   });
+  // $('#filter').hide();
+  // $('#reset').hide();
+  // $('#name').hide();
+  // $('#phone').hide();
+  // $('#email').hide();
+  // $('#nid').hide();
+  // $('#address').hide();
+  
+});
+$(function () { 
+  $('#reservationdate').datetimepicker({
+          format: 'L'
+      });
+})
+function doToggle(num) {
+          var target = $('div.target' + num);
+          $(target).toggle();
+          $('.target').not(target).hide();
+          console.log("toggling");
+          console.log($('div.target:visible'));
+          $('#text').css('display', $('div.target:visible').length ? 'none' : 'block')
+      }
 
-  $('#name').hide();
-  $('#phone').hide();
-  $('#email').hide();
-  $('#nid').hide();
-  $('#address').hide();
-  $('#filter').hide();
-  $('#reset').hide();
-  // check for name field
-  $('#check_name').change(function()
-  {
-  //   if($('#check_name').prop('checked',true))
-  //     {
-        $("#name").toggle();
-        $("#name").val("");
-        if($('#check_name').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_nid').prop('checked') || $('#check_address').prop('checked') || $('#check_phone').prop('checked') || $('#check_email').prop('checked'))
-          {
-            $("#filter").show();
-            $("#reset").show();
+      $('#clicks .click').click(function () {
+          console.log("clicked");
+          var num = '.' + $(this).data('target');
+          console.log(num);
+          if (num === '.' + location.hash.substring(1)) {
+              doToggle(num);
           }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
-      // }
-  });
-  // check for nid field
-  $('#check_nid').change(function()
-  {
-    $("#nid").toggle();
-    $("#nid").val("");
-    if($('#check_nid').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_name').prop('checked') || $('#check_address').prop('checked') || $('#check_phone').prop('checked') || $('#check_email').prop('checked'))
-          {
-            $("#filter").show();
-            $("#reset").show();
-          }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
-  });
-// check for address field
-  $('#check_address').change(function()
-  {
-    $("#address").toggle();
-    $("#address").val("");
-    if($('#check_address').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_nid').prop('checked') || $('#check_name').prop('checked') || $('#check_phone').prop('checked') || $('#check_email').prop('checked'))
-          {
-            $("#filter").show();
-            $("#reset").show();
-          }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
-  });
-// check for phone field
-  $('#check_phone').change(function()
-  {
-    $("#phone").toggle();
-    $("#phone").val("");
-    if($('#check_phone').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_nid').prop('checked') || $('#check_address').prop('checked') || $('#check_name').prop('checked') || $('#check_email').prop('checked'))
-          {
-            $("#filter").show();
-            $("#reset").show();
-          }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
-  });
-// check for email field
-  $('#check_email').change(function()
-  {
-    $("#email").toggle();
-    $("#email").val("");
-    if($('#check_email').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_nid').prop('checked') || $('#check_address').prop('checked') || $('#check_phone').prop('checked') || $('#check_name').prop('checked'))
-          {
-            $("#filter").show();
-            $("#reset").show();
-          }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
-  });
-}); 
+      });
+
+
+
 function delete1(data){
   var id = data.attr("data-id");
   if (confirm('Are you sure you want to delete this?')) {

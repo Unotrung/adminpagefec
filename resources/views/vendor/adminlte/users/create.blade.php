@@ -101,7 +101,14 @@
 					@enderror
 				</div>
 
-
+				<div class="input-group mb-3">
+					<select id="user" class="form-control" name="department">
+						<option value="" selected="">Select Department</option>																			
+						<option value="623d5e16d2b54784ff29a332">Division</option>
+						<option value="623d5e2cc682d3f0ff4ced22">Department</option>
+						<option value="623d5e2cc682d3f0ff4ced22">Center</option>
+					</select>
+				</div>
 
 				<div class="input-group mb-3">
 					<select class="form-control form-control-user @error('role') is-invalid @enderror" name="role">

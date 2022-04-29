@@ -129,8 +129,18 @@ class BnplController extends Controller
         $name_array = Bnpl::Where('name','=',null)->get();
         $phone_array = Bnpl::Where('phone','=',null)->get();
         $identify_array = Bnpl::Where('name','!=',null)->get();
-           
-        $bnpl = Bnpl::all();
+        $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/getAllBNPLPersonal');
+        if(!empty($data_bnpl))
+        {
+            
+            $bnpls = $data_bnpl->json();
+            $bnpl = $bnpls["data"];
+        }
+        else
+        {
+            $bnpl = "";
+        }
+        // $bnpl = Bnpl::all();
         return view('vendor.adminlte.bnpl.bnpl',['bnpl'=>$bnpl,'identify'=>$identify_array,'phone'=>$phone_array,'name'=>$name_array]);
     }
 
