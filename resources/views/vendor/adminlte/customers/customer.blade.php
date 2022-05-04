@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="../../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+      <!-- BS Stepper -->
+  <link rel="stylesheet" href="../../plugins/bs-stepper/css/bs-stepper.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
@@ -77,14 +83,20 @@
                       <input type="text" class="form-control form-control-user" id="nid" placeholder="Search by NID" name="nid" value="" style="">
                     </div>
                   </div>
-                  <div class="col-8">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="far fa-calendar-alt"></i>
-                        </span>
+                  <div class="col-4">
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                      <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                       </div>
-                      <input type="text" class="form-control float-right" id="reservation">
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="input-group date" id="reservationdateto" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#reservationdateto"/>
+                      <div class="input-group-append" data-target="#reservationdateto" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -169,11 +181,23 @@
 
 <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
 <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-<!-- AdminLTE App -->
+<!-- Bootstrap4 Duallistbox -->
+<script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
 <script src="../../plugins/moment/moment.min.js"></script>
-
+<script src="../../plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
 <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bootstrap color picker -->
+<script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- BS-Stepper -->
+<script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
+<!-- dropzonejs -->
+<script src="../../plugins/dropzone/min/dropzone.min.js"></script>
 
 <!-- AdminLTE for demo purposes -->
 <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -186,17 +210,14 @@
 
 
 $(document).ready(function(){
-  $('#reservation').daterangepicker({
-    ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-    startDate: moment().subtract(1, 'year'),
-    endDate  : moment()
+  var today = new Date();
+  $('#reservationdateto').datetimepicker({
+      format: 'L',
+      defaultDate:today
+  });
+  $('#reservationdate').datetimepicker({
+      format: 'L',
+      defaultDate:today.setFullYear(today.getFullYear() - 1)
   });
 
 
@@ -209,8 +230,8 @@ $(document).ready(function(){
       search.email = ($('#email').val()!=null)?email:"";
       search.phone = ($('#phone').val()!=null)?phone:"";
       search.citizenId = ($('#nid').val()!=null)?citizenId:"";
-      search.from = $('#reservation').data('daterangepicker').startDate.format("YYYY-MM-DD");
-      search.to = $('#reservation').data('daterangepicker').endDate.format("YYYY-MM-DD");
+      search.from = $('#reservationdate').data('datetimepicker').date().format("YYYY-MM-DD");
+      search.to = $('#reservationdateto').data('datetimepicker').date().format("YYYY-MM-DD");
       var dataTable = $('#example1').DataTable({
           processing: true,
           serverSide: true,
