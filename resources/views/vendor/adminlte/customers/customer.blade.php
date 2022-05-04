@@ -209,6 +209,7 @@ $(document).ready(function(){
       search.email = ($('#email').val()!=null)?email:"";
       search.phone = ($('#phone').val()!=null)?phone:"";
       search.citizenId = ($('#nid').val()!=null)?citizenId:"";
+      console.log(search.phone);
       search.from = $('#reservation').data('daterangepicker').startDate.format("YYYY-MM-DD");
       search.to = $('#reservation').data('daterangepicker').endDate.format("YYYY-MM-DD");
       var dataTable = $('#example1').DataTable({
@@ -290,46 +291,15 @@ $(document).ready(function(){
       $('#name').val('');
       $('#email').val('');
       $('#phone').val('');
+      $('#nid').val('');
       $('#reservation').daterangepicker({
         startDate: moment().subtract(1, 'year'),
         endDate  : moment()
       });
-      if($('#check_name').prop('checked',true))
-      {
-        $('#check_name').click();
-        
-      }
-      if($('#check_phone').prop('checked',true))
-      {
-        $('#check_phone').click();
-      }
-      if($('#check_email').prop('checked',true))
-      {
-        $('#check_email').click();
-      }
-      if($('#check_address').prop('checked',true))
-      {
-        $('#check_address').click();
-      }
-      if($('#check_nid').prop('checked',true))
-      {
-        $('#check_nid').click();
-      }
-      // $('#check_email').click();
-      // $('#check_address').click();
-      // $('#check_nid').click();
-      // $('#to_date').val('');
       $('#example1').DataTable().destroy();
-      // fill_datatable();
+      fill_datatable();
   });
-  // $('#filter').hide();
-  // $('#reset').hide();
-  // $('#name').hide();
-  // $('#phone').hide();
-  // $('#email').hide();
-  // $('#nid').hide();
-  // $('#address').hide();
-  
+
 });
 </script>
 @stop

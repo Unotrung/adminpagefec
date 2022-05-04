@@ -75,13 +75,20 @@ class CustomerController extends Controller
 
     public function show($id){
         $data_eap = Http::get(env("API_PARTNER").'/v1/admin/getUserEAP/'.$id);
-        if(!empty($data_eap))
+        $data = $data_eap->json();
+        $status =$data["status"];
+        if(!empty($status))
         {
-            
+            $dt = Carbon::now();
+            $day = $dt->toDateString();
+            $newDateTime = $dt->subDays(30);
+            $newDateTime = $newDateTime->toDateString();
             $eap = $data_eap->json();
             $cus = $eap["data"];
             $phone = $cus["phone"];
-            $response = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
+            $response = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone.'&from='.$day.'&to='.$newDateTime);
+            // print_r(env("API_PARTNER").'/v1/admin/search?phone='.$phone.'&from='.$day.'&to='.$newDateTime);
+            // exit;
             $response = $response->json();
             $bnpl = $response["data"]["BNPL"];
             if(empty($bnpl))
@@ -269,7 +276,7 @@ class CustomerController extends Controller
                     for($i=0; $i < count($data->data); $i++) {
                         $output = '';
                         // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
-                        $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#bnpl_info" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                         // $output .= Form::open(['route' => [config('employee') . '.employee', $data->data[$i]->_id], 'method' => 'delete', 'style'=>'display:inline']);
                         // $output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
                         // $output .= Form::close();
