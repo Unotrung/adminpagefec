@@ -80,6 +80,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         Route::get('/customer', [App\Http\Controllers\CustomerController::class, 'index'])->name('customer');
         //Route::get('/customer/show', [App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show');
         Route::get('/customer/show/{id}', [App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show');
+        Route::get('/customer/show/{id}/{bnpl}', [App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show2');
         Route::get('/customer/dtajax', [App\Http\Controllers\CustomerController::class, 'dtajax'])->name('customer.dtajax');
     });
 });

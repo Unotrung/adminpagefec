@@ -97,40 +97,12 @@ class CustomerController extends Controller
             }
             else
             {
-                $bnpl_info = $bnpl[0];
+            $permission = $permissions->find($check_role[$i]);
+            $check_permission[$i]=$permission->name;
             }
-            
-                    // print_r($phone);
-                    // print_r($bnpl_info);
-                    // exit;
         }
-        else
-        {
-            $cus = "";
-            $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$id);
-            $bnpl = $data_bnpl->json();
-            $bnpl_info = $bnpl["data"];
-        }
-        $user = Auth::user();
-                    $roles = new Role;
-                    $permissions = new Permission;
-                    $check_permission=[];
-                    // print_r($user->role_ids[0]);
-                    $role = Role::find($user->role_ids[0]);
-                    $check_role = $role->permission_ids;
-                    for($i=0;$i < count($check_role); $i++)
-                    {
-                        if(empty($check_role[$i])){
-                            $user->permission = "";
-                        }
-                        else
-                        {
-                        $permission = $permissions->find($check_role[$i]);
-                        $check_permission[$i]=$permission->name;
-                        }
-                    }
-                    $eap_check= in_array('customers-view-eap', $check_permission);
-                    $bnpl_check = in_array('customers-view-bnpl', $check_permission);
+        $eap_check= in_array('customers-view-eap', $check_permission);
+        $bnpl_check = in_array('customers-view-bnpl', $check_permission);
         // print_r($phone);
         // $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
         // $bnpl = $data_bnpl->json();
@@ -186,6 +158,31 @@ class CustomerController extends Controller
                 }
                 $bnpl = $result["data"]["BNPL"];
                 $eap = $result["data"]["EAP"];
+
+                // $eap[0]["bnpl"] = $result["data"]["BNPL"];
+                $out =  Datatables::of($eap)->make(true);
+                $data = $out->getData();   
+                
+                for($i=0; $i < count($data->data); $i++) {
+                    // $name_before = substr($data->data[$i]->email,0,3);
+                    // $name_after = substr($data->data[$i]->email,-4,4);
+                    // $data->data[$i]->email = $name_before."***@***".$name_after;   
+                    // $phone_before = substr($data->data[$i]->phone,0,3);
+                    // $phone_after = substr($data->data[$i]->phone,-1,3);
+                    // $data->data[$i]->phone = $phone_before."******".$phone_after;
+                    $output = '';
+                    $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->phone])).'#eap_info" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                    // $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                    // $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
+                    $data->data[$i]->action = (string)$output;
+
+                    //config link for phonenumber
+                    $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->phone])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
+
+                }
+                $out->setData($data);
+                return $out;
+                /*
                 if($eap !=null && $bnpl == null)
                 {
                     // $eap[0]["bnpl"] = $result["data"]["BNPL"];
@@ -200,9 +197,9 @@ class CustomerController extends Controller
                         // $phone_after = substr($data->data[$i]->phone,-1,3);
                         // $data->data[$i]->phone = $phone_before."******".$phone_after;
                         $output = '';
-                        $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                        $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
-                        $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
+                        $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->phone])).'#eap_info" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        // $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                        // $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
 
                         //config link for phonenumber
@@ -245,22 +242,22 @@ class CustomerController extends Controller
                     $data = $out->getData();   
                     for($i=0; $i < count($data->data); $i++) {
                         $output = '';
-                        $name_before = substr($data->data[$i]->email,0,3);
-                        $name_after = substr($data->data[$i]->email,-4,4);
-                        $data->data[$i]->email = (Auth::user()->can("customers-unmask"))?$data->data[$i]->email:$name_before."***@***".$name_after;   
-                        $phone_before = substr($data->data[$i]->phone,0,3);
-                        $phone_after = substr($data->data[$i]->phone,-1,3);
-                        $data->data[$i]->phone = (Auth::user()->can("customers-unmask"))?$data->data[$i]->phone:$phone_before."******".$phone_after;
-                        for($j=0; $j < count($eap[0]["bnpl"]); $j++) 
-                        {
-                            $citizenID_before = substr($data->data[$i]->bnpl[$j]->citizenId,-3);
-                            $data->data[$i]->bnpl[$j]->citizenId = (Auth::user()->can("customers-unmask"))?$data->data[$i]->bnpl[$j]->citizenId:"*********".$citizenID_before;
-                        }
+                        // $name_before = substr($data->data[$i]->email,0,3);
+                        // $name_after = substr($data->data[$i]->email,-4,4);
+                        // $data->data[$i]->email = (Auth::user()->can("customers-unmask"))?$data->data[$i]->email:$name_before."***@***".$name_after;   
+                        // $phone_before = substr($data->data[$i]->phone,0,3);
+                        // $phone_after = substr($data->data[$i]->phone,-1,3);
+                        // $data->data[$i]->phone = (Auth::user()->can("customers-unmask"))?$data->data[$i]->phone:$phone_before."******".$phone_after;
+                        // for($j=0; $j < count($eap[0]["bnpl"]); $j++) 
+                        // {
+                        //     $citizenID_before = substr($data->data[$i]->bnpl[$j]->citizenId,-3);
+                        //     $data->data[$i]->bnpl[$j]->citizenId = (Auth::user()->can("customers-unmask"))?$data->data[$i]->bnpl[$j]->citizenId:"*********".$citizenID_before;
+                        // }
                         $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                         $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                         $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
-                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show2',['id'=>$data->data[$i]->_id,'bnpl_id'=>$bnpl->_id])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
 
                     }
                     $out->setData($data);
@@ -281,6 +278,7 @@ class CustomerController extends Controller
                         // $output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
                         // $output .= Form::close();
                         // $data->data[$i]->index = $i;
+                        $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                         $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'#bnpl_info" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                         $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
@@ -295,6 +293,7 @@ class CustomerController extends Controller
                 $out =  Datatables::of([])->make(true);
 
                 return $out;
+                */
             }
             else
             {
