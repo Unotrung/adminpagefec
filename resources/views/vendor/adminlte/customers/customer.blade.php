@@ -210,6 +210,7 @@
 
 
 $(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip(); 
   var today = new Date();
   $('#reservationdateto').datetimepicker({
       format: 'L',
@@ -229,15 +230,17 @@ $(document).ready(function(){
       search.username = ($('#name').val()!=null)?username:"";
       search.email = ($('#email').val()!=null)?email:"";
       search.phone = ($('#phone').val()!=null)?phone:"";
-      search.citizenId = ($('#nid').val()!=null)?citizenId:"";
-<<<<<<< HEAD
-      console.log(search.phone);
-      search.from = $('#reservation').data('daterangepicker').startDate.format("YYYY-MM-DD");
-      search.to = $('#reservation').data('daterangepicker').endDate.format("YYYY-MM-DD");
-=======
+      if($('#nid').val() == null)
+      {
+        search.citizenId = "";
+      }
+      else
+      {
+      search.citizenId = $('#nid').val();
+      }
+      console.log(search);
       search.from = $('#reservationdate').data('datetimepicker').date().format("YYYY-MM-DD");
       search.to = $('#reservationdateto').data('datetimepicker').date().format("YYYY-MM-DD");
->>>>>>> 04a53e04a111cd87b1dcd44c933bd74aa8e0b498
       var dataTable = $('#example1').DataTable({
           processing: true,
           serverSide: true,
@@ -309,6 +312,7 @@ $(document).ready(function(){
       var email = $('#email').val();
       var phone = $('#phone').val();
       var citizenId = $('#nid').val();
+      
       $('#example1').DataTable().destroy();
       fill_datatable(username,email,action="search",phone,citizenId);
   });

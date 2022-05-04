@@ -25,14 +25,14 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-4">
 
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
+                       src="../../dist/img/user.png"
                        alt="User profile picture">
                 </div>
 
@@ -40,21 +40,19 @@
 
                 <p class="text-muted text-center">{{ Auth::user()->tittle }}</p>
 
-                {{-- <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
-                  </li>
-                </ul> --}}
-
-                {{-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
               </div>
+
+            
               <!-- /.card-body -->
+
+              <div class="col-sm-12">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-3 col-form-label">Email:</label>{{Auth::user()->email}}</div>
+              </div>
+
+              <div class="col-sm-12">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-5 col-form-label">Department:</label>Center</div>
+              </div>
+
             </div>
             <!-- /.card -->
 
@@ -62,7 +60,7 @@
             <!-- /.card -->
           </div>
           <!-- /.col -->
-          <div class="col-md-9">
+          <div class="col-md-8">
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
@@ -89,14 +87,8 @@
                 <i class="fas fa-sign-out-alt bg-red"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                  {{-- <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} is logout </h3> --}}
                   <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} is logout </h3>
-
-                  <div class="timeline-body">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                    quora plaxo ideeli hulu weebly balihoo...
-                  </div>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -164,16 +156,16 @@
                           <input type="text" class="form-control" id="inputName2" placeholder="Name">
                         </div>
                       </div>
+
                       <div class="form-group row">
-                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
+                        <label for="inputName2" class="col-sm-2 col-form-label">Department</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                          <select id="user" class="form-control" name="department">
+                            <option value="" selected="">Select Department</option>																			
+                            <option value="623d5e16d2b54784ff29a332">Division</option>
+                            <option value="623d5e2cc682d3f0ff4ced22">Department</option>
+                            <option value="623d5e2cc682d3f0ff4ced22">Center</option>
+                          </select>
                         </div>
                       </div>
                       {{-- <div class="form-group row">

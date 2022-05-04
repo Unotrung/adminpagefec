@@ -49,88 +49,85 @@ $config = [
       </li>
     </ul>
     <div class="tab-content" id="custom-content-below-tabContent">
-      <div class="tab-pane fade active show " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      <div class="tab-pane fade active show " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="">
       @if(!empty($bnpl))  
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["name"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["phone"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">CitizenID</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["citizenId"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Sex</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["sex"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Date of Birth</label>
-          <div class="col-sm-10">
+      <div class="row">
+        <div class="col-6">
+          <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Infomation</label>
+          <div class="card" style="background-color: #A9A9A9">
+            <div class="col-sm-8">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$bnpl["name"]}}</div>
+            </div>
+          
             
-          <div class="col-md-10 fvalue">{{date('d-m-Y', strtotime($bnpl["birthday"]))}}</div>
+            <div class="col-sm-8">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Phone:</label>{{$bnpl["phone"]}}</div>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">FICO:</label>50.000.000đ</div>
+            </div>
+          </div>
+          <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
+          <div class="card" style="background-color: #A9A9A9">
+
           </div>
         </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Issuedate</label>
-          <div class="col-sm-10">
+        <div class="col-6" style="">
+          <label for="inputPassword3" class="col-sm-4 col-form-label">Another Information</label>
+          <div class="card" style="background-color: #A9A9A9">
             
-          <div class="col-md-10 fvalue">{{date('d-m-Y', strtotime($bnpl["issueDate"]))}}</div>
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">CitizenID:</label>{{$bnpl["citizenId"]}}</div>
+            </div>
+
+            
+            <div class="col-sm-12">
+              <div class="col-sm-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Date of Birth:</label>{{date('d-m-Y', strtotime($bnpl["birthday"]))}}</div>
+            </div>
+          
+            
+            <div class="col-sm-12">
+              <div class="col-sm-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Issuedate:</label>{{date('d-m-Y', strtotime($bnpl["issueDate"]))}}</div>
+            </div>
+
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">City:</label>{{$bnpl["city"]}}</div>
+            </div>
+        
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">District:</label>{{$bnpl["district"]}}</div>
+            </div>
+        
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Ward:</label>{{$bnpl["ward"]}}</div>
+            </div>
+        
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Street:</label>{{$bnpl["street"]}}</div>
+            </div>
+        
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Personal Title Ref:</label>{{$bnpl["personal_title_ref"]}}</div>
+            </div>
+        
+           
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"> <label for="inputPassword3" class="col-sm-7 col-form-label">Name Ref:</label>{{$bnpl["name_ref"]}}</div>
+            </div>
+
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Phone Ref:</label>{{$bnpl["phone_ref"]}}</div>
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">City</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["city"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">District</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["district"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Ward</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["ward"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Street</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["street"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Personal Title Ref</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["personal_title_ref"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Name Ref</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["name_ref"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Phone Ref</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl["phone_ref"]}}</div>
-          </div>
-        </div>
+      </div>
         @endif
     </div>
     <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
@@ -140,54 +137,62 @@ $config = [
             <div class="col-md-12">
               @if(!empty($bnpl))
               <div class="timeline">
+
                 <div class="time-label">
-                  <span class="bg-red">10 Feb. 2014</span>
+                  <span class="bg-green">25-04-2022</span>
                 </div>
-        
+
                 <div>
-                  <i class="fas fa-envelope bg-blue"></i>
+                  <i class="fa fa-check bg-green"></i>
                     <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                      <h3 class="timeline-header"><a href="#">{{$bnpl["name"]}}</a> sent you an email</h3>
-                      <div class="timeline-body">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-primary btn-sm">Read more</a>
-                        <a class="btn btn-danger btn-sm">Delete</a>
-                      </div>
+                      <span class="time"><i class="fas fa-clock"></i> 13:00</span>
+                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> Kyc completed</h3>
                     </div>
                 </div>
         
-        
+                <div class="time-label">
+                  <span class="bg-yellow">23-04-2022</span>
+                </div>
+
+
                 <div>
-                  <i class="fas fa-user bg-green"></i>
+                  <i class="fa fa-spinner"></i>
                     <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> accepted your friend request</h3>
+                      <span class="time"><i class="fas fa-clock"></i> 13:00</span>
+                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> Waiting for Kyc process</h3>
                     </div>
                 </div>
-        
-        
+
                 <div>
-                  <i class="fas fa-comments bg-yellow"></i>
+                  <i class="fas fa-signature"></i>
                     <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                      <h3 class="timeline-header"><a href="#">{{$bnpl["name"]}}</a> commented on your post</h3>
-                      <div class="timeline-body">
-                        Take me to your leader!
-                        Switzerland is small and neutral!
-                        We are more like Germany, ambitious and misunderstood!
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-warning btn-sm">View comment</a>
-                      </div>
+                      <span class="time"><i class="fas fa-clock"></i> 13:00</span>
+                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> Is Kyc Processing</h3>
                     </div>
                 </div>
-        
+
+                <div>
+                  <i class="fa fa-registered bg-yellow"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 10:00</span>
+                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> Registered success</h3>
+                    </div>
+                </div>
+
+
+
+                <div class="time-label">
+                  <span class="bg-green">22-04-2022</span>
+                </div>
+
+                <div>
+                  <i class="fa fa-plus bg-green"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 9:00</span>
+                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> Was Created</h3>
+                    </div>
+                </div>
+
                 <div>
                 <i class="fas fa-clock bg-gray"></i>
                 </div>

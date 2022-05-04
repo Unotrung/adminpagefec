@@ -68,7 +68,6 @@
                     </div>
                   </div>
                   <div class="col-6">
-                    <label>aaa</label>
                     <div class="input-group input-group-sm">
                       <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
                         <div class="input-group-append">

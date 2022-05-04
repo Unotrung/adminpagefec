@@ -38,12 +38,24 @@ $config = [
   <div class="card-body">
     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
       @if(($eap_check == 1 && $bnpl_check == 1)) 
+      @if(!empty($cus))
       <li class="nav-item">
       <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
       </li>
+      @else
+      <li class="nav-item">
+        <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>  
+      </li>
+      @endif
+      @if(empty($cus) && !empty($bnpl_info))
+      <li class="nav-item">
+        <a class="nav-link active" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
+      </li>
+      @else
       <li class="nav-item">
         <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
       </li>
+      @endif
       <li class="nav-item">
         <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
       </li>
@@ -72,12 +84,16 @@ $config = [
     </li> --}}
     </ul>
     <div class="tab-content" id="custom-content-below-tabContent">
-      @if($eap_check == 1 && $bnpl_check == 1)
-      <div class="tab-pane fade active show " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
-      @elseif ($eap_check == 1 && empty($bnpl_check))
-      <div class="tab-pane fade active show" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
-      @elseif ($bnpl_check == 1 && empty($eap_check))
-      <div class="tab-pane fade " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+      @if($eap_check == 1 && $bnpl_check == 1 && !empty($cus))
+      <div class="tab-pane fade active show " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab" >
+      @elseif($eap_check == 1 && $bnpl_check == 1 && empty($cus))
+      <div class="tab-pane fade" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab" >  
+      @elseif ($eap_check == 1 && empty($bnpl_check) && !empty($cus))
+      <div class="tab-pane fade active show" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab" >
+      @elseif ($eap_check == 1 && empty($bnpl_check) && empty($cus))
+      <div class="tab-pane fade" id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab" >
+      @elseif ($bnpl_check == 1 && empty($eap_check) && empty($cus))
+      <div class="tab-pane fade " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab" >
       @endif
         @if(!empty($cus))
         <div class="card-body">
@@ -108,95 +124,94 @@ $config = [
         </div>
         @endif
       </div>
-      @if(($bnpl_check == 1 && $eap_check == 1 ) )
-      <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      @if($bnpl_check == 1 && $eap_check == 1 && (empty($bnpl_info)))
+      <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
+      @elseif($bnpl_check == 1 && $eap_check == 1 && (!empty($bnpl_info) && empty($cus)))
+      <div class="tab-pane fade active show" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
       @elseif($bnpl_check == 1 && empty($eap_check))
-      <div class="tab-pane fade active show" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      <div class="tab-pane fade active show" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
       @elseif ($eap_check == 1 && empty($bnpl_check))
-      <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="overflow:auto; height:400px;">
+      <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
       @endif
       @if(!empty($bnpl_info))  
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["name"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["phone"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">CitizenID</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["citizenId"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Sex</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["sex"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Date of Birth</label>
-          <div class="col-sm-10">
+      <div class="row">
+        <div class="col-6">
+          <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Infomation</label>
+          <div class="card" style="background-color: #A9A9A9">
+            <div class="col-sm-8">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$bnpl_info["name"]}}</div>
+            </div>
+          
             
-          <div class="col-md-10 fvalue">{{date('d-m-Y', strtotime($bnpl_info["birthday"]))}}</div>
+            <div class="col-sm-8">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Phone:</label>{{$bnpl_info["phone"]}}</div>
+            </div>
+
+            <div class="col-sm-8">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">FICO:</label>50.000.000đ</div>
+            </div>
+          </div>
+          <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
+          <div class="card" style="background-color: #A9A9A9">
+
           </div>
         </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Issuedate</label>
-          <div class="col-sm-10">
+        <div class="col-6" style="">
+          <label for="inputPassword3" class="col-sm-4 col-form-label">Another Information</label>
+          <div class="card" style="background-color: #A9A9A9">
             
-          <div class="col-md-10 fvalue">{{date('d-m-Y', strtotime($bnpl_info["issueDate"]))}}</div>
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">CitizenID:</label>{{$bnpl_info["citizenId"]}}</div>
+            </div>
+
+            
+            <div class="col-sm-12">
+              <div class="col-sm-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Date of Birth:</label>{{date('d-m-Y', strtotime($bnpl_info["birthday"]))}}</div>
+            </div>
+          
+            
+            <div class="col-sm-12">
+              <div class="col-sm-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Issuedate:</label>{{date('d-m-Y', strtotime($bnpl_info["issueDate"]))}}</div>
+            </div>
+
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">City:</label>{{$bnpl_info["city"]}}</div>
+            </div>
+        
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">District:</label>{{$bnpl_info["district"]}}</div>
+            </div>
+        
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Ward:</label>{{$bnpl_info["ward"]}}</div>
+            </div>
+        
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Street:</label>{{$bnpl_info["street"]}}</div>
+            </div>
+        
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Personal Title Ref:</label>{{$bnpl_info["personal_title_ref"]}}</div>
+            </div>
+        
+           
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"> <label for="inputPassword3" class="col-sm-7 col-form-label">Name Ref:</label>{{$bnpl_info["name_ref"]}}</div>
+            </div>
+
+            
+            <div class="col-sm-12">
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Phone Ref:</label>{{$bnpl_info["phone_ref"]}}</div>
+            </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">City</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["city"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">District</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["district"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Ward</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["ward"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Street</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["street"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Personal Title Ref</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["personal_title_ref"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Name Ref</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["name_ref"]}}</div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Phone Ref</label>
-          <div class="col-sm-10">
-          <div class="col-md-10 fvalue">{{$bnpl_info["phone_ref"]}}</div>
-          </div>
-        </div>
-        @endif
+      </div>
+      @endif
     </div>
     <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
       <section class="content" style="overflow:auto; height:400px;">
@@ -206,53 +221,54 @@ $config = [
               @if(!empty($cus))
               <div class="timeline">
                 <div class="time-label">
-                  <span class="bg-red">10 Feb. 2014</span>
+                  <span class="bg-red">{{date('d-m-Y', strtotime($cus["updatedAt"]))}}</span>
                 </div>
         
+             
                 <div>
-                  <i class="fas fa-envelope bg-blue"></i>
-                    <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                      <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> sent you an email</h3>
-                      <div class="timeline-body">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-primary btn-sm">Read more</a>
-                        <a class="btn btn-danger btn-sm">Delete</a>
-                      </div>
-                    </div>
-                </div>
-        
-        
-                <div>
-                  <i class="fas fa-user bg-green"></i>
-                    <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                      <h3 class="timeline-header no-border"><a href="#">{{$cus["username"]}}</a> accepted your friend request</h3>
-                    </div>
-                </div>
-        
-        
-                <div>
-                  <i class="fas fa-comments bg-yellow"></i>
+                  <i class="fas fa-sign-out-alt bg-red"></i>
                     <div class="timeline-item">
                       <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                      <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> commented on your post</h3>
-                      <div class="timeline-body">
-                        Take me to your leader!
-                        Switzerland is small and neutral!
-                        We are more like Germany, ambitious and misunderstood!
-                      </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-warning btn-sm">View comment</a>
-                      </div>
+                      <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> Has Logout </h3>
                     </div>
                 </div>
         
+        
+                <div>
+                  <i class="fas fa-sign-in-alt bg-green"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                      <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> Has login</h3>
+                    </div>
+                </div>
+        
+                <div class="time-label">
+                  <span class="bg-yellow">28-04-2022</span>
+                </div>
+
+                <div>
+                  <i class="fas fa-edit"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i>17:05</span>
+                      <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> is change Information</h3>
+                    </div>
+                </div>
+
+
+                <div class="time-label">
+                  <span class="bg-green">27-04-2022</span>
+                </div>
+
+                <div>
+                  <i class="fas fa-lock"></i>
+                    <div class="timeline-item">
+                      <span class="time"><i class="fas fa-clock"></i>13:45</span>
+                      <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> is change password</h3>
+                    </div>
+                </div>
+
+
+
                 <div>
                 <i class="fas fa-clock bg-gray"></i>
                 </div>

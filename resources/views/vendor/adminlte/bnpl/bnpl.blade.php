@@ -9,9 +9,12 @@
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../../plugins/bs-stepper/css/bs-stepper.min.css">
   {{-- Style forr toast  --}}
 
 @stop
@@ -96,70 +99,68 @@
           <!-- ./col -->
         </div>
         <div class="row">
-          <div class="col-3">
-            <div class="card" style="text-align: left;padding:12px 20px">
-              <h6 style="font-weight: bold">Filter By </h6>
-              <div class="form-check">
-                <input class="form-check-input" id="check_name" type="checkbox">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_name">Search by Name</label>
-                <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" id="check_phone" type="checkbox">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_phone">Search by Phone</label>
-                <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
-              </div>  
-              {{-- <div class="form-check">
-                <input class="form-check-input" id="check_email" type="checkbox">
-                <label class="form-check-label">Search by Email</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="email" placeholder="Email" name="email" value="">  <span class="text-danger"></span>
-              </div>   --}}
-              <div class="form-check">
-                <input class="form-check-input" id="check_nid" type="checkbox">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_nid">Search by NID</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="nid" placeholder="" name="nid" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" id="check_address" type="checkbox">
-                <label class="form-check-label" style="margin-left: 5px;" for="check_address">Search by Address</label>
-                <input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="address" placeholder="" name="address" value="" style="margin-left: 5px;">  <span class="text-danger"></span>
-              </div>
-              <div class="form-group row" style="text-align: left;padding:12px 20px">
-              <div class="col-sm-6 mb-6 mb-1 mb-sm-0 pl-1">
-                  <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
-              </div>
-              <div class="col-sm-6 mb-6 mb-1 mb-sm-0 pl-1">
-                <button type="button" name="reset" id="reset" class="btn btn-light w-100">Reset</button>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row" style="margin-bottom: 20px">
+                  <div class="col-4">
+
+                    <div class="input-group input-group-md">
+                      <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value="" style="">  
+                    </div>
+                  </div>
+                  <div class="col-4">
+
+                    <div class="input-group input-group-md">
+                      <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="">  
+                    </div>
+                  </div>
+                  <div class="col-4">
+
+                    <div class="input-group input-group-md">
+                      <input type="text" class="form-control form-control-user" id="email" placeholder="Email" name="email" value="" style="">  
+                    </div>
+                  </div>
+                </div>
+                <div class="searchadvance target" style="">
+                  <div class="row" style="margin-bottom: 20px;"> 
+                  <div class="col-4">
+                    <div class="input-group input-group-md">
+                      <input type="text" class="form-control form-control-user" id="nid" placeholder="Search by NID" name="nid" value="" style="">
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                      <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="input-group date" id="reservationdateto" data-target-input="nearest">
+                      <input type="text" class="form-control datetimepicker-input" data-target="#reservationdateto"/>
+                      <div class="input-group-append" data-target="#reservationdateto" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row align-items-center d-flex">
+                  <div class="container">
+                    <div class="col text-center">
+                        <button type="button" name="filter" id="filter" class="btn btn-info" style="width:30%">Search</button>
+                        <button type="button" name="reset" id="reset" class="btn btn-light" style="width:10%">Reset</button>
+                    </div>
+                    
+                  </div>
+                </div>
               </div>
               </div>
             </div>
-          </div>
-          <div class="col-9">
-            <div class="card">
+            <div class="card" style="display:none" id="classDatatable">
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">
-            {{-- <div class="form-group row">
-							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Name: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="" name="name" value=""> <span class="text-danger"></span>  </div> 
-							<!-- <div class="col-sm-2 mb-2 mb-sm-0"> <span style="color:red;">*</span>Status: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="email" placeholder="Status" name="status" value="">  <span class="text-danger"></span> </div>  -->
-							<div class="col-sm-3 mb-3 mb-sm-0"> <span style="color:red;"></span>Phone: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="phone" placeholder="" name="phone" value="">  <span class="text-danger"></span> </div> 
-              <!-- <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>From Date </label>
-                <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="from_date" placeholder="" name="from_date" value="">  <span class="text-danger"></span> </div> 
-              <div class="col-sm-2 mb-2 mb-sm-0 input-daterange"> <span style="color:red;">*</span>To Date </label>
-                <input type="date" class="form-control form-control-user @error('name') is-invalid @enderror" id="to_date" placeholder="" name="to_date" value="">  <span class="text-danger"></span> </div>  -->
-                <div class="col-sm-4 mb-4 mb-sm-0"> <span style="color:red;"></span>Date Registers: </label>
-								<input type="text" class="form-control float-right" id="reservation" placeholder="" name="reservation" value="">  <span class="text-danger"><i class="far fa-calendar-alt"></i></span> </div> 
-                <div class="col-sm-1 mb-1 mb-sm-0 p-0">
-                <div class="mt-4"></div>
-                  <button type="button" name="filter" id="filter" class="btn btn-info w-100">Search</button>
-						  </div>
-              <div class="col-sm-1 mb-1 mb-sm-0 pl-1">
-                <div class="mt-4"></div>
-                  <button type="button" name="reset" id="reset" class="btn btn-danger w-100">Reset</button>
-              </div>
-            </div> --}}
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -211,12 +212,35 @@
 <script src="../../plugins/moment/moment.min.js"></script>
 <script src="../../dist/js/adminlte.min.js"></script>
 <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- BS-Stepper -->
+<script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
+<!-- dropzonejs -->
+<script src="../../plugins/dropzone/min/dropzone.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 
 <!-- Page specific script -->
 <script>
 
 $(document).ready(function(){
+
+  $('[data-toggle="tooltip"]').tooltip();
+  var today = new Date();
+  $('#reservationdateto').datetimepicker({
+      format: 'L',
+      defaultDate:today
+  });
+  $('#reservationdate').datetimepicker({
+      format: 'L',
+      defaultDate:today.setFullYear(today.getFullYear() - 1)
+  });
+
+
   fill_datatable("a");
   $('#reservation').daterangepicker().val('');
 
@@ -224,8 +248,8 @@ $(document).ready(function(){
   {
     var keywork = (name=='')?((phone=='')?((citizenId=='')?"":citizenId):phone):name;
     var type = (name=='')?((phone=='')?((citizenId=='')?"createAt":"citizenId"):"phone"):"name";
-    var from = reservation.endDate;
-    var to = "";
+    var from = $('#reservationdate').data('datetimepicker').date().format("YYYY-MM-DD");
+    var to = $('#reservationdateto').data('datetimepicker').date().format("YYYY-MM-DD");;
     var jsonData = [
       { "meta": { "version": 1, "type": "test" } }
     ];
@@ -300,178 +324,33 @@ $(document).ready(function(){
 //   }
 // });
 
-$('#filter').click(function(){
-    var name = $('#name').val();
-    var phone = $('#phone').val();
-    var reservation = $('#reservation').val();
-    var citizenId = $('#nid').val();
-    // var to = $("#reservation").data('daterangepicker').endDate.format('YYYY-MM-DD');
-    // console.log(to);
-    if(false)
-      {
-        toastr["error"]("Please select username!")
-        toastr.options = {
-          "closeButton": false,
-          "debug": true,
-          "newestOnTop": false,
-          "progressBar": false,
-          "positionClass": "toast-top-right",
-          "preventDuplicates": false,
-          "onclick": null,
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "5000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        }
-      }
-      else
-      {
-        $('#example1').DataTable().destroy();
-        fill_datatable(name,action="search",phone,reservation,citizenId);
-      }
-    // $('#example1').DataTable().destroy();
-    // fill_datatable(name,action="search",phone,reservation);
-});
+  $('#filter').click(function(){
+    $('#classDatatable').show();
+      var name = $('#name').val();
+      var phone = $('#phone').val();
+      var reservation = $('#reservation').val();
+      var citizenId = $('#nid').val();
+      
+      
+          $('#example1').DataTable().destroy();
+          fill_datatable(name,action="search",phone,reservation,citizenId);
+      
+  });
 
   $('#reset').click(function(){
-    if($('#check_name').prop('checked',true))
-      {
-        $('#check_name').click();
-        $('#name').hide();
-        
-      }
-      if($('#check_phone').prop('checked',true))
-      {
-        $('#check_phone').click();
-        $('#phone').hide();
-      }
-      // if($('#check_email').prop('checked',true))
-      // {
-      //   $('#check_email').click();
-      //   $('#email').hide();
-      // }
-      if($('#check_address').prop('checked',true))
-      {
-        $('#check_address').click();
-        $('#address').hide();
-      }
-      if($('#check_nid').prop('checked',true))
-      {
-        $('#check_nid').click();
-        $('#nid').hide();
-      }
-      $("#filter").hide();
-      $("#reset").hide();
+    $('#name').val('');
+      $('#email').val('');
+      $('#phone').val('');
+      $('#nid').val('');
+      $('#reservation').daterangepicker({
+        startDate: moment().subtract(1, 'year'),
+        endDate  : moment()
+      });
       $('#example1').DataTable().destroy();
-      fill_datatable("a");
-  });
-  $('#name').hide();
-  $('#phone').hide();
-  // $('#email').hide();
-  $('#nid').hide();
-  $('#address').hide();
-  $("#filter").hide();
-  $("#reset").hide();
-  // check for name field
-  $('#check_name').change(function()
-  {
-    $("#name").toggle();
-    $("#name").val("");
-    if($('#check_name').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_nid').prop('checked') || $('#check_address').prop('checked') || $('#check_phone').prop('checked') )
-          {
-            $("#filter").show();
-            $("#reset").show();
-          }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
-  });
-  // check for nid field
-  $('#check_nid').change(function()
-  {
-    $("#nid").toggle();
-    $("#nid").val("");
-    if($('#check_nid').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_name').prop('checked') || $('#check_address').prop('checked') || $('#check_phone').prop('checked') )
-          {
-            $("#filter").show();
-            $("#reset").show();
-          }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
+      fill_datatable('a');
   });
 // check for address field
-  $('#check_address').change(function()
-  {
-    $("#address").toggle();
-    $("#address").val("");
-    if($('#check_address').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_nid').prop('checked') || $('#check_name').prop('checked') || $('#check_phone').prop('checked'))
-          {
-            $("#filter").show();
-            $("#reset").show();
-          }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
-  });
-// check for phone field
-  $('#check_phone').change(function()
-  {
-    $("#phone").toggle();
-    $("#phone").val("");
-    if($('#check_phone').prop('checked'))
-        {
-          $("#filter").show();
-          $("#reset").show();
-        }
-        else
-        {
-          if($('#check_nid').prop('checked') || $('#check_address').prop('checked') || $('#check_name').prop('checked'))
-          {
-            $("#filter").show();
-            $("#reset").show();
-          }
-          else
-          {
-            $("#filter").hide();
-            $("#reset").hide();
-          }
-        }
-  });
+  
 // check for email field
   // $('#check_email').change(function()
   // {
