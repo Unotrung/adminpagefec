@@ -73,7 +73,7 @@ class CustomerController extends Controller
         }
     }
 
-    public function show($id){
+    public function show($id=null,$bnpl_id=null){
         $data_eap = Http::get(env("API_PARTNER").'/v1/admin/getUserEAP/'.$id);
         $data = $data_eap->json();
         $status =$data["status"];
@@ -86,20 +86,40 @@ class CustomerController extends Controller
             $eap = $data_eap->json();
             $cus = $eap["data"];
             $phone = $cus["phone"];
-            $response = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone.'&from='.$day.'&to='.$newDateTime);
-            // print_r(env("API_PARTNER").'/v1/admin/search?phone='.$phone.'&from='.$day.'&to='.$newDateTime);
-            // exit;
-            $response = $response->json();
-            $bnpl = $response["data"]["BNPL"];
-            if(empty($bnpl))
-            {
-                $bnpl_info = "";
-            }
+
+            // $response = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone.'&from='.$day.'&to='.$newDateTime);
+            // // print_r(env("API_PARTNER").'/v1/admin/search?phone='.$phone.'&from='.$day.'&to='.$newDateTime);
+            // // exit;
+            // $response = $response->json();
+            // $bnpl = $response["data"]["BNPL"];
+            
             // else
             // {
             //     $permission = $permissions->find($check_role[$i]);
             //     $check_permission[$i]=$permission->name;
             // }
+            if($bnpl_id !== null){
+                $bnpl = Http::get(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$bnpl_id);
+                $data = $bnpl->json();
+                $bnpl_info = $data["data"];
+            }
+            else
+            {
+                $response = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone.'&from='.$newDateTime.'&to='.$day);
+                // print_r(env("API_PARTNER").'/v1/admin/search?phone='.$phone.'&from='.$day.'&to='.$newDateTime);
+                // exit;
+                $response = $response->json();
+                $bnpl = $response["data"]["BNPL"];
+                if(!empty($bnpl))
+                {
+                    $bnpl_info = $bnpl[0];
+                }
+                else
+                {
+                    $bnpl_info ="";
+                }
+                
+            }
         }
         else
         {
@@ -143,7 +163,8 @@ class CustomerController extends Controller
         //     print_r("abc");
         // }
 		// if(isset($cus["_id"])) {
-		// 	$setErrorsBag = "khong hien thi";
+		// 	$setErrorsBag = "khong hien thi"
+        // exit;
 			return view('vendor.adminlte.customers.show',['cus'=>$cus ,'check_permission'=>$check_permission,'eap_check'=>$eap_check ,'bnpl_check'=> $bnpl_check,'bnpl_info'=>$bnpl_info]);
 		// } 
             // else {
@@ -266,25 +287,14 @@ class CustomerController extends Controller
                     // } 
                     $out =  Datatables::of($eap)->make(true);
                     $data = $out->getData();   
+                    
                     for($i=0; $i < count($data->data); $i++) {
                         $output = '';
-                        // $name_before = substr($data->data[$i]->email,0,3);
-                        // $name_after = substr($data->data[$i]->email,-4,4);
-                        // $data->data[$i]->email = (Auth::user()->can("customers-unmask"))?$data->data[$i]->email:$name_before."***@***".$name_after;   
-                        // $phone_before = substr($data->data[$i]->phone,0,3);
-                        // $phone_after = substr($data->data[$i]->phone,-1,3);
-                        // $data->data[$i]->phone = (Auth::user()->can("customers-unmask"))?$data->data[$i]->phone:$phone_before."******".$phone_after;
-                        // for($j=0; $j < count($eap[0]["bnpl"]); $j++) 
-                        // {
-                        //     $citizenID_before = substr($data->data[$i]->bnpl[$j]->citizenId,-3);
-                        //     $data->data[$i]->bnpl[$j]->citizenId = (Auth::user()->can("customers-unmask"))?$data->data[$i]->bnpl[$j]->citizenId:"*********".$citizenID_before;
-                        // }
                         $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Information" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                         $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete Record" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                         $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
-                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show2',['id'=>$data->data[$i]->_id,'bnpl_id'=>$bnpl->_id])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
-
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show2',['id'=>$data->data[$i]->_id,'bnpl'=>$bnpl[0]["_id"]])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
                     }
                     $out->setData($data);
                     return $out;
