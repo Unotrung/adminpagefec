@@ -58,6 +58,11 @@
                                         @endforeach
                                     </td>
                                     @endif
+                            </tr>
+                            <tr>
+                                <td>Department:</td>
+                                <td>{{ $user->department }}</td>
+                            </tr>
                             </tbody>
                         </table>
                 </div>

@@ -67,10 +67,12 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
+        // print_r($request);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'department' =>['required' , 'string'],
             'role' =>['required'],
         ]);
 
@@ -78,11 +80,11 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'department' => $request->department,
             'password' => Hash::make($request->password),
         ]);
 
         $user->assignRole($request->role);
-        $user->derpartment = $request->derpartment;
         event(new Registered($user));
 
         return redirect()->route('users')->with('add','User Registed Successfull');
@@ -104,6 +106,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone; 
+        $user->department = $request->department;
         $result = $user->save();
         if($result == 1){
             return redirect()->route('users.show', ['id' => $request->id])->with('success','User updated successfully.');
