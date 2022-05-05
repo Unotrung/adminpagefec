@@ -28,7 +28,7 @@ $old = Role::find($role);
             <form method="POST" action="{{route('roles.update', 'id='.$role)}}">
                 @csrf
                 @method('POST')
-                <div class="form-group row">
+                <div class="form-group row" style="padding: 20px">
                     <div class="col-sm-6 mb-3 mb-sm-0">
                         <span style="color:red;">*</span>Display Name</label>
                         <input 
@@ -87,14 +87,22 @@ $old = Role::find($role);
                             <div class="col-5 col-sm-3">
                               <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                                 @foreach ($modules as $module)
-                                <a class="nav-link" id="vert-tabs-{{$module->id}}-tab" data-toggle="pill" href="#vert-tabs-{{$module->id}}" role="tab" aria-controls="vert-tabs-{{$module->id}}" aria-selected="false">{{$module->module}}</a>
+                                    @if($module->module == "Customers")
+                                        <a class="nav-link active show" id="vert-tabs-{{$module->id}}-tab" data-toggle="pill" href="#vert-tabs-{{$module->id}}" role="tab" aria-controls="vert-tabs-{{$module->id}}" aria-selected="false">{{$module->module}}</a>
+                                    @else
+                                        <a class="nav-link" id="vert-tabs-{{$module->id}}-tab" data-toggle="pill" href="#vert-tabs-{{$module->id}}" role="tab" aria-controls="vert-tabs-{{$module->id}}" aria-selected="false">{{$module->module}}</a>
+                                    @endif
                                 @endforeach
                               </div>
                             </div>
                             <div class="col-7 col-sm-9">
                               <div class="tab-content" id="vert-tabs-tabContent">
                                 @foreach ($modules as $module)
-                                <div class="tab-pane fade" id="vert-tabs-{{$module->id}}" role="tabpanel" aria-labelledby="vert-tabs-{{$module->id}}-tab">
+                                @if($module->module == "Customers")
+                                    <div class="tab-pane fade active show" id="vert-tabs-{{$module->id}}" role="tabpanel" aria-labelledby="vert-tabs-{{$module->id}}-tab">
+                                @else
+                                    <div class="tab-pane fade" id="vert-tabs-{{$module->id}}" role="tabpanel" aria-labelledby="vert-tabs-{{$module->id}}-tab">
+                                @endif    
                                     <table class="table table-lg">
                                     @foreach ($permissions as $permission)
                                         <?php

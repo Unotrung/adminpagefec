@@ -210,7 +210,6 @@
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../plugins/moment/moment.min.js"></script>
-<script src="../../dist/js/adminlte.min.js"></script>
 <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap color picker -->
 <script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
@@ -330,10 +329,8 @@ $(document).ready(function(){
       var phone = $('#phone').val();
       var reservation = $('#reservation').val();
       var citizenId = $('#nid').val();
-      
-      
-          $('#example1').DataTable().destroy();
-          fill_datatable(name,action="search",phone,reservation,citizenId);
+      $('#example1').DataTable().destroy();
+      fill_datatable(name,action="search",phone,reservation,citizenId);
       
   });
 
