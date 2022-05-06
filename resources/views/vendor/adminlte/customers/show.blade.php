@@ -180,9 +180,9 @@ $config = [
         @endif
       </div>
       @if(empty($cus) && !empty($bnpl_info))
-      <div class="tab-pane fade active show" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
+      <div class="tab-pane fade active show" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 400px">
       @else
-      <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
+      <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 400px">
       @endif
       
       {{-- $bnpl_check == 1 && $eap_check == 1 --}}

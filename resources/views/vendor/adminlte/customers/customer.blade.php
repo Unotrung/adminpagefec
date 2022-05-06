@@ -87,7 +87,7 @@
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar" rel="tooltip" title="From Date"></i></div>
+                          <div class="input-group-text" rel="tooltip" title="From Date"><i class="fa fa-calendar" ></i></div>
                       </div>
                     </div>
                   </div>
@@ -95,7 +95,7 @@
                     <div class="input-group date" id="reservationdateto" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#reservationdateto"/>
                       <div class="input-group-append" data-target="#reservationdateto" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar" rel="tooltip" title="To Date"></i></div>
+                          <div class="input-group-text" rel="tooltip" title="To Date"><i class="fa fa-calendar" ></i></div>
                       </div>
                     </div>
                   </div>
@@ -211,7 +211,7 @@
 
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
-  $("[rel=tooltip]").tooltip({ placement: 'right'});
+  $("[rel=tooltip]").tooltip({ placement: 'top'});
 
   var today = new Date();
   $('#reservationdateto').datetimepicker({
