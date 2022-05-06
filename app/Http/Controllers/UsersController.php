@@ -81,6 +81,8 @@ class UsersController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'department' => $request->department,
+            'division' => $request->division,
+            'center'=> $request->center,
             'password' => Hash::make($request->password),
         ]);
 
@@ -107,6 +109,8 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone; 
         $user->department = $request->department;
+        $user->center = $request->center;
+        $user->division = $request->division;
         $result = $user->save();
         if($result == 1){
             return redirect()->route('users.show', ['id' => $request->id])->with('success','User updated successfully.');

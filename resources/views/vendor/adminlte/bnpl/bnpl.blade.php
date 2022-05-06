@@ -25,13 +25,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0">BNPL Registration</h1>
-            <small class="text-muted"><cite title="Source Title">BNPL listing</cite></small>
+            <h1 class="m-0"> BNPL Registrations</h1>
+            <small class="text-muted"><cite title="Source Title">BNPL Registrations Listing</cite></small>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">BNPL</li>
+              <li class="breadcrumb-item active">BNPL Registrations</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,7 +50,7 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3 class="total">{{count($bnpl)}}</h3>
-                <p>Total BNPL Registing</p>
+                <p>Total BNPL Registrations</p>
               </div>
               <div class="icon">
               <i class="fas fa-user-plus"></i>
@@ -63,7 +63,7 @@
             <div class="small-box bg-success">
               <div class="inner">
                 <h3 class="step2">{{count($name)}}</h3>
-                <p>Stage: Input information</p>
+                <p>Stage: Input Information</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-check"></i>
@@ -76,7 +76,7 @@
             <div class="small-box bg-warning">
               <div class="inner">
                 <h3 class="step3"> {{count($phone)}}</h3>
-                <p>Stage: Setup pincode</p>
+                <p>Stage: Setup PIN Code</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-lock"></i>
@@ -89,7 +89,7 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 <h3 class="step4">{{count($identify)}}</h3>
-                <p>Stage: Verify registration</p>
+                <p>Stage: Verify Registration</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-shield"></i>
@@ -126,14 +126,14 @@
                   <div class="row" style="margin-bottom: 20px;"> 
                   <div class="col-4">
                     <div class="input-group input-group-md">
-                      <input type="text" class="form-control form-control-user" id="nid" placeholder="Search by NID" name="nid" value="" style="">
+                      <input type="text" class="form-control form-control-user" id="nid" placeholder="NID" name="nid" value="" style="">
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          <div class="input-group-text"><i class="fa fa-calendar" rel="tooltip" title="From Date"></i></div>
                       </div>
                     </div>
                   </div>
@@ -141,7 +141,7 @@
                     <div class="input-group date" id="reservationdateto" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#reservationdateto"/>
                       <div class="input-group-append" data-target="#reservationdateto" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          <div class="input-group-text"><i class="fa fa-calendar" rel="tooltip" title="To Date"></i></div>
                       </div>
                     </div>
                   </div>
@@ -228,6 +228,7 @@
 
 $(document).ready(function(){
 
+  $("[rel=tooltip]").tooltip({ placement: 'right'});
   $('[data-toggle="tooltip"]').tooltip();
   var today = new Date();
   $('#reservationdateto').datetimepicker({

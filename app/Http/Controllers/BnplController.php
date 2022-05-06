@@ -181,7 +181,7 @@ class BnplController extends Controller
                 $data = $out->getData();
                 for($i=0; $i < count($data->data); $i++) {
                 $output = '';
-                $output .= ' <a href="'.url(route('bnpl.edit',['id'=>$data->data[$i]->_id])).'#bnpl_info" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Information" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                $output .= ' <a href="'.url(route('bnpl.edit',['id'=>$data->data[$i]->_id])).'#bnpl_info" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $data->data[$i]->action = (string)$output;
             //     if($this->show_action) {
             //         $output = '';

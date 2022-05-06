@@ -50,7 +50,13 @@
               </div>
 
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-5 col-form-label">Department:</label>Center</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-5 col-form-label">Department:</label>IT Department</div>
+              </div>
+              <div class="col-sm-12">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-5 col-form-label">Center:</label>IT Center</div>
+              </div>
+              <div class="col-sm-12">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-5 col-form-label">Division:</label>IT</div>
               </div>
 
             </div>
@@ -65,7 +71,7 @@
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Edit Information</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
@@ -162,12 +168,38 @@
                         <div class="col-sm-10">
                           <select id="user" class="form-control" name="department">
                             <option value="" selected="">Select Department</option>																			
-                            <option value="623d5e16d2b54784ff29a332">Division</option>
-                            <option value="623d5e2cc682d3f0ff4ced22">Department</option>
-                            <option value="623d5e2cc682d3f0ff4ced22">Center</option>
+                            <option value="IT">IT</option>
+                            <option value="Accountant">Accountant</option>
+                            <option value="Business">Business</option>
                           </select>
                         </div>
                       </div>
+
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">Center</label>
+                        <div class="col-sm-10">
+                          <select id="user" class="form-control" name="center">
+                            <option value="" selected="">Select Center</option>																			
+                            <option value="IT">IT</option>
+                            <option value="Accountant">Accountant</option>
+                            <option value="Business">Business</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">Division</label>
+                        <div class="col-sm-10">
+                          <select id="user" class="form-control" name="division">
+                            <option value="" selected="">Select Division</option>																			
+                            <option value="IT">IT</option>
+                            <option value="Accountant">Accountant</option>
+                            <option value="Business">Business</option>
+                          </select>
+                        </div>
+                      </div>
+
+
                       {{-- <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <div class="checkbox">

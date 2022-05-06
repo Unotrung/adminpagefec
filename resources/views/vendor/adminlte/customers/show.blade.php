@@ -3,23 +3,16 @@
 @extends('layouts.app')
 @section('title', 'Customer')
 @section('content_header')
-    <!-- Content Header (Page header) -->
-    <!-- <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">BNPL Edit</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item "><a href="#">BNPL</a></li>
-              <li class="breadcrumb-item active">Edit</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div> -->
+
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col-sm-12">
+        <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right" href="{{ route('customer') }}"><i
+            class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -39,20 +32,20 @@ $config = [
     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
       @if(empty($cus) && !empty($bnpl_info))
       <li class="nav-item">
-        <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
+        <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Information</a>
         </li>
       @else
       <li class="nav-item">
-        <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
+        <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Information</a>
         </li>
       @endif
       @if(empty($cus) && !empty($bnpl_info))
       <li class="nav-item">
-        <a class="nav-link active" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
+        <a class="nav-link active" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Information</a>
       </li>
       @else
       <li class="nav-item">
-        <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
+        <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Information</a>
       </li>
       @endif
         
@@ -141,29 +134,48 @@ $config = [
         @if(!empty($cus))
           <div class="card-body">
             <div class="form-group row">
-              <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+              
+              <div class="col-sm-8">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$cus["username"]}}</div>
+              </div>
+
+              {{-- <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
               <div class="col-sm-10">
               <div class="col-md-10 fvalue">{{$cus["username"]}}</div>
+              </div> --}}
+              <div class="col-sm-8">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Email:</label>{{$cus["email"]}}</div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+              
+              <div class="col-sm-8">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Phone:</label>{{$cus["phone"]}}</div>
+              </div>
+
+              <div class="col-sm-8">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Resent OTP:</label><button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success">Send OTP</button></div>
+              </div>
+            
+              {{-- <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
               <div class="col-sm-10">
               <div class="col-md-10 fvalue">{{$cus["email"]}}</div>
               </div>
-            </div>
-            <div class="form-group row">
+            
               <label for="inputPassword4" class="col-sm-2 col-form-label">Phone</label>
               <div class="col-sm-10">
                 <div class="col-md-10 fvalue">{{$cus["phone"]}}</div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputPassword4" class="col-sm-2 col-form-label">Resent OTP</label>
+              </div> --}}
+            
+              {{-- <label for="inputPassword4" class="col-sm-2 col-form-label">Resent OTP</label>
               <div class="col-sm-10">
               <button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success">Send OTP</button>
-              </div>
+              </div> --}}
             </div>
+          </div>
+          @else
+          <div class="card" style="text-align: center;padding: 70px 0" >
+            {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
+              <p><i class="fa fa-info-circle" aria-hidden="true"></i>User has not registered to EAP.</p>
+            {{-- </div> --}}
           </div>
         @endif
       </div>
@@ -206,7 +218,7 @@ $config = [
         @if(!empty($bnpl_info))  
         <div class="row">
           <div class="col-6">
-            <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Infomation</label>
+            <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Information</label>
             <div class="card" style="background-color: #A9A9A9">
               <div class="col-sm-8">
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$bnpl_info["name"]}}</div>
@@ -218,30 +230,32 @@ $config = [
               </div>
 
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">FICO:</label>50.000.000đ</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">FICO:</label>50,000,000 VND</div>
               </div>
             </div>
             <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
-            <div class="card" style="background-color: #A9A9A9">
-
+            <div class="card" style="background-color: #A9A9A9;min-height: 212px;text-align: center;padding: 70px 0" >
+              {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
+                <p><i class="fa fa-info-circle" aria-hidden="true"></i>To be updated</p>
+              {{-- </div> --}}
             </div>
           </div>
           <div class="col-6" style="">
-            <label for="inputPassword3" class="col-sm-4 col-form-label">Another Information</label>
+            <label for="inputPassword3" class="col-sm-4 col-form-label">Other Information</label>
             <div class="card" style="background-color: #A9A9A9">
               
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">CitizenID:</label>{{$bnpl_info["citizenId"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">NID:</label>{{$bnpl_info["citizenId"]}}</div>
               </div>
 
               
               <div class="col-sm-12">
-                <div class="col-sm-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Date of Birth:</label>{{date('d-m-Y', strtotime($bnpl_info["birthday"]))}}</div>
+                <div class="col-sm-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Date of Birth:</label>{{date('d/m/Y', strtotime($bnpl_info["birthday"]))}}</div>
               </div>
             
               
               <div class="col-sm-12">
-                <div class="col-sm-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Issuedate:</label>{{date('d-m-Y', strtotime($bnpl_info["issueDate"]))}}</div>
+                <div class="col-sm-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Issued Date:</label>{{date('d/m/Y', strtotime($bnpl_info["issueDate"]))}}</div>
               </div>
 
               
@@ -266,20 +280,26 @@ $config = [
           
               
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Personal Title Ref:</label>{{$bnpl_info["personal_title_ref"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Reference Personal Title:</label>{{$bnpl_info["personal_title_ref"]}}</div>
               </div>
           
             
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"> <label for="inputPassword3" class="col-sm-7 col-form-label">Name Ref:</label>{{$bnpl_info["name_ref"]}}</div>
+                <div class="col-md-10 fvalue"> <label for="inputPassword3" class="col-sm-7 col-form-label">Reference Name:</label>{{$bnpl_info["name_ref"]}}</div>
               </div>
 
               
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Phone Ref:</label>{{$bnpl_info["phone_ref"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Reference Phone:</label>{{$bnpl_info["phone_ref"]}}</div>
               </div>
             </div>
           </div>
+        </div>
+        @else
+        <div class="card" style="text-align: center;padding: 70px 0" >
+          {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
+            <p><i class="fa fa-info-circle" aria-hidden="true"></i>User has not registered to BNPL.</p>
+          {{-- </div> --}}
         </div>
         @endif
       </div>
@@ -291,7 +311,7 @@ $config = [
                 @if(!empty($cus))
                 <div class="timeline">
                   <div class="time-label">
-                    <span class="bg-red">{{date('d-m-Y', strtotime($cus["updatedAt"]))}}</span>
+                    <span class="bg-red">{{date('d/m/Y', strtotime($cus["updatedAt"]))}}</span>
                   </div>
           
               
@@ -299,7 +319,7 @@ $config = [
                     <i class="fas fa-sign-out-alt bg-red"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> Has Logout </h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged out. </h3>
                       </div>
                   </div>
           
@@ -308,36 +328,65 @@ $config = [
                     <i class="fas fa-sign-in-alt bg-green"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> Has login</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged in.</h3>
                       </div>
                   </div>
           
                   <div class="time-label">
-                    <span class="bg-yellow">28-04-2022</span>
+                    <span class="bg-yellow">28/04/2022</span>
+                  </div>
+
+                  <div>
+                    <i class="fas fa-sign-out-alt bg-red"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fas fa-clock"></i> 17:30</span>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged out. </h3>
+                      </div>
                   </div>
 
                   <div>
                     <i class="fas fa-edit"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i>17:05</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> is change Information</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User changed Information.</h3>
                       </div>
                   </div>
 
+                  <div>
+                    <i class="fas fa-sign-in-alt bg-green"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fas fa-clock"></i> 17:00</span>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged in.</h3>
+                      </div>
+                  </div>
 
                   <div class="time-label">
-                    <span class="bg-green">27-04-2022</span>
+                    <span class="bg-green">27/04/2022</span>
+                  </div>
+
+                  <div>
+                    <i class="fas fa-sign-out-alt bg-red"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fas fa-clock"></i> 13:50</span>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged out. </h3>
+                      </div>
                   </div>
 
                   <div>
                     <i class="fas fa-lock"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i>13:45</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> is change password</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User changed Password.</h3>
                       </div>
                   </div>
 
-
+                  <div>
+                    <i class="fas fa-sign-in-alt bg-green"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fas fa-clock"></i> 13:30</span>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged in.</h3>
+                      </div>
+                  </div>
 
                   <div>
                   <i class="fas fa-clock bg-gray"></i>

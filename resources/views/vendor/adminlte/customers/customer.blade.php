@@ -29,7 +29,7 @@
         <div class="row mb-2">
           <div class="col-sm-5">
             <h1 class="m-0">Customers</h1>
-            <small class="text-muted"><cite title="Source Title">Customers listing</cite></small>
+            <small class="text-muted"><cite title="Source Title">Customers Listing</cite></small>
           </div><!-- /.col -->
           <div class="col-sm-7">
             <ol class="breadcrumb float-sm-right">
@@ -80,14 +80,14 @@
                   <div class="row" style="margin-bottom: 20px;"> 
                   <div class="col-4">
                     <div class="input-group input-group-md">
-                      <input type="text" class="form-control form-control-user" id="nid" placeholder="Search by NID" name="nid" value="" style="">
+                      <input type="text" class="form-control form-control-user" id="nid" placeholder="NID" name="nid" value="" style="">
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          <div class="input-group-text"><i class="fa fa-calendar" rel="tooltip" title="From Date"></i></div>
                       </div>
                     </div>
                   </div>
@@ -95,7 +95,7 @@
                     <div class="input-group date" id="reservationdateto" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#reservationdateto"/>
                       <div class="input-group-append" data-target="#reservationdateto" data-toggle="datetimepicker">
-                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          <div class="input-group-text"><i class="fa fa-calendar" rel="tooltip" title="To Date"></i></div>
                       </div>
                     </div>
                   </div>
@@ -124,10 +124,10 @@
 
                       <thead>
                       <tr>
-                        <th>EAP UserName</th>
+                        <th>EAP Username</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>BNPL CitizenId</th>
+                        <th>BNPL NID</th>
                         <!-- <th>Phone</th>
                         <th>Status</th>
                         <th>Created Time</th> -->
@@ -211,6 +211,8 @@
 
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
+  $("[rel=tooltip]").tooltip({ placement: 'right'});
+
   var today = new Date();
   $('#reservationdateto').datetimepicker({
       format: 'L',
@@ -256,26 +258,26 @@ $(document).ready(function(){
                   data:'username',
                   name:'EAP Username',
                   render: function ( data, type, row ) {
-                    return (data!==undefined)?data:".";
+                    return (data!==undefined)?data:"NaN";
                   }
               },
               {
                   data:'email',
                   name:'Email',
                   render: function ( data, type, row ) {
-                    return (data!==undefined)?data:".";
+                    return (data!==undefined)?data:"NaN";
                   }
               },
               {
                   data:'urlphone',
                   name:'Phone',
                   render: function ( data, type, row ) {
-                    return (data!==undefined)?data:".";
+                    return (data!==undefined)?data:"NaN";
                   }
               },
               {
                   data:'bnpl',
-                  name:'BNPL CitizenId',
+                  name:'BNPL NID',
                   render: function ( data, type, row ) {
                     if(data!==undefined)
                     {
@@ -287,7 +289,7 @@ $(document).ready(function(){
                     }
                     else
                     {
-                      return ".";
+                      return "NaN";
                     }
                   }
               },

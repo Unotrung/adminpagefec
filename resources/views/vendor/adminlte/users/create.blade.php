@@ -104,9 +104,27 @@
 				<div class="input-group mb-3">
 					<select id="department" class="form-control" name="department">
 						<option value="" selected="">Select Department</option>																			
-						<option value="Division">Division</option>
-						<option value="Department">Department</option>
-						<option value="Center">Center</option>
+						<option value="IT">IT</option>
+						<option value="Accountant">Accountant</option>
+						<option value="Business">Business</option>
+					</select>
+				</div>
+
+				<div class="input-group mb-3">
+					<select id="center" class="form-control" name="center">
+						<option value="" selected="">Select Center</option>																			
+						<option value="IT">IT</option>
+						<option value="Accountant">Accountant</option>
+						<option value="Business">Business</option>
+					</select>
+				</div>
+
+				<div class="input-group mb-3">
+					<select id="division" class="form-control" name="division">
+						<option value="" selected="">Select Division</option>																			
+						<option value="IT">IT</option>
+						<option value="Accountant">Accountant</option>
+						<option value="Business">Business</option>
 					</select>
 				</div>
 
