@@ -4,6 +4,9 @@
     </IfModule>
 
     RewriteEngine On
+    # Added to Force HTTPS
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://admin.voolo.vn/$1 [R,L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
