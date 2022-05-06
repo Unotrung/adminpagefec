@@ -13,7 +13,9 @@ use App\Http\Middleware;
 | contains the "web" middleware group. Now create something great!
 |
 */
-URL::forceScheme('https');
+if(env("ROUTER_ENV") != 'dev'){
+    URL::forceScheme('https');
+}
 // Route::get('/', function () {
 //     return view('welcome');
 // });
