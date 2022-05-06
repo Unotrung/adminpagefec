@@ -15,7 +15,7 @@ use App\Http\Controllers\CustomerController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+URL::forceScheme('https');
 Route::get('edit/{id}',[BnplController::class,'edit']);
 // Route::get('edit/{id}',[BnplController::class,'edit']);
 Route::post('edit/{id}',[BnplController::class,'update']);
