@@ -281,7 +281,6 @@ $(document).ready(function(){
                     return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
                 }
                 return data;}
-            
             },
             
             {data:'sex',
@@ -297,7 +296,7 @@ $(document).ready(function(){
               }
               else
               {
-                return "<i>Xác thực người dùng<i>";
+                return "<i>Xác minh thông tin<i>";
               }
               return data;}
             },

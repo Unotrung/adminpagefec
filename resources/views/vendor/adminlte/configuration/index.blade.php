@@ -135,9 +135,28 @@
               </div>
                 <!-- /.card-body -->
                 @if($other->status != 0)
-                <button type="submit" name="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+                {{-- <button type="submit" name="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                   Save
-                </button>
+                </button> --}}
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                  <div data-toggle="modal" data-target="#confirmModal" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Save</div>
+                  <div class="modal" id="confirmModal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Do you want to submit? </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <!-- Modal footer -->
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <button type="button" class="btn" data-dismiss="modal">No</button>
+                      </div>
+                      </div>
+                  </div>
+                  </div>
+                </div>
                 @else
                   @if(Auth::user()->email == $approvalUser->email)
                   <input type="hidden" name="approved" value="approved"/>
@@ -145,7 +164,7 @@
                     Approval
                   </button>
                   @else
-                  <div class="center">Waiting for approval..{{$approvalUser->email}}.</div>
+                  <div class="center" style="text-align: center;">Waiting for {{$approvalUser->email}} approval...</div>
                   @endif
                 @endif
               </form>

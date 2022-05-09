@@ -20,16 +20,13 @@
 @stop
 
 @section('content')
-<<<<<<< HEAD
-@php
-use App\Models\Configuration;
-    $config = Configuration::All();
-    $configdiv = $config[0]->division;
-    $configcen = $config[0]->center;
-    $configdep = $config[0]->department;
-@endphp
-=======
->>>>>>> 77f22dd9593902971a703dd33ef42ec543de490e
+  @php
+  use App\Models\Configuration;
+      $config = Configuration::All();
+      $configdiv = $config[0]->division;
+      $configcen = $config[0]->center;
+      $configdep = $config[0]->department;
+  @endphp
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -56,6 +53,14 @@ use App\Models\Configuration;
 
               <div class="col-sm-12">
                 <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Email:</label>{{Auth::user()->email}}</div>
+              </div>
+
+              <div class="col-sm-12">
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Division:</label>{{Auth::user()->division}}</div>
+              </div>
+
+              <div class="col-sm-12">
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Center:</label>{{Auth::user()->center}}</div>
               </div>
 
               <div class="col-sm-12">
@@ -161,13 +166,15 @@ use App\Models\Configuration;
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Department</label>
+                        <label for="inputName2" class="col-sm-2 col-form-label">Division</label>
                         <div class="col-sm-10">
-                          <select id="user" class="form-control" name="department">
-                            <option value="" selected="">Select Department</option>																			
-                            <option value="IT">IT</option>
-                            <option value="Accountant">Accountant</option>
-                            <option value="Business">Business</option>
+                          <select id="user" class="form-control" name="division">
+                            <option value="" selected="">{{Auth::user()->division}}</option>																			
+                            @foreach (explode(';',$configdiv) as $configsdiv)		
+                            @if($configsdiv!=Auth::user()->division)	
+                              <option value="{{$configsdiv}}">{{$configsdiv}}</option>
+                            @endif
+                            @endforeach
                           </select>
                         </div>
                       </div>
@@ -176,25 +183,33 @@ use App\Models\Configuration;
                         <label for="inputName2" class="col-sm-2 col-form-label">Center</label>
                         <div class="col-sm-10">
                           <select id="user" class="form-control" name="center">
-                            <option value="" selected="">Select Center</option>																			
-                            <option value="IT">IT</option>
-                            <option value="Accountant">Accountant</option>
-                            <option value="Business">Business</option>
+                            <option value="" selected="">{{Auth::user()->center}}</option>																			
+                            @foreach (explode(';',$configcen) as $configscen)		
+                            @if($configscen!=Auth::user()->center)	
+                              <option value="{{$configscen}}">{{$configscen}}</option>
+                            @endif
+                            @endforeach
                           </select>
                         </div>
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Division</label>
+                        <label for="inputName2" class="col-sm-2 col-form-label">Department</label>
                         <div class="col-sm-10">
-                          <select id="user" class="form-control" name="division">
-                            <option value="" selected="">Select Division</option>																			
-                            <option value="IT">IT</option>
-                            <option value="Accountant">Accountant</option>
-                            <option value="Business">Business</option>
+                          <select id="user" class="form-control" name="department">
+                            <option value="" selected="">{{Auth::user()->department}}</option>																			
+                              @foreach (explode(';',$configdep) as $configsdep)		
+                              @if($configsdep!=Auth::user()->department)	
+                                <option value="{{$configsdep}}">{{$configsdep}}</option>
+                              @endif
+                              @endforeach
                           </select>
                         </div>
                       </div>
+
+                      
+
+                      
 
 
                       {{-- <div class="form-group row">

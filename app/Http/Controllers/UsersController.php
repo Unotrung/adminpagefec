@@ -48,10 +48,10 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $config = Configuration::All();
-        $configdiv = $config[0]->division;
-        $configcen = $config[0]->center;
-        $configdep = $config[0]->department;
+        $config = Configuration::where("is_used",1)->first();
+        $configdiv = $config->division;
+        $configcen = $config->center;
+        $configdep = $config->department;
         $roles = Role::All()->where('name','!=', 'super admin');
         $permissions = Permission::All();
         return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles, 'permissions'=>$permissions,'configdiv'=>$configdiv,'configcen'=>$configcen,'configdep'=>$configdep]);
@@ -66,10 +66,10 @@ class UsersController extends Controller
     public function create()
     {
         // $roles = Role::All();
-        $config = Configuration::All();
-        $configdiv = $config[0]->division;
-        $configcen = $config[0]->center;
-        $configdep = $config[0]->department;
+        $config = Configuration::where("is_used",1)->first();
+        $configdiv = $config->division;
+        $configcen = $config->center;
+        $configdep = $config->department;
         // print_r($config);
         // exit;
         $roles = Role::All()->where('is_delete','==', null);

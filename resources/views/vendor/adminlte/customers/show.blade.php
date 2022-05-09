@@ -243,7 +243,7 @@ $config = [
               </div>
             </div>
             <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
-            <div class="card box-info" style="text-align: center;padding: 70px 0" >
+            <div class="card box-info" style="text-align: center;padding: 74px 0" >
               {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
                 <p><i class="fa fa-info-circle" aria-hidden="true"></i>To be updated</p>
               {{-- </div> --}}
