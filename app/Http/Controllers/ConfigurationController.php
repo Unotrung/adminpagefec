@@ -11,7 +11,10 @@ class ConfigurationController extends Controller
 {
     public function index()
     {
-        $other = Configuration::orderBy("created_at","desc")->first();
+        $other = Configuration::where("status",0)->orderBy("created_at","desc")->first();
+        if(is_null($other)){
+            $other = Configuration::where("is_used",1)->orderBy("created_at","desc")->first();
+        }
         $activeRow = Configuration::where("is_used",1)->first();
         $approvalUser = User::where("_id",$activeRow->approval_acc)->first();
 
@@ -66,11 +69,6 @@ class ConfigurationController extends Controller
                 $item->save();
             }
             $newApproval = Configuration::where("_id",$request->id)->first();
-            // print_r($request->id);
-            // echo "<pre>";
-            // print_r($newApproval);
-            // echo "</pre>";
-            // exit;
             $newApproval->is_used = 1;
             $newApproval->status = 1;
             if($newApproval->save()){
@@ -82,8 +80,12 @@ class ConfigurationController extends Controller
 
     public function rejectStatus(Request $request){
         if(isset($request->id)){
-            $newApproval = Configuration::find($request->id)->first();
+            $newApproval = Configuration::where("_id",$request->id)->first();
             $newApproval->status = -1;
+            if($newApproval->save()){
+                return true;
+            }
         }
+        return false;
     }
 }

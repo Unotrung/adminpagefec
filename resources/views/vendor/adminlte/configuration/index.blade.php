@@ -35,7 +35,7 @@
     <div class="container-fluid">
       <form method="post" action="{{ (Auth::user()->email == $approvalUser->email && $other->status == 0) ? route('configuration.update.approval') :route('configuration.update.status') }}" id="configForm">
         @csrf
-        <input type="hidden" name="id" value="{{$other->id}}"/>
+        <input type="hidden" name="id" value="{{$other->id}}" id="rowId"/>
         <div class="row">
           <div class="col-12">
             <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
@@ -133,6 +133,8 @@
                   </div>
                 </div>
               </div>
+              <div class="card-footer" >
+                
                 <!-- /.card-body -->
                 @if($other->status != 0)
                 <button type="submit" name="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
@@ -140,14 +142,24 @@
                 </button>
                 @else
                   @if(Auth::user()->email == $approvalUser->email)
-                  <input type="hidden" name="approved" value="approved"/>
-                  <button type="submit" name="approval" class="btn btn-info btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
-                    Approval
-                  </button>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <input type="hidden" name="approved" value="approved"/>
+                      <button type="submit" name="approval" class="btn btn-info btn-user btn-block float-right" style="width:20%;">
+                        Approval
+                      </button>
+                    </div>
+                    <div class="col-md-6">
+                      <button type="button" name="reject" class="btn btn-danger btn-user btn-block" style="width:20%;">
+                        Reject
+                      </button>
+                    </div>
+                  </div>
                   @else
                   <div class="center">Waiting for approval..{{$approvalUser->email}}.</div>
                   @endif
                 @endif
+              </div>
               </form>
                 </div>
                 <!-- /.card-footer -->
@@ -234,7 +246,23 @@ $(function () {
       //   }
       // });
       // return false;
-  })
+  });
+
+  $('button[name=reject]').on('click',function(e){
+    var id = $('#rowId').val();
+    $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '{{ route('configuration.update.reject') }}',
+            data: {
+              'id': id ,
+              "_token": "{{ csrf_token() }}"
+            },
+            success: function (data) {
+              location.reload();
+            }
+        });
+  });
 });
 
 let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));

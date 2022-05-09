@@ -61,6 +61,7 @@ Route::get('/configuration/add', [App\Http\Controllers\ConfigurationController::
 Route::post('/configuration/store', [App\Http\Controllers\ConfigurationController::class, 'store'])->name('configuration.store');
 Route::post('/configuration/index/status/update', [App\Http\Controllers\ConfigurationController::class, 'updateStatus'])->name('configuration.update.status');
 Route::post('/configuration/index/status/approval', [App\Http\Controllers\ConfigurationController::class, 'approvalStatus'])->name('configuration.update.approval');
+Route::post('/configuration/index/status/reject', [App\Http\Controllers\ConfigurationController::class, 'rejectStatus'])->name('configuration.update.reject');
 //BNPL
 Route::group(['middleware' => ['role:System Admin|Website Admin|super admin']], function (){
     Route::group(['middleware' => ['permission:bnpl-update']], function () {
