@@ -9,6 +9,11 @@
         <div class="row mb-2">
         <div class="col-sm-6">
           <h1 class="h3 mb-0 text-gray-800">Configuration Setting</h1>
+          <span>
+            @if($other->status == 0)
+                  <div class="center"><i class="fas fa-hourglass-half"></i> Waiting for approval...</div>
+                @endif
+          </span>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -28,8 +33,9 @@
 
 <section class="content">
     <div class="container-fluid">
-      <form method="post" action="{{ route('configuration.update.status') }}" id="configForm">
+      <form method="post" action="{{ (Auth::user()->email == $approvalUser->email && $other->status == 0) ? route('configuration.update.approval') :route('configuration.update.status') }}" id="configForm">
         @csrf
+        <input type="hidden" name="id" value="{{$other->id}}"/>
         <div class="row">
           <div class="col-12">
             <ul class="nav nav-tabs" id="custom-content-above-tab" role="tablist">
@@ -43,38 +49,115 @@
             <div class="tab-content" id="custom-content-above-tabContent">
               <div class="tab-pane fade show active" id="custom-content-above-home" role="tabpanel" aria-labelledby="custom-content-above-home-tab">
                   <!-- Horizontal Form -->
-            <div class="card card-info">
-                <div class="card-body">
-                  {{-- <form method="get" action="{{route('configuration.update.status')}}"> --}}
-                  <table class="table table-hover table-striped">
-                    <tbody>
-                      @foreach ($config as $configs)
-                      <tr>
-                        {{-- <th scope="row">{{ $configs->id }}</th> --}}
-                        <input type="hidden" name="status[{{ $configs->_id }}]" value="0">
-                        <td>{{ $configs->name }}</td>
-                        <td><input type="checkbox" value="{{$configs->value}}" data-id="{{ $configs->_id }}" name="status[{{ $configs->_id }}]" class="js-switch" {{ $configs->value == 1 ? 'checked' : '' }}></td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-              {{-- </form> --}}
+                <div class="card card-info">
+                  <div class="card-header">
+                    System configuration
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-hover table-striped">
+                      <tbody>
+                        <tr>
+                          <input type="hidden" name="sms_otp" value="0">
+                          <td>SMS OTP </td>
+                          <td><input type="checkbox" data-id="" name="sms_otp" class="js-switch" {{$other->sms_otp == "on" ? 'checked' : ''}}  ></td>
+                        </tr>
+                        <tr>
+                          <input type="hidden" name="email_otp" value="0">
+                          <td>Email OTP </td>
+                          <td><input type="checkbox" data-id="" name="email_otp" class="js-switch" {{$other->email_otp == "on" ? 'checked' : ''}}  ></td>
+                        </tr>
+                        <tr>
+                          <input type="hidden" name="auditlog_eap" value="0">
+                          <td>Audit Log EAP</td>
+                          <td><input type="checkbox" data-id="" name="auditlog_eap" class="js-switch" {{$other->auditlog_eap == "on" ? 'checked' : ''}}></td>
+                        </tr>
+                        <tr>
+                          <input type="hidden" name="auditlog_bnpl" value="0">
+                          <td>Audit Log BNPL</td>
+                          <td><input type="checkbox" data-id="" name="auditlog_bnpl" class="js-switch" {{$other->auditlog_bnpl == "on" ? 'checked' : ''}}></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="card card-info">
+                  <div class="card-header">
+                    User configuration
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-hover table-striped">
+                      <tbody>
+                        <tr>
+                          <td>Department</td>
+                          <td><textarea class="form-control" rows="2" name="department">{{$other->department}}</textarea></td>
+                        </tr>
+                        <tr>
+                          <td>Center</td>
+                          <td><textarea class="form-control" rows="2" name="center">{{$other->center}}</textarea></td>
+                        </tr>
+                        <tr>
+                          <td>Division</td>
+                          <td><textarea class="form-control" rows="2" name="division">{{$other->division}}</textarea></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="card card-info">
+                  <div class="card-header">
+                    Approval configuration
+                  </div>
+                  <div class="card-body">
+                    @php
+                      use App\Models\User;
+                      $users = User::All();
+                      // print_r($users);
+                    @endphp
+                    <table class="table table-hover table-striped">
+                      <tbody>
+                        <tr>
+                          <td>Approval Account</td>
+                          <td>
+                            <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="approval_acc">
+                              <option data-select2-id="" value="">Select a option</option>
+                              @foreach($users as $user)
+                              <option data-select2-id="{{$user->id}}" value="{{$user->id}}" @if($user->id == $other->approval_acc) selected @endif>{{$user->email}}</option>
+                              @endforeach
+                              </select>
+                        </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-                </div>
                 <!-- /.card-body -->
+                @if($other->status != 0)
                 <button type="submit" name="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                   Save
                 </button>
+                @else
+                  @if(Auth::user()->email == $approvalUser->email)
+                  <input type="hidden" name="approved" value="approved"/>
+                  <button type="submit" name="approval" class="btn btn-info btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+                    Approval
+                  </button>
+                  @else
+                  <div class="center">Waiting for approval..{{$approvalUser->email}}.</div>
+                  @endif
+                @endif
               </form>
                 </div>
                 <!-- /.card-footer -->
             </div>
+            
             <!-- /.card -->
           </div>
             
       <!-- /.timeline -->
-
+<div style="height: 30px;"></div>
     </section>
         </div>
 <!-- /.card -->
@@ -133,37 +216,24 @@ $(document).ready(function()
 });
 
 $(function () {
-    $('button').on('click', function (e){
-      
-      console.log(status);
-      console.log(configId);
-      Swal.fire({
-      title: 'Do you want to save the changes?',
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: `Save`,
-      denyButtonText: `Don't save`,
-      }).then((result) => {
-      if (result.isConfirmed) {
-        // $.ajax({
-        //   headers: {
-        //   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        //   type: "GET",
-        //   dataType: "json",
-        //   url: '{{ route('configuration.update.status') }}',
-        //   data: {'status': status, 'config_id': configId},
-        //   success:function(response){
-        //     Swal.fire('Saved!', '', 'success');
-        //     console.log(response);
-        //     // location.reload(true);
-        // }
-      // })
-      } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
-        location.reload(true);
-        e.preventDefault();
-      }
-  })
+    $('form#configForm').on('submit', function (e){
+
+      // Swal.fire({
+      //   title: 'Do you want to save the changes?',
+      //   showDenyButton: true,
+      //   showCancelButton: false,
+      //   confirmButtonText: `Save`,
+      //   denyButtonText: `Don't save`,
+      // }).then((result) => {
+      //   if (result.isConfirmed) {
+          
+      //   } else if (result.isDenied) {
+      //     Swal.fire('Changes are not saved', '', 'info')
+      //     location.reload(true);
+      //     e.preventDefault();
+      //   }
+      // });
+      // return false;
   })
 });
 

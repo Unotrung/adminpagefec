@@ -1,6 +1,14 @@
 <!-- caredit.blade.php  -->
 <!--  -->
 @extends('layouts.app')
+
+<style>
+  .box-info{
+    border: 1px solid #dee2e6;
+    padding: 20px 25px;
+  }
+</style>
+
 @section('title', 'BNPL')
 @section('content_header')
 <div class="row mb-2">
@@ -37,7 +45,7 @@ $config = [
       <div class="row">
         <div class="col-6">
           <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Information</label>
-          <div class="card" style="background-color: #A9A9A9" >
+          <div class="card box-info" >
             <div class="col-sm-8">
               <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$bnpl["name"]}}</div>
             </div>
@@ -52,7 +60,7 @@ $config = [
             </div>
           </div>
           <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
-          <div class="card" style="background-color: #A9A9A9;min-height: 212px;text-align: center;padding: 70px 0" >
+          <div class="card box-info" >
             {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
               <p><i class="fa fa-info-circle" aria-hidden="true"></i>To be updated</p>
             {{-- </div> --}}
@@ -60,7 +68,7 @@ $config = [
         </div>
         <div class="col-6" style="">
           <label for="inputPassword3" class="col-sm-4 col-form-label">Other Information</label>
-          <div class="card" style="background-color: #A9A9A9">
+          <div class="card box-info" >
             
             <div class="col-sm-12">
               <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">NID:</label>{{$bnpl["citizenId"]}}</div>
@@ -116,58 +124,58 @@ $config = [
         @endif
     </div>
     <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
-      <section class="content" style="overflow:auto; height:400px;">
+      <section class="content" style="margin-top:30px">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              @if(!empty($bnpl))
-              <div class="timeline">
-        
-                <div class="time-label">
-                  <span class="bg-yellow">23/04/2022</span>
-                </div>
+            <div class="row">
+              <div class="col-md-12">
+                @if(!empty($bnpl))
+                <div class="timeline">
+          
+                  <div class="time-label">
+                    <span class="bg-yellow">23/04/2022</span>
+                  </div>
 
 
-                <div>
-                  <i class="fa fa-spinner"></i>
-                    <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 13:15</span>
-                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is waiting for e-KYC process.</h3>
-                    </div>
-                </div>
+                  <div>
+                    <i class="fa fa-spinner"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fas fa-clock"></i> 13:15</span>
+                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is waiting for e-KYC process.</h3>
+                      </div>
+                  </div>
 
-                <div>
-                  <i class="fas fa-signature"></i>
-                    <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 13:00</span>
-                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is in e-KYC checking.</h3>
-                    </div>
-                </div>
+                  <div>
+                    <i class="fas fa-signature"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fas fa-clock"></i> 13:00</span>
+                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is in e-KYC checking.</h3>
+                      </div>
+                  </div>
 
-                <div>
-                  <i class="fa fa-registered bg-yellow"></i>
-                    <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 12:45</span>
-                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User starts the registration process.</h3>
-                    </div>
-                </div>
+                  <div>
+                    <i class="fa fa-registered bg-yellow"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fas fa-clock"></i> 12:45</span>
+                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User starts the registration process.</h3>
+                      </div>
+                  </div>
 
-                <div>
-                  <i class="fa fa-plus bg-green"></i>
-                    <div class="timeline-item">
-                      <span class="time"><i class="fas fa-clock"></i> 12:40</span>
-                      <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is created.</h3>
-                    </div>
-                </div>
+                  <div>
+                    <i class="fa fa-plus bg-green"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fas fa-clock"></i> 12:40</span>
+                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is created.</h3>
+                      </div>
+                  </div>
 
-                <div>
-                <i class="fas fa-clock bg-gray"></i>
+                  <div>
+                  <i class="fas fa-clock bg-gray"></i>
+                  </div>
                 </div>
+                @endif
               </div>
-              @endif
+          
             </div>
-        
-          </div>
         </div>
         
         </section>

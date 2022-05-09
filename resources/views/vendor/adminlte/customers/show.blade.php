@@ -1,6 +1,15 @@
 <!-- caredit.blade.php  -->
 <!--  -->
+
 @extends('layouts.app')
+
+<style>
+  .box-info{
+    border: 1px solid #dee2e6;
+    padding: 20px 25px;
+  }
+</style>
+
 @section('title', 'Customer')
 @section('content_header')
 
@@ -151,9 +160,9 @@ $config = [
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Phone:</label>{{$cus["phone"]}}</div>
               </div>
 
-              <div class="col-sm-8">
+              {{-- <div class="col-sm-8">
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Resent OTP:</label><button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success">Send OTP</button></div>
-              </div>
+              </div> --}}
             
               {{-- <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
               <div class="col-sm-10">
@@ -219,22 +228,22 @@ $config = [
         <div class="row">
           <div class="col-6">
             <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Information</label>
-            <div class="card" style="background-color: #A9A9A9">
+            <div class="card box-info">
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$bnpl_info["name"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Name:</label>{{$bnpl_info["name"]}}</div>
               </div>
             
               
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Phone:</label>{{$bnpl_info["phone"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Phone:</label>{{$bnpl_info["phone"]}}</div>
               </div>
 
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">FICO:</label>50,000,000 VND</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Limit Credit:</label>--------- VND</div>
               </div>
             </div>
             <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
-            <div class="card" style="background-color: #A9A9A9;min-height: 212px;text-align: center;padding: 70px 0" >
+            <div class="card box-info" style="text-align: center;padding: 70px 0" >
               {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
                 <p><i class="fa fa-info-circle" aria-hidden="true"></i>To be updated</p>
               {{-- </div> --}}
@@ -242,7 +251,7 @@ $config = [
           </div>
           <div class="col-6" style="">
             <label for="inputPassword3" class="col-sm-4 col-form-label">Other Information</label>
-            <div class="card" style="background-color: #A9A9A9">
+            <div class="card box-info" >
               
               <div class="col-sm-12">
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">NID:</label>{{$bnpl_info["citizenId"]}}</div>
@@ -304,7 +313,7 @@ $config = [
         @endif
       </div>
       <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
-        <section class="content" style="overflow:auto; height:400px;">
+        <section class="content" style="margin-top:30px">
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
