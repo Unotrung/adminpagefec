@@ -20,6 +20,7 @@
 @stop
 
 @section('content')
+<<<<<<< HEAD
 @php
 use App\Models\Configuration;
     $config = Configuration::All();
@@ -27,6 +28,8 @@ use App\Models\Configuration;
     $configcen = $config[0]->center;
     $configdep = $config[0]->department;
 @endphp
+=======
+>>>>>>> 77f22dd9593902971a703dd33ef42ec543de490e
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -52,17 +55,11 @@ use App\Models\Configuration;
               <!-- /.card-body -->
 
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-3 col-form-label">Email:</label>{{Auth::user()->email}}</div>
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Email:</label>{{Auth::user()->email}}</div>
               </div>
 
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-5 col-form-label">Department:</label>IT Department</div>
-              </div>
-              <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-5 col-form-label">Center:</label>IT Center</div>
-              </div>
-              <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-5 col-form-label">Division:</label>IT</div>
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Department:</label>{{Auth::user()->department}}</div>
               </div>
 
             </div>
@@ -153,19 +150,13 @@ use App\Models\Configuration;
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
+                          <input type="email" class="form-control" id="inputName" placeholder="Name" value="{{Auth::user()->name}}" name="name">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                          <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{Auth::user()->email}}" name="email">
                         </div>
                       </div>
 

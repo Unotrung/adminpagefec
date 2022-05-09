@@ -153,9 +153,7 @@ class RolesController extends Controller
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-        $out =  DataTables::of(Role::whereNull("is_delete", function($query){
-            $query->Where('name','!=', 'super admin');
-        })->get())->make(true);
+        $out =  DataTables::of(Role::whereNull("is_delete")->Where('name','!=', 'super admin')->get())->make(true);
            $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
             $output = '';
