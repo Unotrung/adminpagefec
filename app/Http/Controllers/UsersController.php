@@ -181,6 +181,7 @@ class UsersController extends Controller
                 if(empty($request->status)){
                     $user = User::whereNull('delete_at');
                 }
+
                 if(!empty($request->type))
                 {
                     if($request->type != "role"){
@@ -189,7 +190,7 @@ class UsersController extends Controller
                     else{
                         $data = $request->input;
                         $user->whereHas('roles', function ($query) use ($data) {
-                            return $query->where('name',"==", $data."%");
+                            return $query->where('name',"like", $data."%");
                         });
                     }
                 }else{
@@ -197,8 +198,9 @@ class UsersController extends Controller
                     //     return $query->where('name','!=', 'super admin');
                     // });
                 }
-                
                 $out =  Datatables::of($user->get())->make(true);
+                // print($out);
+                // exit;
                 $data = $out->getData();   
                 for($i=0; $i < count($data->data); $i++) {
                     $roles = new Role;

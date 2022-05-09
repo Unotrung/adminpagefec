@@ -153,20 +153,20 @@
                   <div class="tab-pane" id="settings">
                     <form class="form-horizontal">
                       <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                        <label for="inputName" class="col-sm-2 col-form-label">Name<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name" value="{{Auth::user()->name}}" name="name">
+                          <input type="" class="form-control" id="inputName" placeholder="Name" value="{{Auth::user()->name}}" name="name" required>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                           <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{Auth::user()->email}}" name="email">
                         </div>
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Division</label>
+                        <label for="inputName2" class="col-sm-2 col-form-label">Division<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                           <select id="user" class="form-control" name="division">
                             <option value="" selected="">{{Auth::user()->division}}</option>																			
@@ -180,7 +180,7 @@
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Center</label>
+                        <label for="inputName2" class="col-sm-2 col-form-label">Center<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                           <select id="user" class="form-control" name="center">
                             <option value="" selected="">{{Auth::user()->center}}</option>																			
@@ -194,7 +194,7 @@
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Department</label>
+                        <label for="inputName2" class="col-sm-2 col-form-label">Department<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                           <select id="user" class="form-control" name="department">
                             <option value="" selected="">{{Auth::user()->department}}</option>																			
@@ -207,20 +207,6 @@
                         </div>
                       </div>
 
-                      
-
-                      
-
-
-                      {{-- <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <div class="checkbox">
-                            <label>
-                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                            </label>
-                          </div>
-                        </div>
-                      </div> --}}
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-danger">Submit</button>
