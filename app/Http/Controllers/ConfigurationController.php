@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Configuration;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
+use Mail;
+use App\Mail\EmailTemplate;
 
 class ConfigurationController extends Controller
 {
@@ -18,8 +20,12 @@ class ConfigurationController extends Controller
         $activeRow = Configuration::where("is_used",1)->first();
         $approvalUser = User::where("_id",$activeRow->approval_acc)->first();
 
-        $config = Http::get(env("API_PARTNER").'/v1/config/');
-        $response = $config->body();
+        try{
+            $config = Http::get(env("API_PARTNER").'/v1/config/');
+            $response = $config->body();
+        }catch(e){
+            $response = "";
+        }
 
 
         return view("vendor.adminlte.configuration.index",["other"=>$other,"approvalUser"=>$approvalUser])->with('config',json_decode($response)->data);
@@ -57,6 +63,7 @@ class ConfigurationController extends Controller
             $config->status = 0;//waiting for approval
             $config->is_used = 0;//apply
             $config->save();
+            $this->html_mail($request->appproval_email);
         }
         return redirect()->route("configuration.index")->with('Update config successfully');
     }
@@ -87,5 +94,22 @@ class ConfigurationController extends Controller
             }
         }
         return false;
+    }
+
+    public function html_mail($email=null)
+    {
+        $info = array(
+            'name' => "Voolo"
+        );
+        $data = array('email'=>$email,'name'=>"info");
+
+        Mail::send(['data' => $data], $info, function ($message) use ($data)
+        {
+            $message->to($data['email']) 
+                ->subject('Waiting for approval configuration voolo.vn');
+                $message->setBody('Pls click link '.url(route("configuration.index")).' to approve/reject configuration.' );
+            $message->from('info@voolo.vn', 'Voolo');
+        });
+        echo "Successfully sent the email";
     }
 }
