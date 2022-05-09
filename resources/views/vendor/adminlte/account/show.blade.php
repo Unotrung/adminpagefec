@@ -20,7 +20,13 @@
 @stop
 
 @section('content')
-
+@php
+use App\Models\Configuration;
+    $config = Configuration::All();
+    $configdiv = $config[0]->division;
+    $configcen = $config[0]->center;
+    $configdep = $config[0]->department;
+@endphp
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">

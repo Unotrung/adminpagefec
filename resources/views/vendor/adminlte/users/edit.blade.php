@@ -54,7 +54,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<div class="card">
 	  <div class="card-header p-2">
 		<ul class="nav nav-tabs" id='myTab'>
-		  <li  class="active" ><a class="nav-link " href="#activity" data-toggle="tab" id="user_tab">User</a></li>
+		  <li><a class="nav-link active" href="#activity" data-toggle="tab" id="user_tab">User</a></li>
 		  <li><a class="nav-link" href="#settings" data-toggle="tab" id="role_tab">Role</a></li>
 		</ul>
 	  </div><!-- /.card-header -->
@@ -62,10 +62,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<div class="tab-content">
 		  <div class=" tab-pane active" id="activity">
 			<div class="card shadow mb-4">
-				<div class="card-header py-3">
-					<h6 class="m-0 font-weight-bold text-primary">
-						
-					</h6> </div>
 				<div class="card-body">
 					<form method="POST" action="{{route('users.update')}}"> 
 						@csrf
@@ -77,14 +73,36 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
-							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Department: </label>
-								<select id="user" class="form-control" name="department">
-									<option value="" selected="">Select Department</option>																			
-									<option value="Division">Division</option>
-									<option value="Department">Department</option>
-									<option value="Center">Center</option>
+							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Division: </label>
+								<select id="user" class="form-control" name="division">
+									<option value="" selected="">{{$user->division}}</option>																			
+									@foreach (explode(';',$configdiv) as $configsdiv)		
+									@if($configsdiv!=$user->division)																	 --}}
+										<option value="{{$configsdiv}}">{{$configsdiv}}</option>
+									@endif
+						@endforeach
+								</select>
+							</span>  </div> 
+							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Center: </label>
+								<select id="user" class="form-control" name="center">
+									<option value="" selected="">{{$user->center}}</option>																		
+									@foreach (explode(';',$configcen) as $configscen)		
+									@if($configscen != $user->center)									
+										<option value="{{$configscen}}">{{$configscen}}</option>
+									@endif
+									@endforeach
 								</select>
 							</span>  </div> {{-- Confirm Password --}}
+							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Department: </label>
+								<select id="user" class="form-control" name="department">
+									<option value="" selected="">{{$user->department}}</option>
+									@foreach (explode(';',$configdep) as $configsdep)		
+									@if($configsdep!=$user->department)																	 --}}
+									<option value="{{$configsdep}}">{{$configsdep}}</option>
+									@endif
+									@endforeach
+								</select>
+							</span>  </div> 
 						</div>
 						<div id="admin">
 							<h6><b>Admin's Permissions Set Up</b></h6>

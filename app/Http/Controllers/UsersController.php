@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Configuration;
 use DataTables;
 use App\Models\Permission;
 use Session;
@@ -47,9 +48,13 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $config = Configuration::All();
+        $configdiv = $config[0]->division;
+        $configcen = $config[0]->center;
+        $configdep = $config[0]->department;
         $roles = Role::All()->where('name','!=', 'super admin');
         $permissions = Permission::All();
-        return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles, 'permissions'=>$permissions]);
+        return view('vendor.adminlte.users.edit',['user'=> $user, 'roles'=>$roles, 'permissions'=>$permissions,'configdiv'=>$configdiv,'configcen'=>$configcen,'configdep'=>$configdep]);
     }
 
     public function assign( Request $request ){
@@ -61,8 +66,14 @@ class UsersController extends Controller
     public function create()
     {
         // $roles = Role::All();
+        $config = Configuration::All();
+        $configdiv = $config[0]->division;
+        $configcen = $config[0]->center;
+        $configdep = $config[0]->department;
+        // print_r($config);
+        // exit;
         $roles = Role::All()->where('is_delete','==', null);
-        return view('vendor.adminlte.users.create',['roles'=>$roles]);
+        return view('vendor.adminlte.users.create',['roles'=>$roles,'configdiv'=>$configdiv,'configcen'=>$configcen,'configdep'=>$configdep]);
     }
 
     public function store(Request $request)
@@ -207,7 +218,7 @@ class UsersController extends Controller
                             $data->data[$i]->delete_at = "";
                             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                             if(Auth::user()->can('users-update')){
-                            $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'#settings" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                            $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'#activity" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                             }
                             if(Auth::user()->can('users-delete')){
                             $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
