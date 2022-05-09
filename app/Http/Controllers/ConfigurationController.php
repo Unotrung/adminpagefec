@@ -8,9 +8,16 @@ use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use Mail;
 use App\Mail\EmailTemplate;
+use Auth;
 
 class ConfigurationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
         $other = Configuration::where("status",0)->orderBy("created_at","desc")->first();
