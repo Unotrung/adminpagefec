@@ -239,7 +239,7 @@ $config = [
               </div>
 
               <div class="col-sm-8">
-                <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Limit Credit:</label>--------- VND</div>
+                <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Limit Credit:</label>50,000,000 VND</div>
               </div>
             </div>
             <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>

@@ -17,6 +17,11 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  {{-- Style forr toast  --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" 
+     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   
 @stop
 @php
@@ -309,14 +314,39 @@ $(document).ready(function(){
     if($('#reservation').val() === ""){ 
       return false;
     }
-    $('#classDatatable').show(); 
+    // $('#classDatatable').show(); 
       var username = $('#name').val();
       var email = $('#email').val();
       var phone = $('#phone').val();
       var citizenId = $('#nid').val();
-      
-      $('#example1').DataTable().destroy();
-      fill_datatable(username,email,action="search",phone,citizenId);
+      if( name == '' && phone == '' && citizenId == '' && email == '' )
+      {
+        toastr["error"]("Please input data to search!")
+        toastr.options = {
+          "closeButton": false,
+          "debug": true,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+      }
+      else
+      {
+        $('#classDatatable').show();
+        $('#example1').DataTable().destroy();
+        fill_datatable(username,email,action="search",phone,citizenId);
+      }
+     
   });
 
   $('#reset').click(function(){ 

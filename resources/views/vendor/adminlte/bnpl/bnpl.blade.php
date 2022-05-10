@@ -1,7 +1,7 @@
 
 
 @extends('layouts.app')
-@section('title', 'Dashboard')
+@section('title', 'BNPL Registrations')
 @section('css')
 
 
@@ -332,33 +332,33 @@ $(document).ready(function(){
       var phone = $('#phone').val();
       var reservation = $('#reservation').val();
       var citizenId = $('#nid').val();
-      if( name == '' && phone == '' && reservation == '' && citizenId == ''  )
-    {
-      toastr["error"]("Please input data to search!")
-      toastr.options = {
-        "closeButton": false,
-        "debug": true,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
+      if( name == '' && phone == '' && citizenId == ''  )
+      {
+        toastr["error"]("Please input data to search!")
+        toastr.options = {
+          "closeButton": false,
+          "debug": true,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
       }
-    }
-    else
-    {
-      $('#classDatatable').show();
-      $('#example1').DataTable().destroy();
-      fill_datatable(name,action="search",phone,reservation,citizenId);
-    }
+      else
+      {
+        $('#classDatatable').show();
+        $('#example1').DataTable().destroy();
+        fill_datatable(name,action="search",phone,reservation,citizenId);
+      }
   });
 
   $('#reset').click(function(){
