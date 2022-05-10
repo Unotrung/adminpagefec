@@ -16,7 +16,10 @@
   <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="../../plugins/bs-stepper/css/bs-stepper.min.css">
   {{-- Style forr toast  --}}
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" 
+     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @stop
 
 @section('content_header')
@@ -324,17 +327,42 @@ $(document).ready(function(){
 // });
 
   $('#filter').click(function(){
-    $('#classDatatable').show();
+    
       var name = $('#name').val();
       var phone = $('#phone').val();
       var reservation = $('#reservation').val();
       var citizenId = $('#nid').val();
+      if( name == '' && phone == '' && reservation == '' && citizenId == ''  )
+    {
+      toastr["error"]("Please input data to search!")
+      toastr.options = {
+        "closeButton": false,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
+    }
+    else
+    {
+      $('#classDatatable').show();
       $('#example1').DataTable().destroy();
       fill_datatable(name,action="search",phone,reservation,citizenId);
-      
+    }
   });
 
   $('#reset').click(function(){
+    $('#classDatatable').hide();
     $('#name').val('');
       $('#email').val('');
       $('#phone').val('');

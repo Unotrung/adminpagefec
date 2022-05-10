@@ -289,7 +289,7 @@ $config = [
           
               
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Reference Personal Title:</label>{{$bnpl_info["personal_title_ref"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Reference Relationship:</label>{{$bnpl_info["personal_title_ref"]}}</div>
               </div>
           
             

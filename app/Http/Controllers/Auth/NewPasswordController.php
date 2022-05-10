@@ -88,6 +88,6 @@ class NewPasswordController extends Controller
         $user->save();
         
         Alert::success('Success!!', 'Password changed successfully!!');
-        return redirect()->route('users');
+        return view('vendor.adminlte.account.show');
     }
 }

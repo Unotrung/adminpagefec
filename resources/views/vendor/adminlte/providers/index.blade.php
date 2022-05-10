@@ -17,13 +17,13 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-5">
-            <h1 class="m-0">Provider</h1>
-            <small class="text-muted"><cite title="Source Title">Providers listing</cite></small>
+            <h1 class="m-0">Providers</h1>
+            <small class="text-muted"><cite title="Source Title">Providers Listing</cite></small>
           </div><!-- /.col -->
           <div class="col-sm-5">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">Provider</li>
+              <li class="breadcrumb-item active">Providers</li>
             </ol>
           </div><!-- /.col -->
           @can('update')
