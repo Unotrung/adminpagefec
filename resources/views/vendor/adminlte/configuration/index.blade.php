@@ -140,8 +140,9 @@
                 {{-- <button type="submit" name="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
                   Save
                 </button> --}}
+                <input type="hidden" name="appproval_email" value="{{$approvalUser->email}}"/>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                  <div data-toggle="modal" data-target="#confirmModal" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Save</div>
+                  <div data-toggle="modal" data-target="#confirmModal" style="width:20%; margin:0 auto;" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Save</div>
                   <div class="modal" id="confirmModal">
                     <div class="modal-dialog">
                       <div class="modal-content">
