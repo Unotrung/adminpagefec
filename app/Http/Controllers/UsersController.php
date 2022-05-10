@@ -82,7 +82,11 @@ class UsersController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Rules\Password::min(10)->mixedCase()
+            ->numbers()
+            ->symbols()
+            ->uncompromised()],
             'department' =>['required' , 'string'],
             'role' =>['required'],
         ]);
