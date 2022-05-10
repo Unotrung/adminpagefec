@@ -26,7 +26,7 @@
             <h1 class="m-0">News</h1>
             <small class="text-muted"><cite title="Source Title">News listing</cite></small>
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          <div class="col-sm-7">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
               <li class="breadcrumb-item active">News</li>

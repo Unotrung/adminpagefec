@@ -22,7 +22,7 @@
             <h1 class="m-0">Promotions</h1>
             <small class="text-muted"><cite title="Source Title">Promotion Listing</cite></small>
           </div><!-- /.col -->
-          <div class="col-sm-5">
+          <div class="col-sm-7">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
               <li class="breadcrumb-item active">Promotions</li>

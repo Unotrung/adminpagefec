@@ -20,7 +20,7 @@
             <h1 class="m-0">Providers</h1>
             <small class="text-muted"><cite title="Source Title">Providers Listing</cite></small>
           </div><!-- /.col -->
-          <div class="col-sm-5">
+          <div class="col-sm-7">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
               <li class="breadcrumb-item active">Providers</li>
