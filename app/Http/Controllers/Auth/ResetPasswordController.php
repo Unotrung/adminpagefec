@@ -27,6 +27,7 @@ class ResetPasswordController extends Controller
      *
    
      */
+    
    
 
     protected $redirectTo = RouteServiceProvider::LOGIN;
@@ -35,4 +36,6 @@ class ResetPasswordController extends Controller
     //     Session::flash('status', 'Your password has been changed successfully!');
     //      return redirect('login');
     // }
+
+    
 }

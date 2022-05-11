@@ -41,8 +41,6 @@ class AccountController extends Controller
         {
             $login = "";
         }
-        print_r($login);
-        exit;
         return view('vendor.adminlte.account.show',["login"=>$login]);
     }
 

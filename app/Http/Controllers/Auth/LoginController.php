@@ -40,6 +40,15 @@ class LoginController extends Controller
         $this->middleware('web')->except('logout');
     }
 
+    public function credentials(Request $request)
+    {
+        return [
+            'email'     => $request->email,
+            'password'  => $request->password,
+            'delete_at' => null
+        ];
+
+    }
 
     protected function authenticated(Request $request, $user)
     {
