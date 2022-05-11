@@ -140,7 +140,7 @@ $config = [
                     <i class="fa fa-spinner"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 13:15</span>
-                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is waiting for e-KYC process.</h3>
+                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a>  is waiting for e-KYC process.</h3>
                       </div>
                   </div>
 
@@ -148,7 +148,7 @@ $config = [
                     <i class="fas fa-signature"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 13:00</span>
-                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is in e-KYC checking.</h3>
+                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a>  is in e-KYC checking.</h3>
                       </div>
                   </div>
 
@@ -156,7 +156,7 @@ $config = [
                     <i class="fa fa-registered bg-yellow"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 12:45</span>
-                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User starts the registration process.</h3>
+                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a>  starts the registration process.</h3>
                       </div>
                   </div>
 
@@ -164,7 +164,7 @@ $config = [
                     <i class="fa fa-plus bg-green"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 12:40</span>
-                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a> User is created.</h3>
+                        <h3 class="timeline-header no-border"><a href="#">{{$bnpl["name"]}}</a>  is created.</h3>
                       </div>
                   </div>
 

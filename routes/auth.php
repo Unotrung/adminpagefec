@@ -34,6 +34,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('update-password', [NewPasswordController::class, 'changePassword'])
                 ->name('password.edit');
+                
+    Route::get('update-password', function(){
+                    return view('vendor.adminlte.account.change');
+                });
 });
 
 Route::middleware('auth')->group(function () {

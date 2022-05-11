@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
+use Illuminate\Validation\ValidationException;
 
 
 class NewPasswordController extends Controller
@@ -71,23 +72,28 @@ class NewPasswordController extends Controller
     {
         
         $user = Auth::user();
-        if (!Hash::check($request->current_password, $user->password)) {
-            Alert::error('Error!!', 'Your current password is wrong!');
-            return back();
+        if (Hash::check($request->current_password, $user->password)) {
+            // Alert::error('Error!', 'Your current password is wrong!');
+            // return back();
+            $request->validate([
+                'current_password' => 'required',
+                'password' => ['required', 'confirmed', Rules\Password::min(10)->mixedCase()
+                  ->numbers()
+                  ->symbols()
+                  ->uncompromised()]
+              ]
+              ,[
+                  'current_password.required' => 'current_password is required'
+              ]);
+              $user->password = Hash::make($request->password);
+                $user->save();
+                
+                Alert::success('Success!!', 'Password changed successfully!!');
+                return redirect()->route('account.show');
         }
-
-        $request->validate([
-          'current_password' => 'required',
-          'password' => 'required|min:8|confirmed',
-        ]
-        ,[
-            'current_password.required' => 'current_password is required'
+        throw ValidationException::withMessages([
+            'current_password' => 'Wrong password',
         ]);
         
-        $user->password = Hash::make($request->password);
-        $user->save();
-        
-        Alert::success('Success!!', 'Password changed successfully!!');
-        return view('vendor.adminlte.account.show');
     }
 }

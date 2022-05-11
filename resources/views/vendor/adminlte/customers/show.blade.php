@@ -328,7 +328,7 @@ $config = [
                     <i class="fas fa-sign-out-alt bg-red"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged out. </h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> logged out. </h3>
                       </div>
                   </div>
           
@@ -337,7 +337,7 @@ $config = [
                     <i class="fas fa-sign-in-alt bg-green"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged in.</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> logged in.</h3>
                       </div>
                   </div>
           
@@ -349,7 +349,7 @@ $config = [
                     <i class="fas fa-sign-out-alt bg-red"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 17:30</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged out. </h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> logged out. </h3>
                       </div>
                   </div>
 
@@ -357,7 +357,7 @@ $config = [
                     <i class="fas fa-edit"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i>17:05</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User changed Information.</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a>changed Information.</h3>
                       </div>
                   </div>
 
@@ -365,7 +365,7 @@ $config = [
                     <i class="fas fa-sign-in-alt bg-green"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 17:00</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged in.</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> logged in.</h3>
                       </div>
                   </div>
 
@@ -377,7 +377,7 @@ $config = [
                     <i class="fas fa-sign-out-alt bg-red"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 13:50</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged out. </h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> logged out. </h3>
                       </div>
                   </div>
 
@@ -385,7 +385,7 @@ $config = [
                     <i class="fas fa-lock"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i>13:45</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User changed Password.</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> changed Password.</h3>
                       </div>
                   </div>
 
@@ -393,7 +393,7 @@ $config = [
                     <i class="fas fa-sign-in-alt bg-green"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i> 13:30</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> User logged in.</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> logged in.</h3>
                       </div>
                   </div>
 

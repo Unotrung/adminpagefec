@@ -166,14 +166,14 @@ class UsersController extends Controller
         $user->delete();
         $user->delete_at = 1;
         $user->save();
-        return redirect()->route('users')->with('delete','User Deleted Successfull');
+        return redirect()->route('users')->with('delete','User Deactive Successfull');
 
     }
 
     public function restore(Request $request)
     {
         $user = User::find($request->id);
-        $user->delete_at = "";
+        $user->delete_at = null;
         $user->save();
         return redirect()->route('users')->with('Update','User restore successfull');
     }

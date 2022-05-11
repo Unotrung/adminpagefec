@@ -93,7 +93,7 @@
             <div class="timeline">
               <!-- timeline time label -->
               <div class="time-label">
-                <span class="bg-red">10 Feb. 2014</span>
+                <span class="bg-red">11/5/2022</span>
               </div>
               <!-- /.timeline-label -->
               <!-- timeline item -->
@@ -102,7 +102,7 @@
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 12:05</span>
                   {{-- <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} is logout </h3> --}}
-                  <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} is logout </h3>
+                  <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} logged out </h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -110,8 +110,8 @@
               <div>
                 <i class="fas fa-upload bg-green"></i>
                 <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} has update password</h3>
+                  <span class="time"><i class="fas fa-clock"></i> 12:00</span>
+                  <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} changed password</h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -119,8 +119,8 @@
               <div>
                 <i class="fas fa-user-check bg-green"></i>
                 <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 3 mins ago</span>
-                  <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} has update information</h3>
+                  <span class="time"><i class="fas fa-clock"></i>11:50</span>
+                  <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} updated information</h3>
                 </div>
               </div>
               <!-- END timeline item -->
@@ -128,8 +128,8 @@
               <div>
                 <i class="fas fa-sign-in-alt bg-blue"></i>
                 <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
-                  <h3 class="timeline-header"><a href="#"></a>{{ Auth::user()->name }} is login</h3>
+                  <span class="time"><i class="fas fa-clock"></i> 11:40</span>
+                  <h3 class="timeline-header"><a href="#"></a>{{ Auth::user()->name }} logged in</h3>
                   <div class="timeline-body">
                     Welcome back 
                   </div>
@@ -151,7 +151,7 @@
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane" id="settings">
-                    <form class="form-horizontal" method="POST" action="{{route('users.update')}}"> 
+                    <form class="form-horizontal" method="POST" action="{{route('account.update')}}"> 
                       @csrf
                       <input type="hidden" name="id" value="{{Auth::user()->id}}">
                       <div class="form-group row">
@@ -171,7 +171,7 @@
                         <label for="inputName2" class="col-sm-2 col-form-label">Division<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                           <select id="user" class="form-control" name="division">
-                            <option value="" selected="">{{Auth::user()->division}}</option>																			
+                            <option value="{{Auth::user()->division}}" selected="">{{Auth::user()->division}}</option>																			
                             @foreach (explode(';',$configdiv) as $configsdiv)		
                             @if($configsdiv!=Auth::user()->division)	
                               <option value="{{$configsdiv}}">{{$configsdiv}}</option>
@@ -185,7 +185,7 @@
                         <label for="inputName2" class="col-sm-2 col-form-label">Center<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                           <select id="user" class="form-control" name="center">
-                            <option value="" selected="">{{Auth::user()->center}}</option>																			
+                            <option value="{{Auth::user()->center}}" selected="">{{Auth::user()->center}}</option>																			
                             @foreach (explode(';',$configcen) as $configscen)		
                             @if($configscen!=Auth::user()->center)	
                               <option value="{{$configscen}}">{{$configscen}}</option>
@@ -199,7 +199,7 @@
                         <label for="inputName2" class="col-sm-2 col-form-label">Department<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
                           <select id="user" class="form-control" name="department">
-                            <option value="" selected="">{{Auth::user()->department}}</option>																			
+                            <option value="{{Auth::user()->department}}" selected="">{{Auth::user()->department}}</option>																			
                               @foreach (explode(';',$configdep) as $configsdep)		
                               @if($configsdep!=Auth::user()->department)	
                                 <option value="{{$configsdep}}">{{$configsdep}}</option>
@@ -210,7 +210,7 @@
                       </div>
 
                       <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
+                        <div class="offset-sm-5 col-sm-10">
                           <div data-toggle="modal" data-target="#confirmModal" class="btn btn-danger btn-user btn-block" style="width: 20%" onClick="btnSubmit(this.value)">Submit </div>
                             <div class="modal" id="confirmModal">
                               <div class="modal-dialog">

@@ -322,7 +322,7 @@ $(document).ready(function(){
       var email = $('#email').val();
       var phone = $('#phone').val();
       var citizenId = $('#nid').val();
-      if( name == '' && phone == '' && citizenId == '' && email == '' )
+      if( username == '' && phone == '' && citizenId == '' && email == '' )
       {
         toastr["error"]("Please input data to search!")
         toastr.options = {

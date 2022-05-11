@@ -43,9 +43,9 @@
 
                 <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror" type="password" name="current_password" />
                 <span class="invalid-feedback" role="alert">
-                  {{-- @error('password')
+                  @error('current_password')
                   <strong>{{ "Current password is not correct" }}</strong>
-                  @enderror --}}
+                  @enderror
                 </span>
               </div>
               
@@ -92,6 +92,7 @@
 @section('js')
 <script>
 $(document).ready(function(){
+  /*
   $('#current_password').on('change',function(){
     var current_password = $('#current_password').val();
     console.log('current_password is ' +  current_password);
@@ -125,11 +126,13 @@ $(document).ready(function(){
     else
     {
       uppercase = hasLowerCase(password);
+      console.log(uppercase);
       number = stringContainsNumber(password);
-      if(current_password == password)
-      {
-        document.getElementById("demo").innerHTML = "Password matches old password ";
-      }
+      console.log(number);
+        if(current_password == password)
+        {
+          document.getElementById("demo").innerHTML = "Password matches old password ";
+        }
         else if((password.length<8 && password.length>0)&&((uppercase == false && number == false)))
         {
           document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 uppercase character and 1 number.";
@@ -146,25 +149,29 @@ $(document).ready(function(){
         {
           document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters";
         }
-        else if((password.length>8)&&((uppercase == false && number == false)))
+        else if((password.length>=8)&&((uppercase == false && number == false)))
         {
           document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 uppercase character and 1 number.";
         }
-        else if((password.length>8)&&((uppercase == true && number == false)))
+        else if((password.length>=8)&&((uppercase == true && number == false)))
         {
           document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 number";
         }
-        else if((password.length>8)&&((uppercase == false && number == true)))
+        else if((password.length>=8)&&((uppercase == false && number == true)))
         {
           document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 uppercase character";
         }
-        else
+        else if(current_password != password)
         {
-          document.getElementById("check_length").innerHTML = "";
+          document.getElementById("demo").innerHTML = " ";
         }
-      
+        else if((password.length>=8)&&((uppercase == true && number == true)))
+        {
+          document.getElementById("check_length").innerHTML = " ";
+        }
     }
   })
+  */
 });
 
 </script>

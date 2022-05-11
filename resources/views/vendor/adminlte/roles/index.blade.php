@@ -104,6 +104,7 @@
 <!-- Page specific script -->
 <script>
 var editor;
+$('[data-toggle="tooltip"]').tooltip();
   $(function () {
     $("#example1").DataTable({
       processing: true,

@@ -60,6 +60,14 @@
                                     @endif
                             </tr>
                             <tr>
+                                <td>Division:</td>
+                                <td>{{ $user->division }}</td>
+                            </tr>
+                            <tr>
+                                <td>Center:</td>
+                                <td>{{ $user->center }}</td>
+                            </tr>
+                            <tr>
                                 <td>Department:</td>
                                 <td>{{ $user->department }}</td>
                             </tr>

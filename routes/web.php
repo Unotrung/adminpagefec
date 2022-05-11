@@ -230,6 +230,11 @@ Route::get('sendhtmlmail','App\Http\Controllers\MailController@html_mail');
 Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_email');
 Route::get('sendemail','App\Http\Controllers\MailController@mailTemplate')->name('sendemail');
 
+
+//Account
+Route::post('/account/update', [App\Http\Controllers\AccountController::class,'update'])->name('account.update');
+Route::get('/account/show', [App\Http\Controllers\AccountController::class,'show'])->name('account.show');
+
 //Modules
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {
     Route::group(['middleware' => ['permission:modules-update']], function () {
