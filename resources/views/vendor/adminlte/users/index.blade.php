@@ -171,6 +171,7 @@
 <script>
 $(document).ready(function(){
   fill_datatable();
+  $('[data-toggle="tooltip"]').tooltip();
   $('#reservation').daterangepicker().val('');
   function fill_datatable(input,type,status)
   {

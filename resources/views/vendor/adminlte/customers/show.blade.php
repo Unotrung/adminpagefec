@@ -145,7 +145,7 @@ $config = [
             <div class="form-group row">
               
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$cus["username"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Name:</label>{{$cus["username"]}}</div>
               </div>
 
               {{-- <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
@@ -153,11 +153,11 @@ $config = [
               <div class="col-md-10 fvalue">{{$cus["username"]}}</div>
               </div> --}}
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Email:</label>{{$cus["email"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Email:</label>{{$cus["email"]}}</div>
               </div>
               
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Phone:</label>{{$cus["phone"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>{{$cus["phone"]}}</div>
               </div>
 
               {{-- <div class="col-sm-8">
@@ -239,7 +239,7 @@ $config = [
               </div>
 
               <div class="col-sm-8">
-                <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Limit Credit:</label>50,000,000 VND</div>
+                <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>50,000,000 VND</div>
               </div>
             </div>
             <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>

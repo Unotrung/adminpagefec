@@ -263,21 +263,21 @@ $(document).ready(function(){
                   data:'username',
                   name:'EAP Username',
                   render: function ( data, type, row ) {
-                    return (data!==undefined)?data:"NaN";
+                    return (data!==undefined)?data:"N/a";
                   }
               },
               {
                   data:'email',
                   name:'Email',
                   render: function ( data, type, row ) {
-                    return (data!==undefined)?data:"NaN";
+                    return (data!==undefined)?data:"N/a";
                   }
               },
               {
                   data:'urlphone',
                   name:'Phone',
                   render: function ( data, type, row ) {
-                    return (data!==undefined)?data:"NaN";
+                    return (data!==undefined)?data:"N/a";
                   }
               },
               {
@@ -294,7 +294,7 @@ $(document).ready(function(){
                     }
                     else
                     {
-                      return "NaN";
+                      return "N/a";
                     }
                   }
               },

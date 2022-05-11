@@ -151,7 +151,9 @@
                   <!-- /.tab-pane -->
 
                   <div class="tab-pane" id="settings">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" method="POST" action="{{route('users.update')}}"> 
+                      @csrf
+                      <input type="hidden" name="id" value="{{Auth::user()->id}}">
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
@@ -209,7 +211,23 @@
 
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
+                          <div data-toggle="modal" data-target="#confirmModal" class="btn btn-danger btn-user btn-block" style="width: 20%" onClick="btnSubmit(this.value)">Submit </div>
+                            <div class="modal" id="confirmModal">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Do you want to submit? </h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-danger">Yes</button>
+                                  <button type="button" class="btn" data-dismiss="modal">No</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                       </div>
                     </form>
