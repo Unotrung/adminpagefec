@@ -48,9 +48,14 @@
             
             @error('password')
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ 'Please Enter New Password' }}</strong>
+                    <strong>{{ $message }}</strong>
                 </span>
             @enderror
+            {{-- @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ 'Please Enter New Password' }}</strong>
+                </span>
+            @enderror --}}
             
         </div>
         <p class="text-danger" id="check_length"></p>

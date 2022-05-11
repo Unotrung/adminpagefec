@@ -258,26 +258,26 @@ return [
             'can'  => ['admin-access','bnpl-view'],
             'icon' => 'nav-icon fas fa-solid fa-id-card',
         ],
-        [
-            'text'    => 'Notifications',
-            'can'     => ['website-access','admin-access','notifications-view'],
-            'icon'    => 'nav-icon fas fa-solid fa-bell',
-            'submenu' => [
-                [
-                    'text' => 'Notifications List',
-                    'url'  => 'notifications/index',
-                    // 'icon' => 'nav-icon fa-solid fa-list',
-                ],
-                // [
-                //     'text' => 'Notifications Push',
-                //     'url'  => 'notificationspush/index',
-                // ],
-                // [
-                //     'text' => 'Notifications Tracking',
-                //     'url'  => 'notificationstracking/index',
-                // ],
-            ],
-        ],
+        // [
+        //     'text'    => 'Notifications',
+        //     'can'     => ['website-access','admin-access','notifications-view'],
+        //     'icon'    => 'nav-icon fas fa-solid fa-bell',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Notifications List',
+        //             'url'  => 'notifications/index',
+        //             // 'icon' => 'nav-icon fa-solid fa-list',
+        //         ],
+        //         // [
+        //         //     'text' => 'Notifications Push',
+        //         //     'url'  => 'notificationspush/index',
+        //         // ],
+        //         // [
+        //         //     'text' => 'Notifications Tracking',
+        //         //     'url'  => 'notificationstracking/index',
+        //         // ],
+        //     ],
+        // ],
         /*
         [
             'text' => 'News',

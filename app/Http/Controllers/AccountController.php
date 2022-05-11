@@ -33,7 +33,17 @@ class AccountController extends Controller
 
     public function show()
     {
-        return view('vendor.adminlte.account.show');
+        if (Auth::check())
+        {
+            $login = 1;
+        }
+        else
+        {
+            $login = "";
+        }
+        print_r($login);
+        exit;
+        return view('vendor.adminlte.account.show',["login"=>$login]);
     }
 
     public function update(Request $request)

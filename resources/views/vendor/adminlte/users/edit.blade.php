@@ -119,8 +119,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 								@endforeach
 			
 						</div>
-						<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-							<div data-toggle="modal" data-target="#confirmModal" class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)">Update </div>
+						{{-- <div class="col-xs-12 col-sm-12 col-md-12 text-center"> --}}
+							<div data-toggle="modal" data-target="#confirmModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;" onClick="btnSubmit(this.value)">Update </div>
 							<div class="modal" id="confirmModal">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -137,7 +137,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 									</div>
 							</div>
 							</div>
-						</div>
+						{{-- </div> --}}
 					</form>
 				</div>
 			</div>

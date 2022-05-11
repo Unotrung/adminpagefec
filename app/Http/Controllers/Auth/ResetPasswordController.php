@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
@@ -29,4 +30,9 @@ class ResetPasswordController extends Controller
    
 
     protected $redirectTo = RouteServiceProvider::LOGIN;
+    // public function redirectTo() 
+    // {
+    //     Session::flash('status', 'Your password has been changed successfully!');
+    //      return redirect('login');
+    // }
 }

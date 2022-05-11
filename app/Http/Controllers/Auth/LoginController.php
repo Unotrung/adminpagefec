@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -36,5 +38,17 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('web')->except('logout');
+    }
+
+
+    protected function authenticated(Request $request, $user)
+    {
+        $date = Carbon::now()->setTimezone('Asia/Bangkok');
+        $date->toArray();
+        $user->authenticated_at = $date->toTimeString();
+
+        $user->save();
+
+        return redirect()->intended($this->redirectPath());
     }
 }
