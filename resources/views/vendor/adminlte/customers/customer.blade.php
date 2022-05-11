@@ -84,11 +84,13 @@
                 <div class="searchadvance target" style="">
                   <div class="row" style="margin-bottom: 20px;"> 
                   <div class="col-4">
+                    <label>&nbsp;</label>
                     <div class="input-group input-group-md">
                       <input type="text" class="form-control form-control-user" id="nid" placeholder="NID" name="nid" value="" style="">
                     </div>
                   </div>
                   <div class="col-4">
+                    <label>Created from:</label>
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
                       <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
@@ -97,6 +99,7 @@
                     </div>
                   </div>
                   <div class="col-4">
+                    <label>Created to:</label>
                     <div class="input-group date" id="reservationdateto" data-target-input="nearest">
                       <input type="text" class="form-control datetimepicker-input" data-target="#reservationdateto"/>
                       <div class="input-group-append" data-target="#reservationdateto" data-toggle="datetimepicker">

@@ -278,6 +278,7 @@ return [
                 // ],
             ],
         ],
+        /*
         [
             'text' => 'News',
             'url'  => 'news/index',
@@ -302,6 +303,7 @@ return [
             'can'  => ['website-access','admin-access','faqs-view'],
             'icon' => 'nav-icon fas fa-comments',
         ],
+        */
         [
             'text'    => 'Settings',
             'icon'    => 'fas fa-cog',
@@ -310,6 +312,7 @@ return [
                 [
                     'text' => 'Users',
                     'url'  => 'users',
+                    'can'     => 'users-view',
                 ],
 
                 // [
@@ -319,18 +322,22 @@ return [
                 [
                     'text' => 'Modules & Fields Permissions',
                     'url'  => 'modules/index',
+                    'can'     => 'modules-view',
                 ],
                 [
                     'text' => 'Roles',
                     'url'  => 'roles/index',
+                    'can'     => 'roles-view',
                 ],
                 [
                     'text' => 'Permission',
                     'url'  => 'permission/index',
+                    'can'  => ['admin-access'],
                 ],
                 [
                     'text' => 'Configuration',
                     'url'  => 'configuration/index',
+                    'can'     => 'configuration-view',
                 ]
             ],
 
