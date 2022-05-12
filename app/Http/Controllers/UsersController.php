@@ -208,9 +208,9 @@ class UsersController extends Controller
                 $data = $out->getData();   
                 for($i=0; $i < count($data->data); $i++) {
                     $roles = new Role;
-                    $name_before = substr($data->data[$i]->email,0,3);
-                    $name_after = substr($data->data[$i]->email,-4,4);
-                    $data->data[$i]->email = (Auth::user()->can("users-unmask"))?$data->data[$i]->email:$name_before."***@***".$name_after;
+                    // $name_before = substr($data->data[$i]->email,0,3);
+                    // $name_after = substr($data->data[$i]->email,-4,4);
+                    // $data->data[$i]->email = (Auth::user()->can("users-unmask"))?$data->data[$i]->email:$name_before."***@***".$name_after;
                     if(empty($data->data[$i]->role_ids[0])){
                         $data->data[$i]->role = " ";
                     }
