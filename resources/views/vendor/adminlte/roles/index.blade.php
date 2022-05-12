@@ -20,14 +20,23 @@
 
 @section('content_header')
 <div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Roles</h1>
-        <a href="{{route('roles.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus"></i> Add
-        </a>
-    </div>
-</div>
+  <div class="row mb-2">
+    <div class="col-sm-5">
+      <h1 class="m-0">Roles</h1>
+      
+    </div><!-- /.col -->
+    <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+        <li class="breadcrumb-item active">Roles</li>
+      </ol>
+    </div><!-- /.col -->
+    <div class="col-sm-1">
+      <a href="{{route('roles.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-plus"></i> Add</a>
+      </div><!-- /.col -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.row -->
 @stop
 
 @section('content')

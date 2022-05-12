@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\LoggedIn;
+use App\Models\Loggedout;
+use Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -52,12 +55,29 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        $date = Carbon::now()->setTimezone('Asia/Bangkok');
-        $date->toArray();
-        $user->authenticated_at = $date->toTimeString();
+        // $date = Carbon::now()->setTimezone('Asia/Bangkok');
+        // $date->toArray();
+        // $user->authenticated_at = $date->toTimeString();
 
-        $user->save();
+        // $user->save();
+        $loggedin = LoggedIn::create([
+            'user_id' => $user->id,
+        ]);
 
         return redirect()->intended($this->redirectPath());
+    }
+
+    protected function logout(Request $request) {
+        $user = Auth::user();
+        Auth::logout();
+        $loggedout = Loggedout::create([
+            'user_id' => $user->id,
+        ]);
+        // $date = Carbon::now()->setTimezone('Asia/Bangkok');
+        // $date->toArray();
+        // $user->authenticated_out = $date->toTimeString();
+        // $user->save();
+        
+        return redirect('/login');
     }
 }

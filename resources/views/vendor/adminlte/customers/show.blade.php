@@ -153,7 +153,7 @@ $config = [
               <div class="col-md-10 fvalue">{{$cus["username"]}}</div>
               </div> --}}
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Email:</label>{{$cus["email"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Email:</label>{{$cus["email"]}}<i class="fas fa-check-circle" style="padding-left: 30px;"></i></div>
               </div>
               
               <div class="col-sm-8">

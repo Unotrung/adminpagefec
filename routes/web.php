@@ -229,6 +229,7 @@ Route::get('sendtxtmail','App\Http\Controllers\MailController@txt_mail')->name('
 Route::get('sendhtmlmail','App\Http\Controllers\MailController@html_mail');
 Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_email');
 Route::get('sendemail','App\Http\Controllers\MailController@mailTemplate')->name('sendemail');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
 //Account

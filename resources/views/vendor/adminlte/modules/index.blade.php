@@ -16,17 +16,31 @@
   <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
 
 @stop
+@section('content_header')
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col-sm-5">
+      <h1 class="m-0">Modules</h1>
+      
+    </div><!-- /.col -->
+    <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+        <li class="breadcrumb-item active">Modules</li>
+      </ol>
+    </div><!-- /.col -->
+    <div class="col-sm-1">
+      <a href="{{route('modules.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-plus"></i> Add</a>
+      </div><!-- /.col -->
+  </div><!-- /.container-fluid -->
+</div><!-- /.row -->
+@stop
 @section('content')
 <section class="content">
     <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800">Modules</h1>
-              <a href="{{route('modules.add')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                  <i class="fas fa-plus"></i> Add
-              </a>
-          </div>
             <div class="card">
             <meta name="csrf-token" content="{{ csrf_token() }}">
               <!-- /.card-header -->

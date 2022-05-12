@@ -52,7 +52,7 @@
               <!-- /.card-body -->
 
               <div class="col-sm-12">
-                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Email:</label>{{Auth::user()->email}}</div>
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Email:</label>{{Auth::user()}}</div>
               </div>
 
               <div class="col-sm-12">
