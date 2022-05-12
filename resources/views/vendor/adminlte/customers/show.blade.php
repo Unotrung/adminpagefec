@@ -157,7 +157,7 @@ $config = [
               </div>
               
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>{{$cus["phone"]}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>{{$cus["phone"]}}<i class="icon fas fa-exclamation-triangle" style="padding-left: 30px;"></i></div>
               </div>
 
               {{-- <div class="col-sm-8">
