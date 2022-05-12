@@ -111,7 +111,7 @@ $old = Role::find($role);
                                         ?>
                                         <tr>
                                         @if (strtolower($name_permission[0]) == strtolower($module->module))
-                                            @if($permission_ids!=null)
+                                            @if($permission_ids != null)
                                             <td class=""><div class="custom-control custom-checkbox">
                                             <?php if (in_array($permission->id, $permission_ids, TRUE))
                                             {
@@ -126,6 +126,7 @@ $old = Role::find($role);
                                             <?php 
                                             }
                                             ?>
+                                            <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
                                             @else
                                                 <td class=""><div class="custom-control custom-checkbox">
                                                     <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
@@ -133,7 +134,6 @@ $old = Role::find($role);
                                                     </div>
                                                 </td>
                                             @endif
-                                        <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
                                         </div></td>
                                             
                                         @endif
