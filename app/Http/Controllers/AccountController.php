@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserInfo;
 use Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -59,6 +60,9 @@ class AccountController extends Controller
         $user->division = $request->division;
         $result = $user->save();
         if($result == 1){
+            $UserInfo = UserInfo::create([
+                'user_id' => $request->id,
+            ]);
             return redirect()->route('account.show');
         }
         else

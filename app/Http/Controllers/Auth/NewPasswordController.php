@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Userpassword;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -85,11 +86,13 @@ class NewPasswordController extends Controller
               ,[
                   'current_password.required' => 'current_password is required'
               ]);
-              $user->password = Hash::make($request->password);
-                $user->save();
-                
-                Alert::success('Success!!', 'Password changed successfully!!');
-                return redirect()->route('account.show');
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $Userpassword = Userpassword::create([
+                'user_id' => $user->id,
+            ]);
+            Alert::success('Success!!', 'Password changed successfully!!');
+            return redirect()->route('account.show');
         }
         throw ValidationException::withMessages([
             'current_password' => 'Wrong password',
