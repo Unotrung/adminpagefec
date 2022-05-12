@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserInfo;
+
 use Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -34,15 +36,10 @@ class AccountController extends Controller
 
     public function show()
     {
-        if (Auth::check())
-        {
-            $login = 1;
-        }
-        else
-        {
-            $login = "";
-        }
-        return view('vendor.adminlte.account.show',["login"=>$login]);
+        $timechange = UserInfo::All()->sortByDesc("created_at");
+        // print_r($timechange);
+        // exit;
+        return view('vendor.adminlte.account.show',["timechange"=>$timechange]);
     }
 
     public function update(Request $request)
@@ -62,6 +59,7 @@ class AccountController extends Controller
         if($result == 1){
             $UserInfo = UserInfo::create([
                 'user_id' => $request->id,
+                'type' => "Information",
             ]);
             return redirect()->route('account.show');
         }

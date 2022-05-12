@@ -15,11 +15,12 @@ class UserInfo extends Model
 {
     use HasFactory,Authenticatable,Notifiable,HasApiTokens,HasRoles;
     protected $connection = 'mongodb';
-    protected $collection = 'userinfo'; 
+    protected $collection = 'log'; 
 
 
     protected $fillable = [
         'user_id',
+        'type',
     ];
 }
 ?>

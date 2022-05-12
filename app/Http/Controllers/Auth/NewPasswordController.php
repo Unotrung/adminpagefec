@@ -90,6 +90,7 @@ class NewPasswordController extends Controller
             $user->save();
             $Userpassword = Userpassword::create([
                 'user_id' => $user->id,
+                'type' => "Password",
             ]);
             Alert::success('Success!!', 'Password changed successfully!!');
             return redirect()->route('account.show');

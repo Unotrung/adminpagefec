@@ -91,50 +91,62 @@
                       <div class="col-md-12">
                         <!-- The time line -->
                         <div class="timeline">
-                            <!-- timeline time label -->
+                          @php
+                            $date_first = "";
+                          @endphp
+                          @foreach($timechange as $timechange)
+                          @php
+                            $date = date('d/m/Y', strtotime($timechange->created_at));
+                          @endphp
+                          @if($date != $date_first )
                             <div class="time-label">
-                              <span class="bg-red">11/5/2022</span>
+                              <span class="bg-red"> {{$date}}</span>
                             </div>
-                            <!-- /.timeline-label -->
-                            <!-- timeline item -->
+                          @endif  
+                          @php
+                              $date_first = $date;
+                            @endphp
+                            @if($timechange->type == "Logout")
                             <div>
                               <i class="fas fa-sign-out-alt bg-red"></i>
                               <div class="timeline-item">
-                                <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                                {{-- <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} is logout </h3> --}}
+                                <span class="time"><i class="fas fa-clock"></i> {{$timechange->created_at}}</span>
+                                
                                 <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} logged out </h3>
                               </div>
                             </div>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
+                            
+                            @elseif($timechange->type == "Password")
                             <div>
                               <i class="fas fa-upload bg-green"></i>
                               <div class="timeline-item">
-                                <span class="time"><i class="fas fa-clock"></i> 12:00</span>
+                                <span class="time"><i class="fas fa-clock"></i> {{$timechange->created_at}}</span>
                                 <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} changed password</h3>
                               </div>
                             </div>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
+                            
+                            @elseif($timechange->type == "Information")
                             <div>
                               <i class="fas fa-user-check bg-green"></i>
                               <div class="timeline-item">
-                                <span class="time"><i class="fas fa-clock"></i>11:50</span>
+                                <span class="time"><i class="fas fa-clock"></i>{{$timechange->created_at}}</span>
                                 <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} updated information</h3>
                               </div>
                             </div>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
+                            
+                            @elseif($timechange->type == "Login")
                             <div>
                               <i class="fas fa-sign-in-alt bg-blue"></i>
                               <div class="timeline-item">
-                                <span class="time"><i class="fas fa-clock"></i> 11:40</span>
+                                <span class="time"><i class="fas fa-clock"></i> {{$timechange->created_at}} </span>
                                 <h3 class="timeline-header"><a href="#"></a>{{ Auth::user()->name }} logged in</h3>
                                 <div class="timeline-body">
                                   Welcome back 
                                 </div>
                               </div>
                             </div>
+                            @endif
+                            @endforeach
                         </div>
                       </div>
                       <!-- /.col -->
