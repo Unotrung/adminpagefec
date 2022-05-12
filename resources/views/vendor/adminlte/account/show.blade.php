@@ -88,57 +88,58 @@
                     <!-- Post -->
                     <!-- /.post -->
                     <div class="row">
-          <div class="col-md-12">
-            <!-- The time line -->
-            <div class="timeline">
-              <!-- timeline time label -->
-              <div class="time-label">
-                <span class="bg-red">11/5/2022</span>
-              </div>
-              <!-- /.timeline-label -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-sign-out-alt bg-red"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                  {{-- <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} is logout </h3> --}}
-                  <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} logged out </h3>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-upload bg-green"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 12:00</span>
-                  <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} changed password</h3>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-user-check bg-green"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i>11:50</span>
-                  <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} updated information</h3>
-                </div>
-              </div>
-              <!-- END timeline item -->
-              <!-- timeline item -->
-              <div>
-                <i class="fas fa-sign-in-alt bg-blue"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 11:40</span>
-                  <h3 class="timeline-header"><a href="#"></a>{{ Auth::user()->name }} logged in</h3>
-                  <div class="timeline-body">
-                    Welcome back 
+                      <div class="col-md-12">
+                        <!-- The time line -->
+                        <div class="timeline">
+                            <!-- timeline time label -->
+                            <div class="time-label">
+                              <span class="bg-red">11/5/2022</span>
+                            </div>
+                            <!-- /.timeline-label -->
+                            <!-- timeline item -->
+                            <div>
+                              <i class="fas fa-sign-out-alt bg-red"></i>
+                              <div class="timeline-item">
+                                <span class="time"><i class="fas fa-clock"></i> 12:05</span>
+                                {{-- <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} is logout </h3> --}}
+                                <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} logged out </h3>
+                              </div>
+                            </div>
+                            <!-- END timeline item -->
+                            <!-- timeline item -->
+                            <div>
+                              <i class="fas fa-upload bg-green"></i>
+                              <div class="timeline-item">
+                                <span class="time"><i class="fas fa-clock"></i> 12:00</span>
+                                <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} changed password</h3>
+                              </div>
+                            </div>
+                            <!-- END timeline item -->
+                            <!-- timeline item -->
+                            <div>
+                              <i class="fas fa-user-check bg-green"></i>
+                              <div class="timeline-item">
+                                <span class="time"><i class="fas fa-clock"></i>11:50</span>
+                                <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} updated information</h3>
+                              </div>
+                            </div>
+                            <!-- END timeline item -->
+                            <!-- timeline item -->
+                            <div>
+                              <i class="fas fa-sign-in-alt bg-blue"></i>
+                              <div class="timeline-item">
+                                <span class="time"><i class="fas fa-clock"></i> 11:40</span>
+                                <h3 class="timeline-header"><a href="#"></a>{{ Auth::user()->name }} logged in</h3>
+                                <div class="timeline-body">
+                                  Welcome back 
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- /.col -->
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.col -->
-        </div>
                     <!-- Post -->
                     
                     <!-- /.post -->
@@ -157,7 +158,7 @@
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name<span style="color:red;">*</span></label>
                         <div class="col-sm-10">
-                          <input type="" class="form-control" id="inputName" placeholder="Name" value="{{}}" name="name" required>
+                          <input type="" class="form-control" id="inputName" placeholder="Name" value="{{Auth::user()->name}}" name="name" required>
                         </div>
                       </div>
                       <div class="form-group row">
