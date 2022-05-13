@@ -95,17 +95,19 @@
                             $date_first = "";
                           @endphp
                           @foreach($timechange as $timechange)
+                          @if( Auth::user()->id == $timechange->user_id)
                           @php
                             $date = date('d/m/Y', strtotime($timechange->created_at));
                           @endphp
-                          @if($date != $date_first )
-                            <div class="time-label">
-                              <span class="bg-red"> {{$date}}</span>
-                            </div>
-                          @endif  
+                            @if($date != $date_first )
+                              <div class="time-label">
+                                <span class="bg-red"> {{$date}}</span>
+                              </div>
+                            @endif  
                           @php
                               $date_first = $date;
                             @endphp
+                           
                             @if($timechange->type == "Logout")
                             <div>
                               <i class="fas fa-sign-out-alt bg-red"></i>
@@ -145,6 +147,7 @@
                                 </div>
                               </div>
                             </div>
+                            @endif
                             @endif
                             @endforeach
                         </div>
