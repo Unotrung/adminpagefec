@@ -153,7 +153,7 @@
                   </div> --}}
                   <div class="col-4">
                     <label>Created to:</label>
-                    <input type="text" class="form-control datetimepicker-input" id="dateString"/>
+                    <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
                     {{-- <input type="text" value="" id="dateString"> --}}
                   </div>
                   <div class="col-4">

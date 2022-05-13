@@ -18,10 +18,11 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4"> 
         <div class="pull-left">
-            <h2> </h2>
+            <h2>User Profile</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('users') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('users') }}"><i
+                class="fas fa-arrow-left fa-sm text-white-50"></i>  Back</a>
         </div>
     </div>
 </div>
