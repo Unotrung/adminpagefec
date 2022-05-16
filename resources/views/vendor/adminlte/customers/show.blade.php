@@ -61,51 +61,7 @@ $config = [
         <li class="nav-item">
           <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
         </li>
-    {{-- @if(($eap_check == 1 && $bnpl_check == 1)) 
-      @if(!empty($cus) && !empty($bnpl_info))
-        <li class="nav-item">
-        <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
-        </li>
-        @elseif (!empty($cus) && empty($bnpl_info))
-        <li class="nav-item">
-          <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
-          </li>
-        @elseif (empty($cus) && !empty($bnpl_info))
-        <li class="nav-item">
-          <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>  
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Infomation</a>
-        </li>
-      @endif
-      <li class="nav-item">
-        <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
-      </li>
-    @elseif(($eap_check == 1 && empty($bnpl_check))) 
-      <li class="nav-item">
-      <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#eap_info" role="tab" aria-controls="custom-content-below-home" aria-selected="true">EAP Infomation</a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
-      </li>
-    @elseif(($bnpl_check == 1 && empty($_check)) ) 
-      <li class="nav-item">
-      <a class="nav-link " id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="true">BNPL Infomation</a>
-      </li>
-      
-    @endif
-     --}}
-    {{-- active show --}}
-    {{-- <li class="nav-item">
-    <a class="nav-link" id="custom-content-below-settings-tab" data-toggle="pill" href="#custom-content-below-settings" role="tab" aria-controls="custom-content-below-settings" aria-selected="false">Settings</a>
-    </li> --}}
+    
     </ul>
     <div class="tab-content" id="custom-content-below-tabContent">
       @if(empty($cus) && !empty($bnpl_info))
@@ -153,13 +109,6 @@ $config = [
               <div class="col-md-10 fvalue">{{$cus["username"]}}</div>
               </div> --}}
               <div class="col-sm-8">
-<<<<<<< HEAD
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Email:</label>{{$cus["email"]}}<i class="fas fa-check-circle" style="padding-left: 30px; color:green !important;" ></i></div>
-              </div>
-              
-              <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>{{$cus["phone"]}}<i class="icon fas fa-exclamation-triangle" style="padding-left: 30px;color:red !important;"></i></div>
-=======
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Email:</label>{{$cus["email"]}} 
                   <i class="fas fa-check-circle" style="color:#28a745; font-size:18px" data-toggle="tooltip" title="Verified"></i></div>
               </div>
@@ -167,21 +116,20 @@ $config = [
               <div class="col-sm-8">
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>{{$cus["phone"]}} 
                   <i class="icon fas fa-exclamation-triangle" style="color:#ffc107;font-size:18px" data-toggle="tooltip" title="Not verified"></i></div>
->>>>>>> f879e8dab81ab78625c454dac6f9d58545afeb84
               </div>
 
               {{-- send verify OTP with role "super admin" --}}
               @if(Auth::user()->hasRole('super admin'))
-              <div class="col-sm-10">
+              <div class="col-sm-10" style="padding-top: 10px;">
               <button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success" data-toggle="modal" data-target="#modal-otp">Send OTP</button>
               <div class="modal fade" id="modal-otp" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog">
                 <div class="modal-content">
-                <div class="modal-header">
-                <h4 class="modal-title">Send OTP</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                 <span aria-hidden="true">×</span>
-                </button>
+                <div class="modal-header" >
+                  <h4 class="modal-title">Send OTP</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  </button>
                 </div>
                 <div class="modal-body">
                 <p><label>Send Otp to Email :</label> {{$cus["email"]}} </p>
@@ -213,37 +161,6 @@ $config = [
       @else
       <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 400px">
       @endif
-      
-      {{-- $bnpl_check == 1 && $eap_check == 1 --}}
-        {{-- @if(($bnpl_check == 1 && $eap_check == 1) && (!empty($cus) && !empty($bnpl_inffo)))
-          <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
-          @elseif(($bnpl_check == 1 && $eap_check == 1) && (!empty($bnpl_info) && empty($cus)))
-          <div class="tab-pane fade " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
-            @elseif(($bnpl_check == 1 && $eap_check == 1) && (empty($bnpl_info) && !empty($cus)))
-          <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px"> --}}
-          
-          
-          {{-- $bnpl_check == 1 && empty($eap_check) --}}
-          {{-- @elseif(($bnpl_check == 1 && empty($eap_check)) && (!empty($cus) && !empty($bnpl_inffo)))
-          <div class="tab-pane fade " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
-          @elseif(($bnpl_check == 1 && empty($eap_check)) && (empty($cus) && !empty($bnpl_inffo)))
-          <div class="tab-pane fade " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
-          @elseif(($bnpl_check == 1 && empty($eap_check)) && (!empty($cus) && empty($bnpl_inffo)))
-          <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px"> --}}
-          
-
-          {{-- $eap_check == 1 && empty($bnpl_check) --}}  
-          {{-- @elseif (($eap_check == 1 && empty($bnpl_check)) && (!empty($cus) && !empty($bnpl_inffo)))
-          <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
-          @elseif (($eap_check == 1 && empty($bnpl_check)) && (empty($cus) && !empty($bnpl_inffo)))
-          <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
-          @elseif (($eap_check == 1 && empty($bnpl_check)) && (!empty($cus) && empty($bnpl_inffo)))
-          <div class="tab-pane fade" id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="min-height: 600px">
-        @endif --}}
-
-
-
-
         @if(!empty($bnpl_info))  
         <div class="row">
           <div class="col-6">
@@ -344,7 +261,7 @@ $config = [
         </div>
         @endif
       </div>
-      <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" >
+      <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="custom-content-below-messages-tab" style="min-height: 300px">
         <section class="content" style="margin-top:30px">
           <div class="container-fluid">
             <div class="row">

@@ -132,34 +132,12 @@
                       <input type="text" class="form-control form-control-user" id="nid" placeholder="NID" name="nid" value="" style="">
                     </div>
                   </div>
-                  {{-- <div class="col-4">
-                    <label>Created from:</label>
-                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                      <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                          <div class="input-group-text" rel="tooltip" title="From Date"><i class="fa fa-calendar" ></i></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <label>Created to:</label>
-                    <div class="input-group date" id="reservationdateto" data-target-input="nearest">
-                      <input type="text" class="form-control datetimepicker-input" data-target="#reservationdateto"/>
-                      <div class="input-group-append" data-target="#reservationdateto" data-toggle="datetimepicker">
-                          <div class="input-group-text" rel="tooltip" title="To Date"><i class="fa fa-calendar" ></i></div>
-                      </div>
-                    </div>
-                  </div> --}}
                   <div class="col-8">
                       <div class="input-group">
                       <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%" data-toggle="tooltip" title="Created date">
                       Created from :   <span>Date range picker</span> <i class="far fa-calendar-alt"></i>
                       </button>
                     </div>
-                  </div>
-                  <div class="col-0"  style="visibility: hidden;">
-                    <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
-                    {{-- <input type="text" value="" id="dateString"> --}}
                   </div>
 
                 </div>

@@ -115,11 +115,11 @@
                       </button>
                     </div>
                   </div>
-                  <div class="col-0" style="visibility: hidden;">
+                  {{-- <div class="col-0" style="visibility: hidden;">
                     <label>Created to:</label>
                     <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
-                    {{-- <input type="text" value="" id="dateString"> --}}
-                  </div>
+                    {{-- <input type="text" value="" id="dateString"> 
+                  </div> --}}
                   
 
 

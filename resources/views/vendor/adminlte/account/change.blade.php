@@ -54,9 +54,6 @@
                 <x-label for="password" :value="__('New Password')" />
 
                 <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
-                <p class="text-danger" id="demo"></p>
-                <p class="text-danger" id="check_character"></p>
-                <p class="text-danger" id="check_length"></p>
             </div>
 
             <!-- Confirm Password -->
@@ -73,6 +70,13 @@
                 @enderror
             </div>
 
+            <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;" id="otp_text">
+              <x-label for="otp" :value="__('OTP')" />
+              
+              <x-input id="otp" class="block mt-1 w-full" type="text" name="otp" required />
+              
+            </div>
+
             <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto;" >
                 <x-button style="background-color: green">
                     {{ __('Save') }}
@@ -86,92 +90,10 @@
 @endsection
 
 
-<?php
-    $stArray = Auth::user()->password;
-?>
 @section('js')
 <script>
 $(document).ready(function(){
-  /*
-  $('#current_password').on('change',function(){
-    var current_password = $('#current_password').val();
-    console.log('current_password is ' +  current_password);
-  })
-
-  function hasLowerCase(str) {
-    return str.toLowerCase() != str;
-  }  
-
-  function stringContainsNumber(_string) {
-    return /\d/.test(_string);
-  }
-
-  $('#password').on('change',function(){
-    var i=0;
-    var o=0;
-    var p=0;
-    console.log(o);
-    console.log(p);
-    var character='';
-    var current_password = $('#current_password').val();
-    var password = $('#password').val();
-    console.log('password is '+ password);
-    if(password.length === 0)
-    {
-      // document.getElementById("check_character").innerHTML = "";
-      document.getElementById("demo").innerHTML = "";
-      document.getElementById("check_length").innerHTML = "";
-    }
-    
-    else
-    {
-      uppercase = hasLowerCase(password);
-      console.log(uppercase);
-      number = stringContainsNumber(password);
-      console.log(number);
-        if(current_password == password)
-        {
-          document.getElementById("demo").innerHTML = "Password matches old password ";
-        }
-        else if((password.length<8 && password.length>0)&&((uppercase == false && number == false)))
-        {
-          document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 uppercase character and 1 number.";
-        }
-        else if((password.length<8 && password.length>0)&&((uppercase == true && number == false)))
-        {
-          document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 number.";
-        }
-        else if((password.length<8 && password.length>0)&&((uppercase == false && number == true)))
-        {
-          document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters including 1 uppercase";
-        }
-        else if((password.length<8 && password.length>0)&&((uppercase == true && number == true)))
-        {
-          document.getElementById("check_length").innerHTML = "Passwords need a minimum of 8 characters";
-        }
-        else if((password.length>=8)&&((uppercase == false && number == false)))
-        {
-          document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 uppercase character and 1 number.";
-        }
-        else if((password.length>=8)&&((uppercase == true && number == false)))
-        {
-          document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 number";
-        }
-        else if((password.length>=8)&&((uppercase == false && number == true)))
-        {
-          document.getElementById("check_length").innerHTML = "Passwords need a minimum including 1 uppercase character";
-        }
-        else if(current_password != password)
-        {
-          document.getElementById("demo").innerHTML = " ";
-        }
-        else if((password.length>=8)&&((uppercase == true && number == true)))
-        {
-          document.getElementById("check_length").innerHTML = " ";
-        }
-    }
-  })
-  */
+  $('#otp_text').hide();
 });
 
 </script>
