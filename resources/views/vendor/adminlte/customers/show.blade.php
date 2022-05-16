@@ -153,31 +153,43 @@ $config = [
               <div class="col-md-10 fvalue">{{$cus["username"]}}</div>
               </div> --}}
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Email:</label>{{$cus["email"]}}<i class="fas fa-check-circle" style="padding-left: 30px;"></i></div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Email:</label>{{$cus["email"]}} 
+                  <i class="fas fa-check-circle" style="color:#28a745; font-size:18px" data-toggle="tooltip" title="Verified"></i></div>
               </div>
               
               <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>{{$cus["phone"]}}<i class="icon fas fa-exclamation-triangle" style="padding-left: 30px;"></i></div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>{{$cus["phone"]}} 
+                  <i class="icon fas fa-exclamation-triangle" style="color:#ffc107;font-size:18px" data-toggle="tooltip" title="Not verified"></i></div>
               </div>
 
-              {{-- <div class="col-sm-8">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Resent OTP:</label><button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success">Send OTP</button></div>
-              </div> --}}
-            
-              {{-- <label for="inputPassword3" class="col-sm-2 col-form-label">Email</label>
+              {{-- send verify OTP with role "super admin" --}}
+              @if(Auth::user()->hasRole('super admin'))
               <div class="col-sm-10">
-              <div class="col-md-10 fvalue">{{$cus["email"]}}</div>
+              <button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success" data-toggle="modal" data-target="#modal-otp">Send OTP</button>
+              <div class="modal fade" id="modal-otp" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">Send OTP</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">×</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <p><label>Send Otp to Email :</label> {{$cus["email"]}} </p>
+                <p><label>Send Otp to Phone :</label> {{$cus["phone"]}} </p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="sendOtp">Send</button>
+                </div>
+                </div>
+                
+                </div>
+                
+                </div>
               </div>
-            
-              <label for="inputPassword4" class="col-sm-2 col-form-label">Phone</label>
-              <div class="col-sm-10">
-                <div class="col-md-10 fvalue">{{$cus["phone"]}}</div>
-              </div> --}}
-            
-              {{-- <label for="inputPassword4" class="col-sm-2 col-form-label">Resent OTP</label>
-              <div class="col-sm-10">
-              <button type="button" style="width: 100px;" class=" btn btn-block bg-gradient-success">Send OTP</button>
-              </div> --}}
+              @endif
             </div>
           </div>
           @else
@@ -238,19 +250,31 @@ $config = [
                 <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Phone:</label>{{$bnpl_info["phone"]}}</div>
               </div>
 
-              <div class="col-sm-8">
-                <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>50,000,000 VND</div>
-              </div>
             </div>
             <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
-            <div class="card box-info" style="text-align: center;padding: 74px 0" >
-              {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
-                <p><i class="fa fa-info-circle" aria-hidden="true"></i>To be updated</p>
-              {{-- </div> --}}
+            <div class="card box-info" style="text-align: center;padding: 20px 0" >
+              <div class="d-flex flex-column">
+                <div class="row">
+                  <div class="col-5">
+                    <img src="https://finshare.vn/wp-content/uploads/2022/03/fe-credit-vay-tieu.jpeg" height="80"/>
+                  </div>
+                  <div class="col-sm-7 justify-content-center align-self-center">
+                    <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>50,000,000 VND</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-5">
+                    <img src="https://logodix.com/logo/2091311.png" height="80"/>
+                  </div>
+                  <div class="col-sm-7 justify-content-center align-self-center">
+                    <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>30,000,000 VND</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-6" style="">
-            <label for="inputPassword3" class="col-sm-4 col-form-label">Other Information</label>
+            <label for="inputPassword3" class="col-sm-4 col-form-label">More Information</label>
             <div class="card box-info" >
               
               <div class="col-sm-12">
@@ -435,5 +459,15 @@ $('#custom-content-below-tab a').click(function(e) {
 	// on load of the page: switch to the currently selected tab
 	var hash = window.location.hash;
 	$('#myTab a[href="' + hash + '"]').tab('show');  
+  $('[data-toggle="tooltip"]').tooltip();
+
+  //send OTP function
+  $('#sendOtp').on('click',function(e){
+    var email = "{{isset($cus['email'])}}";
+    var phone = "{{isset($cus['phone'])}}";
+    console.log(email + "=" + phone);
+    //code ajax here
+
+  });
 </script>
 @stop

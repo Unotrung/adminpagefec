@@ -171,7 +171,6 @@
 <script>
 $(document).ready(function(){
   fill_datatable();
-  $('[data-toggle="tooltip"]').tooltip();
   $('#reservation').daterangepicker().val('');
   function fill_datatable(input,type,status)
   {
@@ -207,9 +206,13 @@ $(document).ready(function(){
         {
           targets: '_all',
           defaultContent: ""
-        }]
+        }],
+        drawCallback:function(setting){
+          $('[data-toggle="tooltip"]').tooltip();
+        }
     });
     table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
+
   }
 
   $('#search').click(function(){
@@ -268,9 +271,6 @@ $(document).ready(function(){
     fill_datatable(input,type,status);
   });
 
-
-
-
   $('.select2').select2();
   $('input[type=search]').val("").attr("readonly",true);
   $('#type').on('change',function(){
@@ -281,11 +281,6 @@ $(document).ready(function(){
     }
   });
 });
-
-
-
-
-
 </script>
 
 <!-- <script>

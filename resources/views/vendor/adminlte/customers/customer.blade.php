@@ -84,7 +84,7 @@
                 <div class="searchadvance target" style="">
                   <div class="row" style="margin-bottom: 20px;"> 
                   <div class="col-4">
-                    <label>&nbsp;</label>
+
                     <div class="input-group input-group-md">
                       <input type="text" class="form-control form-control-user" id="nid" placeholder="NID" name="nid" value="" style="">
                     </div>
@@ -107,19 +107,18 @@
                       </div>
                     </div>
                   </div> --}}
-                  <div class="col-4">
+                  <div class="col-8">
+
+                      <div class="input-group">
+                      <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%">
+                        Created from :  <span> Date range picker</span> <i class="far fa-calendar-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-0" style="visibility: hidden;">
                     <label>Created to:</label>
                     <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
                     {{-- <input type="text" value="" id="dateString"> --}}
-                  </div>
-                  <div class="col-4">
-                    <label>Date range button:</label>
-                      <div class="input-group">
-                      <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%">
-                      <i class="far fa-calendar-alt"></i> Date range picker
-                      <i class="fas fa-caret-down"></i>
-                      </button>
-                    </div>
                   </div>
                   
 
@@ -315,7 +314,10 @@ $(document).ready(function(){
           ],
           columnDefs: [
               { targets: '_all', visible: true }
-          ]
+          ],
+        drawCallback:function(setting){
+          $('[data-toggle="tooltip"]').tooltip();
+        }
       });
   }
   $('#filter').click(function(){
@@ -375,8 +377,8 @@ $(document).ready(function(){
        {
           startDate: moment().subtract('days', 29),
           endDate: moment(),
-          minDate: '01/01/2012',
-          maxDate: '12/31/2022',
+          minDate: '01/01/2022',
+          maxDate: moment(),
           dateLimit: { days: 60 },
           showDropdowns: true,
           showWeekNumbers: true,
@@ -384,12 +386,11 @@ $(document).ready(function(){
           timePickerIncrement: 1,
           timePicker12Hour: true,
           ranges: {
-             'Today': [moment(), moment()],
-             'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
              'Last 7 Days': [moment().subtract('days', 6), moment()],
              'Last 30 Days': [moment().subtract('days', 29), moment()],
              'This Month': [moment().startOf('month'), moment().endOf('month')],
-             'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+             'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
+             'Last 3 Months': [moment().subtract('month', 3).startOf('month'), moment().subtract('month')]
           },
           opens: 'left',
           buttonClasses: ['btn btn-default'],
@@ -408,18 +409,18 @@ $(document).ready(function(){
           }
        },
        function(start, end) {
-        console.log("Callback has been called!");
+
         $('#daterange-btn span').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
         startDate = start;
          endDate = end;    
          $("#dateString").val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
-         console.log(startDate);
-        //  console.log(endDate);
+        //  $('#currentSeleced').html($this.ranges);
         
        }
     );
     //Set the initial state of the picker label
     $('#daterange-btn span').html(moment().subtract('days', 29).format('D MMMM YYYY') + ' - ' + moment().format('D MMMM YYYY'));
+    $("#dateString").val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
 });
 </script>
 @stop

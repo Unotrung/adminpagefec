@@ -128,7 +128,6 @@
                 <div class="searchadvance target" style="">
                   <div class="row" style="margin-bottom: 20px;"> 
                   <div class="col-4">
-                    <label>&nbsp;</label>
                     <div class="input-group input-group-md">
                       <input type="text" class="form-control form-control-user" id="nid" placeholder="NID" name="nid" value="" style="">
                     </div>
@@ -151,20 +150,18 @@
                       </div>
                     </div>
                   </div> --}}
-                  <div class="col-4">
-                    <label>Created to:</label>
-                    <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
-                    {{-- <input type="text" value="" id="dateString"> --}}
-                  </div>
-                  <div class="col-4">
-                    <label>Date range button:</label>
+                  <div class="col-8">
                       <div class="input-group">
-                      <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%">
-                      <i class="far fa-calendar-alt"></i> Date range picker
-                      <i class="fas fa-caret-down"></i>
+                      <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%" data-toggle="tooltip" title="Created date">
+                      Created from :   <span>Date range picker</span> <i class="far fa-calendar-alt"></i>
                       </button>
                     </div>
                   </div>
+                  <div class="col-0"  style="visibility: hidden;">
+                    <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
+                    {{-- <input type="text" value="" id="dateString"> --}}
+                  </div>
+
                 </div>
                 <div class="row align-items-center d-flex">
                   <div class="container">
@@ -332,7 +329,10 @@ $(document).ready(function(){
                 orderable: true, 
                 searchable: true,
             },
-          ]
+          ],
+        drawCallback:function(setting){
+          $('[data-toggle="tooltip"]').tooltip();
+        }
       });
   }
  
@@ -406,12 +406,11 @@ $(document).ready(function(){
           timePickerIncrement: 1,
           timePicker12Hour: true,
           ranges: {
-             'Today': [moment(), moment()],
-             'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
              'Last 7 Days': [moment().subtract('days', 6), moment()],
              'Last 30 Days': [moment().subtract('days', 29), moment()],
              'This Month': [moment().startOf('month'), moment().endOf('month')],
-             'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+             'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
+             'Last 3 Months': [moment().subtract('month', 3).startOf('month'), moment().subtract('month')]
           },
           opens: 'left',
           buttonClasses: ['btn btn-default'],
