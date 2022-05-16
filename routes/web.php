@@ -235,6 +235,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 //Account
 Route::post('/account/update', [App\Http\Controllers\AccountController::class,'update'])->name('account.update');
 Route::get('/account/show', [App\Http\Controllers\AccountController::class,'show'])->name('account.show');
+Route::post('send-otp', [NewPasswordController::class, 'html_mail'])->name('password.otp');
 
 //Modules
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {

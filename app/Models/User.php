@@ -33,6 +33,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'department',
         'division',
         'center',
+        'otp',
         'authenticated_at',
         'authenticated_out',
     ];

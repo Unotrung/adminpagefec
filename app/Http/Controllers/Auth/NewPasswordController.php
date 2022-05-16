@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
+use Mail;
 use Illuminate\Validation\ValidationException;
 
 
@@ -72,6 +73,15 @@ class NewPasswordController extends Controller
     {
         
         $user = Auth::user();
+        if($request->otp == null)
+        {
+            $code = random_int(100000, 999999);
+            $user->otp = $code;
+            $user->save();
+            $this->html_mail($user->email);
+            exit;
+        }
+
         if (Hash::check($request->current_password, $user->password)) {
             // Alert::error('Error!', 'Your current password is wrong!');
             // return back();
@@ -98,5 +108,23 @@ class NewPasswordController extends Controller
             'current_password' => 'Wrong password',
         ]);
         
+    }
+
+    public function html_mail($email=null)
+    {
+        $user = Auth::user();
+        $code = $user->otp;
+        $info = array(
+            'name' => "Voolo"
+        );
+        $data = array('email'=>$email,'name'=>"info",'code'=>$code);
+        Mail::send(['data' => $data], $info, function ($message) use ($data)
+        {
+            $message->to($data['email']) 
+                ->subject('OTP Reset Password');
+                $message->setBody('Your OTP is:'.$data['code']);
+            $message->from('info@voolo.vn', 'Voolo');
+        });
+        echo "Successfully sent the email";
     }
 }
