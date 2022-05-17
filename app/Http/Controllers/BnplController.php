@@ -74,31 +74,10 @@ class BnplController extends Controller
 
     public function index()
     {
-        // $api_url = 'https://api-wolfconsulting-bnpl.herokuapp.com/v1/user/getAllUser';
-        // $json_data = file_get_contents($api_url);
-        // $response_data = json_decode($json_data);
-        // $user_data = $response_data->data;
-        // $name_array = Bnpl::Where('name','=',null)->get();
-        // $phone_array = Bnpl::Where('phone','=',null)->get();
-        // $identify_array = Bnpl::Where('name','!=',null)->get();
         $name_array = [];
         $phone_array = [];
         $identify_array = [];
         $bnpl = [];
-        // // $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/getAllBNPLPersonal');
-        // $data_bnpl = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getAllBNPLPersonal');
-        // // print_r($data_bnpl->json());exit;
-        // if(!empty($data_bnpl->json()))
-        // {
-            
-        //     $bnpls = $data_bnpl->json();
-        //     $bnpl = $bnpls["data"];
-        // }
-        // else
-        // {
-            
-        // }
-        // $bnpl = Bnpl::all();
         return view('vendor.adminlte.bnpl.bnpl',['bnpl'=>$bnpl,'identify'=>$identify_array,'phone'=>$phone_array,'name'=>$name_array]);
     }
 
