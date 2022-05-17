@@ -351,12 +351,12 @@ $(document).ready(function(){
           "hideMethod": "fadeOut"
         }
       }
-      // else
-      // {
-      //   $('#classDatatable').show();
-      //   $('#example1').DataTable().destroy();
-      //   fill_datatable(username,email,action="search",phone,citizenId);
-      // }
+      else
+      {
+        $('#classDatatable').show();
+        $('#example1').DataTable().destroy();
+        fill_datatable(username,email,action="search",phone,citizenId);
+      }
      
   });
 
