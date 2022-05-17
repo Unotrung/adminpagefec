@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 use Mail;
+use Session;
 use Illuminate\Validation\ValidationException;
 
 
@@ -81,28 +82,35 @@ class NewPasswordController extends Controller
             $this->html_mail($user->email);
             exit;
         }
-
         if (Hash::check($request->current_password, $user->password)) {
             // Alert::error('Error!', 'Your current password is wrong!');
             // return back();
             $request->validate([
                 'current_password' => 'required',
-                'password' => ['required', 'confirmed', Rules\Password::min(10)->mixedCase()
+                'password' => ['required', 'confirmed'
+                , Rules\Password::min(10)->mixedCase()
                   ->numbers()
                   ->symbols()
                   ->uncompromised()]
-              ]
+                ]
               ,[
                   'current_password.required' => 'current_password is required'
               ]);
-            $user->password = Hash::make($request->password);
-            $user->save();
-            $Userpassword = Userpassword::create([
-                'user_id' => $user->id,
-                'type' => "Password",
-            ]);
-            Alert::success('Success!!', 'Password changed successfully!!');
-            return redirect()->route('account.show');
+            if($request->otp ==$user->otp)
+            {
+                $user->password = Hash::make($request->password);
+                $user->save();
+                $Userpassword = Userpassword::create([
+                    'user_id' => $user->id,
+                    'type' => "Password",
+                ]);
+                Alert::success('Success!!', 'Password changed successfully!!');
+                return redirect()->route('account.show');
+            }
+            else
+            {
+                return redirect()->back()->withErrors(['name' => 'The otp is wrong']);
+            }
         }
         throw ValidationException::withMessages([
             'current_password' => 'Wrong password',

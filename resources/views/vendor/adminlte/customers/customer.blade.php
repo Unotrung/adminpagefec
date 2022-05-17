@@ -253,8 +253,8 @@ $(document).ready(function(){
       search.citizenId = $('#nid').val();
       }
       console.log(search);
-      search.from = $('#dateString').val().split(" - ")[0];
-      search.to = $('#dateString').val().split(" - ")[1];
+      // search.from = $('#dateString').val().split(" - ")[0];
+      // search.to = $('#dateString').val().split(" - ")[1];
       var dataTable = $('#example1').DataTable({
           processing: true,
           serverSide: true,
@@ -326,7 +326,8 @@ $(document).ready(function(){
       var email = $('#email').val();
       var phone = $('#phone').val();
       var citizenId = $('#nid').val();
-      var date = $('#dateString').val().split(" - ");
+      var date = $('#dateString').val()
+      // .split(" - ");
       // var date1 = date.split(" - ");
       console.log(date);
       console.log(username);
@@ -351,12 +352,12 @@ $(document).ready(function(){
           "hideMethod": "fadeOut"
         }
       }
-      else
-      {
-        $('#classDatatable').show();
-        $('#example1').DataTable().destroy();
-        fill_datatable(username,email,action="search",phone,citizenId);
-      }
+      // else
+      // {
+      //   $('#classDatatable').show();
+      //   $('#example1').DataTable().destroy();
+      //   fill_datatable(username,email,action="search",phone,citizenId);
+      // }
      
   });
 
@@ -413,14 +414,14 @@ $(document).ready(function(){
         $('#daterange-btn span').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
         startDate = start;
          endDate = end;    
-         $("#dateString").val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+         $('#dateString').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
         //  $('#currentSeleced').html($this.ranges);
         
        }
     );
     //Set the initial state of the picker label
     $('#daterange-btn span').html(moment().subtract('days', 29).format('D MMMM YYYY') + ' - ' + moment().format('D MMMM YYYY'));
-    $("#dateString").val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+    $('#dateString').val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
 });
 </script>
 @stop

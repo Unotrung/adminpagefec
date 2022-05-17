@@ -42,10 +42,13 @@
               <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
                   <x-label for="current_password" :value="__('Current Password')" />
 
-                  <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror" type="password" name="current_password" />
+                  <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" />
                   <span class="invalid-feedback" role="alert">
                     @error('current_password')
                     <strong>{{ "Current password is not correct" }}</strong>
+                    @enderror
+                    @error('name')
+                    <strong>{{ $message }}</strong>
                     @enderror
                   </span>
                 </div>
@@ -79,7 +82,7 @@
                   <x-input id="otp" class="block mt-1 w-full " type="text" name="otp" required/> 
                 </div>
                 <div class="col-4" style="margin: 0;padding: 0;padding-top: 28px;">
-                  <button type="button" id="sendmail" class="btn btn-success" style="background-color: rgb(0, 55, 255);">Sent OTP</button>
+                  <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height:42px">Sent OTP</button>
                   {{-- <a href="{{route('password.edit')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                           <i class="fas fa-envelope"></i> Send OTP</a> --}}
                 </div>
