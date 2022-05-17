@@ -183,7 +183,6 @@ class CustomerController extends Controller
         return redirect()->route('customer')->with('delete','Customers deleted successfull');
     }
 
-
     public function dtajax(Request $request){
         if ($request->ajax()) {
             $strFilter = "";
@@ -197,7 +196,9 @@ class CustomerController extends Controller
                 
                 $strFilter = ($strFilter!="")?"?".$strFilter:"";
                 $strFilter = rtrim($strFilter, "&");
-                $response = Http::get(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
+                // $response = Http::get(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
+
+                $response = $this->_refreshTokenResponse('http://localhost:8000/v1/admin/search/'.$strFilter);
                 $result = $response->json();
                 
                 if($result["status"] != 1){
@@ -340,6 +341,51 @@ class CustomerController extends Controller
             }
             
         }
+    }
+
+    private function _apiAccessToken(){
+
+        $user = "LARAVEL6";
+        $pass = "12345678";
+
+        //existed token
+        if(session('apitoken') !== null){
+            $token = session('apitoken');
+            return true;
+        }
+
+        //login & get Token
+        $res = Http::contentType('application/json')
+            ->send('POST','http://localhost:8000/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
+            ->json();   
+
+        try{
+            if(isset($res["status"]) && $res["status"] == 1){
+                session(['apitoken' => $res["data"]["token"]]);
+            }
+        }
+        catch(e){
+            return false;
+        }
+        return true;
+    }
+
+    private function _refreshTokenResponse($url,$req = array()){
+
+        //get token
+        if(session("apitoken") === ''){
+            $this->_apiAccessToken();
+        }
+
+        //refresh token and response data
+        $req["token"] = session("apitoken"); 
+        $response = Http::get($url,$req);
+        if($response === "Invalid Token" || $response->json() === ''){
+            $this->_apiAccessToken();
+            $response = Http::get($url,$req);
+        }
+        return $response;
+
     }
 
     

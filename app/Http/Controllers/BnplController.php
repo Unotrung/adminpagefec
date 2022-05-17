@@ -9,6 +9,7 @@ use DataTables;
 use MongoDB\Operation\Find;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Response;
 
 class BnplController extends Controller
 {
@@ -54,20 +55,8 @@ class BnplController extends Controller
 
 
     public function edit($id){
-        // $bnpl = Bnpl::find($id);
-        // $bnpl_providers = $bnpl->providers;
-        // $bnpl_provider = Provider::all();
-        
-		// 	if(isset($bnpl->_id)) {
-		// 		$setErrorsBag = "khong hien thi";
-		// 		return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl,"bnpl_providers"=>$bnpl_providers,"bnpl_provider"=>$bnpl_provider]);
-		// 	} else {
-		// 		return view('errors.404', [
-		// 			'record_id' => $id,
-		// 			'record_name' => ucfirst("bnpl"),
-		// 		]);
-		// 	}
-        $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$id);
+
+        $data_bnpl = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$id);
         if(!empty($data_bnpl))
         {
             
@@ -78,43 +67,6 @@ class BnplController extends Controller
         {
             $bnpl = "";
         }
-        // print_r($bnpl);
-        // exit;
-        // $user = Auth::user();
-        // $roles = new Role;
-        // $permissions = new Permission;
-        // $check_permission=[];
-        //             // print_r($user->role_ids[0]);
-        //             $role = Role::find($user->role_ids[0]);
-        //             $check_role = $role->permission_ids;
-        //             for($i=0;$i < count($check_role); $i++)
-        //             {
-        //                 if(empty($check_role[$i])){
-        //                     $user->permission = "";
-        //                 }
-        //                 else
-        //                 {
-        //                 $permission = $permissions->find($check_role[$i]);
-        //                 $check_permission[$i]=$permission->name;
-        //                 }
-        //             }
-        //             $eap_check= in_array('customers-view-eap', $check_permission);
-        //             $bnpl_check = in_array('customers-view-bnpl', $check_permission);
-        // print_r($phone);
-        // $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/search?phone='.$phone);
-        // $bnpl = $data_bnpl->json();
-        // $cus_bnpl = $bnpl["data"];
-        // // print_r($cus["_id"]);
-        // if($cus_bnpl["BNPL"]!=null)
-        // {
-        //     print_r($cus_bnpl);
-        // }
-        // else
-        // {
-        //     print_r("abc");
-        // }
-		// if(isset($cus["_id"])) {
-		// 	$setErrorsBag = "khong hien thi";
         return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl]);
     }
 
@@ -126,56 +78,43 @@ class BnplController extends Controller
         // $json_data = file_get_contents($api_url);
         // $response_data = json_decode($json_data);
         // $user_data = $response_data->data;
-        $name_array = Bnpl::Where('name','=',null)->get();
-        $phone_array = Bnpl::Where('phone','=',null)->get();
-        $identify_array = Bnpl::Where('name','!=',null)->get();
-        $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/getAllBNPLPersonal');
-        if(!empty($data_bnpl))
-        {
+        // $name_array = Bnpl::Where('name','=',null)->get();
+        // $phone_array = Bnpl::Where('phone','=',null)->get();
+        // $identify_array = Bnpl::Where('name','!=',null)->get();
+        $name_array = [];
+        $phone_array = [];
+        $identify_array = [];
+        $bnpl = [];
+        // // $data_bnpl = Http::get(env("API_PARTNER").'/v1/admin/getAllBNPLPersonal');
+        // $data_bnpl = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getAllBNPLPersonal');
+        // // print_r($data_bnpl->json());exit;
+        // if(!empty($data_bnpl->json()))
+        // {
             
-            $bnpls = $data_bnpl->json();
-            $bnpl = $bnpls["data"];
-        }
-        else
-        {
-            $bnpl = "";
-        }
+        //     $bnpls = $data_bnpl->json();
+        //     $bnpl = $bnpls["data"];
+        // }
+        // else
+        // {
+            
+        // }
         // $bnpl = Bnpl::all();
         return view('vendor.adminlte.bnpl.bnpl',['bnpl'=>$bnpl,'identify'=>$identify_array,'phone'=>$phone_array,'name'=>$name_array]);
     }
-
-
-    // public function destroy($id)
-    // {
-    //     $promotion = News::find($id);
-    //     $promotion->is_delete = 1;
-    //     $promotion->save();
-    //     return redirect()->route('news.index')->with('News deleted successfull');
-    // }
 
     public function dtajax(Request $request){
          if ($request->ajax()) {
             if(!empty($request->search))
             {
-                // $bnpl = Bnpl::whereNull("isDelete");
-                // if(!empty($request->name)) $bnpl->where("name",$request->name);
-                // //if(!empty($request->status)) $bnpl->where("email",$request->status);
-                // if(!empty($request->phone)) $bnpl->where("phone",$request->phone);
-                // if(!empty($request->reservation)) {
-                //     $date = explode(" - ",$request->reservation);
-                //     $from = Carbon::parse($date[0]);
-                //     $to = Carbon::parse($date[1].' 23:59');
-                //     $bnpl->whereBetween("createdAt", [$from,$to]);
-                //     // $cus->where('createdAt',array('$gte' => $from,'$lte' => $to));
-                // }
-                $response = Http::get(env("API_PARTNER").'/v1/admin/searchBNPL', [
+                
+                $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
                     'search' => $request->search,
                     'value' => $request->value,
                     'form' => $request->from,
                     'to' => $request->to
                 ]);
                 $result = $response->json();
-                // print_r(); exit;
+
                 $out =  Datatables::of($result["data"])->make(true);
                 
                 $data = $out->getData();
@@ -205,6 +144,68 @@ class BnplController extends Controller
                 return $out;      
             }
         }
+    }
+
+    public function report(){
+        $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getReportBNPL');
+        if(!empty($response->json()))
+        {
+            return response($response->json());
+        }
+        $data["code"]=0;
+        $data["message"] = "fail";
+        return response($data);
+
+    }
+
+    private function _apiAccessToken(){
+
+        $user = "LARAVEL6";
+        $pass = "12345678";
+
+        //existed token
+        if(session('apitoken') !== null){
+            $token = session('apitoken');
+            return true;
+        }
+
+        //login & get Token
+        $res = Http::contentType('application/json')
+            ->send('POST',env("API_PARTNER").'/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
+            ->json();   
+        try{
+            if(isset($res["status"]) && $res["status"] == 1){
+                session(['apitoken' => $res["data"]["token"]]);
+            }
+        }
+        catch(e){
+            return false;
+        }
+        return true;
+    }
+
+    private function _refreshTokenResponse($url,$req = array()){
+
+        //get token
+        if(session("apitoken") === ''){
+            $this->_apiAccessToken();
+        }
+
+        //refresh token and response data
+        $response = Http::withHeaders([
+            'x-access-token' => session("apitoken")
+        ])->get($url,$req);
+
+        if(empty($response->json())){
+            session(['apitoken' => null]);
+            $this->_apiAccessToken();
+            $response = Http::withHeaders([
+                'x-access-token' => session("apitoken")
+            ])->get($url,$req);
+        }
+
+        return $response;
+
     }
 
 
