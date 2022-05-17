@@ -303,3 +303,5 @@ Route::group(['middleware' => ['role:System Admin|Website Admin|super admin']], 
     });
 
 });
+// Route::post('/apitoken', [App\Http\Controllers\CustomerController::class, 'apiAccessToken'])->name('apiAccessToken');
+Route::get('/report', [App\Http\Controllers\BnplController::class, 'report'])->name('report');

@@ -63,7 +63,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-success box-step2" style="cursor:pointer">
               <div class="inner">
                 <h3 class="step2">{{count($name)}}</h3>
                 <p>Stage: Input Information</p>
@@ -74,9 +74,9 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6  box-step3">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-warning" style="cursor: pointer">
               <div class="inner">
                 <h3 class="step3"> {{count($phone)}}</h3>
                 <p>Stage: Setup PIN Code</p>
@@ -87,7 +87,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-6  box-step0" style="cursor: pointer">
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
@@ -407,7 +407,7 @@ $(document).ready(function(){
           }
        },
        function(start, end) {
-        console.log("Callback has been called!");
+
         $('#daterange-btn span').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
         startDate = start;
          endDate = end;    
@@ -419,28 +419,33 @@ $(document).ready(function(){
     );
     //Set the initial state of the picker label
     $('#daterange-btn span').html(moment().subtract('days', 29).format('D MMMM YYYY') + ' - ' + moment().format('D MMMM YYYY'));
-// check for address field
-  
-// check for email field
-  // $('#check_email').change(function()
-  // {
-  //   $("#email").toggle();
-  //   $("#email").val("");
-  // });
-  report();
-  setInterval(function(){
-    report() // this will run after every 5 seconds
-}, 300000);
+    report();
+    setInterval(function(){
+        report() // this will run after every 5 seconds
+    }, 300000);
   function report(){
     
-    $(this).load('{{env("API_PARTNER")}}/v1/admin/getReportBNPL',function (res) {
-      var response = $.parseJSON(res);
+    $(this).load('{{route("report")}}',function (res) {
+       console.log(res);
+       var response = $.parseJSON(res);
       $(".total").text(response.data.total);
       $(".step2").text(response.data.step2);
       $(".step3").text(response.data.step3);
       $(".step4").text(response.data.step4);
     });
   }
+
+  $(".box-step2").on("click",function (e){
+    e.preventDefault();
+    console.log("filter step 2");
+    // fill_datatable(name,action="search",phone,reservation,citizenId);
+  });
+
+  $(".box-step3").on("click",function (e){
+    e.preventDefault();
+    console.log("filter step 3");
+    // fill_datatable(name,action="search",phone,reservation,citizenId);
+  });
 });
 
   
