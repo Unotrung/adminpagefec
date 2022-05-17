@@ -115,11 +115,11 @@
                       </button>
                     </div>
                   </div>
-                  {{-- <div class="col-0" style="visibility: hidden;">
+                  <div class="col-0" style="visibility: hidden;">
                     <label>Created to:</label>
                     <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
-                    {{-- <input type="text" value="" id="dateString"> 
-                  </div> --}}
+                    {{-- <input type="text" value="" id="dateString">  --}}
+                  </div>
                   
 
 
@@ -253,8 +253,8 @@ $(document).ready(function(){
       search.citizenId = $('#nid').val();
       }
       console.log(search);
-      // search.from = $('#dateString').val().split(" - ")[0];
-      // search.to = $('#dateString').val().split(" - ")[1];
+      search.from = $('#dateString').val().split(" - ")[0];
+      search.to = $('#dateString').val().split(" - ")[1];
       var dataTable = $('#example1').DataTable({
           processing: true,
           serverSide: true,
@@ -326,8 +326,7 @@ $(document).ready(function(){
       var email = $('#email').val();
       var phone = $('#phone').val();
       var citizenId = $('#nid').val();
-      var date = $('#dateString').val()
-      // .split(" - ");
+      var date = $('#dateString').val().split(" - ");
       // var date1 = date.split(" - ");
       console.log(date);
       console.log(username);
