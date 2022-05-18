@@ -25,7 +25,7 @@
        <div class="container-fluid">
        <div class="row">
         
-        <div class="col-6">
+        <div class="col-8">
           <div class="card">
             <div class="card-header">
               <form method="POST" action="{{ route('password.edit') }}">
@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- Old Password -->
-                <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:40%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="current_password" :value="__('Current Password')" />
 
                     <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" />
@@ -57,14 +57,14 @@
                   </div>
                   
                 <!-- Password -->
-                <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:40%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="password" :value="__('New Password')" />
 
                     <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
                 </div>
 
                 <!-- Confirm Password -->
-                <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:40%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="password" :value="__('Confirm New Password')" />
 
                     <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror"
@@ -77,14 +77,14 @@
                     @enderror
                 </div>
             </div>
-              <div class="mt-4" style="width:30%; display:block;margin-left: auto;margin-right: auto;" id="otp_text">
+              <div class="mt-4" style="width:40%; display:block;margin-left: auto;margin-right: auto;" id="otp_text">
                 <div class="row">
-                  <div class="col-8" style="margin: 0;padding: 0;">
+                  <div class="col-7" style="margin: 0;padding: 0;">
                     <x-label for="otp" :value="__('OTP')" />
                     
                     <x-input id="otp" class="block mt-1 w-full " type="text" name="otp" required/> 
                   </div>
-                  <div class="col-4" style="margin: 0;padding: 0;padding-top: 28px;">
+                  <div class="col-5" style="margin: 0;padding: 0;padding-top: 28px;">
                     <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height:42px">Sent OTP</button>
                     {{-- <a href="{{route('password.edit')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-envelope"></i> Send OTP</a> --}}
@@ -103,9 +103,16 @@
           </div>
           </div>
         </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="card">
-          <h1>ABC</h1>
+          <div class="card-body" style="background-color: rgb(231, 225, 225)">
+            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum lower character: 1</h1>
+            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum upper character: 1</h1>
+            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum length: 10 </h1>
+            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Maximum length: 24 </h1>
+            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum numeric character: 1 </h1>
+            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum special character: 1 </h1>
+          </div>
         </div>
       </div>
     </div>
