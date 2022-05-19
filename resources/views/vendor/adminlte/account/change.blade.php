@@ -106,12 +106,12 @@
       <div class="col-4">
         <div class="card">
           <div class="card-body" style="background-color: rgb(231, 225, 225)">
-            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum lower character: 1</h1>
-            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum upper character: 1</h1>
-            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum length: 10 </h1>
-            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Maximum length: 24 </h1>
-            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum numeric character: 1 </h1>
-            <h1><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum special character: 1 </h1>
+            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum lower character: 1</h1>
+            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum upper character: 1</h1>
+            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum length: 10 </h1>
+            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Maximum length: 24 </h1>
+            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum numeric character: 1 </h1>
+            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum special character: 1 </h1>
           </div>
         </div>
       </div>

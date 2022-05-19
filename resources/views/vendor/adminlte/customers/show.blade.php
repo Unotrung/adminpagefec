@@ -15,9 +15,13 @@
 
 <div class="container-fluid">
   <div class="row mb-2">
+    {{-- <div class="col-sm-5">
+      
+    </div> --}}
     <div class="col-sm-12">
+      <h1 class="m-0">Customer Information
         <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right" href="{{ route('customer') }}"><i
-            class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+            class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a></h1>
     </div>
   </div>
 </div>
@@ -110,12 +114,12 @@ $config = [
               </div> --}}
               <div class="col-sm-8">
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Email:</label>{{$cus["email"]}} 
-                  <i class="fas fa-check-circle" style="color:#28a745; font-size:18px" data-toggle="tooltip" title="Verified"></i></div>
+                  <i class="fas fa-check-circle" style="color:#28a745; font-size:18px ;  padding-left: 10px;" data-toggle="tooltip" title="Verified"></i></div>
               </div>
               
               <div class="col-sm-8">
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Phone:</label>{{$cus["phone"]}} 
-                  <i class="icon fas fa-exclamation-triangle" style="color:#ffc107;font-size:18px" data-toggle="tooltip" title="Not verified"></i></div>
+                  <i class="icon fas fa-exclamation-triangle" style="color:#ffc107;font-size:18px;padding-left: 10px;" data-toggle="tooltip" title="Not verified"></i></div>
               </div>
 
               {{-- send verify OTP with role "super admin" --}}

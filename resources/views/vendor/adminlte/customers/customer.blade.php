@@ -111,12 +111,12 @@
 
                       <div class="input-group">
                       <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%">
-                        Created from :  <span> Date range picker</span> <i class="far fa-calendar-alt"></i>
+                        Created Date From-To: <i class="far fa-calendar-alt"></i> <span> Date range picker</span> 
                       </button>
                     </div>
                   </div>
                   <div class="col-0" style="visibility: hidden;">
-                    <label>Created to:</label>
+                    
                     <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
                     {{-- <input type="text" value="" id="dateString">  --}}
                   </div>
@@ -410,7 +410,7 @@ $(document).ready(function(){
        },
        function(start, end) {
 
-        $('#daterange-btn span').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+        $('#daterange-btn span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
         startDate = start;
          endDate = end;    
          $('#dateString').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
@@ -419,7 +419,7 @@ $(document).ready(function(){
        }
     );
     //Set the initial state of the picker label
-    $('#daterange-btn span').html(moment().subtract('days', 29).format('D MMMM YYYY') + ' - ' + moment().format('D MMMM YYYY'));
+    $('#daterange-btn span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
     $('#dateString').val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
 });
 </script>

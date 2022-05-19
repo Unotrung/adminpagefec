@@ -106,24 +106,24 @@
             <div class="card">
               <div class="card-body">
                 <div class="row" style="margin-bottom: 20px">
-                  <div class="col-4">
+                  <div class="col-6">
 
                     <div class="input-group input-group-md">
                       <input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="name" placeholder="Name" name="name" value="" style="">  
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-6">
 
                     <div class="input-group input-group-md">
                       <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="">  
                     </div>
                   </div>
-                  <div class="col-4">
+                  {{-- <div class="col-4">
 
                     <div class="input-group input-group-md">
                       <input type="text" class="form-control form-control-user" id="email" placeholder="Email" name="email" value="" style="">  
                     </div>
-                  </div>
+                  </div> --}}
                 </div>
                 <div class="searchadvance target" style="">
                   <div class="row" style="margin-bottom: 20px;"> 
@@ -135,7 +135,7 @@
                   <div class="col-8">
                       <div class="input-group">
                       <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%" data-toggle="tooltip" title="Created date">
-                      Created from :   <span>Date range picker</span> <i class="far fa-calendar-alt"></i>
+                        Created Date From-To: <i class="far fa-calendar-alt"></i>   <span>Date range picker</span> 
                       </button>
                     </div>
                   </div>
@@ -244,17 +244,34 @@ $(document).ready(function(){
   fill_datatable("a");
   $('#reservation').daterangepicker().val('');
 
-  function fill_datatable(name = '',action='',phone='',reservation = '',citizenId='')
+  function fill_datatable(name = '',action='',phone='',reservation = '',citizenId='',step='')
   {
-    var keywork = (name=='')?((phone=='')?((citizenId=='')?"":citizenId):phone):name;
-    var type = (name=='')?((phone=='')?((citizenId=='')?"createAt":"citizenId"):"phone"):"name";
+    var keywork = (name=='')?
+                    ((phone=='')?
+                      ((citizenId=='')?
+                        ((step=='')?
+                          "":
+                        step):
+                        citizenId):
+                    phone):
+                  name;
+    var type = (name=='')?
+                ((phone=='')?
+                  ((citizenId=='')?
+                    ((step=='')?
+                      "createAt":
+                    "step"):
+                  "citizenId"):
+                "phone"):
+              "name";
     var from = $('#dateString').val().split(" - ")[0];
     var to = $('#dateString').val().split(" - ")[1];
     var jsonData = [
       { "meta": { "version": 1, "type": "test" } }
     ];
     console.log(from);
-    console.log(keywork);//"https://admin-voolo.herokuapp.com/v1/admin/searchBNPL"    url:"{{route('bnpl.dtajax')}}",
+    console.log(keywork);
+    console.log(type);//"https://admin-voolo.herokuapp.com/v1/admin/searchBNPL"    url:"{{route('bnpl.dtajax')}}",
     var dataTable = $("#example1").DataTable({
         processing: true,
           serverSide: true,
@@ -330,10 +347,10 @@ $(document).ready(function(){
     
       var name = $('#name').val();
       var phone = $('#phone').val();
-      var email = $('#email').val();
+      // var email = $('#email').val();
       var reservation = $('#dateString').val();
       var citizenId = $('#nid').val();
-      if( name == '' && phone == '' && citizenId == ''  && email == '' )
+      if( name == '' && phone == '' && citizenId == ''  )
       {
         toastr["error"]("Please input data to search!")
         toastr.options = {
@@ -365,7 +382,7 @@ $(document).ready(function(){
   $('#reset').click(function(){
     $('#classDatatable').hide();
     $('#name').val('');
-      $('#email').val('');
+      // $('#email').val('');
       $('#phone').val('');
       $('#nid').val('');
       $('#reservation').daterangepicker({
@@ -413,7 +430,7 @@ $(document).ready(function(){
        },
        function(start, end) {
 
-        $('#daterange-btn span').html(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+        $('#daterange-btn span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
         startDate = start;
          endDate = end;    
          $("#dateString").val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
@@ -423,7 +440,7 @@ $(document).ready(function(){
        }
     );
     //Set the initial state of the picker label
-    $('#daterange-btn span').html(moment().subtract('days', 29).format('D MMMM YYYY') + ' - ' + moment().format('D MMMM YYYY'));
+    $('#daterange-btn span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
     report();
     setInterval(function(){
         report() // this will run after every 5 seconds
@@ -441,15 +458,31 @@ $(document).ready(function(){
   }
 
   $(".box-step2").on("click",function (e){
+    $('#classDatatable').show();
+    var step = 2;
+    var name = $('#name').val();
+      var phone = $('#phone').val();
+      // var email = $('#email').val();
+      var reservation = $('#dateString').val();
+      var citizenId = $('#nid').val();
     e.preventDefault();
     console.log("filter step 2");
-    // fill_datatable(name,action="search",phone,reservation,citizenId);
+    $('#example1').DataTable().destroy();
+    fill_datatable(name,action="search",phone,reservation,citizenId,step);
   });
 
   $(".box-step3").on("click",function (e){
+    $('#classDatatable').show();
+    var name = $('#name').val();
+      var phone = $('#phone').val();
+      // var email = $('#email').val();
+      var reservation = $('#dateString').val();
+      var citizenId = $('#nid').val();
+    var step = 3;
     e.preventDefault();
     console.log("filter step 3");
-    // fill_datatable(name,action="search",phone,reservation,citizenId);
+    $('#example1').DataTable().destroy();
+    fill_datatable(name,action="search",phone,reservation,citizenId,step);
   });
 });
 

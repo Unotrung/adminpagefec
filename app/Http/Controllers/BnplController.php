@@ -93,7 +93,6 @@ class BnplController extends Controller
                     'to' => $request->to
                 ]);
                 $result = $response->json();
-
                 $out =  Datatables::of($result["data"])->make(true);
                 
                 $data = $out->getData();

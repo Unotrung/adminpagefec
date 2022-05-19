@@ -59,7 +59,7 @@
                         <tr>
                           <input type="hidden" name="sms_otp" value="0">
                           <td>SMS OTP </td>
-                          <td><input type="checkbox" data-id="" name="sms_otp" class="js-switch" {{$other->sms_otp == "on" ? 'checked' : ''}}  ></td>
+                          <td><input type="checkbox"  data-id="" name="sms_otp"  class="js-switch" {{$other->sms_otp == "on" ? 'checked' : ''}}  ></td>
                         </tr>
                         <tr>
                           <input type="hidden" name="email_otp" value="0">
@@ -264,9 +264,16 @@ let status = "";
 let configId = "";
 $(document).ready(function()
 {
+
+  $("[name='sms_otp']").bootstrapSwitch('offColor','warning');
+
   $('.js-switch').change(function () {
         status = $(this).prop('checked') === true ? 1 : 0;
         configId = $(this).data('id');
+        // if(status == 0)
+        // {
+        //   $(this).attr("css", { backgroundColor: "gray" });
+        // }
         // $.ajax({
         //     type: "GET",
         //     dataType: "json",
