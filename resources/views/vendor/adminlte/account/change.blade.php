@@ -25,24 +25,34 @@
        <div class="container-fluid">
        <div class="row">
         
-        <div class="col-8">
+        <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <form method="POST" action="{{ route('password.edit') }}">
+              <div class="" style="background-color: rgb(255,255,255);border-left: 1px solid red;padding-left: 60px;width: 50%;float: right;margin-top: 5%;height: 250px;">
+                <label style="color:red;padding-right: 220px">*Note</label>
+                <label> Your password can only include:</label>
+                <h1 > Minimum lower character: 1</h1>
+                <h1 > Minimum upper character: 1</h1>
+                <h1 > Minimum length: 10 </h1>
+                <h1 > Maximum length: 24 </h1>
+                <h1> Minimum numeric character: 1 </h1>
+                <h1 > Minimum special character: 1 </h1>
+              </div>
+              <form method="POST" action="{{ route('password.edit') }}" style="width: 50%;float: left;">
               @csrf
               <div class="info-form">
                 <!-- Password Reset Token -->
                 <input type="hidden" name="token" value="{{ csrf_token() }}">
 
                 <!-- Email Address -->
-                <div class="mt-4" style="width:30%; display:none;">
+                <div class="mt-4" style="width:60%; display:none;">
                     <x-label for="email" :value="__('Email')" />
 
                     <x-input id="email" class="block mt-1 w-full" type="text" name="email" value="{{Auth::user()->email}}" required />
                 </div>
 
                 <!-- Old Password -->
-                <div class="mt-4" style="width:40%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="current_password" :value="__('Current Password')" />
 
                     <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" />
@@ -57,14 +67,14 @@
                   </div>
                   
                 <!-- Password -->
-                <div class="mt-4" style="width:40%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="password" :value="__('New Password')" />
 
                     <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
                 </div>
 
                 <!-- Confirm Password -->
-                <div class="mt-4" style="width:40%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="password" :value="__('Confirm New Password')" />
 
                     <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror"
@@ -77,7 +87,7 @@
                     @enderror
                 </div>
             </div>
-              <div class="mt-4" style="width:40%; display:block;margin-left: auto;margin-right: auto;" id="otp_text">
+              <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;" id="otp_text">
                 <div class="row">
                   <div class="col-7" style="margin: 0;padding: 0;">
                     <x-label for="otp" :value="__('OTP')" />
@@ -103,18 +113,6 @@
           </div>
           </div>
         </div>
-      <div class="col-4">
-        <div class="card">
-          <div class="card-body" style="background-color: rgb(231, 225, 225)">
-            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum lower character: 1</h1>
-            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum upper character: 1</h1>
-            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum length: 10 </h1>
-            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Maximum length: 24 </h1>
-            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum numeric character: 1 </h1>
-            <h1 style="font-weight: bold"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Minimum special character: 1 </h1>
-          </div>
-        </div>
-      </div>
     </div>
 </div>
 </x-guest-layout>

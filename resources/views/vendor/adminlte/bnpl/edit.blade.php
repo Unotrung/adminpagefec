@@ -60,11 +60,26 @@ $config = [
             </div>
           </div>
           <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
-          <div class="card box-info" style="text-align: center;padding: 74px 0"  >
-            {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
-              <p><i class="fa fa-info-circle" aria-hidden="true"></i>To be updated</p>
-            {{-- </div> --}}
-          </div>
+            <div class="card box-info" style="text-align: center;padding: 20px 0" >
+              <div class="d-flex flex-column">
+                <div class="row">
+                  <div class="col-5">
+                    <img src="https://finshare.vn/wp-content/uploads/2022/03/fe-credit-vay-tieu.jpeg" height="80"/>
+                  </div>
+                  <div class="col-sm-7 justify-content-center align-self-center">
+                    <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>50,000,000 VND</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-5">
+                    <img src="https://logodix.com/logo/2091311.png" height="80"/>
+                  </div>
+                  <div class="col-sm-7 justify-content-center align-self-center">
+                    <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>30,000,000 VND</div>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
         <div class="col-6" style="">
           <label for="inputPassword3" class="col-sm-4 col-form-label">Other Information</label>
