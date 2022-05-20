@@ -176,7 +176,7 @@ class BnplController extends Controller
         //refresh token and response data
         $response = Http::withToken(session("apiToken"))->get($url,$req);
 
-        if(empty($response->json()) || isset($response->json()['statusCode']) === 4003){
+        if(empty($response->json()) || $response->json()['statusCode'] === 4003){
             session(['apiToken' => null]);
             $this->_apiAccessToken();
             $response = Http::withToken(session("apiToken"))->get($url,$req);
