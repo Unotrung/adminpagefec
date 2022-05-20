@@ -92,7 +92,9 @@ class BnplController extends Controller
                     'form' => $request->from,
                     'to' => $request->to
                 ]);
+
                 $result = $response->json();
+                
                 $out =  Datatables::of($result["data"])->make(true);
                 
                 $data = $out->getData();
@@ -142,8 +144,8 @@ class BnplController extends Controller
         $pass = "12345678";
 
         //existed token
-        if(session('apitoken') !== null){
-            $token = session('apitoken');
+        if(session('apiToken') !== null){
+            $token = session('apiToken');
             return true;
         }
 
@@ -151,9 +153,11 @@ class BnplController extends Controller
         $res = Http::contentType('application/json')
             ->send('POST',env("API_PARTNER").'/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
             ->json();   
+        
         try{
-            if(isset($res["status"]) && $res["status"] == 1){
-                session(['apitoken' => $res["data"]["token"]]);
+            if(isset($res["status"]) && $res["status"]){
+                session(['apiToken' => $res["token"]]);
+                session(['apiRefreshToken' => $res["data"]["refreshToken"]]);
             }
         }
         catch(e){
@@ -165,25 +169,27 @@ class BnplController extends Controller
     private function _refreshTokenResponse($url,$req = array()){
 
         //get token
-        if(session("apitoken") === ''){
+        if(session("apiToken") === null || session("apiToken") === ''){
             $this->_apiAccessToken();
         }
 
         //refresh token and response data
-        $response = Http::withHeaders([
-            'x-access-token' => session("apitoken")
-        ])->get($url,$req);
+        $response = Http::withToken(session("apiToken"))->get($url,$req);
 
         if(empty($response->json())){
-            session(['apitoken' => null]);
+            // session(['apiToken' => null]);
             $this->_apiAccessToken();
-            $response = Http::withHeaders([
-                'x-access-token' => session("apitoken")
-            ])->get($url,$req);
+            $response = Http::withToken(session("apiToken"))->get($url,$req);
         }
 
         return $response;
 
+    }
+
+    private function _refreshToken(){
+        if(session('apiRefreshToken') !== null && session('apiRefreshToken') !== ''){
+
+        }
     }
 
 
