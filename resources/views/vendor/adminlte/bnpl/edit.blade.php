@@ -46,18 +46,15 @@ $config = [
         <div class="col-6">
           <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Information</label>
           <div class="card box-info" >
-            <div class="col-sm-8">
+            <div class="col-sm-10">
               <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$bnpl["name"]}}</div>
             </div>
           
             
-            <div class="col-sm-8">
+            <div class="col-sm-10">
               <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Phone:</label>{{$bnpl["phone"]}}</div>
             </div>
 
-            <div class="col-sm-8">
-              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit::</label>50,000,000 VND</div>
-            </div>
           </div>
           <label for="inputPassword3" class="col-sm-4 col-form-label">Provider</label>
             <div class="card box-info" style="text-align: center;padding: 20px 0" >

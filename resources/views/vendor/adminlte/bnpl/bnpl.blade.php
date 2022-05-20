@@ -295,7 +295,7 @@ $(document).ready(function(){
               render: function ( data, type, row ) {
                 if ( type === 'display' || type === 'filter' ) {
                     var d = new Date( data );
-                    return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
+                    return d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
                 }
                 return data;}
             },
