@@ -14,6 +14,11 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <link rel='stylesheet' href='https://cdn.rawgit.com/t4t5/sweetalert/v0.2.0/lib/sweet-alert.css'>
+  {{-- Toast Notification --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" 
+   href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 @stop
 @section('content_header')
@@ -92,6 +97,16 @@
         <!-- /.row -->
       </div>
 </section>
+<script>
+      @if(Session::has('add'))
+      toastr.options =
+      {
+        "closeButton" : true,
+        "progressBar" : true
+      }
+          toastr.success("{{ session('add') }}");
+      @endif
+  </script>
     <!-- /.content -->
 @stop
 
@@ -114,7 +129,9 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-
+<?php
+  $customers = App\Models\Customer::all();
+?>
 <!-- Page specific script -->
 <script>
 var id = "";

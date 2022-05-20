@@ -45,11 +45,11 @@ class ModuleController extends Controller
         $modules = new Modules;
         $modules->module = $request->module;
         $modules->save();
-        return redirect()->route("modules.index")->with('Create news successfully');
+        return redirect()->route("modules.index")->with('add','Create news successfully');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.'add',
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -154,6 +154,8 @@ class ModuleController extends Controller
                
             }
            $out->setData($data);
+        //    print_r($out);
+        //    exit;
            return $out;
        }
    }

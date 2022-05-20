@@ -131,13 +131,13 @@
         }
             toastr.success("{{ session('delete') }}");
       @endif
-      @if(Session::has('update'))
+      @if(Session::has('Update'))
         toastr.options =
         {
           "closeButton" : true,
           "progressBar" : true
         }
-            toastr.success("{{ session('delete') }}");
+            toastr.success("{{ session('Update') }}");
         @endif
 
     </script>

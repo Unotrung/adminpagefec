@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Collection;
 use Auth;
 
 class AccountController extends Controller
@@ -36,7 +37,7 @@ class AccountController extends Controller
 
     public function show()
     {
-        $timechange = UserInfo::All()->sortByDesc("created_at");
+        $timechange = UserInfo::All()->sortByDesc("created_at")->skip(0)->take(10);
         // print_r($timechange);
         // exit;
         return view('vendor.adminlte.account.show',["timechange"=>$timechange]);

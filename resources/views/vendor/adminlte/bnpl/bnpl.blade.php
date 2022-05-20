@@ -78,8 +78,8 @@
             <!-- small box -->
             <div class="small-box bg-warning" style="cursor: pointer">
               <div class="inner">
-                <h3 class="step3"> {{count($phone)}}</h3>
-                <p>Stage: Setup PIN Code</p>
+                <h3 class="step3" style="color: white"> {{count($phone)}}</h3>
+                <p style="color: white">Stage: Setup PIN Code</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-lock"></i>
@@ -126,7 +126,7 @@
                   </div> --}}
                 </div>
                 <div class="searchadvance target" style="">
-                  <div class="row" style="margin-bottom: 20px;"> 
+                  <div class="row" style="margin-bottom: 0px;"> 
                   <div class="col-4">
                     <div class="input-group input-group-md">
                       <input type="text" class="form-control form-control-user" id="nid" placeholder="NID" name="nid" value="" style="">
@@ -140,7 +140,6 @@
                     </div>
                   </div>
                   <div class="col-0" style="visibility: hidden;">
-                    <label>Created to:</label>
                     <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
                     {{-- <input type="text" value="" id="dateString">  --}}
                   </div>
