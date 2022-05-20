@@ -219,6 +219,10 @@ $(document).ready(function(){
     
     var input = $('#input').val();
     console.log(input);
+    if(input.strim().length === 0)
+    {
+      console.log("abc");
+    }
     var type = $('#type').val();
     console.log(type);
     var status = $('#status').val();

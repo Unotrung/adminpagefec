@@ -82,7 +82,7 @@
                   </div>
                 </div>
                 <div class="searchadvance target" style="">
-                  <div class="row" style="margin-bottom: 20px;"> 
+                  <div class="row" style="margin-bottom: 0px;"> 
                   <div class="col-4">
 
                     <div class="input-group input-group-md">

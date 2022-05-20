@@ -459,11 +459,11 @@ $(document).ready(function(){
   $(".box-step2").on("click",function (e){
     $('#classDatatable').show();
     var step = 2;
-    var name = $('#name').val();
-      var phone = $('#phone').val();
+    var name = "";
+      var phone = "";
       // var email = $('#email').val();
-      var reservation = $('#dateString').val();
-      var citizenId = $('#nid').val();
+      var reservation = "";
+      var citizenId = "";
     e.preventDefault();
     console.log("filter step 2");
     $('#example1').DataTable().destroy();
@@ -472,11 +472,11 @@ $(document).ready(function(){
 
   $(".box-step3").on("click",function (e){
     $('#classDatatable').show();
-    var name = $('#name').val();
-      var phone = $('#phone').val();
+    var name = "";
+      var phone = "";
       // var email = $('#email').val();
-      var reservation = $('#dateString').val();
-      var citizenId = $('#nid').val();
+      var reservation = "";
+      var citizenId = "";
     var step = 3;
     e.preventDefault();
     console.log("filter step 3");
