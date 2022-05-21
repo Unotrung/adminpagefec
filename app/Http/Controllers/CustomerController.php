@@ -200,9 +200,7 @@ class CustomerController extends Controller
 
                 $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
                 $result = $response->json();
-                if($result["statusCode"] != 1){
-                    return [];
-                }
+
                 $bnpl = $result["data"]["BNPL"];
                 $eap = $result["data"]["EAP"];
 
@@ -347,12 +345,6 @@ class CustomerController extends Controller
         $user = "LARAVEL6";
         $pass = "12345678";
 
-        //existed token
-        if(session('apiToken') !== null){
-            $token = session('apiToken');
-            return true;
-        }
-
         //login & get Token
         $res = Http::contentType('application/json')
             ->send('POST',env("API_PARTNER").'/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
@@ -378,15 +370,30 @@ class CustomerController extends Controller
         }
 
         //refresh token and response data
-        $response = Http::withToken(session("apiToken"))->get($url,$req);
-
-        if(empty($response->json()) || $response->json()['statusCode'] === 4003){
-            session(['apiToken' => null]);
-            $this->_apiAccessToken();
+        try{
+            $response = Http::withToken(session("apiToken"))->get($url,$req);
+        }catch(Exception){
+            $this->_refreshToken();
             $response = Http::withToken(session("apiToken"))->get($url,$req);
         }
-
         return $response;
+
+    }
+
+    private function _refreshToken(){
+        $url = env("API_PARTNER").'/v1/admin/requestRefreshToken';
+        $req = [
+            "refreshToken" => session("apiRefreshToken")
+        ];
+        try{
+            $res = Http::withToken(session("apiToken"))->put($url,$req);
+            if(isset($res["status"]) && $res["status"]){
+                session(['apiToken' => $res["accessToken"]]);
+                session(['apiRefreshToken' => $res["refreshToken"]]);
+            }
+        }catch(Exception $e){
+            return $e;
+        }
 
     }
 
