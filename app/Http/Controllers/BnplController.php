@@ -83,15 +83,20 @@ class BnplController extends Controller
 
     public function dtajax(Request $request){
          if ($request->ajax()) {
+            // $response = new obj();
             if(!empty($request->search))
             {
-                
-                $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
-                    'search' => $request->search,
-                    'value' => $request->value,
-                    'form' => $request->from,
-                    'to' => $request->to
-                ]);
+                try
+                {
+                    $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
+                        'search' => $request->search,
+                        'value' => $request->value,
+                        'form' => $request->from,
+                        'to' => $request->to
+                    ]);
+                }catch(e){
+                    $response->data = null;
+                }
 
                 $result = $response->json();
                 
@@ -127,14 +132,20 @@ class BnplController extends Controller
     }
 
     public function report(){
-        $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getReportBNPL');
-        if(!empty($response->json()))
-        {
-            return response($response->json());
+        try
+        {   
+            $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getReportBNPL');
+            if(!empty($response->json()))
+            {
+                return response($response->json());
+            }
+            $data["message"] = "response empty";
+        }catch(e){
+            $data["message"] = e;
         }
-        $data["code"]=0;
-        $data["message"] = "fail";
+        $data["code"] = 0;
         return response($data);
+
 
     }
 
