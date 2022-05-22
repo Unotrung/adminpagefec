@@ -28,10 +28,11 @@ class ConfigurationController extends Controller
         $approvalUser = User::where("_id",$activeRow->approval_acc)->first();
 
         try{
-            $config = Http::get(env("API_PARTNER").'/v1/config/');
+            $config = $this->_refreshTokenResponse((env("API_PARTNER").'/v1/config/'));
             $response = $config->body();
         }catch(e){
             $response = "";
+            
         }
 
 
@@ -118,5 +119,62 @@ class ConfigurationController extends Controller
             $message->from('info@voolo.vn', 'Voolo');
         });
         echo "Successfully sent the email";
+    }
+
+    private function _apiAccessToken(){
+
+        $user = "LARAVEL6";
+        $pass = "12345678";
+
+        //login & get Token
+        $res = Http::contentType('application/json')
+            ->send('POST',env("API_PARTNER").'/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
+            ->json();   
+        
+        try{
+            if(isset($res["status"]) && $res["status"]){
+                session(['apiToken' => $res["token"]]);
+                session(['apiRefreshToken' => $res["data"]["refreshToken"]]);
+            }
+        }
+        catch(e){
+            return false;
+        }
+        return true;
+    }
+
+    private function _refreshTokenResponse($url,$req = array()){
+
+        //get token
+        if(session("apiToken") === null || session("apiToken") === ''){
+            $this->_apiAccessToken();
+        }
+
+        //refresh token and response data
+        try{
+            $response = Http::withToken(session("apiToken"))->get($url,$req);
+        }catch(Exception){
+            $this->_refreshToken();
+            $response = Http::withToken(session("apiToken"))->get($url,$req);
+        }
+        return $response;
+
+    }
+
+    private function _refreshToken(){
+        $url = env("API_PARTNER").'/v1/admin/requestRefreshToken';
+        $req = [
+            "refreshToken" => session("apiRefreshToken")
+        ];
+        try{
+            $res = Http::withToken(session("apiToken"))->put($url,$req);
+            if(isset($res["status"]) && $res["status"]){
+                session(['apiToken' => $res["accessToken"]]);
+                session(['apiRefreshToken' => $res["refreshToken"]]);
+            }
+        }catch(Exception $e){
+            return $e;
+        }
+
     }
 }
