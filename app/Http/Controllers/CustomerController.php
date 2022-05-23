@@ -159,19 +159,8 @@ class CustomerController extends Controller
         if ($request->ajax()) {
             $array = [];
             $strFilter = "";
-<<<<<<< HEAD
-            if($request->filter)
-            {
-                
-                foreach($request->filter as $key=>$val){
-                    if($val != null){
-                        $strFilter .= $key."=".$val."&";
-                    }
-                }
-=======
             if(!empty($request->filter) && $request->filter["from"] !== NULL)
             {
->>>>>>> 879ba3e08f20aa5ee56c4aa44c1c14fa423b55c3
                 
                 $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/search/',$request->filter);
                 
@@ -179,14 +168,8 @@ class CustomerController extends Controller
                 if($response->status() != 200){
                     return $response->body();
                 }
-<<<<<<< HEAD
-                if($response->status() !== 200){
-                    return $response->body();
-                }
-=======
 
                 $result = $response->json();
->>>>>>> 879ba3e08f20aa5ee56c4aa44c1c14fa423b55c3
                 $bnpl = $result["data"]["BNPL"];
                 $eap = $result["data"]["EAP"];
                 

@@ -87,9 +87,9 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6  box-step0" style="cursor: pointer">
+          <div class="col-lg-3 col-6  box-step4" >
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-danger" style="cursor: pointer">
               <div class="inner">
                 <h3 class="step4">{{count($identify)}}</h3>
                 <p>Stage: Verify Registration</p>
@@ -480,6 +480,20 @@ $(document).ready(function(){
     var step = 3;
     e.preventDefault();
     console.log("filter step 3");
+    $('#example1').DataTable().destroy();
+    fill_datatable(name,action="search",phone,reservation,citizenId,step);
+  });
+
+  $(".box-step4").on("click",function (e){
+    $('#classDatatable').show();
+    var name = "";
+      var phone = "";
+      // var email = $('#email').val();
+      var reservation = "";
+      var citizenId = "";
+    var step = 4;
+    e.preventDefault();
+    console.log("filter step 4");
     $('#example1').DataTable().destroy();
     fill_datatable(name,action="search",phone,reservation,citizenId,step);
   });

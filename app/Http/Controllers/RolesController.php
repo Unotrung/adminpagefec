@@ -34,6 +34,13 @@ class RolesController extends Controller
      */
     public function index()
     {
+        $module = Modules::All();
+        foreach ($module as $module)
+        {
+            print_r("anb".$module->id);
+            exit;
+        }
+       
         return view('vendor.adminlte.roles.index');
     }
     
