@@ -218,11 +218,8 @@ $(document).ready(function(){
   $('#search').click(function(){
     
     var input = $('#input').val();
-    console.log(input);
-    if(input.strim().length === 0)
-    {
-      console.log("abc");
-    }
+    console.log(input.strim().length());
+    
     var type = $('#type').val();
     console.log(type);
     var status = $('#status').val();
