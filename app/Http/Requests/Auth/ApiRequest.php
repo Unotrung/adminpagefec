@@ -54,15 +54,12 @@ class ApiRequest
         }
 
         //refresh token and response data
-        try{
+        $response = Http::withToken(session("apiToken"))->get($url,$req);
+        if($response->status() != 200){
+            $this->_refreshToken();
             $response = Http::withToken(session("apiToken"))->get($url,$req);
-            if($response->status() !== 200){
-                $this->_refreshToken();
-                $response = Http::withToken(session("apiToken"))->get($url,$req);
-            }
-        }catch(Exception){
-            return Exception;
         }
+        
         return $response;
 
     }
@@ -74,20 +71,16 @@ class ApiRequest
         $req = [
             "refreshToken" => session("apiRefreshToken")
         ];
-        try{
-            $res = Http::withToken(session("apiToken"))->put($url,$req);
-            if($res->status() === 200){
-                $data = $res->json();
-                session(['apiToken' => $data["accessToken"]]);
-                session(['apiRefreshToken' => $data["refreshToken"]]);
-            }elseif($res->status() === 409){
-                $this->_login();
-            }
-            return true;
-            
-        }catch(Exception $e){
-            return $e;
+
+        $res = Http::withToken(session("apiToken"))->put($url,$req);
+        if($res->status() === 200){
+            $data = $res->json();
+            session(['apiToken' => $data["accessToken"]]);
+            session(['apiRefreshToken' => $data["refreshToken"]]);
+        }elseif($res->status() >= 400){
+            $this->_login();
         }
+        return true;
 
     }
 

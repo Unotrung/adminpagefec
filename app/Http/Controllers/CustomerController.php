@@ -158,25 +158,17 @@ class CustomerController extends Controller
         $ApiRequest = new ApiRequest;
         if ($request->ajax()) {
             $strFilter = "";
-            if(!empty($request->filter))
+            if(!empty($request->filter) && $request->filter["from"] !== NULL)
             {
-                foreach($request->filter as $key=>$val){
-                    if($val != null){
-                        $strFilter .= $key."=".$val."&";
-                    }
-                }
                 
-                $strFilter = ($strFilter!="")?"?".$strFilter:"";
-                $strFilter = rtrim($strFilter, "&");
+                $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/search/',$request->filter);
+                
 
-                try{
-                    $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
-                    $result = $response->json();
-                }catch(e){
-                    $result["data"]["BNPL"] = [];
-                    $result["data"]["EAP"] = [];
+                if($response->status() != 200){
+                    return $response->body();
                 }
 
+                $result = $response->json();
                 $bnpl = $result["data"]["BNPL"];
                 $eap = $result["data"]["EAP"];
                 
@@ -265,7 +257,7 @@ class CustomerController extends Controller
             {
                 $result["data"] = [];
 
-                $out =  Datatables::of($result)->make(false);
+                $out =  Datatables::of([])->make(false);
                 return $out;      
             }
             
