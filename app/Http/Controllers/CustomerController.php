@@ -185,9 +185,11 @@ class CustomerController extends Controller
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
+            $array = [];
             $strFilter = "";
-            if(!empty($request->filter))
+            if($request->filter)
             {
+                
                 foreach($request->filter as $key=>$val){
                     if($val != null){
                         $strFilter .= $key."=".$val."&";
@@ -204,33 +206,11 @@ class CustomerController extends Controller
                     $result["data"]["BNPL"] = [];
                     $result["data"]["EAP"] = [];
                 }
-
+                if($response->status() !== 200){
+                    return $response->body();
+                }
                 $bnpl = $result["data"]["BNPL"];
                 $eap = $result["data"]["EAP"];
-
-                // $eap[0]["bnpl"] = $result["data"]["BNPL"];
-                // $out =  Datatables::of($eap)->make(true);
-                // $data = $out->getData();   
-                
-                // for($i=0; $i < count($data->data); $i++) {
-                //     // $name_before = substr($data->data[$i]->email,0,3);
-                //     // $name_after = substr($data->data[$i]->email,-4,4);
-                //     // $data->data[$i]->email = $name_before."***@***".$name_after;   
-                //     // $phone_before = substr($data->data[$i]->phone,0,3);
-                //     // $phone_after = substr($data->data[$i]->phone,-1,3);
-                //     // $data->data[$i]->phone = $phone_before."******".$phone_after;
-                //     $output = '';
-                //     $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->phone])).'#eap_info" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                //     // $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
-                //     // $output .= ' <button class="btn btn-danger btn-xs btnDelete" onclick="delete1($(this))" type="button" title="click here"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
-                //     $data->data[$i]->action = (string)$output;
-
-                //     //config link for phonenumber
-                //     $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->phone])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
-
-                // }
-                // $out->setData($data);
-                // return $out;
                 
                 if($eap !=null && $bnpl == null)
                 {
@@ -337,7 +317,7 @@ class CustomerController extends Controller
             {
                 $result["data"] = [];
                 // $result = $response->json();
-                $out =  Datatables::of($result)->make(false);
+                $out =  Datatables::of([])->make(false);
                 return $out;      
             }
             

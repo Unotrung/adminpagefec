@@ -218,37 +218,60 @@ $(document).ready(function(){
   $('#search').click(function(){
     
     var input = $('#input').val();
-    console.log(input.strim().length());
-    
-    var type = $('#type').val();
-    console.log(type);
-    var status = $('#status').val();
-    console.log(status);
-    if( input == '')
-    {
-      toastr["error"]("Please select input data to search!")
-      toastr.options = {
-        "closeButton": false,
-        "debug": true,
-        "newestOnTop": false,
-        "progressBar": false,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
+    var str = input.replace(/\s/g, '').length;
+    console.log(str);
+    if(str > 0) {
+      var type = $('#type').val();
+      console.log(type);
+      var status = $('#status').val();
+      console.log(status);
+      if( input == '')
+      {
+        toastr["error"]("Please select input data to search!")
+        toastr.options = {
+          "closeButton": false,
+          "debug": true,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+      }
+      else
+      {
+        $('#example1').DataTable().destroy();
+        fill_datatable(input,type,status);
       }
     }
     else
     {
-      $('#example1').DataTable().destroy();
-      fill_datatable(input,type,status);
+      toastr["error"]("Your input can't just have only whitespace")
+        toastr.options = {
+          "closeButton": false,
+          "debug": true,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
     }
   });
 

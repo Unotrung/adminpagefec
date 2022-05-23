@@ -117,8 +117,8 @@
                   </div>
                   <div class="col-0" style="visibility: hidden;">
                     
-                    <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/>
-                    {{-- <input type="text" value="" id="dateString">  --}}
+                    {{-- <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/> --}}
+                    <input type="text" value="" id="dateString"> 
                   </div>
                   
 
@@ -237,7 +237,58 @@ $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
   $("[rel=tooltip]").tooltip({ placement: 'top'});
 
-  fill_datatable('a');
+  $('#daterange-btn').daterangepicker(
+       {
+          startDate: moment().subtract('days', 29),
+          endDate: moment(),
+          minDate: '01/01/2022',
+          maxDate: moment(),
+          dateLimit: { days: 60 },
+          showDropdowns: true,
+          showWeekNumbers: true,
+          timePicker: false,
+          timePickerIncrement: 1,
+          timePicker12Hour: true,
+          ranges: {
+             'Last 7 Days': [moment().subtract('days', 6), moment()],
+             'Last 30 Days': [moment().subtract('days', 29), moment()],
+             'This Month': [moment().startOf('month'), moment().endOf('month')],
+             'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
+             'Last 3 Months': [moment().subtract('month', 3).startOf('month'), moment().subtract('month')]
+          },
+          opens: 'left',
+          buttonClasses: ['btn btn-default'],
+          applyClass: 'btn-small btn-primary',
+          cancelClass: 'btn-small',
+          format: 'DD/MM/YYYY',
+          separator: ' to ',
+          locale: {
+              applyLabel: 'Submit',
+              fromLabel: 'From',
+              toLabel: 'To',
+              customRangeLabel: 'Custom Range',
+              daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
+              monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              firstDay: 1
+          }
+       },
+       function(start, end) {
+
+        $('#daterange-btn span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+        startDate = start;
+         endDate = end;    
+         $('#dateString').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+        //  $('#currentSeleced').html($this.ranges);
+        
+       }
+    );
+    //Set the initial state of the picker label
+    $('#daterange-btn span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
+    $('#dateString').val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
+    console.log($('#dateString').val());
+    
+
+  fill_datatable();
   function fill_datatable(username = '',email=  '',action='',phone='',reservation = '',citizenId='')
   {
       var search = {};
@@ -250,11 +301,12 @@ $(document).ready(function(){
       }
       else
       {
-      search.citizenId = $('#nid').val();
+        search.citizenId = $('#nid').val();
       }
-      console.log(search);
-      search.from = $('#dateString').val().split(" - ")[0];
-      search.to = $('#dateString').val().split(" - ")[1];
+      var dateString = $('#dateString').val().split(" - ");
+      console.log(dateString);
+      search.from = dateString[0];
+      search.to = dateString[1];
       var dataTable = $('#example1').DataTable({
           processing: true,
           serverSide: true,
@@ -372,55 +424,6 @@ $(document).ready(function(){
       $('#example1').DataTable().destroy();
       fill_datatable();
   });
-
-  $('#daterange-btn').daterangepicker(
-       {
-          startDate: moment().subtract('days', 29),
-          endDate: moment(),
-          minDate: '01/01/2022',
-          maxDate: moment(),
-          dateLimit: { days: 60 },
-          showDropdowns: true,
-          showWeekNumbers: true,
-          timePicker: false,
-          timePickerIncrement: 1,
-          timePicker12Hour: true,
-          ranges: {
-             'Last 7 Days': [moment().subtract('days', 6), moment()],
-             'Last 30 Days': [moment().subtract('days', 29), moment()],
-             'This Month': [moment().startOf('month'), moment().endOf('month')],
-             'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
-             'Last 3 Months': [moment().subtract('month', 3).startOf('month'), moment().subtract('month')]
-          },
-          opens: 'left',
-          buttonClasses: ['btn btn-default'],
-          applyClass: 'btn-small btn-primary',
-          cancelClass: 'btn-small',
-          format: 'DD/MM/YYYY',
-          separator: ' to ',
-          locale: {
-              applyLabel: 'Submit',
-              fromLabel: 'From',
-              toLabel: 'To',
-              customRangeLabel: 'Custom Range',
-              daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
-              monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-              firstDay: 1
-          }
-       },
-       function(start, end) {
-
-        $('#daterange-btn span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
-        startDate = start;
-         endDate = end;    
-         $('#dateString').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
-        //  $('#currentSeleced').html($this.ranges);
-        
-       }
-    );
-    //Set the initial state of the picker label
-    $('#daterange-btn span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
-    $('#dateString').val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' + moment().format('YYYY-MM-DD'));
 });
 </script>
 @stop

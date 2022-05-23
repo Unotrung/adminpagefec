@@ -28,16 +28,16 @@
       <h1 class="m-0">Modules</h1>
       
     </div><!-- /.col -->
-    <div class="col-sm-6">
+    <div class="col-sm-7">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
         <li class="breadcrumb-item active">Modules</li>
       </ol>
     </div><!-- /.col -->
-    <div class="col-sm-1">
+    {{-- <div class="col-sm-1">
       <a href="{{route('modules.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-plus"></i> Add</a>
-      </div><!-- /.col -->
+      </div><!-- /.col --> --}}
   </div><!-- /.container-fluid -->
 </div><!-- /.row -->
 @stop
