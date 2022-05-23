@@ -9,6 +9,7 @@ use App\Models\User;
 use Mail;
 use App\Mail\EmailTemplate;
 use Auth;
+use App\Http\Requests\Auth\ApiRequest;
 
 class ConfigurationController extends Controller
 {
@@ -20,6 +21,7 @@ class ConfigurationController extends Controller
 
     public function index()
     {
+        $apiRequest = new ApiRequest;
         $other = Configuration::where("status",0)->orderBy("created_at","desc")->first();
         if(is_null($other)){
             $other = Configuration::where("is_used",1)->orderBy("created_at","desc")->first();
@@ -28,7 +30,7 @@ class ConfigurationController extends Controller
         $approvalUser = User::where("_id",$activeRow->approval_acc)->first();
 
         try{
-            $config = $this->_refreshTokenResponse((env("API_PARTNER").'/v1/config/'));
+            $config = $apiRequest->refreshTokenResponse((env("API_PARTNER").'/v1/config'));
             $response = $config->body();
         }catch(e){
             $response = "";
@@ -57,7 +59,7 @@ class ConfigurationController extends Controller
     public function updateStatus(Request $request)
     {
         if(isset($request->id)){
-            // $response = Http::put(env("API_PARTNER").'/v1/config/',$request->status);
+
             $config = new Configuration;
             $config->name = "configuration";
             $config->department = $request->department;
@@ -119,62 +121,5 @@ class ConfigurationController extends Controller
             $message->from('info@voolo.vn', 'Voolo');
         });
         echo "Successfully sent the email";
-    }
-
-    private function _apiAccessToken(){
-
-        $user = "LARAVEL6";
-        $pass = "12345678";
-
-        //login & get Token
-        $res = Http::contentType('application/json')
-            ->send('POST',env("API_PARTNER").'/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
-            ->json();   
-        
-        try{
-            if(isset($res["status"]) && $res["status"]){
-                session(['apiToken' => $res["token"]]);
-                session(['apiRefreshToken' => $res["data"]["refreshToken"]]);
-            }
-        }
-        catch(e){
-            return false;
-        }
-        return true;
-    }
-
-    private function _refreshTokenResponse($url,$req = array()){
-
-        //get token
-        if(session("apiToken") === null || session("apiToken") === ''){
-            $this->_apiAccessToken();
-        }
-
-        //refresh token and response data
-        try{
-            $response = Http::withToken(session("apiToken"))->get($url,$req);
-        }catch(Exception){
-            $this->_refreshToken();
-            $response = Http::withToken(session("apiToken"))->get($url,$req);
-        }
-        return $response;
-
-    }
-
-    private function _refreshToken(){
-        $url = env("API_PARTNER").'/v1/admin/requestRefreshToken';
-        $req = [
-            "refreshToken" => session("apiRefreshToken")
-        ];
-        try{
-            $res = Http::withToken(session("apiToken"))->put($url,$req);
-            if(isset($res["status"]) && $res["status"]){
-                session(['apiToken' => $res["accessToken"]]);
-                session(['apiRefreshToken' => $res["refreshToken"]]);
-            }
-        }catch(Exception $e){
-            return $e;
-        }
-
     }
 }

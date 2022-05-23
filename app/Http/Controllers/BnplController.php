@@ -10,11 +10,10 @@ use MongoDB\Operation\Find;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Response;
+use App\Http\Requests\Auth\ApiRequest;
 
 class BnplController extends Controller
 {
-
-    
     /**
      * Create a new controller instance.
      *
@@ -55,8 +54,8 @@ class BnplController extends Controller
 
 
     public function edit($id){
-
-        $data_bnpl = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$id);
+        $ApiRequest = new ApiRequest;
+        $data_bnpl = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$id);
         if(!empty($data_bnpl))
         {
             
@@ -88,7 +87,8 @@ class BnplController extends Controller
             {
                 try
                 {
-                    $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
+                    $ApiRequest = new ApiRequest;
+                    $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
                         'search' => $request->search,
                         'value' => $request->value,
                         'form' => $request->from,
@@ -134,7 +134,8 @@ class BnplController extends Controller
     public function report(){
         try
         {   
-            $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getReportBNPL');
+            $ApiRequest = new ApiRequest;
+            $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/getReportBNPL');
             if(!empty($response->json()))
             {
                 return response($response->json());
@@ -146,63 +147,6 @@ class BnplController extends Controller
         $data["code"] = 0;
         return response($data);
 
-
-    }
-
-    private function _apiAccessToken(){
-
-        $user = "LARAVEL6";
-        $pass = "12345678";
-
-        //login & get Token
-        $res = Http::contentType('application/json')
-            ->send('POST',env("API_PARTNER").'/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
-            ->json();   
-        
-        try{
-            if(isset($res["status"]) && $res["status"]){
-                session(['apiToken' => $res["token"]]);
-                session(['apiRefreshToken' => $res["data"]["refreshToken"]]);
-            }
-        }
-        catch(e){
-            return false;
-        }
-        return true;
-    }
-
-    private function _refreshTokenResponse($url,$req = array()){
-
-        //get token
-        if(session("apiToken") === null || session("apiToken") === ''){
-            $this->_apiAccessToken();
-        }
-
-        //refresh token and response data
-        try{
-            $response = Http::withToken(session("apiToken"))->get($url,$req);
-        }catch(Exception){
-            $this->_refreshToken();
-            $response = Http::withToken(session("apiToken"))->get($url,$req);
-        }
-        return $response;
-
-    }
-
-    private function _refreshToken(){
-        $url = env("API_PARTNER").'/v1/admin/requestRefreshToken';
-        $req = [
-            "refreshToken" => session("apiRefreshToken")
-        ];
-        try{
-            $res = Http::withToken(session("apiToken"))->put($url,$req);
-            if(isset($res["status"]) && $res["status"]){
-                session(['apiToken' => $res["accessToken"]]);
-                session(['apiRefreshToken' => $res["refreshToken"]]);
-            }
-        }catch(Exception $e){
-            return $e;
-        }
 
     }
 
