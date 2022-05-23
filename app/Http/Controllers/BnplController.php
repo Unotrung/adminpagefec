@@ -83,16 +83,23 @@ class BnplController extends Controller
 
     public function dtajax(Request $request){
          if ($request->ajax()) {
+            // $response = new obj();
             if(!empty($request->search))
             {
-                
-                $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
-                    'search' => $request->search,
-                    'value' => $request->value,
-                    'form' => $request->from,
-                    'to' => $request->to
-                ]);
+                try
+                {
+                    $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
+                        'search' => $request->search,
+                        'value' => $request->value,
+                        'form' => $request->from,
+                        'to' => $request->to
+                    ]);
+                }catch(e){
+                    $response->data = null;
+                }
+
                 $result = $response->json();
+                
                 $out =  Datatables::of($result["data"])->make(true);
                 
                 $data = $out->getData();
@@ -125,14 +132,20 @@ class BnplController extends Controller
     }
 
     public function report(){
-        $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getReportBNPL');
-        if(!empty($response->json()))
-        {
-            return response($response->json());
+        try
+        {   
+            $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/getReportBNPL');
+            if(!empty($response->json()))
+            {
+                return response($response->json());
+            }
+            $data["message"] = "response empty";
+        }catch(e){
+            $data["message"] = e;
         }
-        $data["code"]=0;
-        $data["message"] = "fail";
+        $data["code"] = 0;
         return response($data);
+
 
     }
 
@@ -141,19 +154,15 @@ class BnplController extends Controller
         $user = "LARAVEL6";
         $pass = "12345678";
 
-        //existed token
-        if(session('apitoken') !== null){
-            $token = session('apitoken');
-            return true;
-        }
-
         //login & get Token
         $res = Http::contentType('application/json')
             ->send('POST',env("API_PARTNER").'/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
             ->json();   
+        
         try{
-            if(isset($res["status"]) && $res["status"] == 1){
-                session(['apitoken' => $res["data"]["token"]]);
+            if(isset($res["status"]) && $res["status"]){
+                session(['apiToken' => $res["token"]]);
+                session(['apiRefreshToken' => $res["data"]["refreshToken"]]);
             }
         }
         catch(e){
@@ -165,24 +174,35 @@ class BnplController extends Controller
     private function _refreshTokenResponse($url,$req = array()){
 
         //get token
-        if(session("apitoken") === ''){
+        if(session("apiToken") === null || session("apiToken") === ''){
             $this->_apiAccessToken();
         }
 
         //refresh token and response data
-        $response = Http::withHeaders([
-            'x-access-token' => session("apitoken")
-        ])->get($url,$req);
-
-        if(empty($response->json())){
-            session(['apitoken' => null]);
-            $this->_apiAccessToken();
-            $response = Http::withHeaders([
-                'x-access-token' => session("apitoken")
-            ])->get($url,$req);
+        try{
+            $response = Http::withToken(session("apiToken"))->get($url,$req);
+        }catch(Exception){
+            $this->_refreshToken();
+            $response = Http::withToken(session("apiToken"))->get($url,$req);
         }
-
         return $response;
+
+    }
+
+    private function _refreshToken(){
+        $url = env("API_PARTNER").'/v1/admin/requestRefreshToken';
+        $req = [
+            "refreshToken" => session("apiRefreshToken")
+        ];
+        try{
+            $res = Http::withToken(session("apiToken"))->put($url,$req);
+            if(isset($res["status"]) && $res["status"]){
+                session(['apiToken' => $res["accessToken"]]);
+                session(['apiRefreshToken' => $res["refreshToken"]]);
+            }
+        }catch(Exception $e){
+            return $e;
+        }
 
     }
 

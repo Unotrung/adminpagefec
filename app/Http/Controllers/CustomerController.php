@@ -196,14 +196,15 @@ class CustomerController extends Controller
                 
                 $strFilter = ($strFilter!="")?"?".$strFilter:"";
                 $strFilter = rtrim($strFilter, "&");
-                $response = Http::get(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
-
-                // $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
-                $result = $response->json();
-                
-                if($result["status"] != 1){
-                    return [];
+                // $response = Http::get(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
+                try{
+                    $response = $this->_refreshTokenResponse(env("API_PARTNER").'/v1/admin/search/'.$strFilter);
+                    $result = $response->json();
+                }catch(e){
+                    $result["data"]["BNPL"] = [];
+                    $result["data"]["EAP"] = [];
                 }
+
                 $bnpl = $result["data"]["BNPL"];
                 $eap = $result["data"]["EAP"];
 
@@ -348,20 +349,15 @@ class CustomerController extends Controller
         $user = "LARAVEL6";
         $pass = "12345678";
 
-        //existed token
-        if(session('apitoken') !== null){
-            $token = session('apitoken');
-            return true;
-        }
-
         //login & get Token
         $res = Http::contentType('application/json')
-            ->send('POST','http://localhost:8000/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
+            ->send('POST',env("API_PARTNER").'/v1/admin/login',["body"=> '{"username": "'.$user.'","password": "'.$pass.'"}'])
             ->json();   
-
+        
         try{
-            if(isset($res["status"]) && $res["status"] == 1){
-                session(['apitoken' => $res["data"]["token"]]);
+            if(isset($res["status"]) && $res["status"]){
+                session(['apiToken' => $res["token"]]);
+                session(['apiRefreshToken' => $res["data"]["refreshToken"]]);
             }
         }
         catch(e){
@@ -373,18 +369,35 @@ class CustomerController extends Controller
     private function _refreshTokenResponse($url,$req = array()){
 
         //get token
-        if(session("apitoken") === ''){
+        if(session("apiToken") === null || session("apiToken") === ''){
             $this->_apiAccessToken();
         }
 
         //refresh token and response data
-        $req["token"] = session("apitoken"); 
-        $response = Http::get($url,$req);
-        if($response === "Invalid Token" || $response->json() === ''){
-            $this->_apiAccessToken();
-            $response = Http::get($url,$req);
+        try{
+            $response = Http::withToken(session("apiToken"))->get($url,$req);
+        }catch(Exception){
+            $this->_refreshToken();
+            $response = Http::withToken(session("apiToken"))->get($url,$req);
         }
         return $response;
+
+    }
+
+    private function _refreshToken(){
+        $url = env("API_PARTNER").'/v1/admin/requestRefreshToken';
+        $req = [
+            "refreshToken" => session("apiRefreshToken")
+        ];
+        try{
+            $res = Http::withToken(session("apiToken"))->put($url,$req);
+            if(isset($res["status"]) && $res["status"]){
+                session(['apiToken' => $res["accessToken"]]);
+                session(['apiRefreshToken' => $res["refreshToken"]]);
+            }
+        }catch(Exception $e){
+            return $e;
+        }
 
     }
 
