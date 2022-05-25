@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('title', 'Edit Role')
+@section('css')
+<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+{{-- <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> --}}
+@stop
+
 
 
 @php
@@ -83,69 +88,46 @@ $old = Role::find($role);
                         </div>
                         <div class="card-body">
                           <h6><b>Modules name : </b></h6>
-                          <div class="row">
-                            <div class="col-5 col-sm-3">
-                              <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
-                                @foreach ($modules as $module)
-                                    @if($module->module == "Customers")
-                                        <a class="nav-link active show" id="vert-tabs-{{$module->id}}-tab" data-toggle="pill" href="#vert-tabs-{{$module->id}}" role="tab" aria-controls="vert-tabs-{{$module->id}}" aria-selected="false">{{$module->module}}</a>
-                                    @else
-                                        <a class="nav-link" id="vert-tabs-{{$module->id}}-tab" data-toggle="pill" href="#vert-tabs-{{$module->id}}" role="tab" aria-controls="vert-tabs-{{$module->id}}" aria-selected="false">{{$module->module}}</a>
-                                    @endif
-                                @endforeach
-                              </div>
-                            </div>
-                            <div class="col-7 col-sm-9">
-                              <div class="tab-content" id="vert-tabs-tabContent">
-                                @foreach ($modules as $module)
-                                @if($module->module == "Customers")
-                                    <div class="tab-pane fade active show" id="vert-tabs-{{$module->id}}" role="tabpanel" aria-labelledby="vert-tabs-{{$module->id}}-tab">
-                                @else
-                                    <div class="tab-pane fade" id="vert-tabs-{{$module->id}}" role="tabpanel" aria-labelledby="vert-tabs-{{$module->id}}-tab">
-                                @endif    
-                                    <table class="table table-lg">
-                                    @foreach ($permissions as $permission)
-                                        <?php
-                                            $name_permission = explode("-", $permission->name);
-                                            $permission_ids = $roles->permission_ids;
-                                        ?>
-                                        <tr>
-                                        @if (strtolower($name_permission[0]) == strtolower($module->module))
-                                            @if($permission_ids != null)
-                                            <td class=""><div class="custom-control custom-checkbox">
-                                            <?php if (in_array($permission->id, $permission_ids, TRUE))
-                                            {
-                                            ?>
-                                                <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" checked> 
-                                            <?php 
-                                            }
-                                            else
-                                            {
-                                            ?>
-                                                <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]"> 
-                                            <?php 
-                                            }
-                                            ?>
-                                            <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
-                                            @else
-                                                <td class=""><div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" id="{{$permission->id}}" value="{{$permission->id}}" name="permission[]" > 
-                                                    <label for="{{$permission->id}}" class="custom-control-label">{{$permission->name}}</label>
-                                                    </div>
-                                                </td>
-                                            @endif
-                                        </div></td>
-                                            
-                                        @endif
-                                        </tr>
-                                    @endforeach
-                                    </table>
-                                    
-                                    </div>
-                                @endforeach
-                              </div>
-                            </div>
-                          </div>
+                          <table>
+                            @foreach ($modules as $module)
+                                <tr style="border-bottom: 1px solid #eee">
+                                
+                                <th >
+                                    {{$module->module}}
+                                </th>
+                                <td style="padding-left: 100px">
+                                    <input type="checkbox"  data-id="" name="permission_check"  class="js-switch" id="permission_check" >
+                                </td>
+                                {{-- @foreach ($permissions as $permission) --}}
+                                {{-- 
+                                @if (strtolower($name_permission[0]) == strtolower($module->module)) --}}
+                                    {{-- @if($permission_ids != null) --}}
+                                            <td style="padding-left: 100px">
+                                                <div class="select2-purple">
+                                                    <select class="select2" multiple="multiple" data-placeholder="" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                                        @foreach ($permissions as $permission)
+                                                        <?php
+                                                            $name_permission = explode("-", $permission->name);
+                                                            $permission_ids = $roles->permission_ids;
+                                                        ?>
+                                                        @if(($name_permission[0]) == strtolower($module->module))
+                                                        <option value="{{$permission->id}}" 
+                                                            {{ (in_array($permission->id, $permission_ids)) ?((($name_permission[0]) == strtolower($module->module))? "selected" : ""): "" }}>
+                                                            {{$permission->name}}
+                                                        </option>
+                                                        @endif
+                                                        @endforeach
+                                                        
+                                                    </select>
+                                                </div>
+                                            </td>
+                                    {{-- @endif --}}
+                                {{-- @endif --}}
+                                {{-- @endforeach --}}
+                            </tr>
+                            @endforeach
+                            
+                          </table>
                         </div>
                         <!-- /.card -->
                     </div>
@@ -178,3 +160,46 @@ $old = Role::find($role);
 
 
 @endsection
+@section('js')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="../../plugins/select2/js/select2.full.min.js"></script>
+
+<style>
+select:focus{
+        outline: none;
+    }
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+</style>
+<script>
+$(document).ready(function()
+{
+  $('.js-switch').change(function () {
+        status = $(this).prop('checked') === true ? 1 : 0;
+        configId = $(this).data('id');
+        
+    });
+    var chekc_per =  $('.js-switch').val();
+    console.log(chekc_per);
+    $('.select2').select2()
+// 
+});
+
+
+let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+elems.forEach(function(html) {
+    let switchery = new Switchery(html,  { size: 'small' });
+});
+
+</script>
+
+@stop
