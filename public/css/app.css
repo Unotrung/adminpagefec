@@ -35,3 +35,8 @@
 .voolo .card.card-primary .fvalue{
   /* font-size: 13px; */
 }
+
+.voolo .sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand).sidebar-focused, 
+.sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand):hover{
+  background-color: rgba(255, 255, 255, 0.9)!important;
+}
