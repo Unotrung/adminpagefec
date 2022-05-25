@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('title', 'Account')
+@section('css')
+<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+{{-- <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" 
+   href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@stop
 
 @section('content_header')
 <section class="content-header">
@@ -199,16 +207,16 @@
 
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Center<span style="color:red;">*</span></label>
-                        <div class="col-sm-10">
-                          <select id="user" class="form-control" name="center">
-                            <option value="{{Auth::user()->center}}" selected="">{{Auth::user()->center}}</option>																			
-                            @foreach (explode(';',$configcen) as $configscen)		
-                            @if($configscen!=Auth::user()->center)	
-                              <option value="{{$configscen}}">{{$configscen}}</option>
-                            @endif
-                            @endforeach
-                          </select>
-                        </div>
+                          <div class="col-sm-10">
+                            <select id="user" class="form-control" name="center">
+                              <option value="{{Auth::user()->center}}" selected="">{{Auth::user()->center}}</option>																			
+                              @foreach (explode(';',$configcen) as $configscen)		
+                                @if($configscen!=Auth::user()->center)	
+                                  <option value="{{$configscen}}">{{$configscen}}</option>
+                                @endif
+                              @endforeach
+                            </select>
+                          </div>
                       </div>
 
                       <div class="form-group row">
@@ -226,8 +234,8 @@
                       </div>
 
                       <div class="form-group row">
-                        <div class="offset-sm-5 col-sm-10">
-                          <div data-toggle="modal" data-target="#confirmModal" class="btn btn-danger btn-user btn-block" style="width: 20%" onClick="btnSubmit(this.value)">Submit </div>
+                        <div class="col-sm-10" >
+                          <div data-toggle="modal" data-target="#confirmModal" class="btn btn-danger btn-user btn-block" style="width: 20% ;margin: 10px 290px" onClick="btnSubmit(this.value)">Submit </div>
                             <div class="modal" id="confirmModal">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -259,6 +267,17 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
+      <script>
+        @if(Session::has('success'))
+          toastr.options =
+          {
+            "closeButton" : true,
+            "progressBar" : true
+          }
+              toastr.success("{{ session('success') }}");
+          @endif
+    
+      </script>
     </section>
     <!-- /.content -->
     

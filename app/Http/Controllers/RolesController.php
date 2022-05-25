@@ -110,17 +110,36 @@ class RolesController extends Controller
         'name' => 'required',
         'guard_name' => 'required'
         ]);
+        // exit;
+        $id = $request['id'];
         $module = Modules::All();
+        
         foreach ($module as $module)
         {
-            $id = $module->id;
-            $check_module = Modules::find($id);
-            $check_module->is_active = $request->$id;
+            $id_mo = $module->id;
+            $check_module = Modules::find($id_mo);
+            // $check_module->is_active = [];
+            $arr = $check_module->is_active;
+            
+            if($request->$id_mo === "on"){
+                if(!in_array($id,$arr)){
+                    array_push($arr,$id);
+                }
+
+            }else{
+                $key = array_search($id, $arr);
+                if(in_array($id,$arr)){
+                    if (false !== $key) {
+                        unset($arr[$key]);
+                    }
+                }
+            }
+            $check_module->is_active = $arr;
             $check_module->save();
+            // $check_module->role_ids = $role_ids;
+            // $check_module->save();
             // print_r($module->is_active);
         }
-        exit;
-        $id = $request['id'];
         $role = Role::find($id);
         $role->name = $request->name;
         $role->display_name = $request->display_name;
@@ -136,12 +155,18 @@ class RolesController extends Controller
         $role->permission_ids = [];
         $role->save();
     
-        $permissions = $request->permission;
-        foreach ($permissions as $ele){
-            $permission = Permission::find($ele);
-            $is_exist = Permission::firstOrCreate(['name' => $permission->name]);
-            $role->givePermissionTo($is_exist);
+        $permissions = $request->get('permission');
+        if($permissions !=null)
+        {
+            print_r($permissions);
+            // exit;
+            foreach ($permissions as $ele){
+                $permission = Permission::find($ele);
+                $is_exist = Permission::firstOrCreate(['name' => $permission->name]);
+                $role->givePermissionTo($is_exist);
+            }
         }
+
         // return redirect()->route('modules.index');
         $role->save();
         return redirect()->route('roles.edit',["id"=>$id])->with('success','Role updated successfully.');

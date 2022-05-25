@@ -127,12 +127,12 @@
                 </div>
                 <div class="searchadvance target" style="">
                   <div class="row" style="margin-bottom: 0px;"> 
-                  <div class="col-4">
+                  <div class="col-6">
                     <div class="input-group input-group-md">
                       <input type="text" class="form-control form-control-user" id="nid" placeholder="NID" name="nid" value="" style="">
                     </div>
                   </div>
-                  <div class="col-8">
+                  <div class="col-6">
                       <div class="input-group">
                       <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%" data-toggle="tooltip" title="Created date">
                         Created Date From-To: <i class="far fa-calendar-alt"></i>   <span>Date range picker</span> 

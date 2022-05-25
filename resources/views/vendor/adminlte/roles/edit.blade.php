@@ -4,6 +4,10 @@
 @section('css')
 <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
 {{-- <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" 
+   href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @stop
 
 
@@ -97,22 +101,22 @@ $old = Role::find($role);
                                 </th>
                                 <td style="padding-left: 100px">
                                     <input type="hidden" name="{{$module->id}}" value="0">
-                                    <input type="checkbox"  data-id="" name="{{$module->id}}" id ="{{$module->id}}" class="js-switch" {{$module->is_active == "on" ? 'checked' : ''}}>
+                                    <input type="checkbox"  data-id="" name="{{$module->id}}"  class="js-switch" {{(in_array($roles->id, $module->is_active)) ? 'checked' : ''}} id="{{$module->id}}">
                                 </td>
                                 {{-- @foreach ($permissions as $permission) --}}
                                 {{-- 
                                 @if (strtolower($name_permission[0]) == strtolower($module->module)) --}}
                                     {{-- @if($permission_ids != null) --}}
-                                            <td style="padding-left: 100px">
+                                            <td style="padding-left: 100px" >
                                                 <div class="select2-purple">
-                                                    <select class="select2" multiple="multiple" data-placeholder="" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                                    <select class="select2"  multiple="multiple"  data-placeholder="" data-dropdown-css-class="select2-purple" style="width: 100%;" id="selectbox-{{$module->id}}" name="permission[]"  >
                                                         @foreach ($permissions as $permission)
                                                         <?php
                                                             $name_permission = explode("-", $permission->name);
                                                             $permission_ids = $roles->permission_ids;
                                                         ?>
                                                         @if(($name_permission[0]) == strtolower($module->module))
-                                                        <option value="{{$permission->id}}" 
+                                                        <option value="{{$permission->id}}"  
                                                             {{ (in_array($permission->id, $permission_ids)) ?((($name_permission[0]) == strtolower($module->module))? "selected" : ""): "" }}>
                                                             {{$permission->name}}
                                                         </option>
@@ -158,7 +162,17 @@ $old = Role::find($role);
         </div>
     </div>
 </div>
+<script>
+    @if(Session::has('success'))
+      toastr.options =
+      {
+        "closeButton" : true,
+        "progressBar" : true
+      }
+          toastr.success("{{ session('success') }}");
+      @endif
 
+  </script>
 
 @endsection
 @section('js')
@@ -183,19 +197,17 @@ select:focus{
 <script>
 $(document).ready(function()
 {
-    check_on = $('.js-switch').val();
-    id = "6246722d997477361d058682";
-    if(check_on != "on")
-    {
-
-    }
-    abc = $('#'.id);
-    console.log(abc);
-
   $('.js-switch').change(function () {
         status = $(this).prop('checked') === true ? 1 : 0;
         configId = this.id;
-        console.log(configId);
+        if( status == 1)
+        {        
+            $("#selectbox-"+configId).prop('disabled', false);
+        }
+        else
+        {
+            $("#selectbox-"+configId).prop('disabled', true);
+        }
         
     });
     var chekc_per =  $('.js-switch').val();
@@ -209,6 +221,26 @@ let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
 elems.forEach(function(html) {
     let switchery = new Switchery(html,  { size: 'small' });
+});
+
+var boxes = $("input[type='checkbox']");
+// Loop through each input box
+$.each( boxes, function( key, value ) {
+    // Check if the input box is checked
+    if ($(this).prop('checked')) {
+        // Input box is checked - Add anything you want to happen in the clause below
+        var boxid = $(this).attr('id');
+        $("#selectbox-"+boxid).prop('disabled', false);
+        // console.log(boxid + ' is checked');
+    } else {
+        // Input box is not checked - Add anything you want to happen in the clause below
+        var boxid = $(this).attr('id');
+        $("#selectbox-"+boxid).prop('disabled', true);
+        // var myString = boxid+'';
+        
+        // console.log(check);
+        // console.log(boxid + ' is not checked');
+    }
 });
 
 </script>

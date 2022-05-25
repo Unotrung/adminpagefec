@@ -62,7 +62,7 @@ class AccountController extends Controller
                 'user_id' => $request->id,
                 'type' => "Information",
             ]);
-            return redirect()->route('account.show');
+            return redirect()->route('account.show')->with('success','Update information successfully');;
         }
         else
         {
