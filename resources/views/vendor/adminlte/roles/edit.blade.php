@@ -96,7 +96,8 @@ $old = Role::find($role);
                                     {{$module->module}}
                                 </th>
                                 <td style="padding-left: 100px">
-                                    <input type="checkbox"  data-id="" name="permission_check"  class="js-switch" id="permission_check" >
+                                    <input type="hidden" name="{{$module->id}}" value="0">
+                                    <input type="checkbox"  data-id="" name="{{$module->id}}" id ="{{$module->id}}" class="js-switch" {{$module->is_active == "on" ? 'checked' : ''}}>
                                 </td>
                                 {{-- @foreach ($permissions as $permission) --}}
                                 {{-- 
@@ -182,13 +183,23 @@ select:focus{
 <script>
 $(document).ready(function()
 {
+    check_on = $('.js-switch').val();
+    id = "6246722d997477361d058682";
+    if(check_on != "on")
+    {
+
+    }
+    abc = $('#'.id);
+    console.log(abc);
+
   $('.js-switch').change(function () {
         status = $(this).prop('checked') === true ? 1 : 0;
-        configId = $(this).data('id');
+        configId = this.id;
+        console.log(configId);
         
     });
     var chekc_per =  $('.js-switch').val();
-    console.log(chekc_per);
+   
     $('.select2').select2()
 // 
 });

@@ -33,14 +33,7 @@ class RolesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $module = Modules::All();
-        foreach ($module as $module)
-        {
-            print_r("anb".$module->id);
-            exit;
-        }
-       
+    {  
         return view('vendor.adminlte.roles.index');
     }
     
@@ -117,6 +110,16 @@ class RolesController extends Controller
         'name' => 'required',
         'guard_name' => 'required'
         ]);
+        $module = Modules::All();
+        foreach ($module as $module)
+        {
+            $id = $module->id;
+            $check_module = Modules::find($id);
+            $check_module->is_active = $request->$id;
+            $check_module->save();
+            // print_r($module->is_active);
+        }
+        exit;
         $id = $request['id'];
         $role = Role::find($id);
         $role->name = $request->name;
