@@ -227,7 +227,7 @@ class UsersController extends Controller
                             $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'#activity" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Edit User" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                             }
                             if(Auth::user()->can('users-delete')){
-                            $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Deactive User" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                            $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Deactive User" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-trash"></i></a>';
                             $output .= '
                             <form method="post" action="'.url(route('users.delete')).'">
                                     <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">

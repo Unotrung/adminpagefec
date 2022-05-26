@@ -46,8 +46,8 @@ return [
     */
 
     'logo' => '<b>VOOLO Admin</b> ',
-    'logo_img' => 'vendor/adminlte/dist/img/Vector.png',
-    'logo_img_class' => 'brand-image img-square elevation-3',
+    'logo_img' => 'vendor/adminlte/dist/img/voolo-logo.png',
+    'logo_img_class' => 'brand-image img-square',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Admin',
