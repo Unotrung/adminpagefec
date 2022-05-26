@@ -16,7 +16,7 @@
     @endif>
 
     {{-- Small brand logo --}}
-    <img src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/Group.png')) }}"
+    <img src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/logo_voolo_text.png')) }}"
          alt="{{ config('adminlte.logo_img_alt', 'AdminLTE') }}"
          class="{{ config('adminlte.logo_img_class', 'brand-image-xl') }} logo-xs">
 

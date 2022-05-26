@@ -303,16 +303,16 @@ $(document).ready(function(){
               "searchable": false,
               "orderable":false,
               "render": function (data, type, row) {
-                if (row.name === null) {
-                  return "<i>Nhập Thông Tin<i>";
+                if (row.step === 2) {
+                  return "<i>Input Information<i>";
               }
-              else if(row.phone === null)
+              else if(row.step === 3)
               {
-                return "<i>Cài đặt Pin Code<i>";
+                return "<i>Setup PIN Code<i>";
               }
               else
               {
-                return "<i>Xác minh thông tin<i>";
+                return "<i>Verify Registration<i>";
               }
               return data;}
             },

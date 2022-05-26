@@ -149,8 +149,8 @@
 					@enderror 
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12 text-center">
-				<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block">
+			<div class="col-xs-12 col-sm-12 col-md-12 d-flex justify-content-center">
+				<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block col-3">
 					Submit
 				</div>
 				<div class="modal" id="demoModal">

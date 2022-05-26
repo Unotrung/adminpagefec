@@ -85,28 +85,28 @@ class BnplController extends Controller
             // $response = new obj();
             if(!empty($request->search))
             {
-                try
-                {
-                    $ApiRequest = new ApiRequest;
-                    $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
-                        'search' => $request->search,
-                        'value' => $request->value,
-                        'form' => $request->from,
-                        'to' => $request->to
-                    ]);
-                }catch(e){
-                    $response->data = null;
-                }
+                $ApiRequest = new ApiRequest;
+                $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
+                    'search' => $request->search,
+                    'value' => $request->value,
+                    'form' => $request->from,
+                    'to' => $request->to
+                ]);
+                
 
+                if($response->status() != 200){
+                    return [];
+                }
                 $result = $response->json();
                 
-                $out =  Datatables::of($result["data"])->make(true);
+                $out =  Datatables::of($result["data"]["result"])->make(true);
                 
                 $data = $out->getData();
                 for($i=0; $i < count($data->data); $i++) {
                 $output = '';
                 $output .= ' <a href="'.url(route('bnpl.edit',['id'=>$data->data[$i]->_id])).'#bnpl_info" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $data->data[$i]->action = (string)$output;
+                $data->data[$i]->step = $result["data"]["step"];
             //     if($this->show_action) {
             //         $output = '';
             // //         // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
