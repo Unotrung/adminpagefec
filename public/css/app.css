@@ -57,3 +57,7 @@
   background-color: #E3BFEE;
   color: #5F316B;
 }
+.content-wrapper {
+  height: auto!important;
+  padding-bottom: 30px;
+}

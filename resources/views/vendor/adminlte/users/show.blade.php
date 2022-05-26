@@ -43,15 +43,15 @@
                     <table class="table table-bordered table-striped" id="user">
                         <tbody>
                             <tr>
-                                <td>Full name:</td>
+                                <td><b>Full name:</b></td>
                                 <td>{{ $user->name }}</td>
                             </tr>
                             <tr>
-                                <td>Email:</td>
+                                <td><b>Email:</b></td>
                                 <td>{{ $user->email }}</td>
                             </tr>
                             <tr>
-                                <td>Role:</td>
+                                <td><b>Role:</b></td>
                                     @if(!empty($user->getRoleNames()))
                                     <td>
                                         @foreach($user->getRoleNames() as $v)
@@ -61,15 +61,15 @@
                                     @endif
                             </tr>
                             <tr>
-                                <td>Division:</td>
+                                <td><b>Division:</b></td>
                                 <td>{{ $user->division }}</td>
                             </tr>
                             <tr>
-                                <td>Center:</td>
+                                <td><b>Center:</b></td>
                                 <td>{{ $user->center }}</td>
                             </tr>
                             <tr>
-                                <td>Department:</td>
+                                <td><b>Department:</b></td>
                                 <td>{{ $user->department }}</td>
                             </tr>
                             </tbody>
