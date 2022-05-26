@@ -31,16 +31,16 @@
               <div class="" style="background-color: rgb(255,255,255);border-left: 1px solid red;padding-left: 60px;width: 50%;float: right;margin-top: 5%;height: 250px;">
                 <label style="color:red;padding-right: 220px">*Note</label>
                 <label> Your password can only include:</label>
-                <h1 > Minimum lower character: 1</h1>
-                <h1 > Minimum upper character: 1</h1>
-                <h1 > Minimum length: 10 </h1>
-                <h1 > Maximum length: 24 </h1>
-                <h1> Minimum numeric character: 1 </h1>
-                <h1 > Minimum special character: 1 </h1>
+                <h6 > Minimum lower character: 1</h6>
+                <h6 > Minimum upper character: 1</h6>
+                <h6 > Minimum length: 10 </h6>
+                <h6 > Maximum length: 24 </h6>
+                <h6> Minimum numeric character: 1 </h6>
+                <h6 > Minimum special character: 1 </h6>
               </div>
               <form method="POST" action="{{ route('password.edit') }}" style="width: 50%;float: left;">
               @csrf
-              <div class="info-form">
+              <div class="info-form form-group">
                 <!-- Password Reset Token -->
                 <input type="hidden" name="token" value="{{ csrf_token() }}">
 
@@ -55,7 +55,7 @@
                 <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="current_password" :value="__('Current Password')" />
 
-                    <x-input id="current_password" class="block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" />
+                    <input id="current_password" class="form-control block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" />
                     <span class="invalid-feedback" role="alert">
                       @error('current_password')
                       <strong>{{ "Current password is not correct" }}</strong>
@@ -70,14 +70,14 @@
                 <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="password" :value="__('New Password')" />
 
-                    <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
+                    <input id="password" class="form-control block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
                 </div>
 
                 <!-- Confirm Password -->
                 <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="password" :value="__('Confirm New Password')" />
 
-                    <x-input id="password" class="block mt-1 w-full @error('password') is-invalid @enderror"
+                    <input id="password" class="form-control block mt-1 w-full @error('password') is-invalid @enderror"
                                         type="password"
                                         name="password_confirmation" required autocomplete="current-password"/>
                     @error('password')
@@ -92,10 +92,10 @@
                   <div class="col-7" style="margin: 0;padding: 0;">
                     <x-label for="otp" :value="__('OTP')" />
                     
-                    <x-input id="otp" class="block mt-1 w-full " type="text" name="otp" required/> 
+                    <input id="otp" class="form-control block mt-1 w-full " type="text" name="otp" required/> 
                   </div>
-                  <div class="col-5" style="margin: 0;padding: 0;padding-top: 28px;">
-                    <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height:42px">Sent OTP</button>
+                  <div class="col-5" style="margin: 0;padding: 0;padding-top: 34px;">
+                    <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height:39px">Sent OTP</button>
                     {{-- <a href="{{route('password.edit')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-envelope"></i> Send OTP</a> --}}
                   </div>
@@ -103,8 +103,8 @@
               </div>
               
               <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto; " >
-                <button type="button" id="sendOTP" class="btn btn-success" style="background-color: green;">Save</button>
-                  <x-button style="background-color: green; visibility:hidden" id="btnSubmit" disabled>
+                <button type="button" id="sendOTP" class="btn btn-success" style="background-color: green;" disabled>Save</button>
+                  <x-button style=" visibility:hidden;background-color: green;" id="btnSubmit" disabled>
                       {{ __('Save') }}
                   </x-button>
               </div>
@@ -126,12 +126,27 @@ $(document).ready(function(){
 
   var otp_value = $('#otp').val();
   console.log("aaaaa"+otp_value);
-  
+  $('#current_password').change(function(e)
+  {
+  if(($('#current_password').val().length > 0) && ($('#password').val().length > 0))
+    {
+      $('#sendOTP').removeAttr("disabled");
+    }
+  });
+
+  $('#password').change(function(e)
+  {
+  if(($('#current_password').val().length > 0) && ($('#password').val().length > 0))
+    {
+      $('#sendOTP').removeAttr("disabled");
+    }
+  });
 
   $('#otp').change(function(e)
   {
     if($('#otp').val().length == 6){
       $('#btnSubmit').removeAttr("disabled");
+      $("#btnSubmit").attr('style',  'background-color:green');
     }
     if($('#otp').val() != '')
     {

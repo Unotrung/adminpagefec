@@ -311,6 +311,7 @@ $(document).ready(function(){
           processing: true,
           serverSide: true,
           searching: false,
+          // "pagingType": "simple" ,
           ajax:{
               url: "{{ route('customer.dtajax') }}",
               data:{

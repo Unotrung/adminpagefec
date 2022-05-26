@@ -60,19 +60,19 @@
               <!-- /.card-body -->
 
               <div class="col-sm-12">
-                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Email:</label>{{Auth::user()->email}}</div>
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Email:</label><p style="padding-left: 8px;">{{Auth::user()->email}}</p></div>
               </div>
 
               <div class="col-sm-12">
-                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Division:</label>{{Auth::user()->division}}</div>
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Division:</label><p style="padding-left: 8px;">{{Auth::user()->division}}</p></div>
               </div>
 
               <div class="col-sm-12">
-                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Center:</label>{{Auth::user()->center}}</div>
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Center:</label><p style="padding-left: 8px;">{{Auth::user()->center}}</p></div>
               </div>
 
               <div class="col-sm-12">
-                <div class="fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Department:</label>{{Auth::user()->department}}</div>
+                <div class="fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Department:</label><p style="padding-left: 8px;">{{Auth::user()->department}}</p></div>
               </div>
 
             </div>
@@ -120,7 +120,7 @@
                             <div>
                               <i class="fas fa-sign-out-alt bg-red"></i>
                               <div class="timeline-item">
-                                <span class="time"><i class="fas fa-clock"></i> {{$timechange->created_at}}</span>
+                                <span class="time"><i class="fas fa-clock"></i> {{date("Y-m-d H:i:s",(strtotime($timechange->created_at)+ 60*60*7))}}</span>
                                 
                                 <h3 class="timeline-header"><a href="#"></a> {{ Auth::user()->name }} logged out </h3>
                               </div>
@@ -130,7 +130,7 @@
                             <div>
                               <i class="fas fa-upload bg-green"></i>
                               <div class="timeline-item">
-                                <span class="time"><i class="fas fa-clock"></i> {{$timechange->created_at}}</span>
+                                <span class="time"><i class="fas fa-clock"></i> {{date("Y-m-d H:i:s",(strtotime($timechange->created_at)+ 60*60*7))}}</span>
                                 <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} changed password</h3>
                               </div>
                             </div>
@@ -139,7 +139,7 @@
                             <div>
                               <i class="fas fa-user-check bg-green"></i>
                               <div class="timeline-item">
-                                <span class="time"><i class="fas fa-clock"></i>{{$timechange->created_at}}</span>
+                                <span class="time"><i class="fas fa-clock"></i>{{date("Y-m-d H:i:s",(strtotime($timechange->created_at)+ 60*60*7))}}</span>
                                 <h3 class="timeline-header no-border"><a href="#"></a>{{ Auth::user()->name }} updated information</h3>
                               </div>
                             </div>
@@ -148,7 +148,7 @@
                             <div>
                               <i class="fas fa-sign-in-alt bg-blue"></i>
                               <div class="timeline-item">
-                                <span class="time"><i class="fas fa-clock"></i> {{$timechange->created_at}} </span>
+                                <span class="time"><i class="fas fa-clock"></i> {{date("Y-m-d H:i:s",(strtotime($timechange->created_at)+ 60*60*7))}} </span>
                                 <h3 class="timeline-header"><a href="#"></a>{{ Auth::user()->name }} logged in</h3>
                                 <div class="timeline-body">
                                   Welcome back 
@@ -179,21 +179,21 @@
                       @csrf
                       <input type="hidden" name="id" value="{{Auth::user()->id}}">
                       <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Name<span style="color:red;">*</span></label>
-                        <div class="col-sm-10">
+                        <label for="inputName" class="col-sm-3 col-form-label">Name<span style="color:red;">*</span></label>
+                        <div class="col-sm-9">
                           <input type="" class="form-control" id="inputName" placeholder="Name" value="{{Auth::user()->name}}" name="name" required>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email<span style="color:red;">*</span></label>
-                        <div class="col-sm-10">
+                        <label for="inputEmail" class="col-sm-3 col-form-label">Email<span style="color:red;">*</span></label>
+                        <div class="col-sm-9">
                           <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{Auth::user()->email}}" name="email">
                         </div>
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Division<span style="color:red;">*</span></label>
-                        <div class="col-sm-10">
+                        <label for="inputName2" class="col-sm-3 col-form-label">Division<span style="color:red;">*</span></label>
+                        <div class="col-sm-9">
                           <select id="user" class="form-control" name="division">
                             <option value="{{Auth::user()->division}}" selected="">{{Auth::user()->division}}</option>																			
                             @foreach (explode(';',$configdiv) as $configsdiv)		
@@ -206,8 +206,8 @@
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Center<span style="color:red;">*</span></label>
-                          <div class="col-sm-10">
+                        <label for="inputName2" class="col-sm-3 col-form-label">Center<span style="color:red;">*</span></label>
+                          <div class="col-sm-9">
                             <select id="user" class="form-control" name="center">
                               <option value="{{Auth::user()->center}}" selected="">{{Auth::user()->center}}</option>																			
                               @foreach (explode(';',$configcen) as $configscen)		
@@ -220,8 +220,8 @@
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Department<span style="color:red;">*</span></label>
-                        <div class="col-sm-10">
+                        <label for="inputName2" class="col-sm-3 col-form-label">Department<span style="color:red;">*</span></label>
+                        <div class="col-sm-9">
                           <select id="user" class="form-control" name="department">
                             <option value="{{Auth::user()->department}}" selected="">{{Auth::user()->department}}</option>																			
                               @foreach (explode(';',$configdep) as $configsdep)		

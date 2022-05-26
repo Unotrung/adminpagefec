@@ -78,16 +78,16 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-primary">
               <div class="inner">
-                <h3 style="color: white">44</h3>
+                <h3 >44</h3>
 
-                <p style="color: white">User Registrations</p>
+                <p>User Registrations</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer" >More info <i class="fas fa-arrow-circle-right" ></i></a>
             </div>
           </div>
           <!-- ./col -->
