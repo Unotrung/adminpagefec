@@ -72,15 +72,15 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
+								<input type="number" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}" min="1" max="10"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Division: </label>
 								<select id="user" class="form-control" name="division">
 									<option value="{{$user->division}}" selected="">{{$user->division}}</option>																			
 									@foreach (explode(';',$configdiv) as $configsdiv)		
-									@if($configsdiv!=$user->division)																	 --}}
-										<option value="{{$configsdiv}}">{{$configsdiv}}</option>
-									@endif
-						@endforeach
+										@if($configsdiv!=$user->division)																	 
+											<option value="{{$configsdiv}}">{{$configsdiv}}</option>
+										@endif
+									@endforeach
 								</select>
 							</span>  </div> 
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Center: </label>
