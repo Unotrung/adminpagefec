@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;400;600;700&display=swap');
 .voolo, .login-page{
     font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 14px;
     justify-content: start !important;
     background-color: #F4F4F4 !important;
     background: url(../dist/img/gradient-bgr/bgr-img-1.png) no-repeat right 0 top 910px, url(../dist/img/gradient-bgr/Gradient-bgr-1.png) no-repeat right 0 top 700px, url(../dist/img/gradient-bgr/Gradient-bgr-2.png) no-repeat left 0 top 1650px, url(../dist/img/gradient-bgr/Gradient-bgr-3.png) no-repeat left 30% top 3500px, url(../dist/img/gradient-bgr/Gradient-bgr-4.png) no-repeat right 0 bottom 1280px, url(../dist/img/gradient-bgr/bgr-img-2.png) no-repeat left 7% bottom 139px;
+}
+.voolo input,.voolo select,.voolo button, .voolo textarea{
+  font-size: 14px;
 }
 .login-box, .register-box{
   margin-top: 16%;
@@ -33,7 +37,7 @@
 }
 
 .voolo .card.card-primary .fvalue{
-  /* font-size: 13px; */
+  font-size: 13px;
 }
 
 .voolo .sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand).sidebar-focused, 
