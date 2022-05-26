@@ -106,6 +106,7 @@ class BnplController extends Controller
                 $output = '';
                 $output .= ' <a href="'.url(route('bnpl.edit',['id'=>$data->data[$i]->_id])).'#bnpl_info" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $data->data[$i]->action = (string)$output;
+                $data->data[$i]->step = $result["data"]["step"];
             //     if($this->show_action) {
             //         $output = '';
             // //         // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
