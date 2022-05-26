@@ -110,8 +110,8 @@ $old = Role::find($role);
                                 @if (strtolower($name_permission[0]) == strtolower($module->module)) --}}
                                     {{-- @if($permission_ids != null) --}}
                                             <td style="padding-left: 100px" >
-                                                <div class="select2-purple">
-                                                    <select class="select2"  multiple="multiple"  data-placeholder="" data-dropdown-css-class="select2-purple" style="width: 100%;" id="selectbox-{{$module->id}}" name="permission[]"  >
+                                                <div class="select2-purple my-purple">
+                                                    <select class="select2"  multiple="multiple"  data-placeholder="" data-dropdown-css-class="select2-purple my-purple" style="width: 100%;" id="selectbox-{{$module->id}}" name="permission[]"  >
                                                         @foreach ($permissions as $permission)
                                                         <?php
                                                             $name_permission = explode("-", $permission->name);

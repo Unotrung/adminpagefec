@@ -47,3 +47,13 @@
 .sidebar-mini.sidebar-collapse .main-sidebar:not(.sidebar-no-expand):hover{
   background-color: rgba(255, 255, 255, 0.9)!important;
 }
+.my-purple .select2-container--default .select2-selection--multiple .select2-selection__choice{
+  background-color: #E3BFEE;
+    border-color: #E3BFEE;
+    color:#5F316B
+}
+
+.my-purple .select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: #E3BFEE;
+  color: #5F316B;
+}
