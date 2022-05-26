@@ -85,22 +85,21 @@ class BnplController extends Controller
             // $response = new obj();
             if(!empty($request->search))
             {
-                try
-                {
-                    $ApiRequest = new ApiRequest;
-                    $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
-                        'search' => $request->search,
-                        'value' => $request->value,
-                        'form' => $request->from,
-                        'to' => $request->to
-                    ]);
-                }catch(e){
-                    $response->data = null;
-                }
+                $ApiRequest = new ApiRequest;
+                $response = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/searchBNPL',[
+                    'search' => $request->search,
+                    'value' => $request->value,
+                    'form' => $request->from,
+                    'to' => $request->to
+                ]);
+                
 
+                if($response->status() != 200){
+                    return [];
+                }
                 $result = $response->json();
                 
-                $out =  Datatables::of($result["data"])->make(true);
+                $out =  Datatables::of($result["data"]["result"])->make(true);
                 
                 $data = $out->getData();
                 for($i=0; $i < count($data->data); $i++) {
