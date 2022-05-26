@@ -71,7 +71,7 @@
                   <div class="col-4">
 
                     <div class="input-group input-group-md">
-                      <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="">  
+                      <input type="tel" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" onchange="phonenumber($(this))">  
                     </div>
                   </div>
                   <div class="col-4">
@@ -426,5 +426,20 @@ $(document).ready(function(){
       fill_datatable();
   });
 });
+
+function phonenumber(inputtxt)
+{
+  var phoneno = /^\+?([0-9])\)?[-. ]?([0-9])[-. ]?([0-9])$/;
+
+  if((inputtxt.val().match(phoneno)) && inputtxt.val().length > 9 && inputtxt.val().length < 12)
+        {
+      return true;
+        }
+      else
+        {
+          inputtxt.val("");
+        return false;
+        }
+}
 </script>
 @stop

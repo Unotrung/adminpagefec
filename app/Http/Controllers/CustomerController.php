@@ -250,7 +250,6 @@ class CustomerController extends Controller
                     return $out;
                 }
                 $out =  Datatables::of([])->make(true);
-
                 return $out;
                 
             }

@@ -119,8 +119,6 @@ class BnplController extends Controller
             //     }
                 }
                 $out->setData($data);
-                print_r($out);
-                exit;
                 return $out;
             }
             else
