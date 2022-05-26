@@ -100,8 +100,10 @@ $old = Role::find($role);
                                     {{$module->module}}
                                 </th>
                                 <td style="padding-left: 100px">
-                                    <input type="hidden" name="{{$module->id}}" value="0">
-                                    <input type="checkbox"  data-id="" name="{{$module->id}}"  class="js-switch" {{(in_array($roles->id, $module->is_active)) ? 'checked' : ''}} id="{{$module->id}}">
+                                    <input type="hidden" name="{{$module->id}}" value="[]">
+                                    {{-- @if($module->is_active != 0) --}}
+                                        <input type="checkbox"  data-id="" name="{{$module->id}}"  class="js-switch" {{(in_array($roles->id, $module->is_active)) ? 'checked' : ''}} id="{{$module->id}}">
+                                    {{-- @endif --}}
                                 </td>
                                 {{-- @foreach ($permissions as $permission) --}}
                                 {{-- 

@@ -194,7 +194,7 @@ class RolesController extends Controller
             $output = '';
                //$output .= ' <a href="'.url(route('roles.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 $output .= ' <a href="'.url(route('roles.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs"  data-toggle="tooltip" title="Edit Role" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete Role" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Delete Role" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-trash"></i></a>';
                 $output .= '
                 <form method="post" action="'.url(route('roles.delete')).'">
                      <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
