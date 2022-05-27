@@ -276,7 +276,8 @@ $(document).ready(function(){
           serverSide: true,
           searching: false,
           language : {
-              "zeroRecords": " "             
+              "zeroRecords": "No matching record found",
+              "infoEmpty": "Showing 0 to 0 of 0 entries"             
           },
           ajax: {
             url:"{{route('bnpl.dtajax')}}",
@@ -491,7 +492,7 @@ $(document).ready(function(){
       // var email = $('#email').val();
       var reservation = "";
       var citizenId = "";
-    var step = 4;
+    var step = 0;
     e.preventDefault();
     console.log("filter step 4");
     $('#example1').DataTable().destroy();

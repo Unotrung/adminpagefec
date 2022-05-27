@@ -71,7 +71,7 @@
                   <div class="col-4">
 
                     <div class="input-group input-group-md">
-                      <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="">  
+                      <input type="number" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="" min="1" max="10">  
                     </div>
                   </div>
                   <div class="col-4">
@@ -311,6 +311,7 @@ $(document).ready(function(){
           processing: true,
           serverSide: true,
           searching: false,
+          pagingType: 'full_numbers',
           // "pagingType": "simple" ,
           ajax:{
               url: "{{ route('customer.dtajax') }}",

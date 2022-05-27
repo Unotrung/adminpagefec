@@ -172,7 +172,8 @@ class CustomerController extends Controller
                 $result = $response->json();
                 $bnpl = $result["data"]["BNPL"];
                 $eap = $result["data"]["EAP"];
-                
+                // print_r(count($bnpl));
+                // exit;
                 if($eap !=null && $bnpl == null)
                 {
                     // $eap[0]["bnpl"] = $result["data"]["BNPL"];
@@ -192,30 +193,50 @@ class CustomerController extends Controller
                 }
                 if($eap !=null && $bnpl != null)
                 {
-                    if(count($eap)==2)
+                    
+                    
+                    /// check duplicate BNPL
+                    if(count($bnpl)>=2)
                     {
-                        if($eap[0]["_id"]==$eap[1]["_id"])
+                        for ($i=0 ;$i<count($bnpl);$i++)
+                            {
+                                for ($j=1 ;$j<count($bnpl);$j++)
+                                {
+                                    if($bnpl[$i]["_id"] = $bnpl[$j]["_id"])
+                                    {
+
+                                        unset($bnpl[$j]);
+                                    }
+                                }
+                            }  
+                    }
+                    /// check duplicate EAP
+                    if($eap !=null)
+                    {
+                        if(count($eap)==2)
                         {
-                             unset($eap[1]);
-                             $eap[0]["bnpl"] = $result["data"]["BNPL"];
+                            if($eap[0]["_id"]==$eap[1]["_id"])
+                            {
+                                unset($eap[1]);
+                                $eap[0]["bnpl"] = $bnpl;
+                            }
+                            else
+                            {
+                                for ($j=0 ;$j<count($eap);$j++)
+                                {
+                                    $eap[$j]["bnpl"] = $bnpl;
+                                }
+                            }
+                                
                         }
                         else
                         {
                             for ($j=0 ;$j<count($eap);$j++)
                             {
-                                $eap[$j]["bnpl"] = $result["data"]["BNPL"];
+                                $eap[$j]["bnpl"] = $bnpl;
                             }
                         }
-                            
                     }
-                    else
-                    {
-                        for ($j=0 ;$j<count($eap);$j++)
-                        {
-                            $eap[$j]["bnpl"] = $result["data"]["BNPL"];
-                        }
-                    }
-
                     $out =  Datatables::of($eap)->make(true);
                     $data = $out->getData();   
                     
