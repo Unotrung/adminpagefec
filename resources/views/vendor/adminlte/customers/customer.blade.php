@@ -71,7 +71,7 @@
                   <div class="col-4">
 
                     <div class="input-group input-group-md">
-                      <input type="tel" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" onchange="phonenumber($(this))">  
+                      <input type="number" pattern="" maxlength="12" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" onchange="phonenumber($(this))">  
                     </div>
                   </div>
                   <div class="col-4">
