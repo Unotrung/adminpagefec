@@ -426,20 +426,5 @@ $(document).ready(function(){
       fill_datatable();
   });
 });
-
-function phonenumber(inputtxt)
-{
-  var phoneno = /^\+?([0-9])\)?[-. ]?([0-9])[-. ]?([0-9])$/;
-
-  if((inputtxt.val().match(phoneno)) && inputtxt.val().length > 9 && inputtxt.val().length < 12)
-        {
-      return true;
-        }
-      else
-        {
-          inputtxt.val("");
-        return false;
-        }
-}
 </script>
 @stop
