@@ -71,7 +71,7 @@
                   <div class="col-4">
 
                     <div class="input-group input-group-md">
-                      <input type="number" pattern="" maxlength="12" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" onchange="phonenumber($(this))">  
+                      <input type="tel" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="" min="1" max="10">  
                     </div>
                   </div>
                   <div class="col-4">
@@ -232,7 +232,7 @@
 <script>
 
 
-
+var btn;
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip(); 
   $("[rel=tooltip]").tooltip({ placement: 'top'});
@@ -374,7 +374,7 @@ $(document).ready(function(){
         }
       });
   }
-  $('#filter').click(function(){
+ btn = $('#filter').click(function(){
     // $('#classDatatable').show(); 
       var username = $('#name').val();
       var email = $('#email').val();
@@ -426,6 +426,34 @@ $(document).ready(function(){
       $('#example1').DataTable().destroy();
       fill_datatable();
   });
+
+  $('input[type=tel]').on("keypress",function(e){
+    var code = e.which || e.keyCode ; 
+    if(code >= 48 && code <= 57){
+
+    }else{
+      // $('input[type=tel]').val("");
+    }
+    
+    
+  });
 });
+
+function delete1(input){
+  
+  var settings = {
+    "url": '{{ route("customer.delete") }}',
+    "method": "POST",
+    "data": {
+      "_token": "{{ csrf_token() }}",
+      "id": input.attr("data-id")
+    },
+  };
+  $.ajax(settings).done(function(e){
+    console.log(e);
+    $('#example1').DataTable().ajax.reload();
+  });
+  
+}
 </script>
 @stop

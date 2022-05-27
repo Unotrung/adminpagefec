@@ -64,6 +64,27 @@ class ApiRequest
 
     }
 
+    public function deleteResponse($url,$req = array()){
+
+        $req["appKey"] = "113911Liverpool";
+        $req["appId"] = "112233445566778899";
+
+        //get token
+        if(session("apiToken") === null || session("apiToken") === ''){
+            $this->_login();
+        }
+
+        //refresh token and response data
+        $response = Http::withToken(session("apiToken"))->delete($url.'?appKey='.$req["appKey"].'&appId='.$req["appId"]);
+        if($response->status() != 200){
+            $this->_refreshToken();
+            $response = Http::withToken(session("apiToken"))->delete($url,$req);
+        }
+        
+        return $response;
+
+    }
+
     private function _refreshToken(){
 
         $strApp = "appKey=113911Liverpool&appId=112233445566778899";

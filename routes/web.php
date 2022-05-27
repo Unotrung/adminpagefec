@@ -268,7 +268,7 @@ Route::group(['middleware' => ['role:super admin']], function () {
     Route::group(['middleware' => ['permission:promotions-delete']], function () {
         Route::post('/promotions/delete', [App\Http\Controllers\PromotionsController::class, 'destroy'])->name('promotions.delete');
     });
-    Route::group(['middleware' => ['permission:customer-delete']], function () {
+    Route::group(['middleware' => []], function () {
         Route::post('/customer/delete', [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customer.delete');
     });
     Route::group(['middleware' => ['permission:faqs-delete']], function () {
