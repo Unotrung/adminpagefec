@@ -74,7 +74,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
 								<input type="number" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}" min="1" max="10"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Division: </label>
-								<select id="user" class="form-control" name="division">
+								<select id="division" class="form-control" name="division">
 									<option value="{{$user->division}}" selected="">{{$user->division}}</option>																			
 									@foreach (explode(';',$configdiv) as $configsdiv)		
 										@if($configsdiv!=$user->division)																	 
@@ -84,7 +84,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 								</select>
 							</span>  </div> 
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Center: </label>
-								<select id="user" class="form-control" name="center">
+								<select id="center" class="form-control" name="center">
 									<option value="{{$user->center}}" selected="">{{$user->center}}</option>																		
 									@foreach (explode(';',$configcen) as $configscen)		
 									@if($configscen != $user->center)									
@@ -94,10 +94,10 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 								</select>
 							</span>  </div> {{-- Confirm Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Department: </label>
-								<select id="user" class="form-control" name="department">
+								<select id="department" class="form-control" name="department">
 									<option value="{{$user->department}}" selected="">{{$user->department}}</option>
 									@foreach (explode(';',$configdep) as $configsdep)		
-									@if($configsdep!=$user->department)																	 --}}
+									@if($configsdep!=$user->department)																	 
 									<option value="{{$configsdep}}">{{$configsdep}}</option>
 									@endif
 									@endforeach
@@ -256,15 +256,34 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 	function btnSubmit(){
 		var phone = $("#examplePassword").val();
-		if(phone.length === 0){
-			alert();
-			event.preventDefault();
-			return;
+		var Name = $("#exampleName").val();
+		var Email = $("#exampleEmail").val();
+		var Division = $("#division").val();
+		var Center = $("#center").val();
+		var Department = $("#department").val();
+		if(phone.length === 0 || Name.length === 0 || Email.length === 0 || Division.length === 0 || Center.length === 0 || Department.length === 0 ){
+			toastr["error"]("Please input data!")
+			toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+			}
 		}else{
 			//data-toggle="modal" data-target="#confirmModal" 
 			$("#confirmModal").modal("show");
 		}
-		console.log(phone);
 	}
 
 </script>

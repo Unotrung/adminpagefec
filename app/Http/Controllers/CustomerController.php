@@ -88,7 +88,6 @@ class CustomerController extends Controller
             $eap = $data_eap->json();
             $cus = $eap["data"];
             $phone = $cus["phone"];
-
             if($bnpl_id !== null){
                 $bnpl = $ApiRequest->refreshTokenResponse(env("API_PARTNER").'/v1/admin/getUserBNPL/'.$bnpl_id);
                 $data = $bnpl->json();
@@ -183,6 +182,7 @@ class CustomerController extends Controller
                     for($i=0; $i < count($data->data); $i++) {
                         $output = '';
                         $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details"  style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        $output .= ' <button class="btn btn-danger btn-xs btnDelete" style="display:inline;padding:2px 5px 3px 5px;height:22px;width:25.5px" onclick="delete1($(this))" type="button" title="Delete User"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
                         //config link for phonenumber
                         $data->data[$i]->urlphone = '<a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" > '.$data->data[$i]->phone.' </a>';

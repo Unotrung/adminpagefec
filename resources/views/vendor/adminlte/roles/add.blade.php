@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
 @section('title', 'Add Roles')
-
+@section('css')
+  <!-- Toastr -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" 
+     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 @section('content_header')
 <div class="container-fluid">
@@ -79,7 +84,7 @@
                         </div>
                     </div>
                 {{-- Save Button --}}
-                <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+                <div class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;" onClick="btnSubmit(this.value)">
                     Submit
                 </div>
                 <div class="modal" id="demoModal">
@@ -116,4 +121,30 @@ $(document).ready(function(){
         $('#exampleName').val($('#display_name').val());
     });
 });
+function btnSubmit(){
+		var Name = $("#display_name").val();
+		if(Name.length === 0 ){
+			toastr["error"]("Please input display name!")
+			toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+			}
+		}else{
+			//data-toggle="modal" data-target="#demoModal" 
+			$("#demoModal").modal("show");
+		}
+	}
 </script>

@@ -29,13 +29,13 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::min(10)->mixedCase()
-            ->numbers()
-            ->symbols()
-            ->uncompromised()],
-        ]);
+        // $request->validate([
+        //     'email' => ['required', 'email'],
+        //     'password' => ['required', 'confirmed', Rules\Password::min(10)->mixedCase()
+        //     ->numbers()
+        //     ->symbols()
+        //     ->uncompromised()],
+        // ]);
 
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
