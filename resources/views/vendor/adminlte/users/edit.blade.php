@@ -120,7 +120,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			
 						</div>
 						{{-- <div class="col-xs-12 col-sm-12 col-md-12 text-center"> --}}
-							<div data-toggle="modal" data-target="#confirmModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;" onClick="btnSubmit(this.value)">Update </div>
+							<div class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;" onClick="btnSubmit(this.value)">Update </div>
 							<div class="modal" id="confirmModal">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -253,6 +253,19 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	// 	var activeTab = "activity"
 	// 	window.open(urls+"#"+activeTab);
 	// });
+
+	function btnSubmit(){
+		var phone = $("#examplePassword").val();
+		if(phone.length === 0){
+			alert();
+			event.preventDefault();
+			return;
+		}else{
+			//data-toggle="modal" data-target="#confirmModal" 
+			$("#confirmModal").modal("show");
+		}
+		console.log(phone);
+	}
 
 </script>
 <!-- SweetAlert2 -->

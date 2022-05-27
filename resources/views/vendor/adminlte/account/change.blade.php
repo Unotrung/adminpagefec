@@ -38,7 +38,7 @@
                 <h6> Minimum numeric character: 1 </h6>
                 <h6 > Minimum special character: 1 </h6>
               </div>
-              <form method="POST" action="{{ route('password.edit') }}" style="width: 50%;float: left;">
+              <form method="POST" action="{{ route('password.edit') }}" style="width: 50%;float: left;" autocomplete="off">
               @csrf
               <div class="info-form form-group">
                 <!-- Password Reset Token -->
@@ -55,7 +55,7 @@
                 <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="current_password" :value="__('Current Password')" />
 
-                    <input id="current_password" class="form-control block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" />
+                    <input id="current_password" class="form-control block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" autocomplete="new-password" />
                     <span class="invalid-feedback" role="alert">
                       @error('current_password')
                       <strong>{{ "Current password is not correct" }}</strong>
@@ -70,7 +70,7 @@
                 <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
                     <x-label for="password" :value="__('New Password')" />
 
-                    <input id="password" class="form-control block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password"/>
+                    <input id="password" class="form-control block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="off"/>
                 </div>
 
                 <!-- Confirm Password -->
@@ -79,7 +79,7 @@
 
                     <input id="password" class="form-control block mt-1 w-full @error('password') is-invalid @enderror"
                                         type="password"
-                                        name="password_confirmation" required autocomplete="current-password"/>
+                                        name="password_confirmation" required autocomplete="off"/>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
