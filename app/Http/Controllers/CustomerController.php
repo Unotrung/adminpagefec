@@ -189,6 +189,7 @@ class CustomerController extends Controller
                     $out->setData($data);
                     return $out;
                 }
+                // print_r($bnpl);exit;
                 if($eap !=null && $bnpl != null)
                 {
                     $out =  Datatables::of($eap)->make(true);
@@ -199,7 +200,7 @@ class CustomerController extends Controller
                         $output .= ' <a href="'.url(route('customer.show',['id'=>$data->data[$i]->_id])).'#eap_info" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                         $output .= ' <button class="btn btn-danger btn-xs btnDelete" style="display:inline;padding:2px 5px 3px 5px;height:22px;width:25.5px" onclick="delete1($(this))" type="button" title="Delete User"  data-id="'.$data->data[$i]->_id.'"><i class="fa fa-times"></i></button>';
                         $data->data[$i]->action = (string)$output;
-                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show2',['id'=>$data->data[$i]->_id,'bnpl'=>$bnpl["_id"]])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
+                        $data->data[$i]->urlphone = '<a href="'.url(route('customer.show2',['id'=>$data->data[$i]->_id,'bnpl'=>$bnpl[0]["_id"]])).'#eap_info" > '.$data->data[$i]->phone.' </a>';
                     }
                     $out->setData($data);
                     return $out;
