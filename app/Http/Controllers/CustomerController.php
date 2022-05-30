@@ -188,6 +188,7 @@ class CustomerController extends Controller
                     $out->setData($data);
                     return $out;
                 }
+                // print_r($bnpl);exit;
                 if($eap !=null && $bnpl != null)
                 {
                     $eap[0]["bnpl"] = $result["data"]["BNPL"];
