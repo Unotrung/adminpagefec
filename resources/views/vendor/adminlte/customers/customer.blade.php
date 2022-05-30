@@ -319,6 +319,7 @@ $(document).ready(function(){
                 filter : search
               }
           },
+          
           columns: [
               {
                   data:'username',

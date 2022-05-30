@@ -94,8 +94,8 @@
                     
                     <input id="otp" class="form-control block mt-1 w-full " type="text" name="otp" required/> 
                   </div>
-                  <div class="col-5" style="margin: 0;padding: 0;padding-top: 34px;">
-                    <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height:39px">Sent OTP</button>
+                  <div class="col-5" style="margin: 0;padding: 0;padding-top: 32px;padding-left: 5px;">
+                    <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height:40px">Sent OTP</button>
                     {{-- <a href="{{route('password.edit')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-envelope"></i> Send OTP</a> --}}
                   </div>
@@ -103,10 +103,10 @@
               </div>
               
               <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto; " >
-                <button type="button" id="sendOTP" class="btn btn-success" style="background-color: green;" disabled>Save</button>
+                <button type="button" id="sendOTP" class="btn btn-success" style="background-color: gray;border: hidden;" disabled>Save</button>
                   <x-button style=" visibility:hidden;background-color: green;" id="btnSubmit" disabled>
                       {{ __('Save') }}
-                  </x-button>
+                  </x-button> 
               </div>
               
             </form>
@@ -131,6 +131,8 @@ $(document).ready(function(){
   if(($('#current_password').val().length > 0) && ($('#password').val().length > 0))
     {
       $('#sendOTP').removeAttr("disabled");
+      $('#sendOTP').removeAttr('style','background-color');
+      $("#sendOTP").attr('style',  'background-color:green');
     }
   });
 
@@ -139,6 +141,8 @@ $(document).ready(function(){
   if(($('#current_password').val().length > 0) && ($('#password').val().length > 0))
     {
       $('#sendOTP').removeAttr("disabled");
+      $('#sendOTP').removeAttr("style");
+      $("#sendOTP").attr('style',  'background-color:green');
     }
   });
 
@@ -147,6 +151,10 @@ $(document).ready(function(){
     if($('#otp').val().length == 6){
       $('#btnSubmit').removeAttr("disabled");
       $("#btnSubmit").attr('style',  'background-color:green');
+    }
+    else
+    {
+      $("#btnSubmit").attr('style',  'background-color:black');
     }
     if($('#otp').val() != '')
     {
@@ -161,6 +169,7 @@ $(document).ready(function(){
   $("#sendOTP").on("click",function(e){
     $('#otp_text').show();
     $('#btnSubmit').attr("style","visibility:visible");
+    $("#btnSubmit").attr('style',  'background-color:black');
     $("#sendOTP").hide();
     $(".info-form").hide();
   });
