@@ -28,7 +28,6 @@ if(env("ROUTER_ENV") != 'dev'){
 require __DIR__.'/auth.php';
 
 $use = Auth::user();
-
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth:web');;
