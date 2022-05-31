@@ -128,7 +128,7 @@ class UsersController extends Controller
         $user->division = $request->division;
         $result = $user->save();
         if($result == 1){
-            return redirect()->route('users.show', ['id' => $request->id])->with('success','User updated successfully.');
+            return redirect()->route('users.show', ['id' => $request->id])->with('success','Updated Users successfully');
         }
         else
         {

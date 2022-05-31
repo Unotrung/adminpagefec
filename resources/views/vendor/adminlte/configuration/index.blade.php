@@ -235,6 +235,9 @@
 
 
 
+<style>
+
+</style>
 
 @section('js')
 <!-- DataTables  & Plugins -->

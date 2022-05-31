@@ -117,12 +117,14 @@ $old = Role::find($role);
                                                             $name_permission = explode("-", $permission->name);
                                                             $permission_ids = $roles->permission_ids;
                                                         ?>
-                                                        @if(($name_permission[0]) == strtolower($module->module))
-                                                        <option value="{{$permission->id}}"  
-                                                            {{ (in_array($permission->id, $permission_ids)) ?((($name_permission[0]) == strtolower($module->module))? "selected" : ""): "" }}>
-                                                            {{$permission->name}}
-                                                        </option>
-                                                        @endif
+                                                        {{-- @if($permission_ids != null) --}}
+                                                            @if(($name_permission[0]) == strtolower($module->module))
+                                                            <option value="{{$permission->id}}"  
+                                                                {{ (in_array($permission->id, $permission_ids)) ?((($name_permission[0]) == strtolower($module->module))? "selected" : ""): "" }}>
+                                                                {{$permission->name}}
+                                                            </option>
+                                                            @endif
+                                                        {{-- @endif --}}
                                                         @endforeach
                                                         
                                                     </select>

@@ -84,12 +84,6 @@
                 </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
-                    {{-- <label for="status" style="width:20%; margin-left: 200px;">Choose status of user:</label>
-                    <select id="status" style="width:30%; margin: right auto;">
-                      <option value="" selected >Select status</option>
-                      <option value="Active" >Active</option>
-                      <option value="InActive" >InActive</option>
-                  </select> --}}
                   <tr>
                     <th>Username</th>
                     <th>Email</th>
@@ -277,8 +271,10 @@ $(document).ready(function(){
 
   $('#reset').click(function(){ 
       $('#input').val('');
-      $('#type').val('');
-      $('#status').val('');
+      // $('#type').val('');
+      $("#type").val("").change();
+      $("#status").val("").change();
+      // $('#status').val('');
       $('#example1').DataTable().destroy();
       fill_datatable(); 
   });

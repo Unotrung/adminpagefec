@@ -128,17 +128,42 @@ $(document).ready(function(){
   console.log("aaaaa"+otp_value);
   $('#current_password').change(function(e)
   {
-  if(($('#current_password').val().length > 0) && ($('#password').val().length > 0))
+    var checkpassword = $("input[name^='password_confirmation']").val();
+    if(($('#current_password').val().length == 0))
+    {
+      $('#sendOTP').prop('disabled', true);
+    }
+    if(($('#current_password').val().length > 0) && ($('#password').val().length > 0) && (checkpassword.length > 0))
     {
       $('#sendOTP').removeAttr("disabled");
-      $('#sendOTP').removeAttr('style','background-color');
+      $('#sendOTP').removeAttr("style");
       $("#sendOTP").attr('style',  'background-color:green');
+    }
+  });
+
+  $("input[name^='password_confirmation']").change(function(e){
+    var checkpassword = $("input[name^='password_confirmation']").val();
+    console.log(checkpassword);
+    if(($('#current_password').val().length > 0) && ($('#password').val().length > 0) && (checkpassword.length > 0))
+    {
+      $('#sendOTP').removeAttr("disabled");
+      $('#sendOTP').removeAttr("style");
+      $("#sendOTP").attr('style',  'background-color:green');
+    }
+    else
+    {
+      $('#sendOTP').prop('disabled', true);
     }
   });
 
   $('#password').change(function(e)
   {
-  if(($('#current_password').val().length > 0) && ($('#password').val().length > 0))
+    var checkpassword = $("input[name^='password_confirmation']").val();
+    if(($('#password').val().length == 0))
+    {
+      $('#sendOTP').prop('disabled', true);
+    }
+    if(($('#current_password').val().length > 0) && ($('#password').val().length > 0) && (checkpassword.length > 0))
     {
       $('#sendOTP').removeAttr("disabled");
       $('#sendOTP').removeAttr("style");

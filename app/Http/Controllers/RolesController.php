@@ -65,7 +65,7 @@ class RolesController extends Controller
         $role->display_name = $request->displayName;
         $role->description = $request->description;
         $role->guard_name = $request->guard_name;
-
+        $role->permission_ids = [];
         $role->save();
 
         return redirect()->route('roles.index')->with('ad','Role Assigned Successfull');;

@@ -311,7 +311,22 @@ $(document).ready(function(){
           processing: true,
           serverSide: true,
           searching: false,
+          // bLengthChange: false,
+          // bInfo: false,
+          language: {
+            "infoFiltered": "",
+          },
           pagingType: 'full_numbers',
+          fnDrawCallback: function(oSettings) {
+              var totalPages = this.api().page.info().pages;
+              if(totalPages == 1){ 
+                  jQuery('.dataTables_paginate').hide(); 
+              }
+              else { 
+                  jQuery('.dataTables_paginate').show(); 
+              }
+          },
+          
           // "pagingType": "simple" ,
           ajax:{
               url: "{{ route('customer.dtajax') }}",
