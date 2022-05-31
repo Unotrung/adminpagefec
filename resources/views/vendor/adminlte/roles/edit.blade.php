@@ -117,6 +117,7 @@ $old = Role::find($role);
                                                             $name_permission = explode("-", $permission->name);
                                                             $permission_ids = $roles->permission_ids;
                                                         ?>
+<<<<<<< HEAD
                                                         {{-- @if($permission_ids != null) --}}
                                                             @if(($name_permission[0]) == strtolower($module->module))
                                                             <option value="{{$permission->id}}"  
@@ -125,6 +126,14 @@ $old = Role::find($role);
                                                             </option>
                                                             @endif
                                                         {{-- @endif --}}
+=======
+                                                        @if(($name_permission[0]) == strtolower($module->module))
+                                                        <option value="{{$permission->id}}"  
+                                                            {{ ($permission_ids!== null && in_array($permission->id, $permission_ids)) ?((($name_permission[0]) == strtolower($module->module))? "selected" : ""): "" }}>
+                                                            {{$permission->name}}
+                                                        </option>
+                                                        @endif
+>>>>>>> 57d4e7d (update role edit)
                                                         @endforeach
                                                         
                                                     </select>
