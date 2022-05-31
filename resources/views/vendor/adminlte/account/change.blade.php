@@ -179,22 +179,22 @@ $(document).ready(function(){
     }
     else
     {
-      $("#btnSubmit").attr('style',  'background-color:black');
+      $("#btnSubmit").attr('style',  'background-color:gray');
     }
     if($('#otp').val() != '')
     {
-      $('#sendmail').hide();
+      $('#sendmail').prop('disabled', true);
     }
     if($('#otp').val() == '')
     {
-      $('#sendmail').show();
+      $('#sendmail').removeAttr("disabled");
     }
   });
 
   $("#sendOTP").on("click",function(e){
     $('#otp_text').show();
     $('#btnSubmit').attr("style","visibility:visible");
-    $("#btnSubmit").attr('style',  'background-color:black');
+    $("#btnSubmit").attr('style',  'background-color:gray');
     $("#sendOTP").hide();
     $(".info-form").hide();
   });

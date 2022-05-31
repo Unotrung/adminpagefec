@@ -311,23 +311,9 @@ $(document).ready(function(){
           processing: true,
           serverSide: true,
           searching: false,
-          // bLengthChange: false,
-          // bInfo: false,
           language: {
             "infoFiltered": "",
           },
-          pagingType: 'full_numbers',
-          fnDrawCallback: function(oSettings) {
-              var totalPages = this.api().page.info().pages;
-              if(totalPages == 1){ 
-                  jQuery('.dataTables_paginate').hide(); 
-              }
-              else { 
-                  jQuery('.dataTables_paginate').show(); 
-              }
-          },
-          
-          // "pagingType": "simple" ,
           ajax:{
               url: "{{ route('customer.dtajax') }}",
               data:{
@@ -387,9 +373,20 @@ $(document).ready(function(){
           ],
         drawCallback:function(setting){
           $('[data-toggle="tooltip"]').tooltip();
-        }
+          if(setting.fnRecordsTotal() < 10){     
+              $('.dataTables_length').hide();
+              $('.dataTables_paginate').hide();
+          } else {
+              $('.dataTables_length').show();
+              $('.dataTables_paginate').show(); 
+          }
+        },
       });
+
+      
   }
+
+  
  btn = $('#filter').click(function(){
     // $('#classDatatable').show(); 
       var username = $('#name').val();

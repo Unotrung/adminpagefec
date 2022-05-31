@@ -70,7 +70,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{$user->name}}">@error('name') <span class="text-danger"></span> @enderror </div> {{-- Email --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Password --}}
+								<input type="email" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
 								<input type="number" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}" > @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Division: </label>
@@ -223,36 +223,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	// on load of the page: switch to the currently selected tab
 	var hash = window.location.hash;
 	$('#myTab a[href="' + hash + '"]').tab('show');
-	// $(function(){
-	// 	var url = window.location.href;
-	// 	var activeTab;
-	// 	if(url.indexOf("#") == -1){
-	// 		activeTab = "activity";
-	// 	}else{
-	// 		activeTab = url.substring(url.indexOf("#") + 1);
-	// 	}
-
-	// 	$('a[href="#'+ activeTab +'"]').removeClass("active");
-	// 	$("#" + activeTab).removeClass("active");
-	// 	$("#" + activeTab).addClass("active");
-	// 	$('a[href="#'+ activeTab +'"]').tab('show');
-	// });
-
-
-	// $(document).ready(function() {
-	// 	$(document).on('click', 'li', function(e) {
-	// 		e.preventDefault();
-	// 		$(this).closest("ul").find("li").removeClass("active");
-	// 		$(this).addClass("active");
-	// 	});
-	// });
-	// $('#user_tab').click(function(){
-	// 	var url = window.location.href;
-	// 	var urls = url.split('#')[0];
-	// 	console.log(urls);
-	// 	var activeTab = "activity"
-	// 	window.open(urls+"#"+activeTab);
-	// });
 
 	function btnSubmit(){
 		var phone = $("#examplePassword").val();
