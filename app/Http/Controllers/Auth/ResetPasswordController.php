@@ -30,12 +30,7 @@ class ResetPasswordController extends Controller
     
    
 
-    protected $redirectTo = RouteServiceProvider::LOGIN;
-    // public function redirectTo() 
-    // {
-    //     Session::flash('status', 'Your password has been changed successfully!');
-    //      return redirect('login');
-    // }
+    protected $redirectTo = RouteServiceProvider::ALERT;
 
     
 }

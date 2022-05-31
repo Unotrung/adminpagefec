@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 if(env("ROUTER_ENV") != 'dev'){
     URL::forceScheme('https');
 }
+Route::get('alert', [AuthenticatedSessionController::class, 'alert'])
+                ->name('alert');
 Route::middleware('auth')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');

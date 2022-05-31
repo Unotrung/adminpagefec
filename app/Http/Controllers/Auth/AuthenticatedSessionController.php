@@ -58,4 +58,14 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    /**
+     * Display the reset successful.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function alert()
+    {
+        return view('auth.alert')->with('success', 'Update password successful!');
+    }
 }
