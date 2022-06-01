@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      
     protected $fillable = [
         'name',
-        'email',
+        'email' => 'unique:users'   ,
         'password',
         'department',
         'division',

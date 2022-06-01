@@ -71,7 +71,7 @@
                   <div class="col-4">
 
                     <div class="input-group input-group-md">
-                      <input type="tel" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="" min="1" max="10">  
+                      <input type="number" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="" >  
                     </div>
                   </div>
                   <div class="col-4">
@@ -371,15 +371,13 @@ $(document).ready(function(){
           columnDefs: [
               { targets: '_all', visible: true }
           ],
-        drawCallback:function(setting){
+        drawCallback:function(oSettings){
           $('[data-toggle="tooltip"]').tooltip();
-          if(setting.fnRecordsTotal() < 10){     
-              $('.dataTables_length').hide();
-              $('.dataTables_paginate').hide();
-          } else {
-              $('.dataTables_length').show();
-              $('.dataTables_paginate').show(); 
-          }
+          if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
+            $(oSettings.nTableWrapper).find('.dataTables_paginate').hide();
+        } else {
+             $(oSettings.nTableWrapper).find('.dataTables_paginate').show();
+        }
         },
       });
 

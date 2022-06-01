@@ -117,7 +117,7 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         ]);
         $user = User::find($request->id);
         $user->name = $request->name;
@@ -227,7 +227,8 @@ class UsersController extends Controller
                             $output .= ' <a href="'.url(route('users.edit',['id'=>$data->data[$i]->_id])).'#activity" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Edit User" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                             }
                             if(Auth::user()->can('users-delete')){
-                            $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" data-toggle="tooltip" title="Deactive User" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                                $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'"> 
+                                <a data-toggle="tooltip" class="btn btn-danger btn-xs" title="Deactivate User" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a></span>';
                             $output .= '
                             <form method="post" action="'.url(route('users.delete')).'">
                                     <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -237,7 +238,7 @@ class UsersController extends Controller
                                                     <div class="modal-content">
                                                     <!-- Modal Header -->
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Do you want to Deactive User? </h4>
+                                                        <h4 class="modal-title">Do you want to Deactive User? </h4> 
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
                                                     <!-- Modal footer -->

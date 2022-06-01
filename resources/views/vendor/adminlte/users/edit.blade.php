@@ -36,7 +36,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @stop
 
 @section('content')
-@if (count($errors) > 0)
+{{-- @if (count($errors) > 0)
   <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
@@ -45,7 +45,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
        @endforeach
     </ul>
   </div>
-@endif
+@endif --}}
 
 
 
@@ -70,14 +70,20 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{$user->name}}">@error('name') <span class="text-danger"></span> @enderror </div> {{-- Email --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
-								<input type="email" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> @error('name') <span class="text-danger"></span> @enderror </div> {{-- Password --}}
+								<input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> 
+								@error('email')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror 
+							</div> {{-- Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
 								<input type="number" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}" > @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Division: </label>
 								<select id="division" class="form-control" name="division">
 									<option value="{{$user->division}}" selected="">{{$user->division}}</option>																			
 									@foreach (explode(';',$configdiv) as $configsdiv)		
-										@if($configsdiv!=$user->division)																	 
+										@if($configsdiv != $user->division)																	 
 											<option value="{{$configsdiv}}">{{$configsdiv}}</option>
 										@endif
 									@endforeach
@@ -87,9 +93,9 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 								<select id="center" class="form-control" name="center">
 									<option value="{{$user->center}}" selected="">{{$user->center}}</option>																		
 									@foreach (explode(';',$configcen) as $configscen)		
-									@if($configscen != $user->center)									
-										<option value="{{$configscen}}">{{$configscen}}</option>
-									@endif
+										@if($configscen != $user->center)									
+											<option value="{{$configscen}}">{{$configscen}}</option>
+										@endif
 									@endforeach
 								</select>
 							</span>  </div> {{-- Confirm Password --}}
