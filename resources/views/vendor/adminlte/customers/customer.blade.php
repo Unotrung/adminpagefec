@@ -371,13 +371,15 @@ $(document).ready(function(){
           columnDefs: [
               { targets: '_all', visible: true }
           ],
-        drawCallback:function(oSettings){
+        drawCallback:function(setting){
           $('[data-toggle="tooltip"]').tooltip();
-          if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
-            $(oSettings.nTableWrapper).find('.dataTables_paginate').hide();
-        } else {
-             $(oSettings.nTableWrapper).find('.dataTables_paginate').show();
-        }
+          var abc = $(this).find('.dataTables_empty').length;
+          console.log("aaaaaa" + abc);
+          if ($(this).find('.dataTables_empty').length == 1) {
+                // $('th').hide();
+                // $('#example1_info').hide();
+                $('#example1_paginate').hide();
+          }
         },
       });
 

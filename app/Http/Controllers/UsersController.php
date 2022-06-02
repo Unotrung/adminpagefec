@@ -162,7 +162,13 @@ class UsersController extends Controller
 
     public function destroy(Request $request)
     {
+        $user_login = Auth::user();
+        $id_login = $user_login->id;
         $user = User::find($request->id);
+        if($id_login == $request->id)
+        {
+            return redirect()->route('users')->with('checkfalse','Can`t Deactive yourself');
+        }
         $user->delete();
         $user->delete_at = 1;
         $user->save();
@@ -255,7 +261,8 @@ class UsersController extends Controller
                         }else{
                             $output .= ' <a href="'.url(route('users.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                             // $output .= ' <a href="'.url(route('users.restore',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;" onclick="return confirm(\'Are you sure? \')"><i class=""></i></a>';
-                            $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Active User" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-sync"></i></a>';
+                            $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
+                            <a  class="btn btn-success btn-xs" data-toggle="tooltip" title="Active User" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-sync"></i></a></span>';
                             $output .= '
                             <form method="post" action="'.url(route('users.restore')).'">
                                     <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">

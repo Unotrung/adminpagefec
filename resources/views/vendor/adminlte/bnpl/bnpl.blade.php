@@ -275,9 +275,11 @@ $(document).ready(function(){
         processing: true,
           serverSide: true,
           searching: false,
+          dom: "<'dt-top'lf>t<'dt-bottom'ip>",
           language : {
               "zeroRecords": "No matching record found",
-              "infoEmpty": "Showing 0 to 0 of 0 entries"             
+              "infoFiltered": "",
+              // "infoEmpty": "Showing 0 to 0 of 0 entries"             
           },
           ajax: {
             url:"{{route('bnpl.dtajax')}}",
@@ -331,8 +333,44 @@ $(document).ready(function(){
             },
           ],
         drawCallback:function(setting){
+          
           $('[data-toggle="tooltip"]').tooltip();
+          var abc = $(this).find('.dataTables_empty').length;
+          console.log("aaaaaa" + abc);
+          if ($(this).find('.dataTables_empty').length == 1) {
+                // $('th').hide();
+                // $('#example1_info').hide();
+                $('#example1_paginate').hide();
+          }
+        },
+        fnDrawCallback: function () {
+          var abc = $(this).find('.dataTables_empty').length;
+          console.log("aaaaaa" + abc);
+          
         }
+        // fnInitComplete : function() {
+        //     if ($(this).find('tbody tr').length<1) {
+        //       $(this).parent().hide();
+        //       toastr["error"]("No matching records found")
+        //       toastr.options = {
+        //         "closeButton": false,
+        //         "debug": true,
+        //         "newestOnTop": false,
+        //         "progressBar": false,
+        //         "positionClass": "toast-top-right",
+        //         "preventDuplicates": false,
+        //         "onclick": null,
+        //         "showDuration": "300",
+        //         "hideDuration": "1000",
+        //         "timeOut": "5000",
+        //         "extendedTimeOut": "1000",
+        //         "showEasing": "swing",
+        //         "hideEasing": "linear",
+        //         "showMethod": "fadeIn",
+        //         "hideMethod": "fadeOut"
+        //       }
+        //     }
+        //   },
       });
   }
  

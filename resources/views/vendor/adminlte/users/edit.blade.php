@@ -70,7 +70,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
 								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{$user->name}}">@error('name') <span class="text-danger"></span> @enderror </div> {{-- Email --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
-								<input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> 
+								<input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> 
 								@error('email')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
@@ -256,11 +256,42 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			"showMethod": "fadeIn",
 			"hideMethod": "fadeOut"
 			}
-		}else{
-			//data-toggle="modal" data-target="#confirmModal" 
+		}
+		if(IsEmail(Email)==false){
+			toastr["error"]("Your email is not correct!")
+			toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+			}
+    	}
+		
+		else{
+			// data-toggle="modal" data-target="#confirmModal" 
 			$("#confirmModal").modal("show");
 		}
 	}
+
+	function IsEmail(email) {
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!regex.test(email)) {
+           return false;
+        }else{
+           return true;
+        }
+      }
 
 </script>
 <!-- SweetAlert2 -->

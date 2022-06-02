@@ -117,6 +117,14 @@
       }
           toastr.success("{{ session('add') }}");
       @endif
+      @if(Session::has('checkfalse'))
+      toastr.options =
+      {
+        "closeButton" : true,
+        "progressBar" : true
+      }
+          toastr.error("{{ session('checkfalse') }}");
+      @endif
       @if(Session::has('delete'))
         toastr.options =
         {
@@ -176,7 +184,9 @@ $(document).ready(function(){
         serverSide: true,
         ajax:{ 
           url: "{{ route('users.dtajax') }}",
+          timeout: 5000,
           data:{input:input,type:type,status:status}
+          
         },
         columns: [
           {data: 'name', name: 'name'},
