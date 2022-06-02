@@ -181,13 +181,14 @@ $(document).ready(function(){
       responsive: true, 
       processing: true,
       searching: false,
-        serverSide: true,
+      serverSide: true,
         ajax:{ 
           url: "{{ route('users.dtajax') }}",
           timeout: 5000,
           data:{input:input,type:type,status:status}
           
         },
+        
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
@@ -215,6 +216,9 @@ $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
         }
     });
+    // table.parent().closest('.panel-collapse').on('shown.bs.collapse', function () {
+    // table.DataTable().columns().responsive.recalc();
+    // });
     table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
 
   }

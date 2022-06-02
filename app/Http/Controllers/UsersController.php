@@ -90,7 +90,8 @@ class UsersController extends Controller
             'department' =>['required' , 'string'],
             'role' =>['required'],
         ]);
-
+        
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -100,7 +101,8 @@ class UsersController extends Controller
             'center'=> $request->center,
             'password' => Hash::make($request->password),
         ]);
-
+        // print_r($user);
+        // exit;
         $user->assignRole($request->role);
         event(new Registered($user));
 
@@ -117,7 +119,7 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => 'required|email|unique:users,email,'.$request->id,
         ]);
         $user = User::find($request->id);
         $user->name = $request->name;

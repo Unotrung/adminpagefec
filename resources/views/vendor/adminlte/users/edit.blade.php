@@ -213,6 +213,19 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	@endif
 	</script>
 @endsection
+<style>
+	/* Chrome, Safari, Edge, Opera */
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+	
+	/* Firefox */
+	input[type=number] {
+	  -moz-appearance: textfield;
+	}
+  </style>
 @section('js')
 <script>
 	$('#myTab a').click(function(e) {
@@ -237,8 +250,8 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		var Division = $("#division").val();
 		var Center = $("#center").val();
 		var Department = $("#department").val();
-		if(phone.length === 0 || Name.length === 0 || Email.length === 0 || Division.length === 0 || Center.length === 0 || Department.length === 0 ){
-			toastr["error"]("Please input data!")
+		if(phone.length === 0  && Name.length > 0  && Email.length > 0 && IsEmail(Email)==true){
+			toastr["error"]("Please Input Phone Number!")
 			toastr.options = {
 			"closeButton": false,
 			"debug": true,
@@ -257,7 +270,51 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			"hideMethod": "fadeOut"
 			}
 		}
-		if(IsEmail(Email)==false){
+		if(Name.length === 0 && phone.length > 0  && Email.length > 0 && IsEmail(Email)==true){
+			toastr["error"]("Please Input Name!")
+			toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+			}
+		}
+		if(Email.length === 0 && Name.length > 0  && phone.length > 0 && IsEmail(Email)==true){
+			toastr["error"]("Please Input Email!")
+			toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+			}
+		}
+		// else{
+		// 	// data-toggle="modal" data-target="#confirmModal" 
+		// 	$("#confirmModal").modal("show");
+		// }
+		if(IsEmail(Email)==false && Name.length > 0 && Email.length > 0 && phone.length > 0 ){
 			toastr["error"]("Your email is not correct!")
 			toastr.options = {
 			"closeButton": false,
@@ -277,11 +334,12 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			"hideMethod": "fadeOut"
 			}
     	}
-		
-		else{
+		if(IsEmail(Email)==true && Name.length > 0 && Email.length > 0 && phone.length > 0 )
+		{
 			// data-toggle="modal" data-target="#confirmModal" 
 			$("#confirmModal").modal("show");
 		}
+		
 	}
 
 	function IsEmail(email) {

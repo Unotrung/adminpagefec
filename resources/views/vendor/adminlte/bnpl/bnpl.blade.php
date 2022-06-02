@@ -115,7 +115,7 @@
                   <div class="col-6">
 
                     <div class="input-group input-group-md">
-                      <input type="text" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="">  
+                      <input type="number" class="form-control form-control-user @error('phone') is-invalid @enderror" id="phone" placeholder="Phone" name="phone" value="" style="">  
                     </div>
                   </div>
                   {{-- <div class="col-4">
@@ -189,8 +189,19 @@
     <!-- /.content -->
 
 @stop
-
-
+<style>
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+</style>
 
 @section('js')
  
@@ -278,8 +289,7 @@ $(document).ready(function(){
           dom: "<'dt-top'lf>t<'dt-bottom'ip>",
           language : {
               "zeroRecords": "No matching record found",
-              "infoFiltered": "",
-              // "infoEmpty": "Showing 0 to 0 of 0 entries"             
+              "infoFiltered": "",           
           },
           ajax: {
             url:"{{route('bnpl.dtajax')}}",
