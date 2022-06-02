@@ -29,6 +29,11 @@ class AccountController extends Controller
         $this->middleware('auth');
     }
 
+
+    public function changepassword(){
+        return view('vendor.adminlte.account.change');
+    }
+
     /**
      * Show the application dashboard.
      *

@@ -51,9 +51,7 @@ Route::post('/modules/getAllPermissions', [App\Http\Controllers\ModuleController
 Route::get('/account/show', function(){
     return view('vendor.adminlte.account.show');
 });
-Route::get('/account/change', function(){
-    return view('vendor.adminlte.account.change');
-});
+// Route::get('/account/change', [App\Http\Controllers\AccountController::class, 'changepassword'])->name('account.changepassword');
 //Configuration
 Route::get('/configuration/index', [App\Http\Controllers\ConfigurationController::class, 'index'])->name('configuration.index');
 Route::get('/configuration/add', [App\Http\Controllers\ConfigurationController::class, 'create'])->name('configuration.add');
