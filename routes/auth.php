@@ -36,10 +36,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('update-password', [NewPasswordController::class, 'changePassword'])
                 ->name('password.edit');
+
+    Route::post('validation-password', [NewPasswordController::class, 'validation_pass'])
+                ->name('password.check');
                 
     Route::get('update-password', function(){
-                    return view('vendor.adminlte.account.change');
-                });
+        return view('vendor.adminlte.account.change');
+    });
+    Route::get('/account/change', [App\Http\Controllers\AccountController::class, 'changepassword'])->name('account.changepassword');
 });
 
 Route::middleware('auth')->group(function () {

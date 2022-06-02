@@ -1,5 +1,9 @@
-
 <x-guest-layout>
+  <style>
+    #error{
+      color:red;
+    }
+  </style>
 @extends('layouts.app')
 @section('title', 'Account')
 @section('content_header')
@@ -101,7 +105,7 @@
                   </div>
                 </div>
               </div>
-              
+              <div id="error"></div>
               <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto; " >
                 <button type="button" id="sendOTP" class="btn btn-success" style="background-color: gray;border: hidden;" disabled>Save</button>
                   <x-button style=" visibility:hidden;background-color: green;" id="btnSubmit" disabled>
@@ -192,11 +196,14 @@ $(document).ready(function(){
   });
 
   $("#sendOTP").on("click",function(e){
-    $('#otp_text').show();
-    $('#btnSubmit').attr("style","visibility:visible");
-    $("#btnSubmit").attr('style',  'background-color:gray');
-    $("#sendOTP").hide();
-    $(".info-form").hide();
+    event.preventDefault();
+    if(validationInput()){
+      $('#otp_text').show();
+      $('#btnSubmit').attr("style","visibility:visible");
+      $("#btnSubmit").attr('style',  'background-color:gray');
+      $("#sendOTP").hide();
+      $(".info-form").hide();
+    }
   });
 
   $('#sendmail').on("click",function(e){
@@ -211,7 +218,30 @@ $(document).ready(function(){
                      console.log(result);
                   }
         });
-  })
+  });
+
+  function validationInput(){
+
+    return $.ajax({
+                    url: "{{route('password.check')}}",
+                    type: 'POST',
+                    dataType:'json',
+                    data: $("form").serialize(),
+                    error:function(error){
+                      var text = "";
+                      error.responseJSON.errors.password.forEach(element => {
+                        text += element+"</br>";
+                      });
+                      $("#error").html(text);
+                    },
+                    success:function(){
+                      $("#error").html("");
+                      return true;
+                    }
+                });
+    
+
+  }
 
 });
 
