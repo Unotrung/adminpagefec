@@ -106,7 +106,7 @@ class UsersController extends Controller
         $user->assignRole($request->role);
         event(new Registered($user));
 
-        return redirect()->route('users')->with('add','User Registed Successfull');
+        return redirect()->route('users')->with('add','User Registed Successfully');
     }
 
     public function show($id)
@@ -165,8 +165,24 @@ class UsersController extends Controller
     public function destroy(Request $request)
     {
         $user_login = Auth::user();
+        $role = Role::All(); 
+        print_r($request->role);
+        foreach($role as $role)
+        {
+            if($role->user_ids != null)
+            {
+                if(in_array($request->id,$role->user_ids)){
+                    print_r($role->user_ids);
+                    $arr = $role->user_ids;
+                    $key = array_search($request->id,$role->user_ids);
+                    unset($arr[$key]);
+                }
+            }
+        }
         $id_login = $user_login->id;
         $user = User::find($request->id);
+        // print_r($user);
+        
         if($id_login == $request->id)
         {
             return redirect()->route('users')->with('checkfalse','Can`t Deactive yourself');
@@ -174,7 +190,7 @@ class UsersController extends Controller
         $user->delete();
         $user->delete_at = 1;
         $user->save();
-        return redirect()->route('users')->with('delete','User Deactive Successfull');
+        return redirect()->route('users')->with('delete','User Deactive Successfully');
 
     }
 
@@ -183,7 +199,7 @@ class UsersController extends Controller
         $user = User::find($request->id);
         $user->delete_at = null;
         $user->save();
-        return redirect()->route('users')->with('Update','User restore successfull');
+        return redirect()->route('users')->with('Update','User restore Successfully');
     }
 
     public function dtajax(Request $request){
@@ -251,7 +267,7 @@ class UsersController extends Controller
                                                     </div>
                                                     <!-- Modal footer -->
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-danger">Deactive</button>
+                                                        <button type="submit" class="btn btn-danger">Deactivate</button>
                                                         <button type="button" class="btn" data-dismiss="modal">Close</button>
                                                     </div>
                                                     </div>

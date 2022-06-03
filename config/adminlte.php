@@ -285,6 +285,7 @@ return [
             'can'  => ['website-access','admin-access','news-view'],
             'icon' => 'nav-icon fas fa-newspaper',
         ],
+        
         [
             'text' => 'Providers',
             'url'  => 'providers/index',

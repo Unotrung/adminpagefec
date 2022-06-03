@@ -38,7 +38,9 @@
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Content</label>
-                        <textarea name="Content_Create" id="summernote" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                        <div class="col-sm-10">
+                            <textarea name="Content_Create" id="summernote" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
@@ -46,7 +48,6 @@
                             <div id="img-preview"></div>
                             <label for="file_Edit_News" class="btn btn-primary col-md-5 fvalue">Thêm ảnh</label>
                             <input id="file_Edit_News" name="Img_Create" placeholder="Image" style="visibility:hidden;" type="file">
-                            
                         </div>
                     </div>
                     <div class="form-group row">

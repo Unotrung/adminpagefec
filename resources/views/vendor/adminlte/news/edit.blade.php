@@ -15,7 +15,7 @@ $new = News::find($news);
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Edit News</h6>
         </div>
-        <div class="card-body">
+        {{-- <div class="card-body"> --}}
             <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
@@ -56,7 +56,7 @@ $new = News::find($news);
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
-                      <div id="img-preview">
+                      <div id="img-preview" style="padding-bottom: 10px;" >
                         <img class=" col-md-10 fvalue" src="{{ asset("./ImagesNews/$new->Image") }} " alt="">
                       </div>
                       <label for="file_Edit_News" class="btn btn-primary col-md-10 fvalue">Change image</label>
@@ -65,11 +65,14 @@ $new = News::find($news);
                   </div>
                 </div>
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block">
+                <button type="submit" class="btn btn-success btn-user btn-block" style="width: 50%;margin:auto;">
                     Update
                 </button>
+                {{-- <button type="submit" class="btn btn-success btn-user btn-block" style="width: 50%;float: right;">
+                  Update
+                </button> --}}
             </form>
-        </div>
+        {{-- </div> --}}
     </div>
 </div>
 <script>

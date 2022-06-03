@@ -141,31 +141,31 @@ class NewsController extends Controller
                $output .= ' <a href="'.url(route('news.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                if(Auth::user()->can('news-update')){
                 $output .= ' <a href="'.url(route('news.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-               }
+                }
                 if(Auth::user()->can('news-delete')){
                 $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
-               $output .= '
-               <form method="post" action="'.url(route('news.delete')).'">
-                    <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
-                    <input type="hidden" name="_token" value="'.csrf_token().'" />
-                        <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Do you want delete? </h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                        <button type="button" class="btn" data-dismiss="modal">Close</button>
-                                    </div>
-                                    </div>
-                            </div>
-                            </div>
-                    </form>
-               ';
+                $output .= '
+                <form method="post" action="'.url(route('news.delete')).'">
+                        <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                        <input type="hidden" name="_token" value="'.csrf_token().'" />
+                            <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Do you want delete? </h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                        </div>
+                                        </div>
+                                </div>
+                                </div>
+                        </form>
+                ';
                }
                $data->data[$i]->action = (string)$output;
            //     if($this->show_action) {

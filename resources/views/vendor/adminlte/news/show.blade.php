@@ -62,9 +62,9 @@ $config = [
                 <div class="card-body">
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
-                    <div class="col-sm-10">
+                    {{-- <div class="col-sm-10"> --}}
                     <div class="col-md-10 fvalue">{{$news->Title}}</div>
-                    </div>
+                    {{-- </div> --}}
                   </div>
                   <div class="form-group row">
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
