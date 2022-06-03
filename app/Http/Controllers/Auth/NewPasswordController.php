@@ -137,7 +137,7 @@ class NewPasswordController extends Controller
     }
 
     public function validation_pass(Request $request){
-        return $request->validate([
+        $request->validate([
             'current_password' => 'required',
             'password' => ['required', 'confirmed'
             , Rules\Password::min(10)->mixedCase()
@@ -148,5 +148,6 @@ class NewPasswordController extends Controller
           ,[
               'current_password.required' => 'current_password is required'
           ]);
+          return true;
     }
 }
