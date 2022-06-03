@@ -82,7 +82,8 @@ class NewPasswordController extends Controller
             $this->html_mail($user->email);
             exit;
         }
-        if (Hash::check($request->current_password, $user->password)) {
+        if (Hash::check($request->current_password, $user->password)) 
+        {
             // Alert::error('Error!', 'Your current password is wrong!');
             // return back();
             $request->validate([
@@ -137,17 +138,23 @@ class NewPasswordController extends Controller
     }
 
     public function validation_pass(Request $request){
-        $request->validate([
-            'current_password' => 'required',
-            'password' => ['required', 'confirmed'
-            , Rules\Password::min(10)->mixedCase()
-              ->numbers()
-              ->symbols()
-              ->uncompromised()]
-            ]
-          ,[
-              'current_password.required' => 'current_password is required'
-          ]);
-          return true;
+        $user = Auth::user();
+        if (Hash::check($request->current_password, $user->password)) {
+            $request->validate([
+                'current_password' => 'required',
+                'password' => ['required', 'confirmed'
+                , Rules\Password::min(10)->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised()]
+                ]
+            ,[
+                'current_password.required' => 'current_password is required'
+            ]);
+            return true;
+        }
+        throw ValidationException::withMessages([
+            'current_password' => 'Wrong password',
+        ]);
     }
 }

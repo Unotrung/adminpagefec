@@ -166,7 +166,7 @@ class UsersController extends Controller
     {
         $user_login = Auth::user();
         $role = Role::All(); 
-        print_r($request->role);
+        // print_r($request->role);
         foreach($role as $role)
         {
             if($role->user_ids != null)

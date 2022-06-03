@@ -231,10 +231,17 @@ $(document).ready(function(){
                     error:function(error){
                       if(error.status != 200){
                         var text = "";
-                        error.responseJSON.errors.password.forEach(element => {
-                          text += element+"</br>";
-                        });
-                        $("#error").html(text);
+                        if(error.responseJSON.errors.password != undefined){
+                          error.responseJSON.errors.password.forEach(element => {
+                            text += element+"</br>";
+                          });
+                          $("#error").html(text);
+                        }else{
+                          error.responseJSON.errors.current_password.forEach(element => {
+                            text += element+"</br>";
+                          });
+                          $("#error").html(text);
+                        }
                         resBool = false;
                       }
                     },

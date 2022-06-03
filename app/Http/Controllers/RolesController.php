@@ -63,7 +63,7 @@ class RolesController extends Controller
         $role->permission_ids = [];
         $role->save();
 
-        return redirect()->route('roles.index')->with('ad','Role Assigned Successfull');;
+        return redirect()->route('roles.index')->with('ad','Role Assigned Successfully');;
         
     }
 
@@ -164,7 +164,7 @@ class RolesController extends Controller
 
         // return redirect()->route('modules.index');
         $role->save();
-        return redirect()->route('roles.edit',["id"=>$id])->with('success','Role updated successfully.');
+        return redirect()->route('roles.edit',["id"=>$id])->with('success','Role Updated Successfully.');
     }
 
     /**
@@ -178,7 +178,7 @@ class RolesController extends Controller
         $promotion = Role::find($request->id);
         $promotion->is_delete = 1;
         $promotion->save();
-        return redirect()->route('roles.index')->with('delete','Roles deleted successfull');
+        return redirect()->route('roles.index')->with('delete','Roles Deleted Successfully');
     }
 
     public function dtajax(Request $request){
