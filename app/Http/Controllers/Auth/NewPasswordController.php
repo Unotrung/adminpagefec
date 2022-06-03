@@ -3,11 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-<<<<<<< HEAD
 use App\Models\UserInfo; 
-=======
-use App\Models\UserInfo;
->>>>>>> dd0299a (update code)
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
