@@ -3,11 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-<<<<<<< HEAD
 use App\Models\UserInfo; 
-=======
-use App\Models\UserInfo;
->>>>>>> dd0299a (update code)
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -141,7 +137,7 @@ class NewPasswordController extends Controller
     }
 
     public function validation_pass(Request $request){
-        return $request->validate([
+        $request->validate([
             'current_password' => 'required',
             'password' => ['required', 'confirmed'
             , Rules\Password::min(10)->mixedCase()
@@ -152,5 +148,6 @@ class NewPasswordController extends Controller
           ,[
               'current_password.required' => 'current_password is required'
           ]);
+          return true;
     }
 }

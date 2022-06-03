@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 @section('footer')
     <div class="float-right d-none d-sm-block">
-      <b>Version</b> 1.1.0 25-05-2022
+      <b>Version</b> 1.1.1 03-06-2022
     </div>
     <strong>Copyright &copy; 2022 <a href="#">AdminLTE.io</a>.</strong> All rights reserved.
 @stop

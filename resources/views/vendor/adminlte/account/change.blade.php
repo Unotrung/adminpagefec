@@ -196,7 +196,7 @@ $(document).ready(function(){
   });
 
   $("#sendOTP").on("click",function(e){
-    event.preventDefault();
+    e.preventDefault();
     if(validationInput()){
       $('#otp_text').show();
       $('#btnSubmit').attr("style","visibility:visible");
@@ -221,26 +221,32 @@ $(document).ready(function(){
   });
 
   function validationInput(){
-
-    return $.ajax({
+    var resBool = false;
+    $.ajax({
                     url: "{{route('password.check')}}",
                     type: 'POST',
                     dataType:'json',
+                    async: false,
                     data: $("form").serialize(),
                     error:function(error){
-                      var text = "";
-                      error.responseJSON.errors.password.forEach(element => {
-                        text += element+"</br>";
-                      });
-                      $("#error").html(text);
+                      if(error.status != 200){
+                        var text = "";
+                        error.responseJSON.errors.password.forEach(element => {
+                          text += element+"</br>";
+                        });
+                        $("#error").html(text);
+                        resBool = false;
+                      }
                     },
-                    success:function(){
+                    success:function(res,bool){
                       $("#error").html("");
-                      return true;
+                      resBool = true;
+                    },
+                    complete: function(){
+                      console.log("complete : ", resBool);
                     }
                 });
-    
-
+                return resBool;
   }
 
 });
