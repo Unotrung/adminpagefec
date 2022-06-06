@@ -79,7 +79,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 							</div> {{-- Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
 								<input type="number" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}" > @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
-							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Division: </label>
+							<div class="col-sm-6 mb-3 mb-sm-0"> Division: </label>
 								<select id="division" class="form-control" name="division">
 									<option value="{{$user->division}}" selected="">{{$user->division}}</option>																			
 									@foreach (explode(';',$configdiv) as $configsdiv)		
@@ -89,7 +89,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 									@endforeach
 								</select>
 							</span>  </div> 
-							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Center: </label>
+							<div class="col-sm-6 mb-3 mb-sm-0"> Center: </label>
 								<select id="center" class="form-control" name="center">
 									<option value="{{$user->center}}" selected="">{{$user->center}}</option>																		
 									@foreach (explode(';',$configcen) as $configscen)		
@@ -99,7 +99,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 									@endforeach
 								</select>
 							</span>  </div> {{-- Confirm Password --}}
-							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Department: </label>
+							<div class="col-sm-6 mb-3 mb-sm-0"> Department: </label>
 								<select id="department" class="form-control" name="department">
 									<option value="{{$user->department}}" selected="">{{$user->department}}</option>
 									@foreach (explode(';',$configdep) as $configsdep)		
@@ -252,71 +252,38 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		var Department = $("#department").val();
 		if(phone.length === 0  && Name.length > 0  && Email.length > 0 && IsEmail(Email)==true){
 			toastr["error"]("Please Input Phone Number!")
-			toastr.options = {
-			"closeButton": false,
-			"debug": true,
-			"newestOnTop": false,
-			"progressBar": false,
-			"positionClass": "toast-top-right",
-			"preventDuplicates": false,
-			"onclick": null,
-			"showDuration": "300",
-			"hideDuration": "1000",
-			"timeOut": "5000",
-			"extendedTimeOut": "1000",
-			"showEasing": "swing",
-			"hideEasing": "linear",
-			"showMethod": "fadeIn",
-			"hideMethod": "fadeOut"
-			}
+		}
+		if(phone.length === 0  && Name.length === 0  && Email.length > 0 && IsEmail(Email)==true){
+			toastr["error"]("Please Input Phone Number & Name !")
+		}
+		if(phone.length === 0  && Name.length === 0  && Email.length === 0){
+			toastr["error"]("Please Input Phone Number, Name & Email !")
+		}
+		if(phone.length === 0  && Name.length > 0  && Email.length === 0 ){
+			toastr["error"]("Please Input Phone Number & Email !")
 		}
 		if(Name.length === 0 && phone.length > 0  && Email.length > 0 && IsEmail(Email)==true){
 			toastr["error"]("Please Input Name!")
-			toastr.options = {
-			"closeButton": false,
-			"debug": true,
-			"newestOnTop": false,
-			"progressBar": false,
-			"positionClass": "toast-top-right",
-			"preventDuplicates": false,
-			"onclick": null,
-			"showDuration": "300",
-			"hideDuration": "1000",
-			"timeOut": "5000",
-			"extendedTimeOut": "1000",
-			"showEasing": "swing",
-			"hideEasing": "linear",
-			"showMethod": "fadeIn",
-			"hideMethod": "fadeOut"
-			}
 		}
-		if(Email.length === 0 && Name.length > 0  && phone.length > 0 && IsEmail(Email)==true){
+		if(Name.length === 0 && phone.length > 0  && Email.length === 0 ){
+			toastr["error"]("Please Input Name & Email!")
+		}
+		if(Email.length === 0 && Name.length > 0  && phone.length > 0 ){
 			toastr["error"]("Please Input Email!")
-			toastr.options = {
-			"closeButton": false,
-			"debug": true,
-			"newestOnTop": false,
-			"progressBar": false,
-			"positionClass": "toast-top-right",
-			"preventDuplicates": false,
-			"onclick": null,
-			"showDuration": "300",
-			"hideDuration": "1000",
-			"timeOut": "5000",
-			"extendedTimeOut": "1000",
-			"showEasing": "swing",
-			"hideEasing": "linear",
-			"showMethod": "fadeIn",
-			"hideMethod": "fadeOut"
-			}
 		}
-		// else{
-		// 	// data-toggle="modal" data-target="#confirmModal" 
-		// 	$("#confirmModal").modal("show");
-		// }
 		if(IsEmail(Email)==false && Name.length > 0 && Email.length > 0 && phone.length > 0 ){
-			toastr["error"]("Your email is not correct!")
-			toastr.options = {
+			toastr["error"]("Your email is not correct!")	
+    	}
+		if(IsEmail(Email)==false && Name.length === 0 && Email.length > 0 && phone.length > 0 ){
+			toastr["error"]("Your email is not correct & Please Input Name !")	
+    	}
+		if(IsEmail(Email)==false && Name.length > 0 && Email.length > 0 && phone.length === 0 ){
+			toastr["error"]("Your email is not correct & Please Input Phone Number!")	
+    	}
+		if(IsEmail(Email)==false && Name.length === 0 && Email.length > 0 && phone.length === 0 ){
+			toastr["error"]("Your email is not correct , Please Input Phone Number & Name!")	
+    	}
+		toastr.options = {
 			"closeButton": false,
 			"debug": true,
 			"newestOnTop": false,
@@ -332,8 +299,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 			"hideEasing": "linear",
 			"showMethod": "fadeIn",
 			"hideMethod": "fadeOut"
-			}
-    	}
+		}
 		if(IsEmail(Email)==true && Name.length > 0 && Email.length > 0 && phone.length > 0 )
 		{
 			// data-toggle="modal" data-target="#confirmModal" 

@@ -192,7 +192,7 @@
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-3 col-form-label">Division<span style="color:red;">*</span></label>
+                        <label for="inputName2" class="col-sm-3 col-form-label">Division</label>
                         <div class="col-sm-9">
                           <select id="user" class="form-control" name="division">
                             <option value="{{Auth::user()->division}}" selected="">{{Auth::user()->division}}</option>																			
@@ -206,7 +206,7 @@
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-3 col-form-label">Center<span style="color:red;">*</span></label>
+                        <label for="inputName2" class="col-sm-3 col-form-label">Center</label>
                           <div class="col-sm-9">
                             <select id="user" class="form-control" name="center">
                               <option value="{{Auth::user()->center}}" selected="">{{Auth::user()->center}}</option>																			
@@ -220,7 +220,7 @@
                       </div>
 
                       <div class="form-group row">
-                        <label for="inputName2" class="col-sm-3 col-form-label">Department<span style="color:red;">*</span></label>
+                        <label for="inputName2" class="col-sm-3 col-form-label">Department</label>
                         <div class="col-sm-9">
                           <select id="user" class="form-control" name="department">
                             <option value="{{Auth::user()->department}}" selected="">{{Auth::user()->department}}</option>																			
@@ -235,7 +235,7 @@
 
                       <div class="form-group row">
                         <div class="col-sm-10" >
-                          <div data-toggle="modal" data-target="#confirmModal" class="btn btn-danger btn-user btn-block" style="width: 20% ;margin: 10px 290px" onClick="btnSubmit(this.value)">Submit </div>
+                          <div  class="btn btn-danger btn-user btn-block" style="width: 20% ;margin: 10px 290px" onClick="btnSubmit(this.value)">Submit </div>
                             <div class="modal" id="confirmModal">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -286,5 +286,43 @@
 
 @section('js')
 
-
+<script>
+  function btnSubmit(){
+    var Email = $("#inputEmail").val();
+		var Name = $("#inputName").val();
+    console.log(Email.length);
+    console.log(Name.length);
+    if(Name.length > 0  && Email.length === 0 ){
+			toastr["error"]("Please Input Email!")
+		}
+		if( Name.length === 0  && Email.length > 0 ){
+			toastr["error"]("Please Input Name !")
+		}
+		if( Name.length === 0  && Email.length === 0){
+			toastr["error"]("Please Input Name & Email !")
+		}
+    toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+		if(Name.length > 0 && Email.length > 0  )
+		{
+			// data-toggle="modal" data-target="#confirmModal" 
+			$("#confirmModal").modal("show");
+		}
+  }
+</script>
 @stop
