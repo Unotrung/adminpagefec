@@ -11,13 +11,18 @@
 
 @section('title', 'BNPL')
 @section('content_header')
-<div class="row mb-2">
-  <div class="col-sm-12">
-      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right" href="{{ route('bnpl') }}"><i
-          class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+<div class="container-fluid">
+  <div class="row mb-2">
+    {{-- <div class="col-sm-5">
+      
+    </div> --}}
+    <div class="col-sm-12">
+      <h1 class="m-0">BNPL Information
+        <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right" href="{{ route('bnpl') }}"><i
+            class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a></h1>
+    </div>
   </div>
 </div>
-
 @stop
 
 @section('content')
@@ -44,7 +49,7 @@ $config = [
       @if(!empty($bnpl))  
       <div class="row">
         <div class="col-6">
-          <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Information</label>
+          <label for="inputPassword3" class="col-sm-6 col-form-label">Personal Information</label>
           <div class="card box-info" >
             <div class="col-sm-10">
               <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$bnpl["name"]}}</div>

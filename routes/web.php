@@ -252,7 +252,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
     });
 });
 
-Route::group(['middleware' => ['role:super admin']], function () {
+Route::group(['middleware' => ['role:super admin|System Admin']], function () {
     Route::group(['middleware' => ['permission:providers-delete']], function () {
         Route::post('/providers/delete', [App\Http\Controllers\ProviderController::class, 'destroy'])->name('providers.delete');
     });

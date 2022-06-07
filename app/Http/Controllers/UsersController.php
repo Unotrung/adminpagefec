@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
+use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
@@ -82,7 +83,7 @@ class UsersController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password_confirmation' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::min(10)->mixedCase()
             ->numbers()
             ->symbols()
@@ -117,11 +118,16 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
+        // print_r($request->id);
+        // exit;   
+        $user = User::find($request->id);
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$request->id,
+            'email' => [
+                'required',
+                Rule::unique('users')->ignore($user->id,'id'),
+            ],
         ]);
-        $user = User::find($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone; 

@@ -354,6 +354,10 @@ $config = [
                   <i class="fas fa-clock bg-gray"></i>
                   </div>
                 </div>
+                @else
+                <div class="card-body align-items-center d-flex justify-content-center" style="background-color: gainsboro;">
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true" style="padding-right: 5px"></i> Account Unregistered EAP
+                </div>
                 @endif
               </div>
           

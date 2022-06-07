@@ -63,4 +63,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->belongsToMany(Role::class);
     }
 
+    /*
+    * 
+    */
+    public function setusrEmailAttribute($value)
+    {
+        $this->attributes['usrEmail'] = strtolower($value);
+    }
+
 }
