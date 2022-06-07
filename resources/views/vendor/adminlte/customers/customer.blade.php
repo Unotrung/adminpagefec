@@ -332,7 +332,6 @@ $(document).ready(function(){
                 filter : search
               }
           },
-          
           columns: [
               {
                   data:'username',
@@ -359,11 +358,13 @@ $(document).ready(function(){
                   data:'bnpl',
                   name:'BNPL NID',
                   render: function ( data, type, row ) {
+                    console.log(data);
                     if(data!==undefined)
                     {
-                    var str="";
-                    data.forEach(element => {
-                      str += element.citizenId+"<br/>";
+                      var str="";
+                      
+                      data.forEach(element => {
+                        str += element.citizenId+"<br/>";
                     });
                     return str;
                     }

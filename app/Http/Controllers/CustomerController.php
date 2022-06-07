@@ -196,7 +196,13 @@ class CustomerController extends Controller
                 // print_r($bnpl);exit;
                 if($eap !=null && $bnpl != null)
                 {
-                    $eap[0]["bnpl"] = $result["data"]["BNPL"];
+                    $test = json_decode($response->body())->data->BNPL;
+                    
+                    if(is_array($test)){
+                        $eap[0]["bnpl"] = $test;
+                    }else{
+                        $eap[0]["bnpl"][0] = $test;
+                    }
                     $out =  Datatables::of($eap)->make(true);
                     $data = $out->getData();   
                     if(count($bnpl) == 1)
@@ -207,7 +213,7 @@ class CustomerController extends Controller
                     {
                         $bnpl_array = $bnpl;
                     }
-                    // print_r($bnpl_array["_id"]);
+                    // print_r($eap);
                     // exit;
                     for($i=0; $i < count($data->data); $i++) {
                         $output = '';

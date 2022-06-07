@@ -191,7 +191,7 @@ class UsersController extends Controller
         
         if($id_login == $request->id)
         {
-            return redirect()->route('users')->with('checkfalse','Can`t Deactive yourself');
+            return redirect()->route('users')->with('checkfalse','Can`t Deactivate Yourself');
         }
         $user->delete();
         $user->delete_at = 1;

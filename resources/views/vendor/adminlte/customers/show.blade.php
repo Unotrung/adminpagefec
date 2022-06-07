@@ -355,8 +355,10 @@ $config = [
                   </div>
                 </div>
                 @else
-                <div class="card-body align-items-center d-flex justify-content-center" style="background-color: gainsboro;">
-                  <i class="fa fa-exclamation-triangle" aria-hidden="true" style="padding-right: 5px"></i> Account Unregistered EAP
+                <div class="card" style="text-align: center;padding: 70px 0" >
+                  {{-- <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center"> --}}
+                    <p><i class="fa fa-info-circle" aria-hidden="true"></i>User has not registered to EAP.</p>
+                  {{-- </div> --}}
                 </div>
                 @endif
               </div>
