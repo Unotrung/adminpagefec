@@ -39,25 +39,27 @@ $old = Role::find($role);
                 @method('POST')
                 <div class="form-group row" style="padding: 20px">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                        <span style="color:red;">*</span>Display Name</label>
+                        Display Name</label>
                         <input 
                             type="text" 
                             class="form-control form-control-user @error('name') is-invalid @enderror" 
                             id="display_name"
                             placeholder="Name" 
                             name="display_name" 
-                            value="{{ $old['display_name'] }}">
+                            value="{{ $old['display_name'] }}"
+                            style="border-left: 2px solid red">
                     </div>
                     {{-- Name --}}
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                        <span style="color:red;">*</span>Name</label>
+                        Name</label>
                         <input 
                             type="text" 
                             class="form-control form-control-user @error('name') is-invalid @enderror" 
                             id="exampleName"
                             placeholder="Name" 
                             name="name" 
-                            value="{{ $old['name'] }}">
+                            value="{{ $old['name'] }}"
+                            style="border-left: 2px solid red">
 
                         @error('name')
                             <span class="text-danger">{{$message}}</span>

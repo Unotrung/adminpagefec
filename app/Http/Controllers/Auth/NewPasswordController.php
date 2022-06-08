@@ -14,6 +14,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 use Mail;
 use Session;
+use Validator;
 use Illuminate\Validation\ValidationException;
 
 
@@ -134,7 +135,6 @@ class NewPasswordController extends Controller
                 $message->setBody('Your OTP is:'.$data['code']);
             $message->from('info@voolo.vn', 'Voolo');
         });
-        echo "Successfully sent the email";
     }
 
     public function validation_pass(Request $request){
@@ -149,12 +149,14 @@ class NewPasswordController extends Controller
                 ->uncompromised()]
                 ]
             ,[
-                'current_password.required' => 'current_password is required'
-            ]);
+                'current_password.required' => 'current_password is required',
+                'password.required' => 'Password cannot be blank and do not include spaces'
+            ]
+            );
             return true;
         }
         throw ValidationException::withMessages([
-            'current_password' => 'Wrong password',
+            'current_password' => 'Current Password Not Correct',
         ]);
     }
 }

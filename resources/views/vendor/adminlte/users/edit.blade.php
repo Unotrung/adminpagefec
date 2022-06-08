@@ -67,18 +67,18 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 						@csrf
 						<input type="hidden" name="id" value="{{$user->id}}">
 						<div class="form-group row"> {{-- Name --}}
-							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Name: </label>
-								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{$user->name}}">@error('name') <span class="text-danger"></span> @enderror </div> {{-- Email --}}
-							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Email: </label>
-								<input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}"> 
+							<div class="col-sm-6 mb-3 mb-sm-0">Name: </label>
+								<input type="text" class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName" placeholder="Name" name="name" value="{{$user->name}}" style="border-left: 2px solid red">@error('name') <span class="text-danger"></span> @enderror </div> {{-- Email --}}
+							<div class="col-sm-6 mb-3 mb-sm-0">Email: </label>
+								<input type="text" class="form-control form-control-user @error('email') is-invalid @enderror" id="exampleEmail" placeholder="Email" name="email" value="{{$user->email}}" style="border-left: 2px solid red"> 
 								@error('email')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
 									</span>
 								@enderror 
 							</div> {{-- Password --}}
-							<div class="col-sm-6 mb-3 mb-sm-0"> <span style="color:red;">*</span>Phone: </label>
-								<input type="number" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}" > @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
+							<div class="col-sm-6 mb-3 mb-sm-0">Phone: </label>
+								<input type="number" class="form-control form-control-user @error('name') is-invalid @enderror" id="examplePassword" placeholder="Phone number" name="phone" value="{{$user->phone}}" style="border-left: 2px solid red" > @error('name') <span class="text-danger"></span> @enderror </div> {{-- Confirm Password --}}
 							<div class="col-sm-6 mb-3 mb-sm-0"> Division: </label>
 								<select id="division" class="form-control" name="division">
 									<option value="{{$user->division}}" selected="">{{$user->division}}</option>																			

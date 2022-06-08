@@ -35,7 +35,8 @@
                             id="display_name"
                             placeholder="Display Name" 
                             name="displayName" 
-                            value="" autofocus>
+                            value="" autofocus
+                            style="border-left: 2px solid red">
                             <div class="input-group-append">
 						        <div class="input-group-text">
                                 <span class="fas fa-user-tag "></span>

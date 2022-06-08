@@ -145,6 +145,25 @@
     </script>
 @stop
 
+<style>
+ #example1_previous a {
+  background-color:white;
+}
+
+#example1_next a {
+  background-color:white;
+}
+.page-item .page-link {
+box-shadow: none;
+}
+
+.page-item.active .page-link {
+color: #fff;
+background-color: #6c757d;
+border-color: #6c757d;
+box-shadow: none;
+}
+</style>
 
 @section('js')
 <!-- DataTables  & Plugins -->

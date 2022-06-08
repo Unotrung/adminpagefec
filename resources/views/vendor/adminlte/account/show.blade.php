@@ -179,15 +179,15 @@
                       @csrf
                       <input type="hidden" name="id" value="{{Auth::user()->id}}">
                       <div class="form-group row">
-                        <label for="inputName" class="col-sm-3 col-form-label">Name<span style="color:red;">*</span></label>
+                        <label for="inputName" class="col-sm-3 col-form-label">Name</label>
                         <div class="col-sm-9">
-                          <input type="" class="form-control" id="inputName" placeholder="Name" value="{{Auth::user()->name}}" name="name" required>
+                          <input type="" class="form-control" id="inputName" placeholder="Name" value="{{Auth::user()->name}}" name="name" required style="border-left: 2px solid red">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-3 col-form-label">Email<span style="color:red;">*</span></label>
+                        <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
                         <div class="col-sm-9">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{Auth::user()->email}}" name="email">
+                          <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{Auth::user()->email}}" name="email" style="border-left: 2px solid red">
                         </div>
                       </div>
 
@@ -235,7 +235,7 @@
 
                       <div class="form-group row">
                         <div class="col-sm-10" >
-                          <div  class="btn btn-danger btn-user btn-block" style="width: 20% ;margin: 10px 290px" onClick="btnSubmit(this.value)">Submit </div>
+                          <div  class="btn btn-success btn-user btn-block" style="width: 20% ;margin: 10px 290px" onClick="btnSubmit(this.value)">Submit </div>
                             <div class="modal" id="confirmModal">
                               <div class="modal-dialog">
                                 <div class="modal-content">

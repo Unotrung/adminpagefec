@@ -32,7 +32,7 @@
 				{{-- Name field --}}
 				<div class="input-group mb-3">
 					<input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-						   value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
+						   value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus style="border-left: 2px solid red">
 		
 					<div class="input-group-append">
 						<div class="input-group-text">
@@ -49,7 +49,7 @@
 				{{-- Email field --}}
 				<div class="input-group mb-3">
 					<input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-						value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}">
+						value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" style="border-left: 2px solid red">
 
 					<div class="input-group-append">
 						<div class="input-group-text">
@@ -67,7 +67,7 @@
 				{{-- Password field --}}
 				<div class="input-group mb-3">
 					<input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-						placeholder="{{ __('adminlte::adminlte.password') }}">
+						placeholder="{{ __('adminlte::adminlte.password') }}" style="border-left: 2px solid red">
 
 					<div class="input-group-append">
 						<div class="input-group-text">
@@ -86,7 +86,7 @@
 				<div class="input-group mb-3">
 					<input type="password" name="password_confirmation"
 						class="form-control @error('password_confirmation') is-invalid @enderror"
-						placeholder="{{ __('adminlte::adminlte.retype_password') }}">
+						placeholder="{{ __('adminlte::adminlte.retype_password') }}" style="border-left: 2px solid red">
 
 					<div class="input-group-append">
 						<div class="input-group-text">
@@ -135,7 +135,7 @@
 				</div>
 
 				<div class="input-group mb-3">
-					<select class="form-control form-control-user @error('role') is-invalid @enderror" name="role">
+					<select class="form-control form-control-user @error('role') is-invalid @enderror" name="role" style="border-left: 2px solid red">
 						<option selected disabled>Select Role</option>
 						@foreach ($roles as $role)
 							<option value="{{$role->name}}">{{$role->name}}</option>
@@ -150,7 +150,7 @@
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 d-flex justify-content-center">
-				<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block col-3">
+				<div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block col-3" disabled>
 					Submit
 				</div>
 				<div class="modal" id="demoModal">

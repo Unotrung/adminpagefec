@@ -7,6 +7,14 @@
 @extends('layouts.app')
 @section('title', 'Account')
 @section('content_header')
+@section('css')
+<link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+{{-- <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" 
+   href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@stop
 <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -56,10 +64,10 @@
                 </div>
 
                 <!-- Old Password -->
-                <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:90%; display:block;margin-right: auto;">
                     <x-label for="current_password" :value="__('Current Password')" />
 
-                    <input id="current_password" class="form-control block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" autocomplete="new-password" />
+                    <input id="current_password" class="form-control block mt-1 w-full @error('current_password') is-invalid @enderror @error('name') is-invalid @enderror" type="password" name="current_password" autocomplete="new-password" style="border-left: 2px solid red" />
                     <span class="invalid-feedback" role="alert">
                       @error('current_password')
                       <strong>{{ "Current password is not correct" }}</strong>
@@ -71,19 +79,19 @@
                   </div>
                   
                 <!-- Password -->
-                <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:90%; display:block;margin-right: auto;">
                     <x-label for="password" :value="__('New Password')" />
 
-                    <input id="password" class="form-control block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="off"/>
+                    <input id="password" class="form-control block mt-1 w-full @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="off" style="border-left: 2px solid red"/>
                 </div>
 
                 <!-- Confirm Password -->
-                <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;">
+                <div class="mt-4" style="width:90%; display:block;margin-right: auto;">
                     <x-label for="password" :value="__('Confirm New Password')" />
 
                     <input id="password" class="form-control block mt-1 w-full @error('password') is-invalid @enderror"
                                         type="password"
-                                        name="password_confirmation" required autocomplete="off"/>
+                                        name="password_confirmation" required autocomplete="off" style="border-left: 2px solid red"/>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -91,14 +99,14 @@
                     @enderror
                 </div>
             </div>
-              <div class="mt-4" style="width:60%; display:block;margin-left: auto;margin-right: auto;" id="otp_text">
+              <div class="mt-4" style="width:90%; display:block;margin-right: auto;" id="otp_text">
                 <div class="row">
-                  <div class="col-7" style="margin: 0;padding: 0;">
+                  <div class="col-9" style="margin: 0;padding: 0;">
                     <x-label for="otp" :value="__('OTP')" />
                     
                     <input id="otp" class="form-control block mt-1 w-full " type="text" name="otp" required/> 
                   </div>
-                  <div class="col-5" style="margin: 0;padding: 0;padding-top: 32px;padding-left: 5px;">
+                  <div class="col-3" style="margin: 0;padding: 0;padding-top: 32px;padding-left: 5px;">
                     <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height:40px">Sent OTP</button>
                     {{-- <a href="{{route('password.edit')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-envelope"></i> Send OTP</a> --}}
@@ -136,6 +144,8 @@ $(document).ready(function(){
     if(($('#current_password').val().length == 0))
     {
       $('#sendOTP').prop('disabled', true);
+      $('#sendOTP').removeAttr("style");
+      $("#sendOTP").attr('style',  'background-color:gray; border-color:gray');
     }
     if(($('#current_password').val().length > 0) && ($('#password').val().length > 0) && (checkpassword.length > 0))
     {
@@ -157,6 +167,9 @@ $(document).ready(function(){
     else
     {
       $('#sendOTP').prop('disabled', true);
+      $('#sendOTP').removeAttr("style");
+      $("#sendOTP").attr('style',  'background-color:gray; border-color:gray');
+      // $("#sendOTP").attr('style',  'border-color:gray');
     }
   });
 
@@ -166,6 +179,8 @@ $(document).ready(function(){
     if(($('#password').val().length == 0))
     {
       $('#sendOTP').prop('disabled', true);
+      $('#sendOTP').removeAttr("style");
+      $("#sendOTP").attr('style',  'background-color:gray; border-color:gray');
     }
     if(($('#current_password').val().length > 0) && ($('#password').val().length > 0) && (checkpassword.length > 0))
     {
@@ -214,9 +229,31 @@ $(document).ready(function(){
         data: {
           "_token": "{{ csrf_token() }}",
         },
-        success: function(result){
-                     console.log(result);
-                  }
+        async : false,
+        complete : function(){
+          console.log("[JQUERY AJAX COMPLETE]");
+          toastr["success"]("OTP has been sent to your email")
+            toastr.options = {
+            "closeButton": false,
+            "debug": true,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+          }
+        }
+        // success: function(){
+        //     console.log(data);
+        // }
         });
   });
 

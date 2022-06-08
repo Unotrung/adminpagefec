@@ -168,7 +168,7 @@ $config = [
         @if(!empty($bnpl_info))  
         <div class="row">
           <div class="col-6">
-            <label for="inputPassword3" class="col-sm-4 col-form-label">Personal Information</label>
+            <label for="inputPassword3" class="col-sm-6 col-form-label">Personal Information</label>
             <div class="card box-info">
               <div class="col-sm-8">
                 <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-4 col-form-label">Name:</label>{{$bnpl_info["name"]}}</div>

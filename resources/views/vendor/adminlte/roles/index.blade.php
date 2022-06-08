@@ -134,6 +134,9 @@ $('[data-toggle="tooltip"]').tooltip();
           "defaultContent": "-",
           "targets": "_all"
         }],
+        drawCallback:function(setting){
+          $('[data-toggle="tooltip"]').tooltip();
+        }
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
   });
 </script>

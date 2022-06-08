@@ -125,7 +125,7 @@ class UsersController extends Controller
             'name' => 'required',
             'email' => [
                 'required',
-                Rule::unique('users')->ignore($user->id,'id'),
+                // Rule::unique('users')->ignore($user->id,'id'),
             ],
         ]);
         $user->name = $request->name;
@@ -196,7 +196,7 @@ class UsersController extends Controller
         $user->delete();
         $user->delete_at = 1;
         $user->save();
-        return redirect()->route('users')->with('delete','User Deactive Successfully');
+        return redirect()->route('users')->with('delete','Deactivated User Successfully');
 
     }
 
