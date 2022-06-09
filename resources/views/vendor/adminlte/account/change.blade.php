@@ -100,21 +100,21 @@
                 </div>
             </div>
               <div class="mt-4" style="width:90%; display:block;margin-right: auto;" id="otp_text">
-                <div class="row">
-                  <div class="col-9" style="margin: 0;padding: 0;">
-                    <x-label for="otp" :value="__('OTP')" />
+                {{-- <div class="row"> --}}
+                  <div class="col-9" style="margin: auto;padding: 0;">
+                    <x-label for="otp" :value="__('Nhập mã OTP')" />
                     
                     <input id="otp" class="form-control block mt-1 w-full " type="text" name="otp" required/> 
+                    <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height: 30px;width: 100%;margin-top: 4px;padding-top: 10;">Get OTP</button>
                   </div>
-                  <div class="col-3" style="margin: 0;padding: 0;padding-top: 32px;padding-left: 5px;">
-                    <button type="button" id="sendmail" class="btn btn-success-outline-primary" style="background-color: rgb(23,162,184);color:white;height:40px">Sent OTP</button>
+                  
+                    
                     {{-- <a href="{{route('password.edit')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-envelope"></i> Send OTP</a> --}}
-                  </div>
-                </div>
+                {{-- </div> --}}
               </div>
               <div id="error"></div>
-              <div class="mt-4" style="width:10%; margin-left: auto;margin-right: auto; " >
+              <div class="mt-4" style="width:10%; margin-left: 190px;margin-right: auto; " >
                 <button type="button" id="sendOTP" class="btn btn-success" style="background-color: gray;border: hidden;" disabled>Continue</button>
                   <x-button style=" visibility:hidden;background-color: green;" id="btnSubmit" disabled>
                       {{ __('Save') }}

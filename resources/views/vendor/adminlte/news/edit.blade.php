@@ -9,17 +9,26 @@ $new = News::find($news);
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 @stop
+@section('content_header')
+<div class="container-fluid">
+<div class="row mb-2">
+<div class="col-sm-11">
+            <h2 class="h3 mb-0 text-gray-800">Edit News </h2>
+</div>
+<div class="col-sm-1">
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('news.index') }}"><i
+                class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
+        </div>
+</div>
+@stop
 @section('content')
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit News</h6>
-        </div>
-        {{-- <div class="card-body"> --}}
-            <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
-                @csrf
-                @method('POST')
+    <div class="col-md-12">
+      <div class="card">
                 <div class="card-body">
+                  <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
@@ -57,23 +66,36 @@ $new = News::find($news);
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
                       <div id="img-preview" style="padding-bottom: 10px;" >
-                        <img class=" col-md-10 fvalue" src="{{ asset("./ImagesNews/$new->Image") }} " alt="">
+                        <img class=" col-md-6 fvalue" src="{{ asset("./ImagesNews/$new->Image") }} " alt="">
                       </div>
-                      <label for="file_Edit_News" class="btn btn-primary col-md-10 fvalue">Change image</label>
+                      <label for="file_Edit_News" class="btn btn-primary col-md-6 fvalue">Change image</label>
                       <input id="file_Edit_News" name="Img_Edit" placeholder="Image" style="visibility:hidden;" type="file">
                     </div>
                   </div>
+                  <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100%">
+                    Submit
+                  </div>
+            
+                  <div class="modal" id="demoModal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                      <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Do you want to edit new?  </h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-danger">Yes</button>
+                          <button type="button" class="btn" data-dismiss="modal">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
                 </div>
-                {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block" style="width: 50%;margin:auto;">
-                    Update
-                </button>
-                {{-- <button type="submit" class="btn btn-success btn-user btn-block" style="width: 50%;float: right;">
-                  Update
-                </button> --}}
-            </form>
-        {{-- </div> --}}
     </div>
+  </div>
 </div>
 <script>
 const chooseFile = document.getElementById("file_Edit_News");

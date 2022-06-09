@@ -45,8 +45,14 @@ class NewsController extends Controller
         $news->URL = $request->Url_Create;
         //$news->Image = $request->Img_Create;
         $inputImg = $request->Img_Create;
-        $extension = $request->Img_Create->extension();
-        $imgName = time().'-1.'.$extension;
+        // $images = $request->file('Img_Create');
+        // $path = $images->store('public/images');
+        // $path = basename($path);
+        
+        $imgName = $request->Img_Create->getClientOriginalName();
+        // print_r($extension);
+        // exit;
+        // $imgName = time().'-1.'.$extension;
         $inputImg->move(public_path('ImagesNews'), $imgName);
         $request->Img_Create = $imgName;
         $news->Image = $request->Img_Create;

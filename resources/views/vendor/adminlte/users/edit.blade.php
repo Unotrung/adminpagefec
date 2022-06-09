@@ -36,20 +36,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @stop
 
 @section('content')
-{{-- @if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-       @foreach ($errors->all() as $error)
-         <li>{{ $error }}</li>
-       @endforeach
-    </ul>
-  </div>
-@endif --}}
-
-
-
-<!-- /.col -->
 <div class="col-md-12">
 	<div class="card">
 	  <div class="card-header p-2">
@@ -148,8 +134,6 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 				</div>
 			</div>
 		  </div>
-		 
-		  <!-- /.tab-pane -->
 
 		  <div class="tab-pane" id="settings">
 			<form method="POST" action="{{route('user.assignrole')}}">
@@ -160,16 +144,14 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 					@if ($role->is_delete != 1)
 					<tr>
 						<td>
-							
 							<input type="radio" value="{{$role->name}}" @if($user->hasRole($role->name)) checked @endif name="role" id="role-{{$role->id}}"/> 
 							<label for="role-{{$role->id}}">{{$role->name}}</label>
-							
 						</td>
 					</tr>
 					@endif
 				@endforeach
 			  </table>
-			  <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+			  <div class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;" onClick="checkSubmit(this.value)">
 				Submit
 			</div>
 
@@ -308,6 +290,39 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		
 	}
 
+	function checkSubmit(){
+		var radio = $('input:radio[name=role]:checked').val();
+		console.log(radio);
+		if(radio == null){
+			toastr["error"]("Please select Role!")	
+		}
+		// if(IsEmail(Email)==false && Name.length === 0 && Email.length > 0 && phone.length === 0 ){
+		// 	toastr["error"]("Your email is not correct , Please Input Phone Number & Name!")	
+    	// }
+		toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+		if(radio != null)
+		{
+			$("#demoModal").modal("show");
+		}
+		
+	}
+	
 	function IsEmail(email) {
         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if(!regex.test(email)) {
