@@ -50,7 +50,7 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-info" style="height: 140px;">
               <div class="inner">
                 <h3 class="total">{{count($bnpl)}}</h3>
                 <p>Total BNPL Registrations</p>
@@ -63,10 +63,10 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success box-step2" style="cursor:pointer">
+            <div class="small-box bg-success box-step2" style="cursor:pointer;height: 140px;">
               <div class="inner">
                 <h3 class="step2">{{count($name)}}</h3>
-                <p>Stage: Input Information</p>
+                <p>Customer input info in VOOLO</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-check"></i>
@@ -76,10 +76,10 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6  box-step3">
             <!-- small box -->
-            <div class="small-box bg-warning" style="cursor: pointer">
+            <div class="small-box bg-warning" style="cursor: pointer;height: 140px;">
               <div class="inner">
                 <h3 class="step3" style="color: white"> {{count($phone)}}</h3>
-                <p style="color: white">Stage: Setup PIN Code</p>
+                <p style="color: white">In E-sign process</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-lock"></i>
@@ -89,10 +89,10 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6  box-step4" >
             <!-- small box -->
-            <div class="small-box bg-danger" style="cursor: pointer">
+            <div class="small-box bg-danger" style="cursor: pointer;height: 140px;">
               <div class="inner">
                 <h3 class="step4">{{count($identify)}}</h3>
-                <p>Stage: Verify Registration</p>
+                <p>Waiting Final DE</p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-shield"></i>
@@ -165,7 +165,7 @@
                   <tr>
                     <th>Name</th>
                     <th>Phone</th>
-                    <th>Registered Date</th>
+                    {{-- <th>Registered Date</th> --}}
                     <th>Stage</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -303,14 +303,14 @@ $(document).ready(function(){
           columns: [
             {data: 'name', name: 'Name'},
             {data: 'phone', name: 'Phone'},
-            {data: 'createdAt', name: 'Date Regis',
-              render: function ( data, type, row ) {
-                if ( type === 'display' || type === 'filter' ) {
-                    var d = new Date( data );
-                    return d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
-                }
-                return data;}
-            },
+            // {data: 'createdAt', name: 'Date Regis',
+            //   render: function ( data, type, row ) {
+            //     if ( type === 'display' || type === 'filter' ) {
+            //         var d = new Date( data );
+            //         return d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
+            //     }
+            //     return data;}
+            // },
             
             {data:'sex',
               "searchable": false,

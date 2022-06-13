@@ -150,13 +150,13 @@ class NewPasswordController extends Controller
                 ]
             ,[
                 'current_password.required' => 'current_password is required',
-                'password.required' => 'Password cannot be blank and do not include spaces'
+                'password.required' => 'Password cannot be blank and does not include spaces'
             ]
             );
             return true;
         }
         throw ValidationException::withMessages([
-            'current_password' => 'Current Password Not Correct',
+            'current_password' => 'Current Password is not correct',
         ]);
     }
 }

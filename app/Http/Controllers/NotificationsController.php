@@ -44,15 +44,16 @@ class NotificationsController extends Controller
     {
         $not = new Notifications;
         $not->Type = $request->type_notic;
+        $not->Device = $request->type_device;
         $not->Title = $request->Title;
-        $not->Content = $request->Content;
+        $not->Content = $request->Content_Create;
         $not->Description = $request->Description;
         $inputImg = $request->Img_Create;
-        $extension = $request->Img_Create->extension();
-        $imgName = time().'-1.'.$extension;
+        $imgName = $request->Img_Create->getClientOriginalName();
         $inputImg->move(public_path('ImagesNotifications'), $imgName);
         $request->Img_Create = $imgName;
         $not->Image = $request->Img_Create;
+        $not->Status = 'Enable';
         $not->save();
         return redirect()->route("notifications.index")->with('Create news successfully');
     }
@@ -133,28 +134,28 @@ class NotificationsController extends Controller
                 $output .= ' <a href="'.url(route('notifications.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                }
                if(Auth::user()->can('notifications-delete')){
-                $output .= ' <a data-toggle="modal" data-target=""#demoModal-'.$data->data[$i]->_id.'"" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                 $output .= '
                 <form method="post" action="'.url(route('notifications.delete')).'">
-                     <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
-                     <input type="hidden" name="_token" value="'.csrf_token().'" />
-                         <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
-                                 <div class="modal-dialog">
-                                     <div class="modal-content">
-                                     <!-- Modal Header -->
-                                     <div class="modal-header">
-                                         <h4 class="modal-title">Do you want delete? </h4>
-                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                     </div>
-                                     <!-- Modal footer -->
-                                     <div class="modal-footer">
-                                         <button type="submit" class="btn btn-danger">Delete</button>
-                                         <button type="button" class="btn" data-dismiss="modal">Close</button>
-                                     </div>
-                                     </div>
-                             </div>
-                             </div>
-                     </form>
+                        <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                        <input type="hidden" name="_token" value="'.csrf_token().'" />
+                            <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Do you want delete? </h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                        </div>
+                                        </div>
+                                </div>
+                                </div>
+                        </form>
                 ';
                }
                
