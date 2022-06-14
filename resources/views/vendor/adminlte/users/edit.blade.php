@@ -332,6 +332,27 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         }
       }
 
+	  let formChanged = false;
+	  var myForms = document.querySelectorAll('.card-body input')
+	  var mySelects = document.querySelectorAll('.card-body select')
+	  for (let myForm of myForms) 
+	  {
+	  	myForm.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+	}
+	for (let mySelect of mySelects) 
+	  {
+		mySelect.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+	}
 </script>
 <!-- SweetAlert2 -->
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>

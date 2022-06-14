@@ -114,7 +114,7 @@
                 {{-- </div> --}}
               </div>
               <div id="error"></div>
-              <div class="mt-4" style="width:10%; margin-left: 190px;margin-right: auto; " >
+              <div class="mt-4" style="width:10%; margin-left: 38%;margin-right: auto; " >
                 <button type="button" id="sendOTP" class="btn btn-success" style="background-color: gray;border: hidden;" disabled>Continue</button>
                   <x-button style=" visibility:hidden;background-color: green;" id="btnSubmit" disabled>
                       {{ __('Save') }}
