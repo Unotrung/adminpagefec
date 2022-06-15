@@ -259,19 +259,19 @@ $config = [
           {{-- <div class="card box-info" > --}}
             
             <div class="col-sm-12">
-              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">TemporaryCity:</label>{{$bnpl_info["temporaryCity"]}}</div>
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">City:</label>{{$bnpl_info["temporaryCity"]}}</div>
             </div>
 
             <div class="col-sm-12">
-              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">TemporaryDistrict:</label>{{$bnpl_info["temporaryDistrict"]}}</div>
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">District:</label>{{$bnpl_info["temporaryDistrict"]}}</div>
             </div>
 
             <div class="col-sm-12">
-              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">TemporaryWard:</label>{{$bnpl_info["temporaryWard"]}}</div>
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Ward:</label>{{$bnpl_info["temporaryWard"]}}</div>
             </div>
 
             <div class="col-sm-12">
-              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">TemporaryStreet:</label>{{$bnpl_info["temporaryStreet"]}}</div>
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Street:</label>{{$bnpl_info["temporaryStreet"]}}</div>
             </div>
 
             </div>
