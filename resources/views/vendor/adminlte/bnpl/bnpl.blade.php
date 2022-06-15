@@ -133,7 +133,7 @@
                     </div>
                   </div>
                   <div class="col-6">
-                      <div class="input-group">
+                      <div class="input-group" style="display:none">
                       <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%" data-toggle="tooltip" title="Created date">
                         Created Date From-To: <i class="far fa-calendar-alt"></i>   <span>Date range picker</span> 
                       </button>
@@ -165,7 +165,7 @@
                   <tr>
                     <th>Name</th>
                     <th>Phone</th>
-                    {{-- <th>Registered Date</th> --}}
+                    <th>Registered Date</th>
                     <th>Stage</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -303,14 +303,14 @@ $(document).ready(function(){
           columns: [
             {data: 'name', name: 'Name'},
             {data: 'phone', name: 'Phone'},
-            // {data: 'createdAt', name: 'Date Regis',
-            //   render: function ( data, type, row ) {
-            //     if ( type === 'display' || type === 'filter' ) {
-            //         var d = new Date( data );
-            //         return d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
-            //     }
-            //     return data;}
-            // },
+            {data: 'createdAt', name: 'Date Regis',
+              render: function ( data, type, row ) {
+                if ( type === 'display' || type === 'filter' ) {
+                    var d = new Date( data );
+                    return d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
+                }
+                return data;}
+            },
             
             {data:'sex',
               "searchable": false,

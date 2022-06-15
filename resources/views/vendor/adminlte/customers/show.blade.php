@@ -63,7 +63,7 @@ $config = [
       @endif
         
         <li class="nav-item">
-          <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
+          <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">EAP Timeline</a>
         </li>
     
     </ul>
@@ -330,7 +330,7 @@ $config = [
                     <i class="fas fa-edit"></i>
                       <div class="timeline-item">
                         <span class="time"><i class="fas fa-clock"></i>17:05</span>
-                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a>changed Information.</h3>
+                        <h3 class="timeline-header"><a href="#">{{$cus["username"]}}</a> changed Information.</h3>
                       </div>
                   </div>
 

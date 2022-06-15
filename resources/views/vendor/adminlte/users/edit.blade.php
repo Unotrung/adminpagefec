@@ -223,6 +223,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 	// on load of the page: switch to the currently selected tab
 	var hash = window.location.hash;
+	let formChanged = false;
 	$('#myTab a[href="' + hash + '"]').tab('show');
 
 	function btnSubmit(){
@@ -286,6 +287,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		{
 			// data-toggle="modal" data-target="#confirmModal" 
 			$("#confirmModal").modal("show");
+			formChanged = false;
 		}
 		
 	}
@@ -319,6 +321,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		if(radio != null)
 		{
 			$("#demoModal").modal("show");
+			formChanged = false;
 		}
 		
 	}
@@ -332,7 +335,7 @@ href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         }
       }
 
-	  let formChanged = false;
+	  
 	  var myForms = document.querySelectorAll('.card-body input')
 	  var mySelects = document.querySelectorAll('.card-body select')
 	  for (let myForm of myForms) 

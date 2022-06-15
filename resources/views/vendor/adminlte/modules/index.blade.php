@@ -219,6 +219,29 @@ $(".fields").hide();
         }]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 });
+
+
+let formChanged = false;
+	  // var myForms = document.querySelectorAll('.card-body input')
+	  var mySelects = document.querySelectorAll('.card-body select')
+	//   for (let myForm of myForms) 
+	//   {
+	//   	myForm.addEventListener('change', function() {formChanged = true});
+	// 	window.addEventListener('beforeunload', (event) => {
+	// 	if (formChanged) {
+	// 		event.returnValue = 'You have unfinished changes!';
+	// 	}
+	// 	});
+	// }
+	for (let mySelect of mySelects) 
+	  {
+		mySelect.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+  }
 var permission_list = [];
 var total = {};
 var role_id = {};
@@ -236,6 +259,9 @@ function handleClick(value,name) {
     console.log(existed_per);
   }
 }
+
+
+
 
 function FieldsClick(name) {
   if($('input[name="'+name+'"]').is(":checked")){
@@ -269,8 +295,11 @@ $(function () {
     });
 });
 
+
+
   $(function () {
     $('button').on('click', function (){
+      // formChanged = false;
       Swal.fire({
       title: 'Do you want to save the changes?',
       showDenyButton: true,

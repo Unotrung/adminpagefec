@@ -41,7 +41,7 @@ $config = [
         <a class="nav-link active" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">BNPL Information</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">Timeline</a>
+        <a class="nav-link" id="custom-content-below-messages-tab" data-toggle="pill" href="#timeline" role="tab" aria-controls="custom-content-below-messages" aria-selected="false">BNPL Timeline</a>
       </li>
     </ul>
     <div class="tab-content" id="custom-content-below-tabContent">
@@ -69,17 +69,17 @@ $config = [
                     <img src="https://finshare.vn/wp-content/uploads/2022/03/fe-credit-vay-tieu.jpeg" height="80"/>
                   </div>
                   <div class="col-sm-7 justify-content-center align-self-center">
-                    <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>50,000,000 VND</div>
+                    {{-- <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>50,000,000 VND</div> --}}
                   </div>
                 </div>
-                <div class="row">
+                {{-- <div class="row">
                   <div class="col-5">
                     <img src="https://logodix.com/logo/2091311.png" height="80"/>
                   </div>
                   <div class="col-sm-7 justify-content-center align-self-center">
                     <div class="col-md-12 fvalue"><label for="inputPassword3" class="col-sm-6 col-form-label">Credit Limit:</label>30,000,000 VND</div>
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
         </div>

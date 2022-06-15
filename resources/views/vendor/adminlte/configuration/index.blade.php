@@ -273,45 +273,11 @@ $(document).ready(function()
   $('.js-switch').change(function () {
         status = $(this).prop('checked') === true ? 1 : 0;
         configId = $(this).data('id');
-        // if(status == 0)
-        // {
-        //   $(this).attr("css", { backgroundColor: "gray" });
-        // }
-        // $.ajax({
-        //     type: "GET",
-        //     dataType: "json",
-        //     url: '{{ route('configuration.update.status') }}',
-        //     data: {'status': status, 'config_id': configId},
-        //     success: function (data) {
-        //                 toastr.options.closeButton = true;
-        //                 toastr.options.closeMethod = 'fadeOut';
-        //                 toastr.options.closeDuration = 100;
-        //                 toastr.success(data.message);
-        //             }
-        // });
-        
     });
 });
 
 $(function () {
     $('form#configForm').on('submit', function (e){
-
-      // Swal.fire({
-      //   title: 'Do you want to save the changes?',
-      //   showDenyButton: true,
-      //   showCancelButton: false,
-      //   confirmButtonText: `Save`,
-      //   denyButtonText: `Don't save`,
-      // }).then((result) => {
-      //   if (result.isConfirmed) {
-          
-      //   } else if (result.isDenied) {
-      //     Swal.fire('Changes are not saved', '', 'info')
-      //     location.reload(true);
-      //     e.preventDefault();
-      //   }
-      // });
-      // return false;
   });
 
   $('button[name=reject]').on('click',function(e){
@@ -336,6 +302,41 @@ let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 elems.forEach(function(html) {
     let switchery = new Switchery(html,  { size: 'small' });
 });
+
+
+let formChanged = false;
+	  var myForms = document.querySelectorAll('.card-body input')
+    var myTexts = document.querySelectorAll('.card-body textarea')
+	  var mySelects = document.querySelectorAll('.card-body select')
+	  for (let myForm of myForms) 
+	  {
+	  	myForm.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+	}
+	for (let mySelect of mySelects) 
+	  {
+		mySelect.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+  }
+  
+  for (let Text of myTexts) 
+	  {
+    Text.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+  }
+
 
 </script>
 

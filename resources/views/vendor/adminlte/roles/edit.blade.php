@@ -143,7 +143,7 @@ $old = Role::find($role);
                       <!-- /.card -->
                 </div> 
                 {{-- Save Button --}}
-                <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
+                <div class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;" onClick="btnSubmit(this.value)">
                     Update
                 </div>
                 <div class="modal" id="demoModal">
@@ -217,9 +217,81 @@ $(document).ready(function()
     var chekc_per =  $('.js-switch').val();
    
     $('.select2').select2()
+
+
+    
+    
 // 
 });
 
+
+function btnSubmit(){
+		var displayname = $("#display_name").val();
+		var Name = $("#exampleName").val();
+		if(displayname.length === 0  && Name.length > 0 ){
+			toastr["error"]("Please Input Display Name!")
+		}
+		if(Name.length === 0  && displayname.length > 0 ){
+			toastr["error"]("Please Input Name !")
+		}
+		if(displayname.length === 0  && Name.length === 0 ){
+			toastr["error"]("Please Input Name & Display Name !")
+		}
+		toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+		if(Name.length > 0 && displayname.length > 0 )
+		{
+			// data-toggle="modal" data-target="#confirmModal" 
+			$("#demoModal").modal("show");
+			formChanged = false;
+		}
+		
+	}
+let formChanged = false;
+var myForms = document.querySelectorAll('.card-body input')
+
+for (let myForm of myForms) 
+	  {
+	  	myForm.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+	}
+$('select').on("change",function(){
+    formChanged = true;
+});
+window.addEventListener('beforeunload', (event) => {
+        if (formChanged) {
+            event.returnValue = 'You have unfinished changes!';
+        }
+    });
+// for (let mySelect of mySelects) 
+// {
+// 	mySelect.addEventListener('change', function() {formChanged = true});
+//     console.log(formChanged);
+// 	window.addEventListener('beforeunload', (event) => {
+// 	if (formChanged) {
+// 		event.returnValue = 'You have unfinished changes!';
+// 	}
+//     });
+// }
 
 let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 
@@ -240,12 +312,11 @@ $.each( boxes, function( key, value ) {
         // Input box is not checked - Add anything you want to happen in the clause below
         var boxid = $(this).attr('id');
         $("#selectbox-"+boxid).prop('disabled', true);
-        // var myString = boxid+'';
-        
-        // console.log(check);
-        // console.log(boxid + ' is not checked');
     }
 });
+
+
+
 
 </script>
 
