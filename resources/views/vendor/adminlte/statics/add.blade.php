@@ -21,19 +21,29 @@
             <h6 class="m-0 font-weight-bold text-primary">Add Statics Page</h6>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{route('statics.store')}}" >
+            <form method="POST" action="{{route('statics.store')}}" enctype="multipart/form-data">
                 @csrf
                 <!-- <div class="form-group row"> -->
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Type</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Type_Create" placeholder="Type" >
+                        <input type="string" class="form-control" name="Title_Create" placeholder="Title" >
                         </div>
                     </div>
-                    {{-- <div class="form-group row">
+                    <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
                         <input type="string" class="form-control" name="Description_Create" placeholder="Description" >
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-sm-10">
+                            <select type="string" class="form-control" name="Status_Create" placeholder="Status" >
+                                <option value="active">Active</option>
+                              <option value="unactive">Unactive</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -46,8 +56,14 @@
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                         <div class="col-sm-10">
                             <div id="img-preview"></div>
-                            <label for="file_Edit_News" class="btn btn-primary col-md-5 fvalue">Thêm ảnh</label>
-                            <input id="file_Edit_News" name="Img_Create" placeholder="Image" style="visibility:hidden;" type="file">
+                            <label for="file_Edit_Statics" class="btn btn-primary col-md-5 fvalue">Thêm ảnh</label>
+                            <input id="file_Edit_Statics" name="Img_Create" placeholder="Image" style="visibility:hidden;" type="file">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Video</label>
+                        <div class="col-sm-10">
+                        <input type="string" class="form-control" name="Url_Create" placeholder="Video URL" >
                         </div>
                     </div>
                     <div class="form-group row">
@@ -61,7 +77,7 @@
                         <div class="col-sm-10">
                         <input type="string" class="form-control" name="Url_Create" placeholder="URL" >
                         </div>
-                    </div> --}}
+                    </div>
                 {{-- Save Button --}}
                 <button type="submit" class="btn btn-success btn-user btn-block">
                     Save
@@ -78,25 +94,25 @@
 @section('js')
 <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
 <script>
-    // $(function () {
-    //   $('#summernote').summernote();
-    // })
-    // const chooseFile = document.getElementById("file_Edit_News");
-    // const imgPreview = document.getElementById("img-preview");
-    
-    // chooseFile.addEventListener("change", function () {
-    //   getImgData();
-    // });
-    
-    // function getImgData() {
-    //   const files = chooseFile.files[0];
-    //   if (files) {
-    //     const fileReader = new FileReader();
-    //     fileReader.readAsDataURL(files);
-    //     fileReader.addEventListener("load", function () {
-    //       imgPreview.innerHTML = '<img class=" col-md-5 fvalue" src="' + this.result + '" />';
-    //     });    
-    //   }
-    // }
+    $(function () {
+      $('#summernote').summernote();
+    })
+    const chooseFile = document.getElementById("file_Edit_Statics");
+    const imgPreview = document.getElementById("img-preview");
+
+    chooseFile.addEventListener("change", function () {
+      getImgData();
+    });
+
+    function getImgData() {
+      const files = chooseFile.files[0];
+      if (files) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(files);
+        fileReader.addEventListener("load", function () {
+          imgPreview.innerHTML = '<img class=" col-md-5 fvalue" src="' + this.result + '" />';
+        });
+      }
+    }
 </script>
 @stop

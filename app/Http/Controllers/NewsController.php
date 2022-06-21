@@ -48,7 +48,8 @@ class NewsController extends Controller
         // $images = $request->file('Img_Create');
         // $path = $images->store('public/images');
         // $path = basename($path);
-
+print_r($inputImg);
+exit;
         $imgName = $request->Img_Create->getClientOriginalName();
         // print_r($extension);
         // exit;
@@ -86,7 +87,7 @@ class NewsController extends Controller
     }
     public function getUrl($url){
         return view('vendor.adminlte.news.getUrl',[])->with('url', $url);
-    } 
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -95,7 +96,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    { 
+    {
         $id = $request->id;
         $news = News::find($id);
         $news->Title = $request->Title_Edit;
@@ -120,7 +121,7 @@ class NewsController extends Controller
             $news->Image = $request->Img_Edit;
         }
         $news->save();
-        
+
         return redirect()->route('news.index')->with('success','Update success');
     }
 

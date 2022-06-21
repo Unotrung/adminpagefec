@@ -49,7 +49,7 @@ class FaqController extends Controller
         $faq->Content = $request->Content_Create;
         $faq->save();
         return redirect()->route("faqs.index")->with('FAQ created successfull');
-        
+
     }
 
     /**
@@ -103,7 +103,7 @@ class FaqController extends Controller
             $faq->question = $request->question;
             $faq->answer = $request->answer;
             $faq->save();
-            
+
         return redirect()->route('faqs.index')->with('success','FAQs updated successfully.');
     }
 
@@ -133,7 +133,7 @@ class FaqController extends Controller
             //    }
                if(Auth::user()->can('faqs-update')){
                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
-               $output .= '    
+               $output .= '
                 <form method="post" action="'.url(route('faqs.delete')).'">
                      <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
                      <input type="hidden" name="_token" value="'.csrf_token().'" />
@@ -145,7 +145,7 @@ class FaqController extends Controller
                                          <h4 class="modal-title">Do you want delete? </h4>
                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
                                      </div>
-                                     <!-- Modal footer -->  
+                                     <!-- Modal footer -->
                                      <div class="modal-footer">
                                          <button type="submit" class="btn btn-danger">Delete</button>
                                          <button type="button" class="btn" data-dismiss="modal">Close</button>
