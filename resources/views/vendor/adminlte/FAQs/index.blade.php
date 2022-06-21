@@ -19,18 +19,18 @@
             <h1 class="m-0">FAQs</h1>
             <small class="text-muted"><cite title="Source Title">FAQs listing</cite></small>
           </div><!-- /.col -->
-          <div class="col-sm-7">
+          <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
               <li class="breadcrumb-item active">FAQs</li>
             </ol>
           </div><!-- /.col -->
-          @can('update')
-          <div class="col-sm-2">
+          {{-- @can('update') --}}
+          <div class="col-sm-1">
           <a href="{{route('faqs.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-plus"></i> Add</a>
           </div><!-- /.col -->
-          @endcan
+          {{-- @endcan --}}
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -121,6 +121,7 @@
         } ]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6');
   });
+
 </script>
 
 <!-- <script>

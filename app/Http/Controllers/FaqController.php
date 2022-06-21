@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Faqs;
+use App\Models\Statics;
 use DataTables;
 use Auth;
 
@@ -30,7 +31,8 @@ class FaqController extends Controller
      */
     public function create()
     {
-        return view('vendor.adminlte.faqs.create');
+        $statics = Statics::all();
+        return view('vendor.adminlte.faqs.create')->with('statics', $statics);;
     }
 
     /**
@@ -126,12 +128,12 @@ class FaqController extends Controller
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
                $output .= ' <a href="'.url(route('faqs.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-               if(Auth::user()->can('faqs-update')){
-               $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-               }
+            //    if(Auth::user()->can('faqs-update')){
+            //    $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+            //    }
                if(Auth::user()->can('faqs-update')){
                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
-                $output .= '    
+               $output .= '    
                 <form method="post" action="'.url(route('faqs.delete')).'">
                      <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
                      <input type="hidden" name="_token" value="'.csrf_token().'" />

@@ -487,7 +487,6 @@ $(document).ready(function(){
         
        }
     );
-    //Set the initial state of the picker label
     $('#daterange-btn span').html(moment().subtract('days', 29).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));
     report();
     setInterval(function(){

@@ -14,8 +14,8 @@ class LazadaController extends Controller
     {
 
     }
-    public function checkbnpl(Request $request){
-        
+    public function checkbnpl(Request $request)
+    {
         
         if(isset($request->phone)){
             $lazada = Lazada::where("phone",$request->phone);

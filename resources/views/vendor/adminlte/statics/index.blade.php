@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'News')
+@section('title', 'Statics Page')
 @section('css')
 
   <!-- DataTables -->
@@ -21,17 +21,17 @@
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-5">
-      <h1 class="m-0">News</h1>
-      <small class="text-muted"><cite title="Source Title">News Listing</cite></small>
+      <h1 class="m-0">Statics Page</h1>
+      <small class="text-muted"><cite title="Source Title">Statics Page Listing</cite></small>
     </div><!-- /.col -->
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-        <li class="breadcrumb-item active">News</li>
+        <li class="breadcrumb-item active">Statics Page</li>
       </ol>
     </div><!-- /.col -->
     <div class="col-sm-1">
-      <a href="{{route('news.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+      <a href="{{route('statics.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-plus"></i> Add</a>
       </div><!-- /.col -->
   </div><!-- /.container-fluid -->
@@ -53,10 +53,10 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Date Post</th>
-                    <th>Action</th>
+                    <th>Page Name</th>
+                    <th>Status</th>
+                    <th>Create Date</th>
+                    <th>Action</th> 
                   </tr>
                   </thead>
                   <tbody>
@@ -80,7 +80,7 @@
           "closeButton" : true,
           "progressBar" : true
         }
-            toastr.success("{{ session('success') }}");
+        toastr.success("{{ session('success') }}");
         @endif
         @if(Session::has('delete'))
         toastr.options =
@@ -128,11 +128,9 @@
       $("#example1").DataTable({
         processing: true,
           serverSide: true,
-          "ajax": "{{ route('news.dtajax') }}",
+          "ajax": "{{ route('statics.dtajax') }}",
           columns: [
-            {data: 'Title', name: 'Title'},
-            {data: 'Description', name: 'Description'},
-            {data: 'created_at', name: 'Date Post'},
+            {data: 'Type', name: 'Type'},
             {
                     data: 'action', 
                     name: 'action', 
@@ -140,21 +138,7 @@
                     searchable: false,
                     
             },
-          ],
-          columnDefs: [ {
-          targets: 2,
-          render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
-          } ,
-          {
-            targets:1,
-            render: function(data, type, row, meta) {
-              if (type === 'display') {
-                data = typeof data === 'string' && data.length > 100 ? data.substring(0, 100) + '...' : data;
-              }
-                return data;
-            }
-          }]
-
+          ]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6');
     });  
   </script>

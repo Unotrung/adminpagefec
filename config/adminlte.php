@@ -258,33 +258,33 @@ return [
             'can'  => ['admin-access','bnpl-view'],
             'icon' => 'nav-icon fas fa-solid fa-id-card',
         ],
-        // [
-        //     'text'    => 'Notifications',
-        //     'can'     => ['website-access','admin-access','notifications-view'],
-        //     'icon'    => 'nav-icon fas fa-solid fa-bell',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Notifications List',
-        //             'url'  => 'notifications/index',
-        //             // 'icon' => 'nav-icon fa-solid fa-list',
-        //         ],
-        //         // [
-        //         //     'text' => 'Notifications Push',
-        //         //     'url'  => 'notificationspush/index',
-        //         // ],
-        //         // [
-        //         //     'text' => 'Notifications Tracking',
-        //         //     'url'  => 'notificationstracking/index',
-        //         // ],
-        //     ],
-        // ],
-        
-        // [
-        //     'text' => 'News',
-        //     'url'  => 'news/index',
-        //     'can'  => ['website-access','admin-access','news-view'],
-        //     'icon' => 'nav-icon fas fa-newspaper',
-        // ],
+            // [
+            //     'text'    => 'Notifications',
+            //     'can'     => ['website-access','admin-access','notifications-view'],
+            //     'icon'    => 'nav-icon fas fa-solid fa-bell',
+            //     'submenu' => [
+            //         [
+            //             'text' => 'Notifications List',
+            //             'url'  => 'notifications/index',
+            //             // 'icon' => 'nav-icon fa-solid fa-list',
+            //         ],
+            //         // [
+            //         //     'text' => 'Notifications Push',
+            //         //     'url'  => 'notificationspush/index',
+            //         // ],
+            //         // [
+            //         //     'text' => 'Notifications Tracking',
+            //         //     'url'  => 'notificationstracking/index',
+            //         // ],
+            //     ],
+            // ],
+            
+            [
+                'text' => 'News',
+                'url'  => 'news/index',
+                'can'  => ['website-access','admin-access','news-view'],
+                'icon' => 'nav-icon fas fa-newspaper',
+            ],
         /*
         [
             'text' => 'Providers',
@@ -298,13 +298,21 @@ return [
             'can'  => ['website-access','admin-access','promotions-view'],
             'icon' => 'nav-icon fas fa-solid fa-tags',
         ],
+        */
         [
             'text' => 'FAQs',
             'url'  => 'faqs/index',
             'can'  => ['website-access','admin-access','faqs-view'],
             'icon' => 'nav-icon fas fa-comments',
         ],
-        */
+        
+        [
+            'text' => 'Statics Page',
+            'url'  => 'statics/index',
+            'can'  => ['website-access','admin-access','faqs-view'],
+            'icon' => 'nav-icon fas fa-file',
+        ],
+
         [
             'text'    => 'Settings',
             'icon'    => 'fas fa-cog',
