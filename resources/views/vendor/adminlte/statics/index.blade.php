@@ -56,7 +56,6 @@
                     <th>Page Name</th>
                     <th>Status</th>
                     <th>Create Date</th>
-                    <th>Action</th> 
                   </tr>
                   </thead>
                   <tbody>
