@@ -3,7 +3,7 @@
 @section('title', 'Edit News')
 
 @php
-use App\Models\News; 
+use App\Models\News;
 $new = News::find($news);
 @endphp
 @section('css')
@@ -54,9 +54,9 @@ $new = News::find($news);
                     <div class="col-sm-10">
                       <input type="String" class="form-control" name="Author_Edit" placeholder="Title" value="{{$new->Author}}">
                     </div>
-                  </div> 
+                  </div>
                   <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">URL</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">URLs</label>
                     <div class="col-sm-10">
                       <input type="String" class="form-control" name="Url_Edit" placeholder="Title" value="{{$new->URL}}">
                     </div>
@@ -75,7 +75,7 @@ $new = News::find($news);
                   <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100%">
                     Submit
                   </div>
-            
+
                   <div class="modal" id="demoModal">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -112,7 +112,7 @@ function getImgData() {
     fileReader.readAsDataURL(files);
     fileReader.addEventListener("load", function () {
       imgPreview.innerHTML = '<img class=" col-md-10 fvalue" src="' + this.result + '" />';
-    });    
+    });
   }
 }
 </script>
