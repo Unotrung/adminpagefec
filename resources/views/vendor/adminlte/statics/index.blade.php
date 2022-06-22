@@ -6,9 +6,9 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> 
+  <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" 
+  <link rel="stylesheet" type="text/css"
      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <!-- Theme style -->
@@ -56,7 +56,7 @@
                     <th>Page Name</th>
                     <th>Status</th>
                     <th>Create Date</th>
-                    <th>Action</th> 
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -95,7 +95,7 @@
       <!-- /.content -->
   @stop
   @section('js')
-   
+
   <!-- DataTables  & Plugins -->
   <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -111,38 +111,54 @@
   <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
       <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script> -->
-  
+
       <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
-  
+
       <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
-      
+
   <!-- AdminLTE for demo purposes -->
   <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet"> -->
   <!-- Page specific script -->
-  
+
   <script>
-    
+
   var editor;
     $(function () {
-      
+
       $("#example1").DataTable({
         processing: true,
           serverSide: true,
           "ajax": "{{ route('statics.dtajax') }}",
           columns: [
-            {data: 'Type', name: 'Type'},
+            {data: 'Title', name: 'Title'},
+            {data: 'Status', name: 'Status'},
+            {data: 'created_at', name: 'Update Date'},
             {
-                    data: 'action', 
-                    name: 'action', 
-                    orderable: false, 
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
                     searchable: false,
-                    
+
             },
-          ]
+          ],
+          columnDefs: [ {
+          targets: 2,
+          render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
+          } ,
+          {
+            targets:1,
+            render: function(data, type, row, meta) {
+              if (type === 'display') {
+                data = typeof data === 'string' && data.length > 100 ? data.substring(0, 100) + '...' : data;
+              }
+                return data;
+            }
+          }]
+
       }).buttons().container().appendTo('#example1_wrapper .col-md-6');
-    });  
+    });
   </script>
-  
+
   <!-- <script>
     $(document).ready( function () {
       $('#example1').DataTable(
@@ -152,5 +168,5 @@
       ).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)') ;
   } );
   </script>  -->
-  
+
   @stop

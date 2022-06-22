@@ -96,7 +96,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin','pe
     Route::get('/users/edit/{id}', [App\Http\Controllers\UsersController::class,'edit'])->name('users.edit');
     Route::post('/users/store', [App\Http\Controllers\UsersController::class,'store'])->name('users.store');
     Route::post('/users/update', [App\Http\Controllers\UsersController::class,'update'])->name('users.update');
-        
+
 });
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin','permission:users-view']], function () {
     Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
@@ -203,6 +203,19 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         //Route::get('/news/show', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
     });
 });
+
+
+
+//Statics
+        Route::get('/statics/add', [App\Http\Controllers\StaticsController::class, 'create'])->name('statics.add');
+        Route::post('/statics/store', [App\Http\Controllers\StaticsController::class, 'store'])->name('statics.store');
+        Route::get('/statics/edit/{id}', [App\Http\Controllers\StaticsController::class, 'edit'])->name('statics.edit');
+        Route::post('/statics/update', [App\Http\Controllers\StaticsController::class, 'update'])->name('statics.update');
+        Route::get('/statics/index', [App\Http\Controllers\StaticsController::class, 'index'])->name('statics.index');
+        Route::get('/statics/show/{id}', [App\Http\Controllers\StaticsController::class, 'show'])->name('statics.show');
+        Route::get('/statics/dtajax', [App\Http\Controllers\StaticsController::class, 'dtajax'])->name('statics.dtajax');
+
+
 //Notifications
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {
     Route::group(['middleware' => ['permission:notifications-update']], function () {
@@ -219,7 +232,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         //Route::get('/notifications/show', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
         Route::get('/notifications/show/{id}', [App\Http\Controllers\NotificationsController::class, 'show'])->name('notifications.show');
     });
-    
+
 });
 //Sending Email
 Route::get('sendtxtmail','App\Http\Controllers\MailController@txt_mail')->name('sendtxtmail');
@@ -245,7 +258,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         //Route::get('/modules/edit', [App\Http\Controllers\ModuleController::class, 'edit'])->name('modules.edit');
         Route::post('/modules/update', [App\Http\Controllers\ModuleController::class, 'update'])->name('modules.update');
         Route::post('/modules/store', [App\Http\Controllers\ModuleController::class, 'store'])->name('modules.store');
-        
+
     });
     Route::group(['middleware' => ['permission:modules-view']], function () {
         Route::get('/modules/dtajax', [App\Http\Controllers\ModuleController::class, 'dtajax'])->name('modules.dtajax');

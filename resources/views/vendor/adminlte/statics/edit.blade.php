@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Edit News')
+@section('title', 'Edit Statics')
 
 @php
-use App\Models\News;
-$new = News::find($news);
+use App\Models\Statics;
+$static = Statics::find($statics);
 @endphp
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
@@ -13,10 +13,10 @@ $new = News::find($news);
 <div class="container-fluid">
 <div class="row mb-2">
 <div class="col-sm-11">
-            <h2 class="h3 mb-0 text-gray-800">Edit News </h2>
+            <h2 class="h3 mb-0 text-gray-800">Edit Statics </h2>
 </div>
 <div class="col-sm-1">
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('news.index') }}"><i
+            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('statics.index') }}"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
         </div>
 </div>
@@ -26,50 +26,50 @@ $new = News::find($news);
     <div class="col-md-12">
       <div class="card">
                 <div class="card-body">
-                  <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
+                  <form method="POST" action="{{route('statics.update', 'id='.$statics)}}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
-                      <input type="String" class="form-control" name="Title_Edit" placeholder="Title" value="{{$new->Title}}">
+                      <input type="String" class="form-control" name="Title_Edit" placeholder="Title" value="{{$static->Title}}">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
-                      <input type="String" class="form-control" name="Description_Edit" placeholder="Title" value="{{$new->Description}}">
+                      <input type="String" class="form-control" name="Description_Edit" placeholder="Title" value="{{$static->Description}}">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Content</label>
                     <div class="col-sm-10">
                       <textarea type="String" class="form-control" name="Content_Edit" id="summer_descrip" >
-                      {!!$new->Content!!}
+                      {!!$static->Content!!}
                       </textarea>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Author</label>
                     <div class="col-sm-10">
-                      <input type="String" class="form-control" name="Author_Edit" placeholder="Title" value="{{$new->Author}}">
+                      <input type="String" class="form-control" name="Author_Edit" placeholder="Title" value="{{$static->Author}}">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">URLs</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">URL</label>
                     <div class="col-sm-10">
-                      <input type="String" class="form-control" name="Url_Edit" placeholder="Title" value="{{$new->URL}}">
+                      <input type="String" class="form-control" name="Url_Edit" placeholder="Title" value="{{$static->URL}}">
                     </div>
                   </div>
-                  <input type="hidden" class="form-control" name="Image_Create" placeholder="Image_create" value="{{$new->Image}}">
+                  <input type="hidden" class="form-control" name="Image_Create" placeholder="Image_create" value="{{$static->Image}}">
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
                       <div id="img-preview" style="padding-bottom: 10px;" >
-                        <img class=" col-md-6 fvalue" src="{{ asset("./ImagesNews/$new->Image") }} " alt="">
+                        <img class=" col-md-6 fvalue" src="{{ asset("./ImagesStatics/$static->Image") }} " alt="">
                       </div>
-                      <label for="file_Edit_News" class="btn btn-primary col-md-6 fvalue">Change image</label>
-                      <input id="file_Edit_News" name="Img_Edit" placeholder="Image" style="visibility:hidden;" type="file">
+                      <label for="file_Edit_Statics" class="btn btn-primary col-md-6 fvalue">Change image</label>
+                      <input id="file_Edit_Statics" name="Img_Edit" placeholder="Image" style="visibility:hidden;" type="file">
                     </div>
                   </div>
                   <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100%">
@@ -81,7 +81,7 @@ $new = News::find($news);
                       <div class="modal-content">
                       <!-- Modal Header -->
                         <div class="modal-header">
-                          <h4 class="modal-title">Do you want to edit new?  </h4>
+                          <h4 class="modal-title">Do you want to edit statics?  </h4>
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal footer -->
@@ -98,7 +98,7 @@ $new = News::find($news);
   </div>
 </div>
 <script>
-const chooseFile = document.getElementById("file_Edit_News");
+const chooseFile = document.getElementById("file_Edit_Statics");
 const imgPreview = document.getElementById("img-preview");
 
 chooseFile.addEventListener("change", function () {
