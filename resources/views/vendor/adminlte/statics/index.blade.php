@@ -3,6 +3,10 @@
 @section('title', 'Statics Page')
 @section('css')
 
+
+
+
+
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -185,8 +189,10 @@
           serverSide: true,
           "ajax": "{{ route('statics.dtajax') }}",
           columns: [
-            {data: 'Page Name', name: 'Pagename'},
-            {data: 'Status', name: 'Status'},
+            {data: 'Pagename', name: 'Pagename'},
+            {data: 'Status', name: 'Status', render: function(data){
+            return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
+          }},
             {data: 'Type', name: 'Type'},
             {data: 'Language', name: 'Language'},
             {

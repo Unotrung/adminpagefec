@@ -39,17 +39,15 @@ class StaticsController extends Controller
     public function store(Request $request)
     {
         $statics = new Statics;
-        $statics->Title = $request->Title_Create;
         // $statics->Content = $request->Content_Create;
 
         // $statics->URL = $request->Url_Create;
 
         ///static new
-        $statics->Status = $request->Status_Create;
-        $statics->Type = $request->Type_Create;
+        $statics->Status = 0;
+            $statics->Type = $request->Type_Create;
         $statics->Language = $request->Language_Create;
         $statics->Pagename = $request->Pagename_Create;
-        $statics->Type = $request->Type_Create;
         $statics->Title = $request->Title_Create;
         $statics->Description = $request->Description_Create;
         $statics->Post = $request->Post_Create;
@@ -62,6 +60,10 @@ class StaticsController extends Controller
         // $images = $request->file('Img_Create');
         // $path = $images->store('public/images');
         // $path = basename($path);
+
+
+
+
 
         // $imgName = $request->Img_Create->getClientOriginalName();
         // print_r($imgName);
@@ -116,11 +118,19 @@ class StaticsController extends Controller
     {
         $id = $request->id;
         $statics = Statics::find($id);
-        $statics->Title = $request->Title_Edit;
-        $statics->Description = $request->Description_Edit;
-        $statics->Content = $request->Content_Edit;
-        $statics->URL = $request->Url_Edit;
-        $statics->Author = $request->Author_Edit;
+        $statics->Title = $request->Title_Create;
+        $statics->Status = $request->Status_Create;
+        $statics->Type = $request->Type_Create;
+        $statics->Language = $request->Language_Create;
+        $statics->Pagename = $request->Pagename_Create;
+        $statics->Type = $request->Type_Create;
+        $statics->Title = $request->Title_Create;
+        $statics->Description = $request->Description_Create;
+        $statics->Post = $request->Post_Create;
+        $statics->Language = $request->Language_Create;
+
+
+
         //image
         if(empty($request->Img_Edit)){
             $statics->Image = $request->Image_Create;
@@ -141,6 +151,8 @@ class StaticsController extends Controller
 
         return redirect()->route('statics.index')->with('success','Update success');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
