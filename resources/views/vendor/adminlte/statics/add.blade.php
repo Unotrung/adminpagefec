@@ -25,15 +25,15 @@
                 @csrf
                 <!-- <div class="form-group row"> -->
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Page name</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Title_Create" placeholder="Title" >
+                        <input type="string" class="form-control" name="Pagename_Create" placeholder="Pagename" >
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Type</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Description_Create" placeholder="Description" >
+                        <input type="string" class="form-control" name="Type_Create" placeholder="Type" >
                         </div>
                     </div>
 
@@ -52,30 +52,17 @@
                             <textarea name="Content_Create" id="summernote" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
                         </div>
                     </div>
+
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Post</label>
                         <div class="col-sm-10">
-                            <div id="img-preview"></div>
-                            <label for="file_Edit_Statics" class="btn btn-primary col-md-5 fvalue">Thêm ảnh</label>
-                            <input id="file_Edit_Statics" name="Img_Create" placeholder="Image" style="visibility:hidden;" type="file">
+                        <input type="String" class="form-control" name="Post_Create" placeholder="Post" >
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Video</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Url_Create" placeholder="Video URL" >
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Author</label>
-                        <div class="col-sm-10">
-                        <input type="String" class="form-control" name="Author_Create" placeholder="Author" >
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">URL</label>
-                        <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Url_Create" placeholder="URL" >
+                        <input type="string" class="form-control" name="Language_Create" placeholder="Language" >
                         </div>
                     </div>
                 {{-- Save Button --}}

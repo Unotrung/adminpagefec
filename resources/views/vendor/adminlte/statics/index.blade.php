@@ -40,13 +40,67 @@
 
 
 
+
+
 @section('content')
 <section class="content">
     <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <!-- /.col -->
-          </div>
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-md-11">
+                    <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
+                </div>
+                <div class="col-1">
+                {{-- <div class="input-group-append"> --}}
+                        <button type="submit" class="btn btn-lg btn-default" id="search" style="height: 47px; width: 100%;">
+                        <i class="fa fa-search"></i>
+                        </button>
+                {{-- </div> --}}
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 15px;margin-top: 10px;">
+                <div class="col-md-4">
+                    <div class="input-group input-group-sm">
+                        <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="type" name="type">
+                          <option value="" >Choose type...  </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                        </select>
+                      </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="input-group input-group-sm">
+                        <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="type" name="type">
+                          <option value="" >Choose status...  </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                        </select>
+                      </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group input-group-sm">
+                        <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="type" name="type">
+                          <option value="" >Choose Language...  </option>
+                          <option value="1">Vietnamese</option>
+                          <option value="2">English</option>
+                          <option value="3">Chinese</option>
+                        </select>
+                      </div>
+                </div>
+            </div>
+
+
+
+
+            </div>
+        </div>
+
+
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">
@@ -55,7 +109,8 @@
                   <tr>
                     <th>Page Name</th>
                     <th>Status</th>
-                    <th>Create Date</th>
+                    <th>Type</th>
+                    <th>Language</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -130,9 +185,10 @@
           serverSide: true,
           "ajax": "{{ route('statics.dtajax') }}",
           columns: [
-            {data: 'Title', name: 'Title'},
+            {data: 'Page Name', name: 'Pagename'},
             {data: 'Status', name: 'Status'},
-            {data: 'created_at', name: 'Update Date'},
+            {data: 'Type', name: 'Type'},
+            {data: 'Language', name: 'Language'},
             {
                     data: 'action',
                     name: 'action',
@@ -141,19 +197,8 @@
 
             },
           ],
-          columnDefs: [ {
-          targets: 2,
-          render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSSZ','DD/MM/YYYY' )
-          } ,
-          {
-            targets:1,
-            render: function(data, type, row, meta) {
-              if (type === 'display') {
-                data = typeof data === 'string' && data.length > 100 ? data.substring(0, 100) + '...' : data;
-              }
-                return data;
-            }
-          }]
+          columnDefs: [
+            ]
 
       }).buttons().container().appendTo('#example1_wrapper .col-md-6');
     });

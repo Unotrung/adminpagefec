@@ -40,31 +40,41 @@ class StaticsController extends Controller
     {
         $statics = new Statics;
         $statics->Title = $request->Title_Create;
-        $statics->Content = $request->Content_Create;
-        $statics->Description = $request->Description_Create;
-        $statics->URL = $request->Url_Create;
+        // $statics->Content = $request->Content_Create;
+
+        // $statics->URL = $request->Url_Create;
+
+        ///static new
         $statics->Status = $request->Status_Create;
+        $statics->Type = $request->Type_Create;
+        $statics->Language = $request->Language_Create;
+        $statics->Pagename = $request->Pagename_Create;
+        $statics->Type = $request->Type_Create;
+        $statics->Title = $request->Title_Create;
+        $statics->Description = $request->Description_Create;
+        $statics->Post = $request->Post_Create;
+
         // print_r($request->Status_Create);
         // exit;
         //$statics->Image = $request->Img_Create;
-        $inputImg = $request->Img_Create;
+        // $inputImg = $request->Img_Create;
 
         // $images = $request->file('Img_Create');
         // $path = $images->store('public/images');
         // $path = basename($path);
 
-        $imgName = $request->Img_Create->getClientOriginalName();
+        // $imgName = $request->Img_Create->getClientOriginalName();
         // print_r($imgName);
         // exit;
         // print_r($extension);
         // exit;
         // $imgName = time().'-1.'.$extension;
-        $inputImg->move(public_path('ImagesStatics'), $imgName);
-        $request->Img_Create = $imgName;
+        // $inputImg->move(public_path('ImagesStatics'), $imgName);
+        // $request->Img_Create = $imgName;
         // print_r($request->Img_Create);
         // exit;
-        $statics->Image = $request->Img_Create;
-        $statics->Author = $request->Author_Create;
+        // $statics->Image = $request->Img_Create;
+        // $statics->Author = $request->Author_Create;
         $statics->save();
         return redirect()->route("statics.index")->with('Create statics successfully');
     }

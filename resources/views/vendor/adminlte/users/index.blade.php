@@ -11,7 +11,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" 
+  <link rel="stylesheet" type="text/css"
      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <!-- Theme style -->
@@ -42,7 +42,7 @@
 @section('content')
     <!-- Main content -->
     <div class="container-fluid">
-        
+
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -196,18 +196,18 @@ $(document).ready(function(){
   function fill_datatable(input,type,status)
   {
     var table = $("#example1").DataTable({
-      lengthChange: true, 
-      responsive: true, 
+      lengthChange: true,
+      responsive: true,
       processing: true,
       searching: false,
       serverSide: true,
-        ajax:{ 
+        ajax:{
           url: "{{ route('users.dtajax') }}",
           timeout: 5000,
           data:{input:input,type:type,status:status}
-          
+
         },
-        
+
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
@@ -217,9 +217,9 @@ $(document).ready(function(){
           }},
           {data: 'created_at', name: 'created_at'},
           {
-              data: 'action', 
-              name: 'action', 
-              orderable: true, 
+              data: 'action',
+              name: 'action',
+              orderable: true,
               searchable: true,
           },
         ],
@@ -243,7 +243,7 @@ $(document).ready(function(){
   }
 
   $('#search').click(function(){
-    
+
     var input = $('#input').val();
     var str = input.replace(/\s/g, '').length;
     console.log(str);
@@ -302,14 +302,14 @@ $(document).ready(function(){
     }
   });
 
-  $('#reset').click(function(){ 
+  $('#reset').click(function(){
       $('#input').val('');
       // $('#type').val('');
       $("#type").val("").change();
       $("#status").val("").change();
       // $('#status').val('');
       $('#example1').DataTable().destroy();
-      fill_datatable(); 
+      fill_datatable();
   });
 
   $('#status').change(function()
