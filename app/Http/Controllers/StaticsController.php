@@ -151,19 +151,93 @@ class StaticsController extends Controller
                     $statics = Statics::whereNull('Status');
                 }
 
+
+                //000
+                // if (empty($request->status) && !empty($request->type));
+                // {
+                //     $statics = Statics::where([['Status','=',$request->status],['Type','=',$request->Type]]);
+                // }
+
                 // if(!empty($request->status))
                 // {
                 //     $statics = Statics::whereNull('Status');
                 // }
-                if(!empty($request->type) && empty($request->status))
+                //1000
+                if(!empty($request->type) && empty($request->status) && empty($request->language)&& empty($request->input))
                 {
                     $statics = Statics::where([['Status','=',$request->status],['Type','=', $request->type]]);
+                }
+                //0100
+                else if(empty($request->type) && !empty($request->status) && empty($request->language)&& empty($request->input))
+                {
+                    $statics = Statics::where([['Status','=',1]]);
+                }
+                //0010
+                else if(empty($request->type) && empty($request->status) && !empty($request->language)&& empty($request->input))
+                {
+                    $statics = Statics::where([['Status','=',$request->status],['Language','=', $request->language]]);
+                }
+                //0001
+                else if(empty($request->type) && empty($request->language) && empty($request->status) && !empty($request->input))
+                {
+                    $statics = Statics::where([['Status','=',$request->status],['Pagename','=', $request->input]]);
+                }
+                // 1100
+                else if( !empty($request->type) && !empty($request->status)&& empty($request->language) && empty($request->input))
+                {
+                    $statics = Statics::where([['Status','=',1],['Type','=', $request->type]]);
+                }
+                //0110
+                else if(empty($request->type) && !empty($request->status) && !empty($request->language) && empty($request->input))
+                {
+                    $statics = Statics::where([['Status','=',1],['Language','=', $request->language]]);
+                }
+                //0011
+                else if( !empty($request->language) && !empty($request->input)&& empty($request->status) && empty($request->type) )
+                {
+                    $statics = Statics::where([['Status','=',$request->status],['Language','=', $request->language],['Pagename','=', $request->input]]);
+                }
+                //1010
+                else if( !empty($request->type) && empty($request->status) && !empty($request->language) && empty($request->input))
+                {
+                    $statics = Statics::where([['Language','=', $request->language],['Type','=', $request->type],['Status','=',$request->status]]);
+                }
+                //1001
+                else if( !empty($request->type) && !empty($request->input) && empty($request->status) && empty($request->language) )
+                {
+                    $statics = Statics::where([['Pagename','=', $request->input],['Type','=', $request->type],['Status','=',$request->status]]);
+                }
+                //1110
+                else if(!empty($request->type) && !empty($request->status) && !empty($request->language) && empty($request->input))
+                {
+                    $statics = Statics::where([['Language','=', $request->language],['Type','=', $request->type],['Status','=',1]]);
+                }
+                //0111
+                else if(empty($request->type) && !empty($request->status) && !empty($request->language) && !empty($request->input))
+                {
+                    $statics = Statics::where([['Language','=', $request->language],['Pagename','=', $request->input],['Status','=',1]]);
+                }
+                //1011
+                else if (!empty($request->type) && empty($request->status) && !empty($request->input) &&!empty($request->language))
+                {
+                    $statics = Statics::where([['Language','=', $request->language],['Status','=',$request->status],['Type','=', $request->type],['Pagename','=', $request->input]]);
+                }
+                //1101
+                else if (!empty($request->type) && !empty($request->status) && !empty($request->input) && empty($request->language))
+                {
+                    $statics = Statics::where([['Type','=', $request->type],['Status','=',1],['Pagename','=', $request->input]]);
+                }
+                //1111
+                else if (!empty($request->type) && !empty($request->status) && !empty($request->input) && !empty($request->language))
+                {
+                    $statics = Statics::where([['Language','=', $request->language],['Status','=',1],['Type','=', $request->type],['Pagename','=', $request->input]]);
                 }
                 // if(!empty($request->language) && !empty($request->type) && empty($request->status))
                 // {
                 //     $statics = Statics::where([['Status','=',$request->status],['Type','=', $request->type],['Language','=', $request->language]]);
                 // }
-
+                // if(empty($request->type) && empty($request->status) && !empty($request->language))
+                //     $statics = Statics::where([['Language','=',$request->language]]);
                 //     if($request->status != "Type"){
                 //         $statics->where($request->status,$request->input);
                 //     }

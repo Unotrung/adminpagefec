@@ -67,8 +67,9 @@ $static = Statics::find($statics);
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
                     <div class="col-sm-10">
                             <select  type="string" class="form-control" name="Language_Create" placeholder="Language" value="{{$static->Language}}" >
-                              <option >Choose Language</option>
-                              <option >VNI</option>
+                              <option >Choose Language...</option>
+                              {{ $static->Language }}
+                              <option >VI</option>
                               <option >EN</option>
                             </select>
                     </div>

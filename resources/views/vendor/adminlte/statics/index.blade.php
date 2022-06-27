@@ -103,7 +103,6 @@
             </div>
         </div>
 
-
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body" style="overflow-x: scroll;">
@@ -174,46 +173,27 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
-  <script src="../../plugins/select2/js/select2.full.min.js"></script>  <!-- DataTables  & Plugins -->
-  <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-  <script src="../../plugins/jszip/jszip.min.js"></script>
-  <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-  <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-  <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-  <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-  <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="../../plugins/moment/moment.min.js"></script>
-  <script src="../../dist/js/adminlte.min.js"></script>
-  <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
   <script src="../../plugins/select2/js/select2.full.min.js"></script>
+
 {{-- <script src="../../plugins/select2/js/select2.full.min.js"></script> --}}
 <!-- Page specific script -->
 <script>
 $(document).ready(function(){
     fill_datatable();
-    function fill_datatable(status,type,language)
+    function fill_datatable(status,type,language,input)
     {
-            var table = $("#example1").DataTable({
+        $("#example1").DataTable({
             lengthChange: true,
             responsive: true,
             processing: true,
             searching: false,
             serverSide: true,
-                ajax:{
+            ajax:{
                 url: "{{ route('statics.dtajax') }}",
                 timeout: 5000,
-                data:{status:status,type:type,language:language}
-
-                },
+                data:{status:status,type:type,language:language,input:input},
+                // processData: false, contentType: false,
+            },
 
             columns: [
                 {data: 'Pagename', name: 'pagename'},
@@ -239,23 +219,27 @@ $(document).ready(function(){
             {
                 $('[data-toggle="tooltip"]').tooltip();
             }
-        });
-        table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#example1 .col-md-6:eq(0)');
     }
 
     $('#search').click(function()
     {
         var input = $('#input').val();
         var str = input.replace(/\s/g, '').length;
-        console.log(str);
+        console.log(input);
         if(str > 0)
         {
-            var Status = $('#status').val();
-            console.log(Status);
-            var Type = $('#type').val();
-            console.log(Type);
+            var status = $('#status').val();
+            console.log(status);
+            var type = $('#type').val();
+            console.log(type);
             var language = $('#language').val();
             console.log(language);
+
+            // var pagename = $('#search').val();
+            // console.log(pagename);
+
+
             if( input == '')
             {
                 toastr["error"]("Please select input data to search!")
@@ -280,13 +264,13 @@ $(document).ready(function(){
             else
             {
                 $('#example1').DataTable().destroy();
-                fill_datatable(status,type,language);
+                fill_datatable(status,type,language,input);
             }
         }
         else
         {
             toastr["error"]("Your input can't just have only whitespace")
-            toastr.options = {
+            toastr.options ={
             "closeButton": false,
             "debug": true,
             "newestOnTop": false,
@@ -318,27 +302,52 @@ $(document).ready(function(){
 
     $('#status').change(function()
     {
+        var input = $('#input').val();
+        console.log(input);
         var status = $('#status').val();
         console.log(status);
         var type = $('#type').val();
         console.log(type);
         var language = $('#language').val();
         console.log(language);
+        // var input = $('#search').val();
+        // console.log(input) = $('#search').val();
         $('#example1').DataTable().destroy();
-        fill_datatable(status,type,language);
+        fill_datatable(status,type,language,input);
     });
 
-    // $('#type').change(function()
-    // {
-    //     var type = $('#type').val();
-    //     console.log(type);
-    //     var static = $('#static').val();
-    //     console.log(type);
-    //     var language = $('#language').val();
-    //     console.log(language);
-    //     $('#example1').DataTable().destroy();
-    //     fill_datatable(status,type,language);
-    // });
+    $('#type').change(function()
+    {
+        var input = $('#input').val();
+        console.log(input);
+        var type = $('#type').val();
+        console.log(type);
+        var status = $('#status').val();
+        console.log(status);
+        var language = $('#language').val();
+        console.log(language);
+        // var input = $('#search').val();
+        // console.log(input) = $('#search').val();
+        $('#example1').DataTable().destroy();
+        fill_datatable(status,type,language,input);
+    });
+
+    $('#language').change(function()
+    {
+        var input = $('#input').val();
+        console.log(input);
+        var type = $('#type').val();
+        console.log(type);
+        var status = $('#status').val();
+        console.log(status);
+        var language = $('#language').val();
+        console.log(language);
+        // var input = $('#search').val();
+        // console.log(input) = $('#search').val();
+        $('#example1').DataTable().destroy();
+        fill_datatable(status,type,language,input);
+    });
+
 
 });
 

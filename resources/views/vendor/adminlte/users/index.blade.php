@@ -235,10 +235,7 @@ $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
         }
     });
-    // table.parent().closest('.panel-collapse').on('shown.bs.collapse', function () {
-    // table.DataTable().columns().responsive.recalc();
-    // });
-    table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
+    table.buttons().container().appendTo('#example1.col-md-6:eq(0)');//.col-md-6:eq(0)
 
   }
 

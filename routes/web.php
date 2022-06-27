@@ -240,10 +240,6 @@ Route::get('sendhtmlmail','App\Http\Controllers\MailController@html_mail');
 Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_email');
 Route::get('sendemail','App\Http\Controllers\MailController@mailTemplate')->name('sendemail');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/statics/index', [App\Http\Controllers\StaticsController::class, 'index'])->name('statics.index');
-Route::get('/statics/add', [App\Http\Controllers\StaticsController::class, 'create'])->name('statics.add');
-Route::post('/statics/store', [App\Http\Controllers\StaticsController::class, 'store'])->name('statics.store');
-Route::get('/statics/dtajax', [App\Http\Controllers\StaticsController::class, 'dtajax'])->name('statics.dtajax');
 
 //Account
 Route::post('/account/update', [App\Http\Controllers\AccountController::class,'update'])->name('account.update');
