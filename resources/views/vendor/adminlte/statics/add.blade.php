@@ -33,7 +33,7 @@
                         <div class="col-sm-10">
                         <select type="string" class="form-control" name="Pagename_Create" placeholder="Pagename" >
                             <option></option>
-                            <option value="1" >Hướng dẫn chụp ảnh chân dung</option>
+                            <option >Hướng dẫn chụp ảnh chân dung</option>
                             <option >Hướng dẫn chụp ảnh CCCD/CMND</option>
                             <option >Lỗi 404</option>
                             <option >Điều khoản sử dụng</option>
@@ -51,7 +51,7 @@
                         <div class="col-sm-10">
                             <select type="string" class="form-control" name="Type_Create" placeholder="Type" >
                                 <option ></option>
-                                <option value="1" >Hướng dẫn</option>
+                                <option >Hướng dẫn</option>
                                 <option >Lỗi</option>
                                 <option >Bài viết</option>
                                 <option >Mua trước trả sau cùng VOOLO</option>
@@ -86,8 +86,8 @@
                         {{-- <form action="#"> --}}
                             <select type="string" class="form-control" name="Language_Create" placeholder="Language" >
                               <option >Choose Language</option>
-                              <option >VNI</option>
-                              <option >EN</option>
+                              <option value="VN" >VN</option>
+                              <option value="EN" >EN</option>
                             </select>
                       {{-- </form> --}}
                         </div>

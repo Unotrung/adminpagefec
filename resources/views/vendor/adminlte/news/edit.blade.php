@@ -26,7 +26,8 @@ $new = News::find($news);
     <div class="col-md-12">
       <div class="card">
                 <div class="card-body">
-                  <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
+                  <form method="POST"
+                  ="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                   <div class="form-group row">

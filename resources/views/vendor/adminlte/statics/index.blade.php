@@ -2,23 +2,22 @@
 
 @section('title', 'Statics Page')
 @section('css')
-
-
-
-
-
+    <link rel="stylesheet" href="/css/app.css">
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css"
      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-
-
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
 @stop
 
 @section('content_header')
@@ -52,15 +51,16 @@
         <div class="row">
           <div class="col-12">
             <div class="row" style="margin-bottom: 10px;">
-                <div class="col-md-11">
+                {{-- <div class="col-md-11"> --}}
+                <div class="input-group input-group-sm">
                     <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
-                </div>
-                <div class="col-1">
-                {{-- <div class="input-group-append"> --}}
-                        <button type="submit" class="btn btn-lg btn-default" id="search" style="height: 47px; width: 100%;">
+                {{-- </div> --}}
+                {{-- <div class="col-1"> --}}
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-lg btn-default" id="search">
                         <i class="fa fa-search"></i>
                         </button>
-                {{-- </div> --}}
+                    </div>
                 </div>
             </div>
 
@@ -68,31 +68,30 @@
                 <div class="col-md-4">
                     <div class="input-group input-group-sm">
                         <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="type" name="type">
-                          <option value="" >Choose type...  </option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
+                            <option value="" >Select...  </option>
+                            <option value="Hướng dẫn">Hướng dẫn</option>
+                          <option value="Lỗi">Lỗi</option>
+                          <option value="Bài viết">Bài viết</option>
+                          <option value="Mua trước trả sau cùng VOOLO">Mua trước trả sau cùng VOOLO</option>
+
                         </select>
                       </div>
                 </div>
 
                 <div class="col-md-4">
                     <div class="input-group input-group-sm">
-                        <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="type" name="type">
-                          <option value="" >Choose status...  </option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
+                        <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="status">
+                          <option value="">Active</option>
+                          <option value="1">Unactive</option>
                         </select>
                       </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-group input-group-sm">
-                        <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="type" name="type">
-                          <option value="" >Choose Language...  </option>
-                          <option value="1">Vietnamese</option>
-                          <option value="2">English</option>
-                          <option value="3">Chinese</option>
+                        <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="language" name="language">
+                            <option value="" >Select Languague...  </option>
+                          <option value="VI">VI</option>
+                          <option value="EN">EN</option>
                         </select>
                       </div>
                 </div>
@@ -153,8 +152,8 @@
       </section>
       <!-- /.content -->
   @stop
-  @section('js')
 
+  @section('js')
   <!-- DataTables  & Plugins -->
   <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
   <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -168,56 +167,180 @@
   <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-      <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script> -->
-
-      <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
-
-      <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
-
   <!-- AdminLTE for demo purposes -->
-  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet"> -->
-  <!-- Page specific script -->
+  <script src="../../plugins/moment/moment.min.js"></script>
+  <script src="../../dist/js/adminlte.min.js"></script>
+  <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
+  <script src="../../plugins/select2/js/select2.full.min.js"></script>  <!-- DataTables  & Plugins -->
+  <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../../plugins/jszip/jszip.min.js"></script>
+  <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+  <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+  <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../../plugins/moment/moment.min.js"></script>
+  <script src="../../dist/js/adminlte.min.js"></script>
+  <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
+  <script src="../../plugins/select2/js/select2.full.min.js"></script>
+{{-- <script src="../../plugins/select2/js/select2.full.min.js"></script> --}}
+<!-- Page specific script -->
+<script>
+$(document).ready(function(){
+    fill_datatable();
+    function fill_datatable(status,type,language)
+    {
+            var table = $("#example1").DataTable({
+            lengthChange: true,
+            responsive: true,
+            processing: true,
+            searching: false,
+            serverSide: true,
+                ajax:{
+                url: "{{ route('statics.dtajax') }}",
+                timeout: 5000,
+                data:{status:status,type:type,language:language}
 
-  <script>
+                },
 
-  var editor;
-    $(function () {
-
-      $("#example1").DataTable({
-        processing: true,
-          serverSide: true,
-          "ajax": "{{ route('statics.dtajax') }}",
-          columns: [
-            {data: 'Pagename', name: 'Pagename'},
-            {data: 'Status', name: 'Status', render: function(data){
-            return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
-          }},
-            {data: 'Type', name: 'Type'},
-            {data: 'Language', name: 'Language'},
-            {
+            columns: [
+                {data: 'Pagename', name: 'pagename'},
+                {data: 'Status', name: 'status', render: function(data){
+                return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
+                }},
+                {data: 'Type', name: 'type'},
+                {data: 'Language', name: 'language'},
+                {
                     data: 'action',
                     name: 'action',
-                    orderable: false,
-                    searchable: false,
+                    orderable: true,
+                    searchable: true,
+                },
+            ],
+            columnDefs: [
+                {
+                targets: '_all',
+                defaultContent: ""
+                }
+            ],
+            drawCallback:function(setting)
+            {
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        });
+        table.buttons().container().appendTo('#example1 .col-md-6:eq(0)');
+    }
 
-            },
-          ],
-          columnDefs: [
-            ]
-
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6');
-    });
-  </script>
-
-  <!-- <script>
-    $(document).ready( function () {
-      $('#example1').DataTable(
+    $('#search').click(function()
+    {
+        var input = $('#input').val();
+        var str = input.replace(/\s/g, '').length;
+        console.log(str);
+        if(str > 0)
         {
-          "buttons": [ "excel", "pdf"]
+            var Status = $('#status').val();
+            console.log(Status);
+            var Type = $('#type').val();
+            console.log(Type);
+            var language = $('#language').val();
+            console.log(language);
+            if( input == '')
+            {
+                toastr["error"]("Please select input data to search!")
+                toastr.options = {
+                "closeButton": false,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                }
+            }
+            else
+            {
+                $('#example1').DataTable().destroy();
+                fill_datatable(status,type,language);
+            }
         }
-      ).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)') ;
-  } );
-  </script>  -->
+        else
+        {
+            toastr["error"]("Your input can't just have only whitespace")
+            toastr.options = {
+            "closeButton": false,
+            "debug": true,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+            }
+        }
+    });
 
-  @stop
+    // $('#reset').click(function(){
+    //       $('#input').val('');
+    //       // $('#type').val('');
+    //       $("#type").val("").change();
+    //       $("#status").val("").change();
+    //       // $('#status').val('');
+    //       $('#example1').DataTable().destroy();
+    //       fill_datatable();
+    //   });
+
+    $('#status').change(function()
+    {
+        var status = $('#status').val();
+        console.log(status);
+        var type = $('#type').val();
+        console.log(type);
+        var language = $('#language').val();
+        console.log(language);
+        $('#example1').DataTable().destroy();
+        fill_datatable(status,type,language);
+    });
+
+    // $('#type').change(function()
+    // {
+    //     var type = $('#type').val();
+    //     console.log(type);
+    //     var static = $('#static').val();
+    //     console.log(type);
+    //     var language = $('#language').val();
+    //     console.log(language);
+    //     $('#example1').DataTable().destroy();
+    //     fill_datatable(status,type,language);
+    // });
+
+});
+
+</script>
+@stop
