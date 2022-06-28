@@ -39,32 +39,18 @@ class StaticsController extends Controller
     public function store(Request $request)
     {
         $statics = new Statics;
+        // $statics->Content = $request->Content_Create;
+
+        // $statics->URL = $request->Url_Create;
+
+        ///static new
+        $statics->Status = null;
+        $statics->Type = $request->Type_Create;
+        $statics->Language = $request->Language_Create;
+        $statics->Pagename = $request->Pagename_Create;
         $statics->Title = $request->Title_Create;
-        $statics->Content = $request->Content_Create;
         $statics->Description = $request->Description_Create;
-        $statics->URL = $request->Url_Create;
-        $statics->Status = $request->Status_Create;
-        // print_r($request->Status_Create);
-        // exit;
-        //$statics->Image = $request->Img_Create;
-        $inputImg = $request->Img_Create;
-
-        // $images = $request->file('Img_Create');
-        // $path = $images->store('public/images');
-        // $path = basename($path);
-
-        $imgName = $request->Img_Create->getClientOriginalName();
-        // print_r($imgName);
-        // exit;
-        // print_r($extension);
-        // exit;
-        // $imgName = time().'-1.'.$extension;
-        $inputImg->move(public_path('ImagesStatics'), $imgName);
-        $request->Img_Create = $imgName;
-        // print_r($request->Img_Create);
-        // exit;
-        $statics->Image = $request->Img_Create;
-        $statics->Author = $request->Author_Create;
+        $statics->Post = $request->Post_Create;
         $statics->save();
         return redirect()->route("statics.index")->with('Create statics successfully');
     }
@@ -106,11 +92,19 @@ class StaticsController extends Controller
     {
         $id = $request->id;
         $statics = Statics::find($id);
-        $statics->Title = $request->Title_Edit;
-        $statics->Description = $request->Description_Edit;
-        $statics->Content = $request->Content_Edit;
-        $statics->URL = $request->Url_Edit;
-        $statics->Author = $request->Author_Edit;
+        $statics->Title = $request->Title_Create;
+        $statics->Status = $request->Status_Create;
+        $statics->Type = $request->Type_Create;
+        $statics->Language = $request->Language_Create;
+        $statics->Pagename = $request->Pagename_Create;
+        $statics->Type = $request->Type_Create;
+        $statics->Title = $request->Title_Create;
+        $statics->Description = $request->Description_Create;
+        $statics->Post = $request->Post_Create;
+        $statics->Language = $request->Language_Create;
+
+
+
         //image
         if(empty($request->Img_Edit)){
             $statics->Image = $request->Image_Create;
@@ -132,6 +126,8 @@ class StaticsController extends Controller
         return redirect()->route('statics.index')->with('success','Update success');
     }
 
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -141,15 +137,50 @@ class StaticsController extends Controller
     public function destroy(Request $request )
     {
         $promotion = Statics::find($request->id);
-        $promotion->is_delete = 1;
+        $promotion->Status = 1;
         $promotion->save();
         return redirect()->route('statics.index')->with('delete','Statics deleted successfull');
     }
 
     public function dtajax(Request $request){
+
         if ($request->ajax()) {
-           $out =  Datatables::of(Statics::whereNull("is_delete")->get())->make(true);
-           $data = $out->getData();
+
+                $statics = Statics::where('Status',1);
+                if(empty($request->status)){
+                    $statics = Statics::whereNull('Status');
+                }
+
+                // if(!empty($request->status))
+                // {
+                //     $statics = Statics::whereNull('Status');
+                // }
+                if(!empty($request->type) && empty($request->status))
+                {
+                    $statics = Statics::where([['Status','=',$request->status],['Type','=', $request->type]]);
+                }
+                // if(!empty($request->language) && !empty($request->type) && empty($request->status))
+                // {
+                //     $statics = Statics::where([['Status','=',$request->status],['Type','=', $request->type],['Language','=', $request->language]]);
+                // }
+
+                //     if($request->status != "Type"){
+                //         $statics->where($request->status,$request->input);
+                //     }
+                //     else{
+                //         $data = $request->input;
+                //         $statics->whereHas('Type', function ($query) use ($data) {
+                //             return $query->where('Pagename',"like", $data."%");
+                //         });
+                //     }
+                // }else{
+                //     // $user->whereHas('roles', function ($query) {
+                //     //     return $query->where('name','!=', 'super admin');
+                //     // });
+                // }
+                $out =  Datatables::of($statics->get())->make(true);
+
+                $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
                 $output .= ' <a href="'.url(route('statics.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';

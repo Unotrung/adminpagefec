@@ -42,17 +42,6 @@ class NewsController extends Controller
         $news->Title = $request->Title_Create;
         $news->Content = $request->Content_Create;
         $news->Description = $request->Description_Create;
-        $news->URL = $request->Url_Create;
-        //$news->Image = $request->Img_Create;
-        if($request->Img_Create != null)
-        {
-            $inputImg = $request->Img_Create;
-            $imgName = $request->Img_Create->getClientOriginalName();
-            $inputImg->move(public_path('ImagesNews'), $imgName);
-            $request->Img_Create = $imgName;
-            $news->Image = $request->Img_Create;
-        }
-        $news->Author = $request->Author_Create;
         $news->save();
         return redirect()->route("news.index")->with('Create news successfully');
     }
@@ -97,24 +86,6 @@ class NewsController extends Controller
         $news->Title = $request->Title_Edit;
         $news->Description = $request->Description_Edit;
         $news->Content = $request->Content_Edit;
-        $news->URL = $request->Url_Edit;
-        $news->Author = $request->Author_Edit;
-        //image
-        if(empty($request->Img_Edit)){
-            $news->Image = $request->Image_Create;
-        }
-        else{
-            $img_path = 'ImagesNews/'.$request->Image_Create;
-            if(File::exists($img_path)){
-                File::delete($img_path);
-            }
-            $inputImg = $request->Img_Edit;
-            $extension = $request->Img_Edit->extension();
-            $imgName = time().'-1.'.$extension;
-            $inputImg->move(public_path('ImagesNews'), $imgName);
-            $request->Img_Edit = $imgName;
-            $news->Image = $request->Img_Edit;
-        }
         $news->save();
 
         return redirect()->route('news.index')->with('success','Update success');
