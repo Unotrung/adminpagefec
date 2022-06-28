@@ -51,21 +51,7 @@
         <div class="row">
           <div class="col-12">
             <div class="row" style="margin-bottom: 10px;">
-                {{-- <div class="col-md-11"> --}}
-                <div class="input-group input-group-sm">
-                    <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
-                {{-- </div> --}}
-                {{-- <div class="col-1"> --}}
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-lg btn-default" id="search">
-                        <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 15px;margin-top: 10px;">
-                <div class="col-md-4">
+                <div class="col-4">
                     <div class="input-group input-group-sm">
                         <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="type" name="type">
                             <option value="" >Select...  </option>
@@ -78,7 +64,7 @@
                       </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-4">
                     <div class="input-group input-group-sm">
                         <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="status">
                           <option value="">Active</option>
@@ -86,7 +72,7 @@
                         </select>
                       </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-4">
                     <div class="input-group input-group-sm">
                         <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="language" name="language">
                             <option value="" >Select Languague...  </option>
@@ -94,6 +80,23 @@
                           <option value="EN">EN</option>
                         </select>
                       </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+            <div class="row" style="margin-bottom: 15px;margin-top: 10px;">
+                <div class="input-group input-group-sm">
+                    <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-lg btn-default" id="search">
+                        <i class="fa fa-search"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 

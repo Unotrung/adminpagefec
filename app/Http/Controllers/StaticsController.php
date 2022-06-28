@@ -92,35 +92,32 @@ class StaticsController extends Controller
     {
         $id = $request->id;
         $statics = Statics::find($id);
-        $statics->Title = $request->Title_Create;
-        $statics->Status = $request->Status_Create;
-        $statics->Type = $request->Type_Create;
-        $statics->Language = $request->Language_Create;
-        $statics->Pagename = $request->Pagename_Create;
-        $statics->Type = $request->Type_Create;
-        $statics->Title = $request->Title_Create;
-        $statics->Description = $request->Description_Create;
-        $statics->Post = $request->Post_Create;
-        $statics->Language = $request->Language_Create;
+        $statics->Status = $request->Status_Edit;
+        $statics->Language = $request->Language_Edit;
+        $statics->Pagename = $request->Pagename_Edit;
+        $statics->Type = $request->Type_Edit;
+        $statics->Title = $request->Title_Edit;
+        $statics->Description = $request->Description_Edit;
+        $statics->Post = $request->Post_Edit;
 
 
 
         //image
-        if(empty($request->Img_Edit)){
-            $statics->Image = $request->Image_Create;
-        }
-        else{
-            $img_path = 'ImagesStatics/'.$request->Image_Create;
-            if(File::exists($img_path)){
-                File::delete($img_path);
-            }
-            $inputImg = $request->Img_Edit;
-            $extension = $request->Img_Edit->extension();
-            $imgName = time().'-1.'.$extension;
-            $inputImg->move(public_path('ImagesStatics'), $imgName);
-            $request->Img_Edit = $imgName;
-            $statics->Image = $request->Img_Edit;
-        }
+        // if(empty($request->Img_Edit)){
+        //     $statics->Image = $request->Image_Create;
+        // }
+        // else{
+        //     $img_path = 'ImagesStatics/'.$request->Image_Create;
+        //     if(File::exists($img_path)){
+        //         File::delete($img_path);
+        //     }
+        //     $inputImg = $request->Img_Edit;
+        //     $extension = $request->Img_Edit->extension();
+        //     $imgName = time().'-1.'.$extension;
+        //     $inputImg->move(public_path('ImagesStatics'), $imgName);
+        //     $request->Img_Edit = $imgName;
+        //     $statics->Image = $request->Img_Edit;
+        // }
         $statics->save();
 
         return redirect()->route('statics.index')->with('success','Update success');
@@ -137,17 +134,21 @@ class StaticsController extends Controller
     public function destroy(Request $request )
     {
         $promotion = Statics::find($request->id);
+        // print_r($request->id);
+        // exit;
         $promotion->Status = 1;
         $promotion->save();
-        return redirect()->route('statics.index')->with('delete','Statics deleted successfull');
+        return redirect()->route('statics.index')->with('statics deleted successfull');
     }
 
     public function dtajax(Request $request){
 
-        if ($request->ajax()) {
+        if ($request->ajax())
+        {
 
                 $statics = Statics::where('Status',1);
-                if(empty($request->status)){
+                if(empty($request->status))
+                {
                     $statics = Statics::whereNull('Status');
                 }
 
@@ -255,17 +256,23 @@ class StaticsController extends Controller
                 $out =  Datatables::of($statics->get())->make(true);
 
                 $data = $out->getData();
-           for($i=0; $i < count($data->data); $i++) {
+
+
+
+                // $out =  Datatables::of(Modules::whereNull("is_delete")->get())->make(true);
+                // $data = $out->getData();
+                for($i=0; $i < count($data->data); $i++) {
                $output = '';
                 $output .= ' <a href="'.url(route('statics.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-            //    if(Auth::user()->can('news-update')){
+                //    if(Auth::user()->can('news-update')){
+                if(empty($request->status)){
                 $output .= ' <a href="'.url(route('statics.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-            //     }
-            // ->can('statics-delete')
-            //     if(Auth::user()){
+                    // }
+                // ->can('statics-delete')
+                //     if(Auth::user()){
                 $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                 $output .= '
-                <form method="head" action="">
+                <form method="post" action="'.url(route('statics.destroy')).'")>
                         <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
                         <input type="hidden" name="_token" value="'.csrf_token().'" />
                             <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
@@ -286,11 +293,11 @@ class StaticsController extends Controller
                                 </div>
                         </form>
                 ';
-
+                }
                $data->data[$i]->action = (string)$output;
-            }
-           $out->setData($data);
-           return $out;
+                }
+                $out->setData($data);
+                return $out;
        }
    }
 }

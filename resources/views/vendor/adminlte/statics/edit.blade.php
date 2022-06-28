@@ -26,7 +26,8 @@ $static = Statics::find($statics);
     <div class="col-md-12">
       <div class="card">
                 <div class="card-body">
-                  <form method="POST" action="{{route('statics.update', 'id='.$statics)}}" enctype="multipart/form-data">
+                  <form method="POST" action="{{route('statics.update', 'id='.$statics)}}" >
+                    {{-- enctype="multipart/form-data" --}}
                     @csrf
                     @method('POST')
                     <div class="form-group row">
@@ -66,11 +67,10 @@ $static = Statics::find($statics);
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
                     <div class="col-sm-10">
-                            <select  type="string" class="form-control" name="Language_Create" placeholder="Language" value="{{$static->Language}}" >
-                              <option >Choose Language...</option>
-                              {{ $static->Language }}
-                              <option >VI</option>
-                              <option >EN</option>
+                            <select  type="string" class="form-control" name="Language_Edit" placeholder="Language" value="{{$static->Language}}">
+                              <option> Choose Language... </option>
+                              <option>VI</option>
+                              <option>EN</option>
                             </select>
                     </div>
                   </div>
@@ -81,7 +81,7 @@ $static = Statics::find($statics);
                       <input type="String" class="form-control" name="Url_Edit" placeholder="Title" value="{{$static->URL}}">
                     </div>
                   </div> --}}
-                  <input type="hidden" class="form-control" name="Image_Create" placeholder="Image_create" value="{{$static->Image}}">
+                  {{-- <input type="hidden" class="form-control" name="Image_Create" placeholder="Image_create" value="{{$static->Image}}"> --}}
                   {{-- <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
@@ -102,7 +102,7 @@ $static = Statics::find($statics);
                       <div class="modal-content">
                       <!-- Modal Header -->
                         <div class="modal-header">
-                          <h4 class="modal-title">Do you want to edit statics?  </h4>
+                          <h4 class="modal-title">Do you want to edit new?  </h4>
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal footer -->

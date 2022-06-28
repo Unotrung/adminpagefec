@@ -194,7 +194,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         Route::post('/news/store', [App\Http\Controllers\NewsController::class, 'store'])->name('news.store');
         // Route::get('/news/edit', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
         Route::get('/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->name('news.edit');
-        Route::post('/news/update', [App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
+        Route::get('/news/update', [App\Http\Controllers\NewsController::class, 'update'])->name('news.update');
     });
     Route::group(['middleware' => ['permission:news-view']], function () {
         Route::get('/news/index', [App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
@@ -214,7 +214,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         Route::get('/statics/index', [App\Http\Controllers\StaticsController::class, 'index'])->name('statics.index');
         Route::get('/statics/show/{id}', [App\Http\Controllers\StaticsController::class, 'show'])->name('statics.show');
         Route::get('/statics/dtajax', [App\Http\Controllers\StaticsController::class, 'dtajax'])->name('statics.dtajax');
-
+        Route::post('/statics/destroy', [App\Http\Controllers\StaticsController::class, 'destroy'])->name('statics.destroy');
 
 //Notifications
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {
