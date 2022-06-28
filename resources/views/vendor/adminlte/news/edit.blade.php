@@ -25,8 +25,8 @@ $new = News::find($news);
     <!-- DataTales Example -->
     <div class="col-md-12">
       <div class="card">
-                <div class="card-body">
-                  <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
+            <div class="card-body">
+                <form method="POST" action="{{route('news.update', 'id='.$news)}}" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                         <div class="form-group row">
@@ -47,29 +47,6 @@ $new = News::find($news);
                             <textarea type="String" class="form-control" name="Content_Edit" id="summer_descrip" >
                             {!!$new->Content!!}
                             </textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Author</label>
-                            <div class="col-sm-10">
-                            <input type="String" class="form-control" name="Author_Edit" placeholder="Title" value="{{$new->Author}}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">URLs</label>
-                            <div class="col-sm-10">
-                            <input type="String" class="form-control" name="Url_Edit" placeholder="Title" value="{{$new->URL}}">
-                            </div>
-                        </div>
-                        <input type="hidden" class="form-control" name="Image_Create" placeholder="Image_create" value="{{$new->Image}}">
-                        <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
-                            <div class="col-sm-10">
-                            <div id="img-preview" style="padding-bottom: 10px;" >
-                                <img class=" col-md-6 fvalue" src="{{ asset("./ImagesNews/$new->Image") }} " alt="">
-                            </div>
-                            <label for="file_Edit_News" class="btn btn-primary col-md-6 fvalue">Change image</label>
-                            <input id="file_Edit_News" name="Img_Edit" placeholder="Image" style="visibility:hidden;" type="file">
                             </div>
                         </div>
                         <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100%">
@@ -93,7 +70,7 @@ $new = News::find($news);
                             </div>
                         </div>
                 </form>
-                </div>
+            </div>
     </div>
   </div>
 </div>

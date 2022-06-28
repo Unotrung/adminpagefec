@@ -44,9 +44,13 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $faq = new Faqs;
-        $faq->Title = $request->Title_Create;
-        $faq->Description = $request->Description_Create;
-        $faq->Content = $request->Content_Create;
+        $faq->Category = $request->Category_Create;
+        $faq->Language = $request->Language_Create;
+        $Question = str_replace(['<p>', '</p>'], '', $request->Question_Create);
+        $faq->Question = $Question;
+        $Answer = str_replace(['<p>', '</p>'], '', $request->Question_Create);
+        $faq->Answer = $Answer;
+        $faq->Status = null;
         $faq->save();
         return redirect()->route("faqs.index")->with('FAQ created successfull');
 
@@ -100,8 +104,10 @@ class FaqController extends Controller
             ]);
             $id = $request['id'];
             $faq = Faqs::Where($id)->first();
-            $faq->question = $request->question;
-            $faq->answer = $request->answer;
+            $faq->Category = $request->Category_Edit;
+            $faq->Language = $request->Language_Edit;
+            $faq->Question = $request->Question_Edit;
+            $faq->Answer = $request->Answer_Edit;
             $faq->save();
 
         return redirect()->route('faqs.index')->with('success','FAQs updated successfully.');
@@ -116,22 +122,88 @@ class FaqController extends Controller
     public function destroy(Request $request)
     {
         $faqs = Faqs::find($request->id);
-        $faqs->is_delete = 1;
+        $faqs->Status = 1;
         $faqs->save();
         return redirect()->route('faqs.index')->with('FAQs deleted successfull');
     }
 
-    public function dtajax(Request $request){
-        if ($request->ajax()) {
-        $out =  DataTables::of(Faqs::whereNull("is_delete")->get())->make(true);
-           $data = $out->getData();
+    public function dtajax(Request $request)
+    {
+        if ($request->ajax()) 
+        {
+        $faqs = Faqs::where('Status',1);
+        // $faqs = Faqs::where('Category',$request->cat);
+        // $faqs = Faqs::where('Language',$request->language);
+        if(empty($request->status) && empty($request->input) && empty($request->cat) && empty($request->language))
+        {
+            $faqs = Faqs::whereNull('Status');
+        }
+        elseif(empty($request->status) && !empty($request->input) && empty($request->cat) && empty($request->language))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+        } 
+        elseif(!empty($request->cat) && empty($request->status) && empty($request->input) && empty($request->language))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat]]);
+        }
+        // elseif(!empty($request->language) && empty($request->status))
+        // {
+        //     $faqs = Faqs::where([['Language','=', $request->language],['Category','=', $request->cat]]);
+        // }
+        elseif(!empty($request->cat) && empty($request->status) && !empty($request->input) && empty($request->language))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
+        }
+        elseif(!empty($request->language) && empty($request->status) && !empty($request->input))
+        {
+            $faqs = Faqs::where([['Language','=', $request->language],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
+        }
+        elseif(!empty($request->language) && !empty($request->cat) && empty($request->status))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language]]);
+        }
+        elseif(!empty($request->language) && !empty($request->cat) && empty($request->status)&& !empty($request->input))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
+        }
+        else if(!empty($request->language) && empty($request->cat) && empty($request->status))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]]);
+        }
+        else if(!empty($request->status) && !empty($request->cat) )
+        {
+            $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat]]);
+        }
+        else if(!empty($request->status) && !empty($request->cat) && !empty($request->input) )
+        {
+            $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
+        }
+        else if(!empty($request->status) && !empty($request->language) )
+        {
+            $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language]]);
+        }
+        else if(!empty($request->status) && !empty($request->language)&& !empty($request->input) )
+        {
+            $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
+        }
+        else if (!empty($request->status) && !empty($request->language) && !empty($request->cat) && !empty($request->input))
+        {
+            $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
+        }
+        else if(!empty($request->language) && empty($request->cat))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]]);
+        }
+        $out =  Datatables::of($faqs->get())->make(true);
+        $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
                $output .= ' <a href="'.url(route('faqs.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
             //    if(Auth::user()->can('faqs-update')){
-            //    $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+               $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
             //    }
-               if(Auth::user()->can('faqs-update')){
+               if(Auth::user()->can('faqs-update'))
+               {
                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
                $output .= '
                 <form method="post" action="'.url(route('faqs.delete')).'">
@@ -143,7 +215,6 @@ class FaqController extends Controller
                                      <!-- Modal Header -->
                                      <div class="modal-header">
                                          <h4 class="modal-title">Do you want delete? </h4>
-                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                      </div>
                                      <!-- Modal footer -->
                                      <div class="modal-footer">
@@ -157,19 +228,10 @@ class FaqController extends Controller
                 ';
                }
                $data->data[$i]->action = (string)$output;
-           //     if($this->show_action) {
-           //         $output = '';
-           // //         // $output .= '<button class="btn btn-warning btn-xs" label="Open Modal" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-edit"></i></button>';
-           //         $output .= ' <a href="'.url(route('bnpl.edit').'/'.$data->data[$i]->_id).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-           // //         // $output .= ' <a href="'.url(route('employee.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-           // //         // $output .= Form::open(['route' => [config('employee') . '.employee', $data->data[$i]->_id], 'method' => 'delete', 'style'=>'display:inline']);
-           // //         // $output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
-           //             // $output .= Form::close();
-           //         $data->data[$i]->action = (string)$output;
-           //     }
             }
            $out->setData($data);
            return $out;
         }
     }
 }
+

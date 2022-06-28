@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Edit FAQs')
-
+@section('css')
+<link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
+@stop
 @section('content_header')
 <div class="container-fluid">
 
@@ -11,48 +13,77 @@
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
     </div>
 @stop
-@section('content')   
+@section('content')
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit FAQs</h6>
-        </div>
-        <div class="card-body">
-            <form method="POST" action="{{route('promotions.update', 'id='.$faq['id'])}}">
+    <div class="col-md-12">
+      <div class="card">
+            <div class="card-body">
+                  <form method="POST" action="{{route('faqs.update')}}" >
                 @csrf
-                @method('POST')
-                <div class="form-group row">
-                    {{-- Title --}}
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <span style="color:red;">*</span>Title</label>
-                        <input 
-                            type="text" 
-                            class="form-control form-control-user @error('name') is-invalid @enderror" 
-                            id="title"
-                            placeholder="Name" 
-                            name="title" 
-                            value="{{ $faq['Title'] }}">
+                <input type="hidden" name="id" value="{{$faq->id}}">
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-10">
+                      <input type="String" class="form-control" name="Category_Edit" placeholder="Title" value="{{$faq->Category}}">
                     </div>
-                    {{-- Description --}}
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <span></span>Description</label>
-                        <input 
-                            type="text" 
-                            class="form-control form-control-user @error('name') is-invalid @enderror" 
-                            id="description"
-                            placeholder="Name" 
-                            name="description" 
-                            value="{{ $faq['Description'] }}">
-                    </div>                  
-                </div>
-                {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;">
-                    Update
-                </button>
-            </form>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
+                    <div class="col-sm-10">
+                      <input type="String" class="form-control" name="Language_Edit" placeholder="Title" value="{{$faq->Language}}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Question</label>
+                    <div class="col-sm-10">
+                      <textarea type="String" class="form-control" name="Question_Edit" id="Question_Edit" >
+                      {!!$faq->Question!!}
+                      </textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">Answers</label>
+                    <div class="col-sm-10">
+                      <textarea type="String" class="form-control" name="Answer_Edit" id="Answer_Edit" >
+                      {!!$faq->Answer!!}
+                      </textarea>
+                    </div>
+                  </div>
+                  <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100%">
+                    Submit
+                  </div>
+
+                  <div class="modal" id="demoModal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                      <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Do you want to edit FAQ?  </h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-danger">Yes</button>
+                          <button type="button" class="btn" data-dismiss="modal">No</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
 @endsection
+@section('js')
+<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+<script>
+    $(function () {
+      $('#Answer_Edit').summernote();
+    })
+    $(function () {
+      $('#Question_Edit').summernote();
+    })
+</script>
+@stop

@@ -157,6 +157,15 @@ class CustomerController extends Controller
         if ($request->ajax()) {
             $array = [];
             $strFilter = "";
+            // foreach ($request->filter as $key => $item ) {
+            //     // array_push($array,$abc);
+            //     if($item != null)
+            //     {
+            //         print_r($key);
+            //     }
+            // }
+            // // print_r($array);
+            // exit;
             if(!empty($request->filter) && $request->filter["from"] !== NULL)
             {
                 

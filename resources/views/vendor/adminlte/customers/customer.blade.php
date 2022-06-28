@@ -108,7 +108,6 @@
                     </div>
                   </div> --}}
                   <div class="col-8">
-
                       <div class="input-group">
                       <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%">
                         Created Date From-To: <i class="far fa-calendar-alt"></i> <span> Date range picker</span> 
@@ -234,13 +233,6 @@
 <script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
 <!-- dropzonejs -->
 <script src="../../plugins/dropzone/min/dropzone.min.js"></script>
-
-<!-- AdminLTE for demo purposes -->
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1phpN8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" /> -->
-<!-- Page specific script -->
 <script>
 
 
@@ -407,7 +399,6 @@ $(document).ready(function(){
       var phone = $('#phone').val();
       var citizenId = $('#nid').val();
       var date = $('#dateString').val().split(" - ");
-      // var date1 = date.split(" - ");
       console.log(date);
       console.log(username);
       if( username == '' && phone == '' && citizenId == '' && email == '' )
