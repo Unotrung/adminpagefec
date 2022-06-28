@@ -42,6 +42,7 @@ class NewsController extends Controller
         $news->Title = $request->Title_Create;
         $news->Content = $request->Content_Create;
         $news->Description = $request->Description_Create;
+
         $news->save();
         return redirect()->route("news.index")->with('Create news successfully');
     }
@@ -82,6 +83,8 @@ class NewsController extends Controller
     public function update(Request $request)
     {
         $id = $request->id;
+        print_r($id);
+        exit;
         $news = News::find($id);
         $news->Title = $request->Title_Edit;
         $news->Description = $request->Description_Edit;

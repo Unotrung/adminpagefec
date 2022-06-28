@@ -158,7 +158,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
 //FAQs
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {
     Route::group(['middleware' => ['permission:faqs-update']], function () {
-        // Route::get('/faqs/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
+        Route::get('/faqs/edit', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
         Route::get('/faqs/edit/{id}', [App\Http\Controllers\FaqController::class, 'edit'])->name('faqs.edit');
         Route::get('/faqs/add', [App\Http\Controllers\FaqController::class, 'create'])->name('faqs.add');
         Route::post('/faqs/update', [App\Http\Controllers\FaqController::class, 'update'])->name('faqs.update');
@@ -166,7 +166,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
     });
     Route::group(['middleware' => ['permission:faqs-view']], function () {
         Route::get('/faqs/index', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
-        // Route::get('/faqs/show', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
+        Route::get('/faqs/show', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
         Route::get('/faqs/show/{id}', [App\Http\Controllers\FaqController::class, 'show'])->name('faqs.show');
         Route::get('/faqs/dtajax', [App\Http\Controllers\FaqController::class, 'dtajax'])->name('faqs.dtajax');
     });
@@ -214,17 +214,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         Route::get('/statics/index', [App\Http\Controllers\StaticsController::class, 'index'])->name('statics.index');
         Route::get('/statics/show/{id}', [App\Http\Controllers\StaticsController::class, 'show'])->name('statics.show');
         Route::get('/statics/dtajax', [App\Http\Controllers\StaticsController::class, 'dtajax'])->name('statics.dtajax');
-
-////Question
-        Route::get('/question/add', [App\Http\Controllers\QuestionController::class, 'create'])->name('question.add');
-        Route::post('/question/store', [App\Http\Controllers\QuestionController::class, 'store'])->name('question.store');
-        Route::get('/question/answer/{id}', [App\Http\Controllers\QuestionController::class, 'answer'])->name('question.answer');
-        Route::post('/question/update', [App\Http\Controllers\QuestionController::class, 'update'])->name('question.update');
-        Route::post('/question/updateAnswer', [App\Http\Controllers\QuestionController::class, 'updateAnswer'])->name('question.updateAnswer');
-        Route::get('/question/index', [App\Http\Controllers\QuestionController::class, 'index'])->name('question.index');
-        Route::get('/question/show/{id}', [App\Http\Controllers\QuestionController::class, 'show'])->name('question.show');
-        Route::get('/question/dtajax', [App\Http\Controllers\QuestionController::class, 'dtajax'])->name('question.dtajax');
-        Route::post('/question/delete', [App\Http\Controllers\QuestionController::class, 'destroy'])->name('question.delete');
+        Route::post('/statics/destroy', [App\Http\Controllers\StaticsController::class, 'destroy'])->name('statics.destroy');
 
 //Notifications
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {
@@ -250,10 +240,6 @@ Route::get('sendhtmlmail','App\Http\Controllers\MailController@html_mail');
 Route::get('sendattachedemail','App\Http\Controllers\MailController@attached_email');
 Route::get('sendemail','App\Http\Controllers\MailController@mailTemplate')->name('sendemail');
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-// Route::get('/statics/index', [App\Http\Controllers\StaticsController::class, 'index'])->name('statics.index');
-// Route::get('/statics/add', [App\Http\Controllers\StaticsController::class, 'create'])->name('statics.add');
-// Route::post('/statics/store', [App\Http\Controllers\StaticsController::class, 'store'])->name('statics.store');
-// Route::get('/statics/dtajax', [App\Http\Controllers\StaticsController::class, 'dtajax'])->name('statics.dtajax');
 
 //Account
 Route::post('/account/update', [App\Http\Controllers\AccountController::class,'update'])->name('account.update');

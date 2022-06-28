@@ -38,28 +38,28 @@ $config = [
             <div class="form-group row">
 
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Title:</label>{{$statics->Title}}</div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Pagename:</label>{{$statics->Pagename}}</div>
               </div>
 
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Content:</label>{{$statics->Content}}
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Type:</label>{{$statics->Type}}
                 </div>
               </div>
 
+              <div class="col-sm-12">
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Title:</label>{{$statics->Title}}
+                </div>
+              </div>
               <div class="col-sm-12">
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Description:</label>{{$statics->Description}}
                 </div>
               </div>
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">URL:</label>{{$statics->Title}}
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Post:</label>{{$statics->Post}}
                 </div>
               </div>
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Image:</label><img class="col-md-6 fvalue" src="{{ asset("./ImagesStatics/$statics->Image") }} " alt="">
-                </div>
-              </div>
-              <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Author:</label> {{$statics->Author}}
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Language:</label> {{$statics->Language}}
                 </div>
               </div>
             </div>

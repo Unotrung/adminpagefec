@@ -64,11 +64,11 @@
     })
     const chooseFile = document.getElementById("file_Edit_News");
     const imgPreview = document.getElementById("img-preview");
-    
+
     chooseFile.addEventListener("change", function () {
       getImgData();
     });
-    
+
     function getImgData() {
       const files = chooseFile.files[0];
       if (files) {
@@ -76,7 +76,7 @@
         fileReader.readAsDataURL(files);
         fileReader.addEventListener("load", function () {
           imgPreview.innerHTML = '<img class=" col-md-5 fvalue" src="' + this.result + '" />';
-        });    
+        });
       }
     }
 </script>

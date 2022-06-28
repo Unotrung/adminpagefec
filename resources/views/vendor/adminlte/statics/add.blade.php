@@ -85,9 +85,9 @@
                         {{-- <input type="string" class="form-control" name="Language_Create" placeholder="Language" > --}}
                         {{-- <form action="#"> --}}
                             <select type="string" class="form-control" name="Language_Create" placeholder="Language" >
-                              <option >Choose Language</option>
-                              <option value="VN" >VN</option>
-                              <option value="EN" >EN</option>
+                              <option>Choose Language...</option>
+                              <option>VI</option>
+                              <option> EN</option>
                             </select>
                       {{-- </form> --}}
                         </div>
