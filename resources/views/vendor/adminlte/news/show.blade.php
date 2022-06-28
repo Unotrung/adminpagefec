@@ -42,7 +42,7 @@ $config = [
               </div>
 
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Content:</label>{{$news->Content}} 
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Content:</label>{!!$news->Content!!} 
                 </div>
               </div>
               

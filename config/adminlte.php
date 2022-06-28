@@ -305,18 +305,14 @@ return [
             'icon'    => 'nav-icon fas fa-solid fa-comments',
             'submenu' => [
                 [
-                    'text' => 'FAQs',
+                    'text' => 'FAQs List',
                     'url'  => 'faqs/index',
                         // 'icon' => 'nav-icon fa-solid fa-list',
                 ],
-                    // [
-                    //     'text' => 'Notifications Push',
-                    //     'url'  => 'notificationspush/index',
-                    // ],
-                    // [
-                    //     'text' => 'Notifications Tracking',
-                    //     'url'  => 'notificationstracking/index',
-                    // ],
+                [
+                    'text' => 'Question',
+                    'url'  => 'question/index',
+                ],
             ],
         ],
         [

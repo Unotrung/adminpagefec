@@ -13,8 +13,8 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Add FAQs</h1>
-        <a href="{{route('faqs.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        <h1 class="h3 mb-0 text-gray-800">Add Question</h1>
+        <a href="{{route('question.index')}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
     </div>
 @stop
@@ -25,44 +25,25 @@
             <h6 class="m-0 font-weight-bold text-primary">Add News</h6>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{route('faqs.store')}}">
+            <form method="POST" action="{{route('question.store')}}">
                 @csrf
                 <!-- <div class="form-group row"> -->
-                    <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Category</label>
-                        <div class="col-sm-10">
-                          <select id="cate" class="form-control" name="Category_Create">
-                            <option value="" selected="">Select Category</option>	
-                            <option value="Dành cho khách hàng" >Dành cho khách hàng</option>	
-                            <option value="Dành cho đối tác" >Dành cho đối tác</option>	
-                            <option value="Dành cho nhà bán hàng" >Dành cho nhà bán hàng</option>
-                            <option value="For Customers">For Customers</option>
-                            <option value="For Partners">For Partners</option>
-                            <option value="For Retailers">For Retailers</option>																			
-                            {{-- <option value="">{{$configsdiv}}</option> --}}
-                          </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Language</label>
-                        <div class="col-sm-10">
-                          <select id="Language" class="form-control" name="Language_Create">
-                            <option value="" selected="">Select Language</option>																			
-                            <option value="Vietnamese">Vietnamese</option>
-                            <option value="English">English</option>
-                          </select>
-                        </div>
-                    </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label" style="margin-right: 10px">Question</label>
                         <textarea name="Question_Create" id="summernote" cols="30" rows="10"></textarea>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label" style="margin-right: 10px">Answer</label>
-                        <textarea name="Answer_Create" id="summernote1" cols="30" rows="10"></textarea>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                        <input type="string" class="form-control" name="Email" placeholder="Email" id="Email" >
+                        </div>
                     </div>
-                    
-
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Phone Number</label>
+                        <div class="col-sm-10">
+                        <input type="string" class="form-control" name="PhoneNumber" placeholder="Phone Number" id="PhoneNumber" >
+                        </div>
+                    </div>
                 {{-- Save Button --}}
                 <div class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;" onClick="checkSubmit(this.value)">
                     Submit
@@ -103,20 +84,20 @@
     })
 
     function checkSubmit(){
-        var cate = $('#cate').val();
-		var Answer = $('#summernote1').val();
+        var Email = $('#Email').val();
+		var PhoneNumber = $('#PhoneNumber').val();
         var question = $('#summernote').val();
-        console.log(Answer);
+        // console.log(Answer);
         console.log(question);
-        console.log(cate);
+        // console.log(cate);
 		if(question == ""){
 			toastr["error"]("Please input question!")	
 		}
-        if(Answer == ""){
-			toastr["error"]("Please input answer!")	
+        if(Email == ""){
+			toastr["error"]("Please input Email!")	
 		}
-        if(cate == ""){
-			toastr["error"]("Please input category!")	
+        if(PhoneNumber == ""){
+			toastr["error"]("Please input Phone Number!")	
 		}
 		// if(IsEmail(Email)==false && Name.length === 0 && Email.length > 0 && phone.length === 0 ){
 		// 	toastr["error"]("Your email is not correct , Please Input Phone Number & Name!")	
@@ -138,7 +119,7 @@
 			"showMethod": "fadeIn",
 			"hideMethod": "fadeOut"
 		}
-		if(question != "" && Answer != "" && cate != "")
+		if(question != "" && PhoneNumber != "" && Email != "")
 		{
 			$("#demoModal").modal("show");
 			formChanged = false;

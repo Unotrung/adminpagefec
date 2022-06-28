@@ -49,7 +49,7 @@ $new = News::find($news);
                       </textarea>
                     </div>
                   </div>
-                  <div class="form-group row">
+                  {{-- <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Author</label>
                     <div class="col-sm-10">
                       <input type="String" class="form-control" name="Author_Edit" placeholder="Title" value="{{$new->Author}}">
@@ -71,7 +71,7 @@ $new = News::find($news);
                       <label for="file_Edit_News" class="btn btn-primary col-md-6 fvalue">Change image</label>
                       <input id="file_Edit_News" name="Img_Edit" placeholder="Image" style="visibility:hidden;" type="file">
                     </div>
-                  </div>
+                  </div> --}}
                   <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100%">
                     Submit
                   </div>

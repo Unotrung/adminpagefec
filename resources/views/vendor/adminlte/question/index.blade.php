@@ -24,18 +24,18 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-5">
-            <h1 class="m-0">FAQs</h1>
-            <small class="text-muted"><cite title="Source Title">FAQs listing</cite></small>
+            <h1 class="m-0">Questions</h1>
+            <small class="text-muted"><cite title="Source Title">Questions listing</cite></small>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">FAQs</li>
+              <li class="breadcrumb-item active">Questions</li>
             </ol>
           </div><!-- /.col -->
           {{-- @can('update') --}}
           <div class="col-sm-1">
-          <a href="{{route('faqs.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+          <a href="{{route('question.add')}}" class="float-sm-right align-items-middle d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-plus"></i> Add</a>
           </div><!-- /.col -->
           {{-- @endcan --}}
@@ -59,44 +59,22 @@
                   <div class="col-4">
                     <div class="input-group input-group-sm" id="st" name="st">
                       <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="delete_at">
-                        <option value="">Active</option>
-                        <option value="1">Inactive</option>
+                        <option value="">Open</option>
+                        <option value="1">Close</option>
+                        <option value="2">Answer</option>
                       </select>
                     </div>
                   </div>
-                  <div class="col-4">
-                    <div class="input-group input-group-sm">
-                      <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="cat" name="Category">
-                        <option value="" >Category...  </option>
-                        <option value="Dành cho khách hàng">Dành cho khách hàng</option>
-                        <option value="Dành cho đối tác">Dành cho đối tác</option>
-                        <option value="Dành cho nhà bán hàng">Dành cho nhà bán hàng</option>
-                        <option value="For Customers">For Customers</option>
-                        <option value="For Partners">For Partners</option>
-                        <option value="For Retailers">For Retailers</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="input-group input-group-sm">
-                      <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="language" name="Language">
-                        <option value="" >Language...  </option>
-                        <option value="Vietnamese">Vietnamese</option>
-                        <option value="English">English</option>
-                      </select>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="row" style="margin-bottom: 20px;">
-                  <div class="col-6">
+                  <div class="col-8">
                     <div class="input-group">
-                      <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%">
+                      <button type="button" class="btn btn-default float-right" id="daterange-btn" style="height: 32px;width:100%">
                         Created Date From-To: <i class="far fa-calendar-alt"></i> <span> Date range picker</span> 
                       </button>
                     </div>
                   </div>
-                  <div class="col-4">
+                </div>
+                <div class="row" style="margin-bottom: 20px;">
+                  <div class="col-10">
                     <div class="input-group input-group-sm">
                       <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your question here" value="">
                         <div class="input-group-append">
@@ -106,13 +84,12 @@
                         </div>
                     </div>
                   </div>
-                  <div class="col-sm-2 ">
+                  <div class="col-sm-2">
                       <button type="button" name="reset" id="reset" class="btn btn-light w-100">Reset</button>
                       {{-- <div class="mt-4"></div> --}}
                   </div>
                 </div>
-                <div class="col-0" style="visibility: hidden;">
-                    
+                <div class="col-0" style="visibility: hidden;height:1px"> 
                   {{-- <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/> --}}
                   <input type="text" value="" id="dateString"> 
                 </div>
@@ -120,10 +97,10 @@
                   <thead>
                   <tr>
                     <th>Question</th>
-                    <th>Category</th>
-                    <th>Ask Date</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
                     <th>Status</th>
-                    <th>Language</th>
+                    <th>Note</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -229,12 +206,12 @@ $('#dateString').val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' 
 console.log($('#dateString').val());
 $('.select2').select2();
 fill_datatable();
-var language = $('#language').val();
-    console.log("language"+ language);
-    var status = $('#status').val();
-    console.log("status" + status);
-    var cat = $('#cat').val();
-    console.log("cat" +cat);
+// var language = $('#language').val();
+//     console.log("language"+ language);
+//     var status = $('#status').val();
+//     console.log("status" + status);
+//     var cat = $('#cat').val();
+//     console.log("cat" +cat);
 function fill_datatable(input,language,status,cat)
 {
       var dateString = $('#dateString').val().split(" - ");
@@ -247,7 +224,7 @@ function fill_datatable(input,language,status,cat)
         "searching": false,
           serverSide: true,
           ajax:{ 
-          url: "{{ route('faqs.dtajax') }}",
+          url: "{{ route('question.dtajax') }}",
           timeout: 5000,
           data:{input:input,language:language,status:status,cat:cat}
           },    
@@ -256,17 +233,12 @@ function fill_datatable(input,language,status,cat)
               ab=data.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/(<(.*?)>|&\w+;)/g,'');
               return ab;
             }},
-            {data: 'Category', name: 'Description'},
-            {data: 'created_at', name: 'created_at',render: function ( data, type, row ) {
-                  if ( type === 'display' || type === 'filter' ) {
-                      var d = new Date( data );
-                      return d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
-                  }
-                  return data;}},
+            {data: 'Email', name: 'Email'},
+            {data: 'PhoneNumber', name: 'PhoneNumber'},
             {data: 'Status', name: 'Description', render: function(data){
-              return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
+              return (data==1)?"<span class='badge bg-danger'> Close</span>":((data==2)?"<span class='badge bg-success'> Answer</span>":"<span class='badge bg-info'> Open</span>");
             }},
-            {data: 'Language', name: 'Description'},
+            {data: 'Note', name: 'Note'},
             {
                     data: 'action', 
                     name: 'action', 
@@ -290,119 +262,119 @@ function fill_datatable(input,language,status,cat)
           ]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 }
-$('#search').click(function(){
+// $('#search').click(function(){
     
-    var input = $('#input').val();
-    var str = input.replace(/\s/g, '').length;
-    console.log(str);
-    if(str > 0) {
-      var language = $('#language').val();
-      console.log(language);
-      var status = $('#status').val();
-      console.log(status);
-      var cat = $('#cat').val();
-      console.log(cat);
-      if( input == '')
-      {
-        toastr["error"]("Please select input data to search!")
-        toastr.options = {
-          "closeButton": false,
-          "debug": true,
-          "newestOnTop": false,
-          "progressBar": false,
-          "positionClass": "toast-top-right",
-          "preventDuplicates": false,
-          "onclick": null,
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "5000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        }
-      }
-      else
-      {
-        $('#example1').DataTable().destroy();
-        fill_datatable(input,language,status,cat);
-      }
-    }
-    else
-    {
-      toastr["error"]("Your input can't just have only whitespace")
-        toastr.options = {
-          "closeButton": false,
-          "debug": true,
-          "newestOnTop": false,
-          "progressBar": false,
-          "positionClass": "toast-top-right",
-          "preventDuplicates": false,
-          "onclick": null,
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "5000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        }
-    }
-  });
+//     var input = $('#input').val();
+//     var str = input.replace(/\s/g, '').length;
+//     console.log(str);
+//     if(str > 0) {
+//       var language = $('#language').val();
+//       console.log(language);
+//       var status = $('#status').val();
+//       console.log(status);
+//       var cat = $('#cat').val();
+//       console.log(cat);
+//       if( input == '')
+//       {
+//         toastr["error"]("Please select input data to search!")
+//         toastr.options = {
+//           "closeButton": false,
+//           "debug": true,
+//           "newestOnTop": false,
+//           "progressBar": false,
+//           "positionClass": "toast-top-right",
+//           "preventDuplicates": false,
+//           "onclick": null,
+//           "showDuration": "300",
+//           "hideDuration": "1000",
+//           "timeOut": "5000",
+//           "extendedTimeOut": "1000",
+//           "showEasing": "swing",
+//           "hideEasing": "linear",
+//           "showMethod": "fadeIn",
+//           "hideMethod": "fadeOut"
+//         }
+//       }
+//       else
+//       {
+//         $('#example1').DataTable().destroy();
+//         fill_datatable(input,language,status,cat);
+//       }
+//     }
+//     else
+//     {
+//       toastr["error"]("Your input can't just have only whitespace")
+//         toastr.options = {
+//           "closeButton": false,
+//           "debug": true,
+//           "newestOnTop": false,
+//           "progressBar": false,
+//           "positionClass": "toast-top-right",
+//           "preventDuplicates": false,
+//           "onclick": null,
+//           "showDuration": "300",
+//           "hideDuration": "1000",
+//           "timeOut": "5000",
+//           "extendedTimeOut": "1000",
+//           "showEasing": "swing",
+//           "hideEasing": "linear",
+//           "showMethod": "fadeIn",
+//           "hideMethod": "fadeOut"
+//         }
+//     }
+//   });
 
-  // $('#reset').click(function(){ 
-  //     $('#input').val('');
-  //     // $('#type').val('');
-  //     $("#type").val("").change();
-  //     $("#status").val("").change();
-  //     // $('#status').val('');
-  //     $('#example1').DataTable().destroy();
-  //     fill_datatable(); 
-  // });
+//   // $('#reset').click(function(){ 
+//   //     $('#input').val('');
+//   //     // $('#type').val('');
+//   //     $("#type").val("").change();
+//   //     $("#status").val("").change();
+//   //     // $('#status').val('');
+//   //     $('#example1').DataTable().destroy();
+//   //     fill_datatable(); 
+//   // });
 
-  $('#status').change(function()
-  {
-    var input = $('#input').val();
-    console.log(input);
-    var language = $('#language').val();
-    console.log(language);
-    var status = $('#status').val();
-    console.log(status);
-    var cat = $('#cat').val();
-    console.log(cat);
-    $('#example1').DataTable().destroy();
-    fill_datatable(input,language,status,cat);
-  });
+//   $('#status').change(function()
+//   {
+//     var input = $('#input').val();
+//     console.log(input);
+//     var language = $('#language').val();
+//     console.log(language);
+//     var status = $('#status').val();
+//     console.log(status);
+//     var cat = $('#cat').val();
+//     console.log(cat);
+//     $('#example1').DataTable().destroy();
+//     fill_datatable(input,language,status,cat);
+//   });
 
-  $('#cat').change(function()
-  {
-    var input = $('#input').val();
-    console.log(input);
-    var language = $('#language').val();
-    console.log(language);
-    var status = $('#status').val();
-    console.log(status);
-    var cat = $('#cat').val();
-    console.log(cat);
-    $('#example1').DataTable().destroy();
-    fill_datatable(input,language,status,cat);
-  });
+//   $('#cat').change(function()
+//   {
+//     var input = $('#input').val();
+//     console.log(input);
+//     var language = $('#language').val();
+//     console.log(language);
+//     var status = $('#status').val();
+//     console.log(status);
+//     var cat = $('#cat').val();
+//     console.log(cat);
+//     $('#example1').DataTable().destroy();
+//     fill_datatable(input,language,status,cat);
+//   });
 
-  $('#language').change(function()
-  {
-    var input = $('#input').val();
-    console.log(input);
-    var language = $('#language').val();
-    console.log(language);
-    var status = $('#status').val();
-    console.log(status);
-    var cat = $('#cat').val();
-    console.log(cat);
-    $('#example1').DataTable().destroy();
-    fill_datatable(input,language,status,cat);
-  });
+//   $('#language').change(function()
+//   {
+//     var input = $('#input').val();
+//     console.log(input);
+//     var language = $('#language').val();
+//     console.log(language);
+//     var status = $('#status').val();
+//     console.log(status);
+//     var cat = $('#cat').val();
+//     console.log(cat);
+//     $('#example1').DataTable().destroy();
+//     fill_datatable(input,language,status,cat);
+//   });
 </script>
 
 

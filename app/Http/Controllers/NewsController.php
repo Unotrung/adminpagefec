@@ -44,19 +44,14 @@ class NewsController extends Controller
         $news->Description = $request->Description_Create;
         $news->URL = $request->Url_Create;
         //$news->Image = $request->Img_Create;
-        $inputImg = $request->Img_Create;
-        // $images = $request->file('Img_Create');
-        // $path = $images->store('public/images');
-        // $path = basename($path);
-print_r($inputImg);
-exit;
-        $imgName = $request->Img_Create->getClientOriginalName();
-        // print_r($extension);
-        // exit;
-        // $imgName = time().'-1.'.$extension;
-        $inputImg->move(public_path('ImagesNews'), $imgName);
-        $request->Img_Create = $imgName;
-        $news->Image = $request->Img_Create;
+        if($request->Img_Create != null)
+        {
+            $inputImg = $request->Img_Create;
+            $imgName = $request->Img_Create->getClientOriginalName();
+            $inputImg->move(public_path('ImagesNews'), $imgName);
+            $request->Img_Create = $imgName;
+            $news->Image = $request->Img_Create;
+        }
         $news->Author = $request->Author_Create;
         $news->save();
         return redirect()->route("news.index")->with('Create news successfully');
