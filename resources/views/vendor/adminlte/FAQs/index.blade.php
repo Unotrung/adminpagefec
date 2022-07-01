@@ -88,11 +88,12 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="row" style="margin-bottom: 20px;">
                   <div class="col-6">
                     <div class="input-group">
                       <button type="button" class="btn btn-default float-right" id="daterange-btn" style="width:100%">
-                        Created Date From-To: <i class="far fa-calendar-alt"></i> <span> Date range picker</span> 
+                        Created Date From-To: <i class="far fa-calendar-alt"></i> <span> Date range picker</span>
                       </button>
                     </div>
                   </div>
@@ -112,9 +113,9 @@
                   </div>
                 </div>
                 <div class="col-0" style="visibility: hidden;">
-                    
+
                   {{-- <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/> --}}
-                  <input type="text" value="" id="dateString"> 
+                  <input type="text" value="" id="dateString">
                 </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -219,7 +220,7 @@
        function(start, end) {
         $('#daterange-btn span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
         startDate = start;
-         endDate = end;    
+         endDate = end;
          $('#dateString').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
        }
     );
@@ -246,11 +247,11 @@ function fill_datatable(input,language,status,cat)
         dom: 'Bfrtip',
         "searching": false,
           serverSide: true,
-          ajax:{ 
+          ajax:{
           url: "{{ route('faqs.dtajax') }}",
           timeout: 5000,
           data:{input:input,language:language,status:status,cat:cat}
-          },    
+          },
           columns: [
             {data: 'Question', name: 'Title',render: function(data){
               ab=data.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/(<(.*?)>|&\w+;)/g,'');
@@ -268,9 +269,9 @@ function fill_datatable(input,language,status,cat)
             }},
             {data: 'Language', name: 'Description'},
             {
-                    data: 'action', 
-                    name: 'action', 
-                    orderable: true, 
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
                     searchable: true
             },
           ],
@@ -291,7 +292,7 @@ function fill_datatable(input,language,status,cat)
       }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 }
 $('#search').click(function(){
-    
+
     var input = $('#input').val();
     var str = input.replace(/\s/g, '').length;
     console.log(str);
@@ -352,14 +353,14 @@ $('#search').click(function(){
     }
   });
 
-  // $('#reset').click(function(){ 
+  // $('#reset').click(function(){
   //     $('#input').val('');
   //     // $('#type').val('');
   //     $("#type").val("").change();
   //     $("#status").val("").change();
   //     // $('#status').val('');
   //     $('#example1').DataTable().destroy();
-  //     fill_datatable(); 
+  //     fill_datatable();
   // });
 
   $('#status').change(function()

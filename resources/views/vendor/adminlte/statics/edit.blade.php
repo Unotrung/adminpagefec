@@ -33,13 +33,13 @@ $static = Statics::find($statics);
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Page Name</label>
                         <div class="col-sm-10">
-                          <input disabled="disabled" type="String" class="form-control" name="Pagename_Edit" placeholder=" show Pagename" value="{{$static->Pagename}}">
+                          <input readonly type="String" class="form-control" name="Pagename_Edit" placeholder=" show Pagename" value="{{$static->Pagename}}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Type</label>
                         <div class="col-sm-10">
-                          <input disabled="disabled" type="String" class="form-control" name="Type_Edit" placeholder=" show Type" value="{{$static->Type}}">
+                          <input readonly type="String" class="form-control" name="Type_Edit" placeholder=" show Type" value="{{$static->Type}}">
                         </div>
                       </div>
                   <div class="form-group row">
@@ -68,9 +68,8 @@ $static = Statics::find($statics);
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
                     <div class="col-sm-10">
                             <select  type="string" class="form-control" name="Language_Edit" placeholder="Language" value="{{$static->Language}}">
-                              <option> Choose Language... </option>
-                              <option>VI</option>
-                              <option>EN</option>
+                              {{-- <option> Choose Language... </option> --}}
+                              <option value="{{$static->Language}}" selected>{{$static->Language}}</option>
                             </select>
                     </div>
                   </div>

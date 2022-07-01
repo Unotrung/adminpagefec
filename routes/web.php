@@ -200,6 +200,8 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         Route::get('/news/index', [App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
         Route::get('/news/dtajax', [App\Http\Controllers\NewsController::class, 'dtajax'])->name('news.dtajax');
         Route::get('/news/show/{id}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
+        Route::post('/news/destroy', [App\Http\Controllers\NewsController::class, 'destroy'])->name('news.destroy');
+
         //Route::get('/news/show', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
     });
 });

@@ -23,23 +23,46 @@
         <div class="card-body">
             <form method="POST" action="{{route('news.store')}}" enctype="multipart/form-data" >
                 @csrf
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
+                    <div class="col-sm-10">
+                        <select type="string" class="form-control" name="Language_Create" placeholder="Language" >
+                            <option value="">Choose Language</option>
+                            <option>VI</option>
+                            <option>EN</option>
+                          </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                    <div class="col-sm-10">
+                    <input type="string" class="form-control" name="Title_Create" placeholder="Title" >
+                    </div>
+                </div>
+
                 <!-- <div class="form-group row"> -->
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                        <label for="" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Title_Create" placeholder="Title" >
+                            <textarea name="Description_Create" id="summernote" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Body</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Description_Create" placeholder="Description" >
+                        <input type="string" class="form-control" name="Body_Create" placeholder="Body" >
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label">Content</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Order</label>
                         <div class="col-sm-10">
-                            <textarea name="Content_Create" id="summernote" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                            <select type="string" class="form-control" name="Order_Create" placeholder="Order" >
+                                <option value="">Choose Order</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                              </select>
                         </div>
                     </div>
                     {{-- <div class="form-group row">
@@ -50,18 +73,6 @@
                             <input id="file_Edit_News" name="Img_Create" placeholder="Image" style="visibility:hidden;" type="file">
                         </div>
                     </div> --}}
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Author</label>
-                        <div class="col-sm-10">
-                        <input type="String" class="form-control" name="Author_Create" placeholder="Author" >
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">URL</label>
-                        <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Url_Create" placeholder="URL" >
-                        </div>
-                    </div>
                 {{-- Save Button --}}
                 <button type="submit" class="btn btn-success btn-user btn-block">
                     Save
@@ -81,22 +92,8 @@
     $(function () {
       $('#summernote').summernote();
     })
-    const chooseFile = document.getElementById("file_Edit_News");
-    const imgPreview = document.getElementById("img-preview");
 
-    chooseFile.addEventListener("change", function () {
-      getImgData();
-    });
 
-    function getImgData() {
-      const files = chooseFile.files[0];
-      if (files) {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(files);
-        fileReader.addEventListener("load", function () {
-          imgPreview.innerHTML = '<img class=" col-md-5 fvalue" src="' + this.result + '" />';
-        });
-      }
-    }
+
 </script>
 @stop

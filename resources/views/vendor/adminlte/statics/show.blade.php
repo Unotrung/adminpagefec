@@ -51,11 +51,11 @@ $config = [
                 </div>
               </div>
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Description:</label>{{$statics->Description}}
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Description:</label>{!!$statics->Description!!}
                 </div>
               </div>
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Post:</label>{{$statics->Post}}
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Post:</label>{!!$statics->Post!!}
                 </div>
               </div>
               <div class="col-sm-12">
