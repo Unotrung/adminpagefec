@@ -43,6 +43,7 @@
                           </select>
                         </div>
                     </div>
+                    
                     <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">Language</label>
                         <div class="col-sm-10">
@@ -53,15 +54,37 @@
                           </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label" style="margin-right: 10px">Question</label>
-                        <textarea name="Question_Create" id="summernote" cols="30" rows="10"></textarea>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label" style="margin-right: 10px">Answer</label>
-                        <textarea name="Answer_Create" id="summernote1" cols="30" rows="10"></textarea>
-                    </div>
+                    @if(empty(Session::get('question')))
+                
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label" style="margin-right: 10px">Question</label>
+                            <textarea name="Question_Create" id="summernote" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label" style="margin-right: 10px">Answer</label>
+                            <textarea name="Answer_Create" id="summernote1" cols="30" rows="10"></textarea>
+                        </div>
+                
+                    @else
                     
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label">Answers</label>
+                            <div class="col-sm-10">
+                              <textarea name="answer" id="summer_question" >
+                              {!!Session::get('question') !!}
+                              </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-sm-2 col-form-label">Answers</label>
+                            <div class="col-sm-10">
+                              <textarea name="answer" id="summer_answer" >
+                              {!!Session::get('answer') !!}
+                              </textarea>
+                            </div>
+                          </div>
+                    
+                    @endif
 
                 {{-- Save Button --}}
                 <div class="btn btn-success btn-user btn-block" style="width:20%; display:block; margin: 0 auto;" onClick="checkSubmit(this.value)">
@@ -100,6 +123,12 @@
     })
     $(function () {
       $('#summernote1').summernote();
+    })
+    $(function () {
+      $('#summer_question').summernote();
+    })
+    $(function () {
+      $('#summer_answer').summernote();
     })
 
     function checkSubmit(){

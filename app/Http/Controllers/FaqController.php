@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Faqs;
 use App\Models\Statics;
 use DataTables;
+// use Excel;
 use Auth;
+use App\Imports\UsersImport;
+use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FaqController extends Controller
 {
@@ -32,7 +36,45 @@ class FaqController extends Controller
     public function create()
     {
         $statics = Statics::all();
-        return view('vendor.adminlte.faqs.create')->with('statics', $statics);;
+        return view('vendor.adminlte.faqs.create')->with('statics', $statics);
+    }
+    function import(Request $request)
+    {
+        $data = request()->file('file');
+        $data = $data->getPathName();
+        // print_r($data);
+        // exit;
+        Excel::import(new UsersImport,$data);
+           
+        return back();
+    //     $this->validate($request, [
+    //         'file'  => 'required|mimes:xls,xlsx'
+    //     ]);
+    //     $path = $request->file('file')->getRealPath();
+    //     // $path = $request->file('csv_file')->getRealPath();
+    //     $data = Excel::import(new CsvImport, $path);
+    //     print_r($data);
+    //     exit;
+    //     if($data->count() > 0)
+    //     {
+    //     foreach($data->toArray() as $key => $value)
+    //     {
+    //         foreach($value as $row)
+    //         {
+    //             $insert_data[] = array(
+    //             'Question'  => $row['Question'],
+    //             'Category'   => $row['Category'],
+    //             'Status'   => $row['Status'],
+    //             'Language'    => $row['Language'],
+    //             // 'Answer' => $row['Category'],
+    //             );
+    //         }
+    //     }
+    //     if(!empty($insert_data))
+    //     {
+    //         DB::collection('faqs')->insert($insert_data);
+    //     }
+    //  }
     }
 
     /**

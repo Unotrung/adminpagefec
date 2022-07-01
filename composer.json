@@ -14,7 +14,9 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "maatwebsite/excel": "^3.1",
         "mostafamaklad/laravel-permission-mongodb": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.23",
         "realrashid/sweet-alert": "^5.0",
         "yajra/laravel-datatables-oracle": "^9.19"
     },

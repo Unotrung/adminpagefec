@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'FAQs')
+@section('title', 'Question')
 @section('css')
 
 <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -206,13 +206,7 @@ $('#dateString').val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' 
 console.log($('#dateString').val());
 $('.select2').select2();
 fill_datatable();
-// var language = $('#language').val();
-//     console.log("language"+ language);
-//     var status = $('#status').val();
-//     console.log("status" + status);
-//     var cat = $('#cat').val();
-//     console.log("cat" +cat);
-function fill_datatable(input,language,status,cat)
+function fill_datatable(input,status)
 {
       var dateString = $('#dateString').val().split(" - ");
       console.log(dateString);
@@ -226,7 +220,7 @@ function fill_datatable(input,language,status,cat)
           ajax:{ 
           url: "{{ route('question.dtajax') }}",
           timeout: 5000,
-          data:{input:input,language:language,status:status,cat:cat}
+          data:{input:input,status:status,from:from,to:to}
           },    
           columns: [
             {data: 'Question', name: 'Title',render: function(data){
@@ -262,67 +256,67 @@ function fill_datatable(input,language,status,cat)
           ]
       }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 }
-// $('#search').click(function(){
+$('#search').click(function(){
     
-//     var input = $('#input').val();
-//     var str = input.replace(/\s/g, '').length;
-//     console.log(str);
-//     if(str > 0) {
-//       var language = $('#language').val();
-//       console.log(language);
-//       var status = $('#status').val();
-//       console.log(status);
-//       var cat = $('#cat').val();
-//       console.log(cat);
-//       if( input == '')
-//       {
-//         toastr["error"]("Please select input data to search!")
-//         toastr.options = {
-//           "closeButton": false,
-//           "debug": true,
-//           "newestOnTop": false,
-//           "progressBar": false,
-//           "positionClass": "toast-top-right",
-//           "preventDuplicates": false,
-//           "onclick": null,
-//           "showDuration": "300",
-//           "hideDuration": "1000",
-//           "timeOut": "5000",
-//           "extendedTimeOut": "1000",
-//           "showEasing": "swing",
-//           "hideEasing": "linear",
-//           "showMethod": "fadeIn",
-//           "hideMethod": "fadeOut"
-//         }
-//       }
-//       else
-//       {
-//         $('#example1').DataTable().destroy();
-//         fill_datatable(input,language,status,cat);
-//       }
-//     }
-//     else
-//     {
-//       toastr["error"]("Your input can't just have only whitespace")
-//         toastr.options = {
-//           "closeButton": false,
-//           "debug": true,
-//           "newestOnTop": false,
-//           "progressBar": false,
-//           "positionClass": "toast-top-right",
-//           "preventDuplicates": false,
-//           "onclick": null,
-//           "showDuration": "300",
-//           "hideDuration": "1000",
-//           "timeOut": "5000",
-//           "extendedTimeOut": "1000",
-//           "showEasing": "swing",
-//           "hideEasing": "linear",
-//           "showMethod": "fadeIn",
-//           "hideMethod": "fadeOut"
-//         }
-//     }
-//   });
+    var input = $('#input').val();
+    var str = input.replace(/\s/g, '').length;
+    console.log(str);
+    if(str > 0) {
+      // var language = $('#language').val();
+      // console.log(language);
+      var status = $('#status').val();
+      console.log(status);
+      // var cat = $('#cat').val();
+      // console.log(cat);
+      if( input == '')
+      {
+        toastr["error"]("Please select input data to search!")
+        toastr.options = {
+          "closeButton": false,
+          "debug": true,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+      }
+      else
+      {
+        $('#example1').DataTable().destroy();
+        fill_datatable(input,status);
+      }
+    }
+    else
+    {
+      toastr["error"]("Your input can't just have only whitespace")
+        toastr.options = {
+          "closeButton": false,
+          "debug": true,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+    }
+  });
 
 //   // $('#reset').click(function(){ 
 //   //     $('#input').val('');
@@ -334,47 +328,19 @@ function fill_datatable(input,language,status,cat)
 //   //     fill_datatable(); 
 //   // });
 
-//   $('#status').change(function()
-//   {
-//     var input = $('#input').val();
-//     console.log(input);
-//     var language = $('#language').val();
-//     console.log(language);
-//     var status = $('#status').val();
-//     console.log(status);
-//     var cat = $('#cat').val();
-//     console.log(cat);
-//     $('#example1').DataTable().destroy();
-//     fill_datatable(input,language,status,cat);
-//   });
-
-//   $('#cat').change(function()
-//   {
-//     var input = $('#input').val();
-//     console.log(input);
-//     var language = $('#language').val();
-//     console.log(language);
-//     var status = $('#status').val();
-//     console.log(status);
-//     var cat = $('#cat').val();
-//     console.log(cat);
-//     $('#example1').DataTable().destroy();
-//     fill_datatable(input,language,status,cat);
-//   });
-
-//   $('#language').change(function()
-//   {
-//     var input = $('#input').val();
-//     console.log(input);
-//     var language = $('#language').val();
-//     console.log(language);
-//     var status = $('#status').val();
-//     console.log(status);
-//     var cat = $('#cat').val();
-//     console.log(cat);
-//     $('#example1').DataTable().destroy();
-//     fill_datatable(input,language,status,cat);
-//   });
+  $('#status').change(function()
+  {
+    var input = $('#input').val();
+    console.log(input);
+    // var language = $('#language').val();
+    // console.log(language);
+    var status = $('#status').val();
+    console.log(status);
+    // var cat = $('#cat').val();
+    // console.log(cat);
+    $('#example1').DataTable().destroy();
+    fill_datatable(input,status);
+  });
 </script>
 
 

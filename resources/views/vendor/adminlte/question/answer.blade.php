@@ -54,6 +54,7 @@
                         </textarea>
                       </div>
                     </div>
+                    <input type="hidden" name="checkadd" id="checkadd" value="">
                   <div class="form-group row">
                     <div class="col-sm-6">
                       <div class="btn btn-info btn-user btn-block" style="width: 50%;margin-left: 50%;" onClick="checkSubmit(this.value)">
@@ -109,10 +110,12 @@
 <script>
     $(function () {
       $('#summer_question').summernote();
-      $('#summer_answer').summernote('codeview.activate');
+      $('#summer_answer').summernote('codeview.deactivate');
     });
     function checkSubmit(){
         var Answer = $('#summer_answer').val();
+        Answer = Answer.replace(/<[\/]{0,1}(p)[^><]*>/ig,"");
+        console.log(Answer);
         if(Answer == ""){
 			toastr["error"]("Please input Answer!")	
 		}
@@ -141,7 +144,10 @@
 	}
   function AnotherSubmit(){
         var Answer = $('#summer_answer').val();
-        console.log(Answer);
+        Answer = Answer.replace(/<[\/]{0,1}(p)[^><]*>/ig,"");
+        var checkadd = $('#checkadd').val("check")
+        console.log("aaaaaaaaaaaaaa" + checkadd);
+        console.log("bbbbbbbbbbbb" + Answer);
         if(Answer == ""){
 			toastr["error"]("Please input Answer!")	
 		}
