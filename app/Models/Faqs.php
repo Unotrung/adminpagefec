@@ -16,5 +16,13 @@ class Faqs extends Model
     use HasFactory,Authenticatable,Notifiable,HasApiTokens,HasRoles;
     protected $connection = 'mongodb';
     protected $collection = 'faqs'; 
+
+    protected $fillable = [
+        'Question'  ,
+        'Category' ,  
+        'Status'  ,
+        'Language',
+        'Answer',
+    ];
 }
 ?>

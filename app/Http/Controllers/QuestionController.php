@@ -8,6 +8,9 @@ use App\Models\Statics;
 use DataTables;
 use Auth;
 use Mail;
+use Excel;
+use DateTime;
+use Illuminate\Support\Carbon;
 
 class QuestionController extends Controller
 {
@@ -36,6 +39,8 @@ class QuestionController extends Controller
         return view('vendor.adminlte.question.add')->with('question', $question);;
     }
 
+
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -64,16 +69,12 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $faqs = Faqs::find($id);
-			if(isset($faqs->_id)) {
-				$setErrorsBag = "khong hien thi";
-				return view('vendor.adminlte.faqs.show',[])->with('faqs', $faqs);
-			} else {
-				return view('errors.404', [
-					'record_id' => $id,
-					'record_name' => ucfirst("faqs"),
-				]);
-			}
+        $question = Question::find($id);
+        $length=strlen($question->Question);
+        if($length>50){
+          $question->Question = substr_replace($question->Questio," \n" , position, 0);
+        }
+        return view('vendor.adminlte.question.show',['question'=>$question]);
     }
 
     /**
@@ -110,14 +111,24 @@ class QuestionController extends Controller
             $id = $request['id'];
             $question = Question::find($id);
             $answer = str_replace(['<p>', '</p>'], '',  $request->answer);
+            $check = $request->checkadd;
+            
             $question->answer = $answer;
             $question->Status = 2;
             $question->save();
             // print_r($request->Email);
             // exit;
-            $this->html_mail($request->Email,$id,$answer);
-
-        return redirect()->route('question.index')->with('success','Question updated successfully.');
+            // $this->html_mail($request->Email,$id,$answer);
+            if(empty($request->checkadd))
+            {
+                return redirect()->route('question.index')->with('success','Question updated successfully.');
+            }
+            else
+            {
+                // print_r($question);
+                // exit;
+                return redirect()->route("faqs.add")->with(['question' => $question->Question,'answer' =>$answer]);
+            }
     }
 
     public function html_mail($email=null , $id=null,$answer)
@@ -157,134 +168,97 @@ class QuestionController extends Controller
     {
         if ($request->ajax()) 
         {
-            // $question = Question::all();
-        // $question = Question::where('Status',1);
-        // $faqs = Faqs::where('Category',$request->cat);
-        // $faqs = Faqs::where('Language',$request->language);
-        // if(empty($request->status) && empty($request->input) && empty($request->cat) && empty($request->language))
-        // {
-        //     $faqs = Faqs::whereNull('Status');
-        // }
-        // elseif(empty($request->status) && !empty($request->input) && empty($request->cat) && empty($request->language))
-        // {
-        //     $faqs = Faqs::where([['Status','=',$request->status],['Question','=', $request->input]]);
-        // } 
-        // elseif(!empty($request->cat) && empty($request->status) && empty($request->input) && empty($request->language))
-        // {
-        //     $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat]]);
-        // }
-        // // elseif(!empty($request->language) && empty($request->status))
-        // // {
-        // //     $faqs = Faqs::where([['Language','=', $request->language],['Category','=', $request->cat]]);
-        // // }
-        // elseif(!empty($request->cat) && empty($request->status) && !empty($request->input) && empty($request->language))
-        // {
-        //     $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Question','=', $request->input]]);
-        // }
-        // elseif(!empty($request->language) && empty($request->status) && !empty($request->input))
-        // {
-        //     $faqs = Faqs::where([['Language','=', $request->language],['Category','=', $request->cat],['Question','=', $request->input]]);
-        // }
-        // elseif(!empty($request->language) && !empty($request->cat) && empty($request->status))
-        // {
-        //     $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language]]);
-        // }
-        // elseif(!empty($request->language) && !empty($request->cat) && empty($request->status)&& !empty($request->input))
-        // {
-        //     $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language],['Question','=', $request->input]]);
-        // }
-        // else if(!empty($request->language) && empty($request->cat) && empty($request->status))
-        // {
-        //     $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]]);
-        // }
-        // else if(!empty($request->status) && !empty($request->cat) )
-        // {
-        //     $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat]]);
-        // }
-        // else if(!empty($request->status) && !empty($request->cat) && !empty($request->input) )
-        // {
-        //     $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Question','=', $request->input]]);
-        // }
-        // else if(!empty($request->status) && !empty($request->language) )
-        // {
-        //     $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language]]);
-        // }
-        // else if(!empty($request->status) && !empty($request->language)&& !empty($request->input) )
-        // {
-        //     $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language],['Question','=', $request->input]]);
-        // }
-        // else if (!empty($request->status) && !empty($request->language) && !empty($request->cat) && !empty($request->input))
-        // {
-        //     $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Language','=', $request->language],['Question','=', $request->input]]);
-        // }
-        // else if(!empty($request->language) && empty($request->cat))
-        // {
-        //     $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]]);
-        // }
-        // $out =  Datatables::of($question->get())->make(true);
-        $out =  Datatables::of(Question::all())->make(true);
-        $data = $out->getData();
-           for($i=0; $i < count($data->data); $i++) {
-               $output = '';
-               
-               $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-            //    if(Auth::user()->can('faqs-update')){
-               $output .= ' <a href="'.url(route('question.answer',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-reply"></i></a>';
-               
-            //    }
-            //    if(Auth::user()->can('faqs-update')){
-               $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a>';
-               $output .= '
-                <form method="post" action="'.url(route('question.update')).'">
-                     <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
-                     <input type="hidden" name="_token" value="'.csrf_token().'" />
-                         <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
-                                 <div class="modal-dialog">
-                                     <div class="modal-content">
-                                     <!-- Modal Header -->
-                                     <div class="modal-header">
-                                         <h4 class="modal-title">Note </h4>
-                                     </div>
-                                     <div class="modal-body">
-                                     <input type="string" class="form-control" name="Note" placeholder="Add Note" id="Note" >
-                                    </div>
-                                     <!-- Modal footer -->
-                                     <div class="modal-footer">
-                                         <button type="submit" class="btn btn-success">Update</button>
-                                         <button type="button" class="btn" data-dismiss="modal">Close</button>
-                                     </div>
-                                     </div>
-                             </div>
-                             </div>
-                     </form>
-                ';
-                $output .= ' <a data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-times-circle"></i></a>';
-                $output .= '
-                <form method="post" action="'.url(route('question.delete')).'">
-                     <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
-                     <input type="hidden" name="_token" value="'.csrf_token().'" />
-                         <div class="modal" id="closeModal-'.$data->data[$i]->_id.'">
-                                 <div class="modal-dialog">
-                                     <div class="modal-content">
-                                     <!-- Modal Header -->
-                                     <div class="modal-header">
-                                         <h4 class="modal-title">Do You To Close This Question?</h4>
-                                     </div>
-                                     <!-- Modal footer -->
-                                     <div class="modal-footer">
-                                         <button type="submit" class="btn btn-danger">Yes</button>
-                                         <button type="button" class="btn" data-dismiss="modal">No</button>
-                                     </div>
-                                     </div>
-                             </div>
-                             </div>
-                     </form>
-                ';
-            //    }
-               $data->data[$i]->action = (string)$output;
+            $start_date = new DateTime($request->from);
+            // $start_date = $start_date->format("Y-m-d\TH:i:s.z\Z");
+            $start_date = $start_date->format(DateTime::ISO8601);
+            $end_date = new DateTime($request->to);
+            $end_date = $end_date->format(DateTime::ISO8601);
+            // $endDate = Carbon::createFromFormat('Y-m-d', $request->to);
+            $question = Question::where('Status',1);
+            if(empty($request->status) && empty($request->input))
+            {
+                $question = Question::whereNull('Status');
             }
-           $out->setData($data);
-           return $out;
+            elseif(empty($request->status) && !empty($request->input))
+            {
+                $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+            }
+            elseif($request->status == 2 && empty($request->input))
+            {
+                $question = Question::where('Status',2);
+            }
+            elseif($request->status == 2 && !empty($request->input))
+            {
+                $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+            }
+            elseif($request->status == 1 && !empty($request->input))
+            {
+                $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+            }
+            $out =  Datatables::of($question->get())->make(true);
+            // $out =  Datatables::of(Question::all())->make(true);
+            $data = $out->getData();
+            for($i=0; $i < count($data->data); $i++) {
+                $output = '';
+                
+                $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                //    if(Auth::user()->can('faqs-update')){
+                $output .= ' <a href="'.url(route('question.answer',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-reply"></i></a>';
+                
+                //    }
+                //    if(Auth::user()->can('faqs-update')){
+                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a>';
+                $output .= '
+                    <form method="post" action="'.url(route('question.update')).'">
+                        <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                        <input type="hidden" name="_token" value="'.csrf_token().'" />
+                            <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Note </h4>
+                                        </div>
+                                        <div class="modal-body">
+                                        <input type="string" class="form-control" name="Note" placeholder="Add Note" id="Note" >
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success">Update</button>
+                                            <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                        </div>
+                                        </div>
+                                </div>
+                                </div>
+                        </form>
+                    ';
+                    $output .= ' <a data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-times-circle"></i></a>';
+                    $output .= '
+                    <form method="post" action="'.url(route('question.delete')).'">
+                        <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                        <input type="hidden" name="_token" value="'.csrf_token().'" />
+                            <div class="modal" id="closeModal-'.$data->data[$i]->_id.'">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Do You To Close This Question?</h4>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger">Yes</button>
+                                            <button type="button" class="btn" data-dismiss="modal">No</button>
+                                        </div>
+                                        </div>
+                                </div>
+                                </div>
+                        </form>
+                    ';
+                //    }
+                $data->data[$i]->action = (string)$output;
+                }
+            $out->setData($data);
+            return $out;
         }
     }
 }

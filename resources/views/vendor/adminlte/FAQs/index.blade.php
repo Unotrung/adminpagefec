@@ -2,7 +2,7 @@
 
 @section('title', 'FAQs')
 @section('css')
-
+{{-- Datatable --}}
 <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
@@ -16,6 +16,8 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+  {{-- for Import --}}
+  {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
 @stop
 
 @section('content_header')
@@ -112,11 +114,49 @@
                       {{-- <div class="mt-4"></div> --}}
                   </div>
                 </div>
-                <div class="col-0" style="visibility: hidden;">
+                <div class="col-0" style="visibility: hidden;height: 1px;">
 
                   {{-- <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/> --}}
                   <input type="text" value="" id="dateString">
+
                 </div>
+                <div class="col-sm-12">
+                  <div class="btn btn-info btn-user btn-block" style="width:10%;margin-left: 90%;" onClick="checkSubmit(this.value)">
+                    Import
+                  </div>
+                </div>
+                <div class="modal" id="demoModal">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                    <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Select File CSV Your Want To Import</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="{{ route('faqs.import') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="input-group mb-3">
+                                <input type="file" name="file" class="form-control">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </form>
+                      </div>
+                      <!-- Modal footer -->
+                    </div>
+                  </div>
+                </div>
+              {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Import CSV</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                    </div>
+                </div>
+              </div> --}}
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -136,51 +176,58 @@
               </div>
               <!-- /.card-body -->
             </div>
+
             <!-- /.card -->
           </div>
           <!-- /.col -->
         </div>
         <!-- /.row -->
       </div>
+
 </section>
 
 @stop
 
 @section('js')
 <!-- DataTables  & Plugins -->
+{{-- <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> --}}
+
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-
-
-<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
-<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
-<!-- Bootstrap4 Duallistbox -->
-<script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-<!-- InputMask -->
-<script src="../../plugins/moment/moment.min.js"></script>
-<script src="../../plugins/inputmask/jquery.inputmask.min.js"></script>
-<!-- date-range-picker -->
-<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap color picker -->
-<script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Bootstrap Switch -->
-<script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<!-- BS-Stepper -->
-<script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script>
-<!-- dropzonejs -->
-<script src="../../plugins/dropzone/min/dropzone.min.js"></script>
-
-
 <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+{{-- <script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script> --}}
+<!-- InputMask -->
+<script src="../../plugins/moment/moment.min.js"></script>
+{{-- <script src="../../plugins/inputmask/jquery.inputmask.min.js"></script> --}}
+<!-- date-range-picker -->
+<script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+{{-- <script src="../../plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script> --}}
+{{-- <script src="../../plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script> --}}
+<!-- BS-Stepper -->
+{{-- <script src="../../plugins/bs-stepper/js/bs-stepper.min.js"></script> --}}
+<!-- dropzonejs -->
+<script src="../../plugins/dropzone/min/dropzone.min.js"></script>
 <script src="../../plugins/select2/js/select2.full.min.js"></script>
+{{-- for Import  --}}
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> --}}
 <script>
   $('#daterange-btn').daterangepicker(
        {
@@ -362,6 +409,38 @@ $('#search').click(function(){
   //     $('#example1').DataTable().destroy();
   //     fill_datatable();
   // });
+
+  function checkSubmit(){
+    //     var Answer = $('#summer_answer').val();
+    //     Answer = Answer.replace(/<[\/]{0,1}(p)[^><]*>/ig,"");
+    //     console.log(Answer);
+    //     if(Answer == ""){
+		// 	toastr["error"]("Please input Answer!")
+		// }
+		// toastr.options = {
+		// 	"closeButton": false,
+		// 	"debug": true,
+		// 	"newestOnTop": false,
+		// 	"progressBar": false,
+		// 	"positionClass": "toast-top-right",
+		// 	"preventDuplicates": false,
+		// 	"onclick": null,
+		// 	"showDuration": "300",
+		// 	"hideDuration": "1000",
+		// 	"timeOut": "5000",
+		// 	"extendedTimeOut": "1000",
+		// 	"showEasing": "swing",
+		// 	"hideEasing": "linear",
+		// 	"showMethod": "fadeIn",
+		// 	"hideMethod": "fadeOut"
+		// }
+		// if(Answer != "")
+		// {
+			$("#demoModal").modal("show");
+		// }
+
+	}
+
 
   $('#status').change(function()
   {

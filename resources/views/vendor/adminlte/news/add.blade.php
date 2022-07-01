@@ -65,14 +65,7 @@
                               </select>
                         </div>
                     </div>
-                    {{-- <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
-                        <div class="col-sm-10">
-                            <div id="img-preview"></div>
-                            <label for="file_Edit_News" class="btn btn-primary col-md-5 fvalue">Thêm ảnh</label>
-                            <input id="file_Edit_News" name="Img_Create" placeholder="Image" style="visibility:hidden;" type="file">
-                        </div>
-                    </div> --}}
+
                 {{-- Save Button --}}
                 <button type="submit" class="btn btn-success btn-user btn-block">
                     Save

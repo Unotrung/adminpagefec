@@ -163,6 +163,7 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         Route::get('/faqs/add', [App\Http\Controllers\FaqController::class, 'create'])->name('faqs.add');
         Route::post('/faqs/update', [App\Http\Controllers\FaqController::class, 'update'])->name('faqs.update');
         Route::post('/faqs/store', [App\Http\Controllers\FaqController::class, 'store'])->name('faqs.store');
+        Route::post('import', [App\Http\Controllers\FaqController::class, 'import'])->name('faqs.import');
     });
     Route::group(['middleware' => ['permission:faqs-view']], function () {
         Route::get('/faqs/index', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
@@ -171,6 +172,8 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         Route::get('/faqs/dtajax', [App\Http\Controllers\FaqController::class, 'dtajax'])->name('faqs.dtajax');
     });
 });
+
+
 //Promotions
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {
     Route::group(['middleware' => ['permission:promotions-update']], function () {
@@ -217,6 +220,17 @@ Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], 
         Route::get('/statics/show/{id}', [App\Http\Controllers\StaticsController::class, 'show'])->name('statics.show');
         Route::get('/statics/dtajax', [App\Http\Controllers\StaticsController::class, 'dtajax'])->name('statics.dtajax');
         Route::post('/statics/destroy', [App\Http\Controllers\StaticsController::class, 'destroy'])->name('statics.destroy');
+
+//Statics
+Route::get('/question/add', [App\Http\Controllers\QuestionController::class, 'create'])->name('question.add');
+Route::post('/question/store', [App\Http\Controllers\QuestionController::class, 'store'])->name('question.store');
+Route::get('/question/answer/{id}', [App\Http\Controllers\QuestionController::class, 'answer'])->name('question.answer');
+Route::post('/question/update', [App\Http\Controllers\QuestionController::class, 'update'])->name('question.update');
+Route::get('/question/index', [App\Http\Controllers\QuestionController::class, 'index'])->name('question.index');
+Route::get('/question/show/{id}', [App\Http\Controllers\QuestionController::class, 'show'])->name('question.show');
+Route::get('/question/dtajax', [App\Http\Controllers\QuestionController::class, 'dtajax'])->name('question.dtajax');
+Route::post('/question/delete', [App\Http\Controllers\QuestionController::class, 'destroy'])->name('question.delete');
+Route::post('/question/updateAnswer', [App\Http\Controllers\QuestionController::class, 'updateAnswer'])->name('question.updateAnswer');
 
 //Notifications
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {
