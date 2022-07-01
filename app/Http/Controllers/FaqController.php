@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Faqs;
 use App\Models\Statics;
 use DataTables;
-// use Excel;
+use Excel;
 use Auth;
-use App\Imports\UsersImport;
+use App\Imports\FaqsImport;
 use Illuminate\Support\Facades\Route;
-use Maatwebsite\Excel\Facades\Excel;
+// use Maatwebsite\Excel\Facades\Excel;
 
 class FaqController extends Controller
 {
@@ -40,11 +40,13 @@ class FaqController extends Controller
     }
     function import(Request $request)
     {
-        $data = request()->file('file');
-        $data = $data->getPathName();
+        // $data = request()->file('file');
+        // $data = $data->getPathName();
         // print_r($data);
         // exit;
-        Excel::import(new UsersImport,$data);
+        $fileName = time().'_'.request()->file->getClientOriginalName();
+        request()->file('file')->storeAs('reports', $fileName, 'public');
+        Excel::import(new FaqsImport,$data = request()->file('file'));
            
         return back();
     //     $this->validate($request, [
