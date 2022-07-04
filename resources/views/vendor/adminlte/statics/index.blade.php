@@ -68,7 +68,7 @@
                     <div class=" col-4 input-group input-group-sm">
                         <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="status">
                           <option value="">Active</option>
-                          <option value="1">Unactive</option>
+                          <option value="1">Inactive</option>
                         </select>
                       </div>
                 {{-- </div> --}}
@@ -90,13 +90,17 @@
             </div>
 
             <div class="row" style="margin-bottom: 15px;margin-top: 10px;">
-                <div class=" col-12 input-group input-group-sm">
+                <div class=" col-11 input-group input-group-sm">
                     <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-lg btn-default" id="search">
+                        <button type="submit" class="btn btn-lg btn-default" id="search" style="height: 31px;">
                         <i class="fa fa-search"></i>
                         </button>
                     </div>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" name="reset" id="reset" class="btn btn-light w-100"  style="border-color: #e7e7e7;">Reset</button>
+                    {{-- <div class="mt-4"></div> --}}
                 </div>
             </div>
 
@@ -293,16 +297,6 @@ $(document).ready(function(){
         }
     });
 
-    // $('#reset').click(function(){
-    //       $('#input').val('');
-    //       // $('#type').val('');
-    //       $("#type").val("").change();
-    //       $("#status").val("").change();
-    //       // $('#status').val('');
-    //       $('#example1').DataTable().destroy();
-    //       fill_datatable();
-    //   });
-
     $('#status').change(function()
     {
         var input = $('#input').val();
@@ -351,6 +345,16 @@ $(document).ready(function(){
         fill_datatable(status,type,language,input);
     });
 
+    $('#reset').click(function(){
+          $('#input').val('');
+          // $('#type').val('');
+          $("#type").val("").change();
+          $("#status").val("").change();
+          $("#language").val("").change();
+          // $('#status').val('');
+          $('#example1').DataTable().destroy();
+          fill_datatable();
+      });
 
 });
 

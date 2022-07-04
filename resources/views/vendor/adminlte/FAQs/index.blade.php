@@ -300,10 +300,7 @@ function fill_datatable(input,language,status,cat)
           data:{input:input,language:language,status:status,cat:cat}
           },
           columns: [
-            {data: 'Question', name: 'Title',render: function(data){
-              ab=data.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/(<(.*?)>|&\w+;)/g,'');
-              return ab;
-            }},
+            {data: 'Question', name: 'Title'},
             {data: 'Category', name: 'Description'},
             {data: 'created_at', name: 'created_at',render: function ( data, type, row ) {
                   if ( type === 'display' || type === 'filter' ) {
@@ -400,15 +397,16 @@ $('#search').click(function(){
     }
   });
 
-  // $('#reset').click(function(){
-  //     $('#input').val('');
-  //     // $('#type').val('');
-  //     $("#type").val("").change();
-  //     $("#status").val("").change();
-  //     // $('#status').val('');
-  //     $('#example1').DataTable().destroy();
-  //     fill_datatable();
-  // });
+  $('#reset').click(function(){
+      $('#input').val('');
+      // $('#type').val('');
+      $("#type").val("").change();
+      $("#status").val("").change();
+      $("#language").val("").change();
+      // $('#status').val('');
+      $('#example1').DataTable().destroy();
+      fill_datatable(input,language,status,cat);
+  });
 
   function checkSubmit(){
     //     var Answer = $('#summer_answer').val();

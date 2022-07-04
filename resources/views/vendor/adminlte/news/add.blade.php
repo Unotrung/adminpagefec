@@ -43,15 +43,15 @@
 
                 <!-- <div class="form-group row"> -->
                     <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label">Description</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea name="Description_Create" id="summernote" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                        <input type="string" class="form-control" name="Description_Create" placeholder="Description" >
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Body</label>
+                        <label for="" class="col-sm-2 col-form-label">Body</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Body_Create" placeholder="Body" >
+                            <textarea name="Body_Create" id="summernote" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
