@@ -164,6 +164,13 @@ class QuestionController extends Controller
         return redirect()->route('question.index')->with('Question deleted successfull');
     }
 
+    public function restore(Request $request)
+    {
+        $question = Question::find($request->id);
+        $question->Status = null;
+        $question->save();
+        return redirect()->route('question.index')->with('Update','Question Restore Successfully');
+    }
     public function dtajax(Request $request)
     {
         if ($request->ajax()) 
@@ -199,61 +206,118 @@ class QuestionController extends Controller
             // $out =  Datatables::of(Question::all())->make(true);
             $data = $out->getData();
             for($i=0; $i < count($data->data); $i++) {
+                
                 $output = '';
-                
-                $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                //    if(Auth::user()->can('faqs-update')){
-                $output .= ' <a href="'.url(route('question.answer',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-reply"></i></a>';
-                
-                //    }
-                //    if(Auth::user()->can('faqs-update')){
-                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a>';
-                $output .= '
-                    <form method="post" action="'.url(route('question.update')).'">
-                        <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
-                        <input type="hidden" name="_token" value="'.csrf_token().'" />
-                            <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Note </h4>
-                                        </div>
-                                        <div class="modal-body">
-                                        <input type="string" class="form-control" name="Note" placeholder="Add Note" id="Note" >
-                                        </div>
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success">Update</button>
-                                            <button type="button" class="btn" data-dismiss="modal">Close</button>
-                                        </div>
-                                        </div>
-                                </div>
-                                </div>
-                        </form>
-                    ';
-                    $output .= ' <a data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-times-circle"></i></a>';
+                if(empty($data->data[$i]->Status)){
+                    $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                    //    if(Auth::user()->can('faqs-update')){
+                    $output .= ' <a href="'.url(route('question.answer',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-reply"></i></a>';
+                    
+                    //    }
+                    //    if(Auth::user()->can('faqs-update')){
+                    $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a>';
                     $output .= '
-                    <form method="post" action="'.url(route('question.delete')).'">
-                        <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
-                        <input type="hidden" name="_token" value="'.csrf_token().'" />
-                            <div class="modal" id="closeModal-'.$data->data[$i]->_id.'">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Do You To Close This Question?</h4>
+                        <form method="post" action="'.url(route('question.update')).'">
+                            <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                            <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Note </h4>
+                                            </div>
+                                            <div class="modal-body">
+                                            <input type="string" class="form-control" name="Note" placeholder="Add Note" id="Note" >
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Update</button>
+                                                <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                            </div>
+                                            </div>
+                                    </div>
+                                    </div>
+                            </form>
+                        ';
+                        $output .= ' <a data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-times-circle"></i></a>';
+                        $output .= '
+                        <form method="post" action="'.url(route('question.delete')).'">
+                            <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                            <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                <div class="modal" id="closeModal-'.$data->data[$i]->_id.'">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Do You Want To Close This Question?</h4>
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                <button type="button" class="btn" data-dismiss="modal">No</button>
+                                            </div>
+                                            </div>
+                                    </div>
+                                    </div>
+                            </form>
+                        ';
+                    }
+                    elseif(($data->data[$i]->Status) == 1)
+                    {
+                        $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        $output .= ' <a data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-sync "></i></a>';
+                        $output .= '
+                        <form method="post" action="'.url(route('question.restore')).'">
+                            <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                            <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                <div class="modal" id="closeModal-'.$data->data[$i]->_id.'">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Do You Want To Re Open This Question?</h4>
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                <button type="button" class="btn" data-dismiss="modal">No</button>
+                                            </div>
+                                            </div>
+                                    </div>
+                                    </div>
+                            </form>
+                        ';
+                    }
+                    else
+                    {
+                        $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a>';
+                        $output .= '
+                            <form method="post" action="'.url(route('question.update')).'">
+                                <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
+                                <input type="hidden" name="_token" value="'.csrf_token().'" />
+                                    <div class="modal" id="demoModal-'.$data->data[$i]->_id.'">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Note </h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                <input type="string" class="form-control" name="Note" placeholder="Add Note" id="Note" >
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-success">Update</button>
+                                                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                                                </div>
+                                                </div>
                                         </div>
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger">Yes</button>
-                                            <button type="button" class="btn" data-dismiss="modal">No</button>
                                         </div>
-                                        </div>
-                                </div>
-                                </div>
-                        </form>
-                    ';
+                                </form>
+                            ';
+                    }
                 //    }
                 $data->data[$i]->action = (string)$output;
                 }

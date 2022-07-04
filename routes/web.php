@@ -229,6 +229,7 @@ Route::get('/question/show/{id}', [App\Http\Controllers\QuestionController::clas
 Route::get('/question/dtajax', [App\Http\Controllers\QuestionController::class, 'dtajax'])->name('question.dtajax');
 Route::post('/question/delete', [App\Http\Controllers\QuestionController::class, 'destroy'])->name('question.delete');
 Route::post('/question/updateAnswer', [App\Http\Controllers\QuestionController::class, 'updateAnswer'])->name('question.updateAnswer');
+Route::post('/question/restore', [App\Http\Controllers\QuestionController::class, 'restore'])->name('question.restore');
 
 //Notifications
 Route::group(['middleware' => ['role:super admin|System Admin|Website Admin']], function () {

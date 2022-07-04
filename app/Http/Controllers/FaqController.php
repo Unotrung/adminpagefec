@@ -10,7 +10,6 @@ use Excel;
 use Auth;
 use App\Imports\FaqsImport;
 use Illuminate\Support\Facades\Route;
-// use Maatwebsite\Excel\Facades\Excel;
 
 class FaqController extends Controller
 {
@@ -38,16 +37,16 @@ class FaqController extends Controller
         $statics = Statics::all();
         return view('vendor.adminlte.faqs.create')->with('statics', $statics);
     }
+    
     function import(Request $request)
     {
-        // $data = request()->file('file');
+        $data = request()->file('file');
         // $data = $data->getPathName();
         // print_r($data);
         // exit;
         $fileName = time().'_'.request()->file->getClientOriginalName();
         request()->file('file')->storeAs('reports', $fileName, 'public');
-        Excel::import(new FaqsImport,$data = request()->file('file'));
-           
+        Excel::import(new FaqsImport,request()->file('file'));
         return back();
     //     $this->validate($request, [
     //         'file'  => 'required|mimes:xls,xlsx'
