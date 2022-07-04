@@ -4,7 +4,7 @@
 @section('title', 'News')
 @section('content_header')
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4"> 
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <div class="pull-left">
             <h2>New Details</h2>
         </div>
@@ -36,42 +36,33 @@ $config = [
       <div class="tab-pane fade active show " id="eap_info" role="tabpanel" aria-labelledby="custom-content-below-home-tab" >
           <div class="card-body">
             <div class="form-group row">
-              
+                <div class="col-sm-12">
+                    <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Language:</label> {{$news->Language}}</div>
+                  </div>
               <div class="col-sm-12">
                 <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Title:</label>{{$news->Title}}</div>
               </div>
 
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Content:</label>{!!$news->Content!!} 
-                </div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label" >Description:</label>{!!$news->Description!!}</div>
               </div>
-              
+
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Description:</label>{{$news->Description}} 
-                </div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Body:</label>{{$news->Body}}</div>
               </div>
               <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">URL:</label>{{$news->Title}} 
-                </div>
-              </div>
-              <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Image:</label><img class="col-md-6 fvalue" src="{{ asset("./ImagesNews/$news->Image") }} " alt="">
-                </div> 
-              </div>
-              <div class="col-sm-12">
-                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Author:</label> {{$news->Author}}
-                </div>
+                <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-2 col-form-label">Order:</label> {{$news->Order}}</div>
               </div>
             </div>
           </div>
       </div>
     </div>
   </div>
-  
+
 </div>
 
 
 
 
 {{-- Minimal --}}
-@stop 
+@stop

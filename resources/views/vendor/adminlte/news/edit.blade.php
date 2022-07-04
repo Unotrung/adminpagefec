@@ -30,23 +30,48 @@ $new = News::find($news);
                     @csrf
                     @method('POST')
                         <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
+                            <div class="col-sm-10">
+                                <select  type="string" class="form-control" name="Language_Edit" placeholder="Language" value="{{$new->Language}}">
+                                    {{-- <option> Choose Language... </option> --}}
+                                    <option value="{{$new->Language}}" selected>{{$new->Language}}</option>
+                                  </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                             <div class="col-sm-10">
                             <input type="String" class="form-control" name="Title_Edit" placeholder="Title" value="{{$new->Title}}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                            <label for="" class="col-sm-2 col-form-label">Description</label>
                             <div class="col-sm-10">
-                            <input type="String" class="form-control" name="Description_Edit" placeholder="Title" value="{{$new->Description}}">
+                            <textarea type="String" class="form-control" name="Description_Edit" id="summer_descrip" >
+                            {!!$new->Description!!}
+                            </textarea>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="" class="col-sm-2 col-form-label">Content</label>
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Body</label>
                             <div class="col-sm-10">
-                            <textarea type="String" class="form-control" name="Content_Edit" id="summer_descrip" >
-                            {!!$new->Content!!}
-                            </textarea>
+                            <input type="String" class="form-control" name="Body_Edit" placeholder="Title" value="{{$new->Body}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Order</label>
+                            <div class="col-sm-10">
+                                <select  type="String" class="form-control" name="Order_Edit" placeholder="Order" value="{{$new->Order}}">
+                                    {{-- <option> Choose Language... </option>  selected='{{$new->Order}} --}}
+                                    {{-- <option value="{{$new->Order}}" selected>{{$new->Order}}</option> --}}
+                                    {{-- if($new->Order){
+                                        <option value="{{$new->Order}}" selected={{$new->Order}} >{{$new->Order}}</option>
+                                    } --}}
+                                        <option {{$new->Order === "1" ? "selected" : ""}} value="1">1</option>
+                                        <option {{$new->Order === "2" ? "selected" : ""}} value="2">2</option>
+                                        <option {{$new->Order === "3" ? "selected" : ""}} value="3">3</option>
+
+                                  </select>
                             </div>
                         </div>
                         <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100%">
