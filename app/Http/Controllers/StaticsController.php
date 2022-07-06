@@ -52,7 +52,7 @@ class StaticsController extends Controller
         $statics->Description = $request->Description_Create;
         $statics->Post = $request->Post_Create;
         $statics->save();
-        return redirect()->route("statics.index")->with('Create statics successfully');
+        return redirect()->route("statics.index")->with('add','Create statics successfully');
     }
 
     /**
@@ -120,7 +120,7 @@ class StaticsController extends Controller
         // }
         $statics->save();
 
-        return redirect()->route('statics.index')->with('success','Update success');
+        return redirect()->route('statics.index')->with('success','Update statics success');
     }
 
 
@@ -138,7 +138,7 @@ class StaticsController extends Controller
         // exit;
         $promotion->Status = 1;
         $promotion->save();
-        return redirect()->route('statics.index')->with('statics deleted successfull');
+        return redirect()->route('statics.index')->with('delete','statics inactive successfully');
     }
 
     public function dtajax(Request $request){

@@ -7,6 +7,17 @@ use App\Models\News;
 $new = News::find($news);
 @endphp
 @section('css')
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- Toastr -->
+<link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
+{{-- <link href="toastr.css" rel="stylesheet"/> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 @stop
 @section('content_header')
@@ -32,7 +43,7 @@ $new = News::find($news);
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
                             <div class="col-sm-10">
-                                <select  type="string" class="form-control" name="Language_Edit" placeholder="Language" value="{{$new->Language}}">
+                                <select  type="string" class="form-control" name="Language_Edit" id="examplelang" style="border-left: 2px solid red;" placeholder="Language" value="{{$new->Language}}">
                                     {{-- <option> Choose Language... </option> --}}
                                     <option value="{{$new->Language}}" selected>{{$new->Language}}</option>
                                   </select>
@@ -41,7 +52,7 @@ $new = News::find($news);
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                             <div class="col-sm-10">
-                            <input type="String" class="form-control" name="Title_Edit" placeholder="Title" value="{{$new->Title}}">
+                            <input type="String" class="form-control" name="Title_Edit" id="exampletitle" style="border-left: 2px solid red;" placeholder="Title" value="{{$new->Title}}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -74,7 +85,7 @@ $new = News::find($news);
                                   </select>
                             </div>
                         </div>
-                        <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100%">
+                        <div class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)" style="width:100px;margin: 0 auto;">
                             Submit
                         </div>
 
@@ -99,7 +110,7 @@ $new = News::find($news);
     </div>
   </div>
 </div>
-<script>
+{{-- <script>
 const chooseFile = document.getElementById("file_Edit_News");
 const imgPreview = document.getElementById("img-preview");
 
@@ -117,7 +128,7 @@ function getImgData() {
     });
   }
 }
-</script>
+</script> --}}
 
 @endsection
 @section('js')
@@ -126,5 +137,64 @@ function getImgData() {
     $(function () {
       $('#summer_descrip').summernote();
     })
+
+    function btnSubmit(){
+		var Title = $("#exampletitle").val();
+		var Language = $("#examplelang").val();
+        if(Title.length === 0){
+            toastr["error"]("Please Input Title!")
+        }
+
+        toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+		if(Title.length > 0)
+		{
+			// data-toggle="modal" data-target="#confirmModal"
+			$("#demoModal").modal("show");
+			formChanged = false;
+		}
+
+	}
+
+    var myForms = document.querySelectorAll('.card-body input')
+	  var mySelects = document.querySelectorAll('.card-body select')
+	  for (let myForm of myForms)
+	  {
+	  	myForm.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+	}
+	for (let mySelect of mySelects)
+	  {
+		mySelect.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+	}
 </script>
+<!-- SweetAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="../../plugins/toastr/toastr.min.js"></script>
+{{-- <script src="toastr.js"></script> --}}
 @stop

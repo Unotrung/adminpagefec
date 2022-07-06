@@ -56,7 +56,7 @@ class NewsController extends Controller
 
 
         $news->save();
-        return redirect()->route("news.index")->with('Create news successfully');
+        return redirect()->route("news.index")->with('add','Create news successfully');
     }
 
     /**
@@ -121,7 +121,7 @@ class NewsController extends Controller
         // exit;
         $promotion->Status = 1;
         $promotion->save();
-        return redirect()->route('news.index')->with('news deleted successfull');
+        return redirect()->route('news.index')->with('delete','news unactive successfully');
     }
 
     public function dtajax(Request $request){

@@ -61,7 +61,7 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Title_Create" placeholder="Title" >
+                        <input type="string" class="form-control" name="Title_Create" id="exampletitle" placeholder="Title"  style="border-left: 2px solid red;">
                         </div>
                     </div>
 
@@ -75,7 +75,7 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Post</label>
                         <div class="col-sm-10">
-                            <textarea name="Post_Create" id="summernote1" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                            <textarea name="Post_Create" id="summernote1" cols="100" rows="10"   style="border-left: 2px solid red;">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
                         </div>
                     </div>
 
@@ -115,7 +115,11 @@
       $('#summernote1').summernote();
     })
 </script>
-
+<!-- SweetAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="../../plugins/toastr/toastr.min.js"></script>
+<script src="toastr.js"></script>
 
 
 @stop

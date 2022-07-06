@@ -8,6 +8,17 @@ $static = Statics::find($statics);
 @endphp
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- Toastr -->
+<link rel="stylesheet" href="../../plugins/toastr/toastr.min.css">
+{{-- <link href="toastr.css" rel="stylesheet"/> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @stop
 @section('content_header')
 <div class="container-fluid">
@@ -45,7 +56,7 @@ $static = Statics::find($statics);
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
-                      <input type="String" class="form-control" name="Title_Edit" placeholder="Title" value="{{$static->Title}}">
+                      <input type="String" class="form-control" name="Title_Edit" placeholder="Title" id="exampletitle" style="border-left: 2px solid red;" value="{{$static->Title}}">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -92,7 +103,7 @@ $static = Statics::find($statics);
                     </div>
                   </div> --}}
                   {{-- <button type="submit" class="btn btn-success btn-user btn-block" style="width: 100px;margin: auto;"> --}}
-                  <div data-toggle="modal" data-target="#demoModal" class="btn btn-success btn-user btn-block" style="width:100px;margin: auto;">
+                  <div class="btn btn-success btn-user btn-block" onClick="btnSubmit(this.value)" style="width:100px;margin: 0 auto;">
                     Submit
                   </div>
 
@@ -101,7 +112,7 @@ $static = Statics::find($statics);
                       <div class="modal-content">
                       <!-- Modal Header -->
                         <div class="modal-header">
-                          <h4 class="modal-title">Do you want to edit new?  </h4>
+                          <h4 class="modal-title">Do you want to edit news?  </h4>
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal footer -->
@@ -134,6 +145,66 @@ $static = Statics::find($statics);
     $(function () {
       $('#summer1_descrip').summernote();
     })
+
+    function btnSubmit(){
+		var Title = $("#exampletitle").val();
+		var Post = $("#summer1_descrip").val();
+        if(Title.length === 0  && Post.length > 0){
+            toastr["error"]("Please Input Title!")
+        }
+        if(Title.length === 0  && Post.length === 0){
+            toastr["error"]("Please Input Title, Post!")
+        }
+        if(Title.length > 0  && Post.length === 0){
+            toastr["error"]("Please Input Post!")
+        }
+        toastr.options = {
+			"closeButton": false,
+			"debug": true,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+		if(Title.length > 0 && Post.length > 0)
+		{
+			// data-toggle="modal" data-target="#confirmModal"
+			$("#demoModal").modal("show");
+			formChanged = false;
+		}
+
+	}
+
+    var myForms = document.querySelectorAll('.card-body input')
+	  var mySelects = document.querySelectorAll('.card-body select')
+	  for (let myForm of myForms)
+	  {
+	  	myForm.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+	}
+	for (let mySelect of mySelects)
+	  {
+		mySelect.addEventListener('change', function() {formChanged = true});
+		window.addEventListener('beforeunload', (event) => {
+		if (formChanged) {
+			event.returnValue = 'You have unfinished changes!';
+		}
+		});
+	}
+
 </script>
 
 {{-- <script>
@@ -162,5 +233,9 @@ $static = Statics::find($statics);
       }
     });
     </script> --}}
-
+<!-- SweetAlert2 -->
+<script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="../../plugins/toastr/toastr.min.js"></script>
+{{-- <script src="toastr.js"></script> --}}
 @stop
