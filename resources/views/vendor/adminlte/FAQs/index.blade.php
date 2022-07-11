@@ -2,19 +2,23 @@
 
 @section('title', 'FAQs')
 @section('css')
+
 {{-- Datatable --}}
-<link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/css/app.css">
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- Bootstrap4 Duallistbox -->
-  <link rel="stylesheet" href="../../plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-    <!-- BS Stepper -->
-<link rel="stylesheet" href="../../plugins/bs-stepper/css/bs-stepper.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css"
+     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
   {{-- for Import --}}
   {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
@@ -60,7 +64,7 @@
                 <div class="row" style="margin-bottom: 20px;">
                   <div class="col-4">
                     <div class="input-group input-group-sm" id="st" name="st">
-                      <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="delete_at">
+                      <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="status">
                         <option value="">Active</option>
                         <option value="1">Inactive</option>
                       </select>
@@ -199,18 +203,27 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script> --}}
 
+<!-- DataTables  & Plugins -->
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
 <script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script src="../../plugins/jszip/jszip.min.js"></script>
 <script src="../../plugins/pdfmake/pdfmake.min.js"></script>
 <script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+{{-- <script src="../../plugins/moment/moment.min.js"></script> --}}
+<script src="../../dist/js/adminlte.min.js"></script>
+{{-- <script src="../../plugins/daterangepicker/daterangepicker.js"></script> --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
+{{-- <script src="../../plugins/select2/js/select2.full.min.js"></script> --}}
 <!-- Bootstrap4 Duallistbox -->
 {{-- <script src="../../plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script> --}}
 <!-- InputMask -->
@@ -283,7 +296,11 @@ var language = $('#language').val();
     console.log("status" + status);
     var cat = $('#cat').val();
     console.log("cat" +cat);
-function fill_datatable(input,language,status,cat)
+    var dateString = $('#dateString').val().split(" - ");
+        console.log('dateString'+dateString);
+        from = dateString[0];
+        to = dateString[1];
+function fill_datatable(input,language,status,cat,from,to)
 {
       var dateString = $('#dateString').val().split(" - ");
       console.log(dateString);
@@ -297,7 +314,7 @@ function fill_datatable(input,language,status,cat)
           ajax:{
           url: "{{ route('faqs.dtajax') }}",
           timeout: 5000,
-          data:{input:input,language:language,status:status,cat:cat}
+          data:{input:input,language:language,status:status,cat:cat,from:from,to:to}
           },
           columns: [
             {data: 'Question', name: 'Title'},
@@ -308,7 +325,7 @@ function fill_datatable(input,language,status,cat)
                       return d.getDate() +'/'+ (d.getMonth()+1) +'/'+ d.getFullYear();
                   }
                   return data;}},
-            {data: 'Status', name: 'Description', render: function(data){
+            {data: 'Status', name: 'Status', render: function(data){
               return (data==1)?"<span class='badge bg-danger'> Inactive</span>":"<span class='badge bg-success'> Active</span>";
             }},
             {data: 'Language', name: 'Description'},
@@ -319,7 +336,8 @@ function fill_datatable(input,language,status,cat)
                     searchable: true
             },
           ],
-          columnDefs: [],
+
+
           buttons: [
               {
                   extend: 'collection',
@@ -332,7 +350,11 @@ function fill_datatable(input,language,status,cat)
                       'print'
                   ]
               }
-          ]
+          ],
+          drawCallback:function(setting)
+                {
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
       }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 }
 $('#search').click(function(){
@@ -347,6 +369,11 @@ $('#search').click(function(){
       console.log(status);
       var cat = $('#cat').val();
       console.log(cat);
+      var dateString = $('#dateString').val().split(" - ");
+      console.log(dateString);
+      from = dateString[0];
+      to = dateString[1];
+
       if( input == '')
       {
         toastr["error"]("Please select input data to search!")
@@ -371,12 +398,12 @@ $('#search').click(function(){
       else
       {
         $('#example1').DataTable().destroy();
-        fill_datatable(input,language,status,cat);
+        fill_datatable(input,language,status,cat,from,to);
       }
     }
     else
     {
-      toastr["error"]("Your input can't just have only whitespace")
+      toastr["error"]("Your input can't just have  only whitespace")
         toastr.options = {
           "closeButton": false,
           "debug": true,
@@ -405,7 +432,7 @@ $('#search').click(function(){
       $("#language").val("").change();
       // $('#status').val('');
       $('#example1').DataTable().destroy();
-      fill_datatable(input,language,status,cat);
+      fill_datatable();
   });
 
   function checkSubmit(){
@@ -450,8 +477,12 @@ $('#search').click(function(){
     console.log(status);
     var cat = $('#cat').val();
     console.log(cat);
+    var dateString = $('#dateString').val().split(" - ");
+      console.log(dateString);
+      from = dateString[0];
+      to = dateString[1];
     $('#example1').DataTable().destroy();
-    fill_datatable(input,language,status,cat);
+    fill_datatable(input,language,status,cat,from,to);
   });
 
   $('#cat').change(function()
@@ -464,8 +495,12 @@ $('#search').click(function(){
     console.log(status);
     var cat = $('#cat').val();
     console.log(cat);
+    var dateString = $('#dateString').val().split(" - ");
+      console.log(dateString);
+      from = dateString[0];
+      to = dateString[1];
     $('#example1').DataTable().destroy();
-    fill_datatable(input,language,status,cat);
+    fill_datatable(input,language,status,cat,from,to);
   });
 
   $('#language').change(function()
@@ -478,9 +513,32 @@ $('#search').click(function(){
     console.log(status);
     var cat = $('#cat').val();
     console.log(cat);
+    var dateString = $('#dateString').val().split(" - ");
+      console.log(dateString);
+      from = dateString[0];
+      to = dateString[1];
     $('#example1').DataTable().destroy();
-    fill_datatable(input,language,status,cat);
+    fill_datatable(input,language,status,cat,from,to);
   });
+
+  $('#daterange-btn').on('apply.daterangepicker', function(ev, picker) {
+                var dateString = $('#dateString').val().split(" - ");
+                console.log(dateString);
+                from = dateString[0];
+                to = dateString[1];
+                var input = $('#input').val();
+                console.log(input);
+                var language = $('#language').val();
+                console.log(language);
+                var status = $('#status').val();
+                console.log(status);
+                var cat = $('#cat').val();
+                console.log(cat);
+                console.log('hello');
+                $('#example1').DataTable().destroy();
+                fill_datatable(input,language,status,cat,from,to);
+            });
+
 </script>
 
 

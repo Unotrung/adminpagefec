@@ -55,16 +55,16 @@
 
                   <div class="modal" id="demoModal">
                     <div class="modal-dialog">
-                      <div class="modal-content">
-                      <!-- Modal Header -->
+                    <div class="modal-content">
+                    <!-- Modal Header -->
                         <div class="modal-header">
-                          <h4 class="modal-title">Do you want to edit FAQ?  </h4>
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Do you want to edit faq?  </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                          <button type="submit" class="btn btn-danger">Yes</button>
-                          <button type="button" class="btn" data-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <button type="button" class="btn" data-dismiss="modal">No</button>
                         </div>
                       </div>
                     </div>

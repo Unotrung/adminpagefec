@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
-    
+
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h2 class="h3 mb-0 text-gray-800">Add User</h2>
             <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{{ route('users') }}"><i
@@ -26,20 +26,20 @@
 	<div class="card-header py-3">
 		<h6 class="m-0 font-weight-bold text-primary"></h6> </div>
 	<div class="card-body">
-		<form method="post" action="{{route('users.store')}}"> 
+		<form method="post" action="{{route('users.store')}}">
 			@csrf
-			<div class="form-group row"> 
+			<div class="form-group row">
 				{{-- Name field --}}
 				<div class="input-group mb-3">
 					<input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
 						   value="{{ old('name') }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus style="border-left: 2px solid red">
-		
+
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-user {{ config('adminlte.classes_auth_icon', '') }}"></span>
 						</div>
 					</div>
-		
+
 					@error('name')
 						<span class="invalid-feedback" role="alert">
 							<strong>{{ $message }}</strong>
@@ -103,8 +103,8 @@
 
 				<div class="input-group mb-3">
 					<select id="division" class="form-control" name="division">
-						<option value="" selected="">Select Division</option>																			
-						@foreach (explode(';',$configdiv) as $configsdiv)		
+						<option value="" selected="">Select Division</option>
+						@foreach (explode(';',$configdiv) as $configsdiv)
 							{{-- @foreach (explode(';',$configs->division) as $configsss)																	 --}}
 								<option value="{{$configsdiv}}">{{$configsdiv}}</option>
 							{{-- @endforeach --}}
@@ -114,8 +114,8 @@
 
 				<div class="input-group mb-3">
 					<select id="center" class="form-control" name="center">
-						<option value="" selected="">Select Center</option>																			
-						@foreach (explode(';',$configcen) as $configscen)		
+						<option value="" selected="">Select Center</option>
+						@foreach (explode(';',$configcen) as $configscen)
 							{{-- @foreach (explode(';',$configs->division) as $configsss)																	 --}}
 								<option value="{{$configscen}}">{{$configscen}}</option>
 							{{-- @endforeach --}}
@@ -125,8 +125,8 @@
 
 				<div class="input-group mb-3">
 					<select id="department" class="form-control" name="department">
-						<option value="" selected="">Select Department</option>	
-						@foreach (explode(';',$configdep) as $configsdep)		
+						<option value="" selected="">Select Department</option>
+						@foreach (explode(';',$configdep) as $configsdep)
 							{{-- @foreach (explode(';',$configs->division) as $configsss)																	 --}}
 								<option value="{{$configsdep}}">{{$configsdep}}</option>
 							{{-- @endforeach --}}
@@ -140,13 +140,13 @@
 						@foreach ($roles as $role)
 							<option value="{{$role->name}}">{{$role->name}}</option>
 						@endforeach
-					</select> 
-					
-					@error('role') 
+					</select>
+
+					@error('role')
 					<span class="invalid-feedback" role="alert">
 							<strong>{{ $message }}</strong>
 						</span>
-					@enderror 
+					@enderror
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-12 d-flex justify-content-center">

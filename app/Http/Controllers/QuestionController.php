@@ -40,7 +40,7 @@ class QuestionController extends Controller
     }
 
 
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -56,6 +56,9 @@ class QuestionController extends Controller
         $question->Question = $Question;
         $question->Note = "";
         $question->Status = null;
+        $date = Carbon::now();
+        $date = Carbon::parse($date)->format('Y-m-d');
+        $question->Createday = $date;
         $question->save();
         return redirect()->route("question.index")->with('Question created successfull');
 
@@ -112,7 +115,7 @@ class QuestionController extends Controller
             $question = Question::find($id);
             $answer = str_replace(['<p>', '</p>'], '',  $request->answer);
             $check = $request->checkadd;
-            
+
             $question->answer = $answer;
             $question->Status = 2;
             $question->save();
@@ -140,10 +143,10 @@ class QuestionController extends Controller
         $ques = $question->Question;
         // $answer = $question->answer;
         $data = array('email'=>$email,'name'=>"info",'ques'=>$ques,'answer'=>$answer);
-        
+
         Mail::send(['data' => $data], $info, function ($message) use ($data)
         {
-            $message->to($data['email']) 
+            $message->to($data['email'])
                 ->subject('Waiting for approval configuration voolo.vn');
                 $message->setBody(" Thanks For Your Question: " .$data['ques']. " \r\n We talked to customer service about that question \r\n And the answer is: " .$data['answer'] ."\r\n ");
             $message->from('info@voolo.vn', 'Voolo');
@@ -173,49 +176,80 @@ class QuestionController extends Controller
     }
     public function dtajax(Request $request)
     {
-        if ($request->ajax()) 
+        if ($request->ajax())
         {
-            $start_date = new DateTime($request->from);
-            // $start_date = $start_date->format("Y-m-d\TH:i:s.z\Z");
-            $start_date = $start_date->format(DateTime::ISO8601);
-            $end_date = new DateTime($request->to);
-            $end_date = $end_date->format(DateTime::ISO8601);
+            $question = Question::where('Status','1');
+            $from = Carbon::parse($request->from)->format('Y-m-d');
+            // $request->from = Carbon::createFromDate('2022, 6, 1)');
+            // $request->to = Carbon::createFromDate('2015, 7, 1)');
+            $to = Carbon::parse($request->to)->format('Y-m-d');
             // $endDate = Carbon::createFromFormat('Y-m-d', $request->to);
-            $question = Question::where('Status',1);
-            if(empty($request->status) && empty($request->input))
+            // $question = Question::where('Status',1);
+//010
+            if(empty($request->status) && !empty($request->from) && !empty($request->to) && empty($request->input))
             {
-                $question = Question::whereNull('Status');
+                $question = Question::whereNull('Status')->whereBetween('Createday', array($from,$to));
             }
-            elseif(empty($request->status) && !empty($request->input))
+//110
+            elseif($request->status == 1 && !empty($request->from) && !empty($request->to) && empty($request->input))
             {
-                $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+                $question = Question::where([['Status',1]])->whereBetween('Createday', array($from,$to));
             }
-            elseif($request->status == 2 && empty($request->input))
+            //111
+            elseif($request->status == 1 && !empty($request->from) && !empty($request->to) && !empty($request->input))
             {
-                $question = Question::where('Status',2);
+                $question = Question::where([['Status',1],['Question','like', '%'.$request->input.'%']])->whereBetween('Createday', array($from,$to));
             }
-            elseif($request->status == 2 && !empty($request->input))
+            //011
+            elseif(empty($request->status) && !empty($request->from) && !empty($request->to) && !empty($request->input))
             {
-                $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+                $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']])->whereBetween('Createday', array($from,$to));
             }
-            elseif($request->status == 1 && !empty($request->input))
+            //210
+            elseif($request->status == 2 && !empty($request->from) && !empty($request->to) && empty($request->input))
             {
-                $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+                $question = Question::where('Status',2)->whereBetween('Createday', array($from,$to));
             }
+            //211
+            elseif($request->status == 2 && !empty($request->from) && !empty($request->to) && !empty($request->input))
+            {
+                $question = Question::where([['Status',2],['Question','like', '%'.$request->input.'%']])->whereBetween('Createday', array($from,$to));
+            }
+            // if(empty($request->status) && empty($request->input))
+            // {
+            //     $question = Question::whereNull('Status');
+            // }
+            // elseif(empty($request->status) && !empty($request->input))
+            // {
+            //     $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+            // }
+            // elseif($request->status == 2 && empty($request->input))
+            // {
+            //     $question = Question::where('Status',2);
+            // }
+            // elseif($request->status == 2 && !empty($request->input))
+            // {
+            //     $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+            // }
+            // elseif($request->status == 1 && !empty($request->input))
+            // {
+            //     $question = Question::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+            // }
             $out =  Datatables::of($question->get())->make(true);
             // $out =  Datatables::of(Question::all())->make(true);
             $data = $out->getData();
             for($i=0; $i < count($data->data); $i++) {
-                
+
                 $output = '';
                 if(empty($data->data[$i]->Status)){
-                    $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                    $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                     //    if(Auth::user()->can('faqs-update')){
-                    $output .= ' <a href="'.url(route('question.answer',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-reply"></i></a>';
-                    
+                    $output .= ' <a href="'.url(route('question.answer',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Ans & Add question" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-reply"></i></a>';
+
                     //    }
                     //    if(Auth::user()->can('faqs-update')){
-                    $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a>';
+                    $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
+                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" title="Note" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a></span>';
                     $output .= '
                         <form method="post" action="'.url(route('question.update')).'">
                             <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -240,7 +274,8 @@ class QuestionController extends Controller
                                     </div>
                             </form>
                         ';
-                        $output .= ' <a data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-times-circle"></i></a>';
+                        $output .= ' <span data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
+                        <a class="btn btn-danger btn-xs" data-toggle="tooltip" title="Close question" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-times-circle"></i></a></span>';
                         $output .= '
                         <form method="post" action="'.url(route('question.delete')).'">
                             <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -265,8 +300,9 @@ class QuestionController extends Controller
                     }
                     elseif(($data->data[$i]->Status) == 1)
                     {
-                        $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                        $output .= ' <a data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-success btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-sync "></i></a>';
+                        $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        $output .= ' <span data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
+                         <a class="btn btn-success btn-xs" data-toggle="tooltip" title="Reopen question" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-sync "></i></a></span>';
                         $output .= '
                         <form method="post" action="'.url(route('question.restore')).'">
                             <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -291,8 +327,9 @@ class QuestionController extends Controller
                     }
                     else
                     {
-                        $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                        $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a>';
+                        $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
+                        <a class="btn btn-warning btn-xs" data-toggle="tooltip" title="Note" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a></span>';
                         $output .= '
                             <form method="post" action="'.url(route('question.update')).'">
                                 <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">

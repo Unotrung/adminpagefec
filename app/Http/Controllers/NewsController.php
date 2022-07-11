@@ -38,6 +38,13 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'Title_Create' => ['required', 'string', 'max:255'],
+            'Language_Create' =>['required'],
+
+        ]);
+
+
         $news = new News;
         $news->Order = $request->Order_Create;
         $date = Carbon::now();
@@ -54,9 +61,10 @@ class NewsController extends Controller
         // $news->Createday = $date;
         // $news->DateString = $request->dateString;
 
-
+        // $news->assignRole($request->role);
+        // event(new Registered($news));
         $news->save();
-        return redirect()->route("news.index")->with('add','Create news successfully');
+        return redirect()->route("news.index")->with('add','Create news successful');
     }
 
     /**
@@ -180,12 +188,14 @@ class NewsController extends Controller
         //    $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
-               $output .= ' <a href="'.url(route('news.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+               $output .= ' <a href="'.url(route('news.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs"  data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
             //    if(Auth::user()->can('news-update')){
-                $output .= ' <a href="'.url(route('news.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                if(empty($request->status)){
+                $output .= ' <a href="'.url(route('news.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Edit News" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                 // }
                 // if(Auth::user()->can('news-delete')){
-                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
+                <a data-toggle="tooltip" class="btn btn-danger btn-xs" title="Deactivate News" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a></span>';
                 $output .= '
                 <form method="post" action="'.url(route('news.destroy')).'">
                         <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -195,12 +205,12 @@ class NewsController extends Controller
                                         <div class="modal-content">
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Do you want delete? </h4>
+                                            <h4 class="modal-title">Do you want inactive news? </h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-danger">Inactive</button>
                                             <button type="button" class="btn" data-dismiss="modal">Close</button>
                                         </div>
                                         </div>
@@ -208,7 +218,7 @@ class NewsController extends Controller
                                 </div>
                         </form>
                 ';
-            //    }
+            }
                $data->data[$i]->action = (string)$output;
            //     if($this->show_action) {
            //         $output = '';

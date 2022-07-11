@@ -58,7 +58,7 @@
                 <div class="row" style="margin-bottom: 20px;">
                   <div class="col-4">
                     <div class="input-group input-group-sm" id="st" name="st">
-                      <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="delete_at">
+                      <select class="select2 custom-select custom-select-sm form-control form-control-sm" style="width: 100%;" id="status" name="status">
                         <option value="">Open</option>
                         <option value="1">Close</option>
                         <option value="2">Answer</option>
@@ -68,7 +68,7 @@
                   <div class="col-8">
                     <div class="input-group">
                       <button type="button" class="btn btn-default float-right" id="daterange-btn" style="height: 32px;width:100%">
-                        Created Date From-To: <i class="far fa-calendar-alt"></i> <span> Date range picker</span> 
+                        Created Date From-To: <i class="far fa-calendar-alt"></i> <span> Date range picker</span>
                       </button>
                     </div>
                   </div>
@@ -89,9 +89,10 @@
                       {{-- <div class="mt-4"></div> --}}
                   </div>
                 </div>
-                <div class="col-0" style="visibility: hidden;height:1px"> 
+                <div class="col-0" >
                   {{-- <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/> --}}
-                  <input type="text" value="" id="dateString"> 
+                  <input type="text" value="" id="dateString" name="dateString" >
+                  {{-- style="visibility: hidden;height:1px" --}}
                 </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -196,7 +197,7 @@
        function(start, end) {
         $('#daterange-btn span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
         startDate = start;
-         endDate = end;    
+         endDate = end;
          $('#dateString').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
        }
     );
@@ -206,7 +207,15 @@ $('#dateString').val(moment().subtract('days', 29).format('YYYY-MM-DD') + ' - ' 
 console.log($('#dateString').val());
 $('.select2').select2();
 fill_datatable();
-function fill_datatable(input,status)
+            var status = $('#status').val();
+            console.log("status"+ status);
+            var input = $('#input').val();
+            console.log('input'+input);
+            var dateString = $('#dateString').val().split(" - ");
+            console.log('dateString'+dateString);
+            from = dateString[0];
+            to = dateString[1];
+function fill_datatable(input,status,from,to)
 {
       var dateString = $('#dateString').val().split(" - ");
       console.log(dateString);
@@ -217,11 +226,11 @@ function fill_datatable(input,status)
         dom: 'Bfrtip',
         "searching": false,
           serverSide: true,
-          ajax:{ 
+          ajax:{
           url: "{{ route('question.dtajax') }}",
           timeout: 5000,
           data:{input:input,status:status,from:from,to:to}
-          },    
+          },
           columns: [
             {data: 'Question', name: 'Title',render: function(data){
               ab=data.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/(<(.*?)>|&\w+;)/g,'');
@@ -229,18 +238,19 @@ function fill_datatable(input,status)
             }},
             {data: 'Email', name: 'Email'},
             {data: 'PhoneNumber', name: 'PhoneNumber'},
-            {data: 'Status', name: 'Description', render: function(data){
+            {data: 'Status', name: 'status', render: function(data){
               return (data==1)?"<span class='badge bg-danger'> Close</span>":((data==2)?"<span class='badge bg-success'> Answer</span>":"<span class='badge bg-info'> Open</span>");
             }},
             {data: 'Note', name: 'Note'},
             {
-                    data: 'action', 
-                    name: 'action', 
-                    orderable: true, 
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
                     searchable: true
             },
           ],
           columnDefs: [],
+
           buttons: [
               {
                   extend: 'collection',
@@ -253,11 +263,15 @@ function fill_datatable(input,status)
                       'print'
                   ]
               }
-          ]
+          ],
+          drawCallback:function(setting)
+                {
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
       }).buttons().container().appendTo('#example1_wrapper .col-md-6');
 }
 $('#search').click(function(){
-    
+
     var input = $('#input').val();
     var str = input.replace(/\s/g, '').length;
     console.log(str);
@@ -268,6 +282,9 @@ $('#search').click(function(){
       console.log(status);
       // var cat = $('#cat').val();
       // console.log(cat);
+      var dateString = $('#dateString').val().split(" - ");
+        from = dateString[0];
+        to = dateString[1];
       if( input == '')
       {
         toastr["error"]("Please select input data to search!")
@@ -292,12 +309,12 @@ $('#search').click(function(){
       else
       {
         $('#example1').DataTable().destroy();
-        fill_datatable(input,status);
+        fill_datatable(input,status,from,to);
       }
     }
     else
     {
-      toastr["error"]("Your input can't just have only whitespace")
+      toastr["error"]("Your input can't j   ust have only whitespace")
         toastr.options = {
           "closeButton": false,
           "debug": true,
@@ -318,15 +335,15 @@ $('#search').click(function(){
     }
   });
 
-//   // $('#reset').click(function(){ 
-//   //     $('#input').val('');
-//   //     // $('#type').val('');
-//   //     $("#type").val("").change();
-//   //     $("#status").val("").change();
-//   //     // $('#status').val('');
-//   //     $('#example1').DataTable().destroy();
-//   //     fill_datatable(); 
-//   // });
+  $('#reset').click(function(){
+      $('#input').val('');
+      // $('#type').val('');
+      $("#type").val("").change();
+      $("#status").val("").change();
+      // $('#status').val('');
+      $('#example1').DataTable().destroy();
+      fill_datatable();
+  });
 
   $('#status').change(function()
   {
@@ -336,11 +353,28 @@ $('#search').click(function(){
     // console.log(language);
     var status = $('#status').val();
     console.log(status);
+    var dateString = $('#dateString').val().split(" - ");
+        from = dateString[0];
+        to = dateString[1];
     // var cat = $('#cat').val();
     // console.log(cat);
     $('#example1').DataTable().destroy();
-    fill_datatable(input,status);
+    fill_datatable(input,status,from,to);
   });
+
+  $('#daterange-btn').on('apply.daterangepicker', function(ev, picker) {
+                var dateString = $('#dateString').val().split(" - ");
+                console.log(dateString);
+                from = dateString[0];
+                to = dateString[1];
+                var input = $('#input').val();
+                console.log(input);
+                var status = $('#status').val();
+                console.log(status);
+                console.log('hello');
+                $('#example1').DataTable().destroy();
+                fill_datatable(status,input,from,to);
+            });
 </script>
 
 

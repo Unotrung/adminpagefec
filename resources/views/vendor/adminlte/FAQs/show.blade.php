@@ -6,7 +6,7 @@
 <div class="container-fluid">
   <div class="row mb-2">
     {{-- <div class="col-sm-5">
-      
+
     </div> --}}
     <div class="col-sm-12">
       <h1 class="m-0">FAQ Details
@@ -41,11 +41,11 @@ $config = [
     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="custom-content-below-profile-tab" data-toggle="pill" href="#bnpl_info" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">FAQ Information</a>
-      </li> 
+      </li>
     </ul>
     <div class="tab-content" id="custom-content-below-tabContent">
       <div class="tab-pane fade active show " id="bnpl_info" role="tabpanel" aria-labelledby="custom-content-below-profile-tab" style="">
-      
+
       <div class="row">
         <div class="card-body">
           {{-- <div class="form-group row">
@@ -57,19 +57,24 @@ $config = [
 
           <div class="row" style="padding-top:2%">
             {{-- <div class="col-sm-10"> --}}
-            <label for="inputPassword3" class="col-sm-2">Title:</label><div class ="col-sm-10" style="">{{$faqs->Title}}</div>
+            <label for="inputPassword3" class="col-sm-2">Category:</label><div class ="col-sm-10" style="">{{$faqs->Category}}</div>
           {{-- </div> --}}
         </div>
 
           <div class="row" style="padding-top:2%">
               {{-- <div class="col-sm-10"> --}}
-              <label for="inputPassword3" class="col-sm-2">Description:</label><div class ="col-sm-10" style="">{{$faqs->Description}}</div>
+              <label for="inputPassword3" class="col-sm-2">Language:</label><div class ="col-sm-10" style="">{{$faqs->Language}}</div>
             {{-- </div> --}}
           </div>
 
           <div class="row"  style="padding-top:2%">
             {{-- <div class="col-sm-10"> --}}
-            <label for="inputPassword3" class="col-sm-2">Content:</label><div class ="col-sm-10" style="">{!!$faqs->Content!!}</div>
+            <label for="inputPassword3" class="col-sm-2">Question:</label><div class ="col-sm-10" style="">{!!$faqs->Question!!}</div>
+          {{-- </div> --}}
+        </div>
+        <div class="row"  style="padding-top:2%">
+            {{-- <div class="col-sm-10"> --}}
+            <label for="inputPassword3" class="col-sm-2">Answer:</label><div class ="col-sm-10" style="">{!!$faqs->Answer!!}</div>
           {{-- </div> --}}
         </div>
 
@@ -85,19 +90,19 @@ $config = [
             <div class="col-md-10 fvalue">{!!$faqs->Content!!}</div>
             </div>
           </div> --}}
-          
+
         </div>
       </div>
     </div>
-   
-    
+
+
     </div>
   </div>
-  
+
 </div>
 
 
 
 
 {{-- Minimal --}}
-@stop 
+@stop

@@ -9,6 +9,7 @@ use DataTables;
 use Excel;
 use Auth;
 use App\Imports\FaqsImport;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 class FaqController extends Controller
@@ -37,7 +38,7 @@ class FaqController extends Controller
         $statics = Statics::all();
         return view('vendor.adminlte.faqs.create')->with('statics', $statics);
     }
-    
+
     function import(Request $request)
     {
         $data = request()->file('file');
@@ -93,6 +94,9 @@ class FaqController extends Controller
         $faq->Question = $Question;
         $Answer = str_replace(['<p>', '</p>'], '', $request->Question_Create);
         $faq->Answer = $Answer;
+        $date = Carbon::now();
+        $date = Carbon::parse($date)->format('Y-m-d');
+        $faq->Createday = $date;
         $faq->Status = null;
         $faq->save();
         return redirect()->route("faqs.index")->with('FAQ created successfull');
@@ -141,12 +145,12 @@ class FaqController extends Controller
     public function update(Request $request)
     {
         //DB::beginTransaction();
-            $request->validate([
-                'name' => 'required',
-                'guard_name' => 'required'
-            ]);
+
             $id = $request['id'];
-            $faq = Faqs::Where($id)->first();
+            $faq = Faqs::find($request->id);
+            // print_r($faq);
+            // exit;
+            //
             $faq->Category = $request->Category_Edit;
             $faq->Language = $request->Language_Edit;
             $faq->Question = $request->Question_Edit;
@@ -172,82 +176,168 @@ class FaqController extends Controller
 
     public function dtajax(Request $request)
     {
-        if ($request->ajax()) 
+        if ($request->ajax())
         {
         $faqs = Faqs::where('Status',1);
+        $from = Carbon::parse($request->from)->format('Y-m-d');
+        // $request->from = Carbon::createFromDate('2022, 6, 1)');
+        // $request->to = Carbon::createFromDate('2015, 7, 1)');
+        $to = Carbon::parse($request->to)->format('Y-m-d');
+        //0000
+        if(empty($request->status) && empty($request->input) && empty($request->cat) && empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+               $faqs = Faqs::whereNull('Status')->whereBetween('Createday', array($from,$to));
+        }
+        //1000
+        elseif(!empty($request->status) && empty($request->input) && empty($request->cat) && empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',1]])->whereBetween('Createday', array($from,$to));
+        }
+        //0100
+        elseif(empty($request->status) && !empty($request->input) && empty($request->cat) && empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']])->whereBetween('Createday', array($from,$to));
+        }
+        //0010
+        elseif(empty($request->status) && empty($request->input) && !empty($request->cat) && empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat]])->whereBetween('Createday', array($from,$to));
+        }
+        //0001
+        elseif(empty($request->status) && empty($request->input) && empty($request->cat) && !empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]])->whereBetween('Createday', array($from,$to));
+        }
+        //1100
+        elseif(!empty($request->status) && !empty($request->input) && empty($request->cat) && empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',1],['Question','like', '%'.$request->input.'%']])->whereBetween('Createday', array($from,$to));
+        }
+        //0110
+        elseif(empty($request->status) && !empty($request->input) && !empty($request->cat) && empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%'],['Category','=', $request->cat]])->whereBetween('Createday', array($from,$to));
+        }
+        //0011 not fit tu day do xuong
+        elseif(empty($request->status) && empty($request->input) && !empty($request->cat) && !empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language]])->whereBetween('Createday', array($from,$to));
+        }
+        //1010
+        elseif(!empty($request->status) && empty($request->input) && !empty($request->cat) && empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat]])->whereBetween('Createday', array($from,$to));
+        }
+        //1001
+        elseif(!empty($request->status) && empty($request->input) && empty($request->cat) && !empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language]])->whereBetween('Createday', array($from,$to));
+        }
+        //1110
+        elseif(!empty($request->status) && !empty($request->input) && !empty($request->cat) && empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',1],['Question','like', '%'.$request->input.'%'],['Category','=', $request->cat]])->whereBetween('Createday', array($from,$to));
+        }
+        //0111
+        elseif(empty($request->status) && !empty($request->input) && !empty($request->cat) && !empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%'],['Category','=', $request->cat],['Language','=', $request->language]])->whereBetween('Createday', array($from,$to));
+        }
+        //0101 doi test
+        elseif(empty($request->status) && !empty($request->input) && empty($request->cat) && !empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%'],['Language','=', $request->language]])->whereBetween('Createday', array($from,$to));
+        }
+        //1011
+        elseif(!empty($request->status) && empty($request->input) && !empty($request->cat) && !empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Language','=', $request->language]])->whereBetween('Createday', array($from,$to));
+        }
+        //1101
+        elseif(!empty($request->status) && !empty($request->input) && empty($request->cat) && !empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',1],['Question','like', '%'.$request->input.'%'],['Language','=', $request->language]])->whereBetween('Createday', array($from,$to));
+        }
+        //1111
+        elseif (!empty($request->status) && !empty($request->input) && !empty($request->cat) && !empty($request->language)&& !empty($request->from) &&!empty($request->to))
+        {
+            $faqs = Faqs::where([['Status','=',1],['Question','like', '%'.$request->input.'%'],['Category','=', $request->cat],['Language','=', $request->language]])->whereBetween('Createday', array($from,$to));
+        }
+
+
+        // $faqs = Faqs::whereBetween('Createday', array($from,$to));
         // $faqs = Faqs::where('Category',$request->cat);
         // $faqs = Faqs::where('Language',$request->language);
-        if(empty($request->status) && empty($request->input) && empty($request->cat) && empty($request->language))
-        {
-            $faqs = Faqs::whereNull('Status');
-        }
-        elseif(empty($request->status) && !empty($request->input) && empty($request->cat) && empty($request->language))
-        {
-            $faqs = Faqs::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
-        } 
-        elseif(!empty($request->cat) && empty($request->status) && empty($request->input) && empty($request->language))
-        {
-            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat]]);
-        }
-        // elseif(!empty($request->language) && empty($request->status))
+        // if(empty($request->status) && empty($request->input) && empty($request->cat) && empty($request->language))
         // {
-        //     $faqs = Faqs::where([['Language','=', $request->language],['Category','=', $request->cat]]);
+        //     $faqs = Faqs::whereNull('Status');
         // }
-        elseif(!empty($request->cat) && empty($request->status) && !empty($request->input) && empty($request->language))
-        {
-            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
-        }
-        elseif(!empty($request->language) && empty($request->status) && !empty($request->input))
-        {
-            $faqs = Faqs::where([['Language','=', $request->language],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
-        }
-        elseif(!empty($request->language) && !empty($request->cat) && empty($request->status))
-        {
-            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language]]);
-        }
-        elseif(!empty($request->language) && !empty($request->cat) && empty($request->status)&& !empty($request->input))
-        {
-            $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
-        }
-        else if(!empty($request->language) && empty($request->cat) && empty($request->status))
-        {
-            $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]]);
-        }
-        else if(!empty($request->status) && !empty($request->cat) )
-        {
-            $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat]]);
-        }
-        else if(!empty($request->status) && !empty($request->cat) && !empty($request->input) )
-        {
-            $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
-        }
-        else if(!empty($request->status) && !empty($request->language) )
-        {
-            $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language]]);
-        }
-        else if(!empty($request->status) && !empty($request->language)&& !empty($request->input) )
-        {
-            $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
-        }
-        else if (!empty($request->status) && !empty($request->language) && !empty($request->cat) && !empty($request->input))
-        {
-            $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
-        }
-        else if(!empty($request->language) && empty($request->cat))
-        {
-            $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]]);
-        }
+        // elseif(empty($request->status) && !empty($request->input) && empty($request->cat) && empty($request->language))
+        // {
+        //     $faqs = Faqs::where([['Status','=',$request->status],['Question','like', '%'.$request->input.'%']]);
+        // }
+        // elseif(!empty($request->cat) && empty($request->status) && empty($request->input) && empty($request->language))
+        // {
+        //     $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat]]);
+        // }
+        // elseif(!empty($request->cat) && empty($request->status) && !empty($request->input) && empty($request->language))
+        // {
+        //     $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
+        // }
+        // elseif(!empty($request->language) && empty($request->status) && !empty($request->input))
+        // {
+        //     $faqs = Faqs::where([['Language','=', $request->language],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
+        // }
+        // elseif(!empty($request->language) && !empty($request->cat) && empty($request->status))
+        // {
+        //     $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language]]);
+        // }
+        // elseif(!empty($request->language) && !empty($request->cat) && empty($request->status)&& !empty($request->input))
+        // {
+        //     $faqs = Faqs::where([['Status','=',$request->status],['Category','=', $request->cat],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
+        // }
+        // else if(!empty($request->language) && empty($request->cat) && empty($request->status))
+        // {
+        //     $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]]);
+        // }
+        // else if(!empty($request->status) && !empty($request->cat) )
+        // {
+        //     $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat]]);
+        // }
+        // else if(!empty($request->status) && !empty($request->cat) && !empty($request->input) )
+        // {
+        //     $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Question','like', '%'.$request->input.'%']]);
+        // }
+        // else if(!empty($request->status) && !empty($request->language) )
+        // {
+        //     $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language]]);
+        // }
+        // else if(!empty($request->status) && !empty($request->language)&& !empty($request->input) )
+        // {
+        //     $faqs = Faqs::where([['Status','=',1],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
+        // }
+        // else if (!empty($request->status) && !empty($request->language) && !empty($request->cat) && !empty($request->input))
+        // {
+        //     $faqs = Faqs::where([['Status','=',1],['Category','=', $request->cat],['Language','=', $request->language],['Question','like', '%'.$request->input.'%']]);
+        // }
+        // else if(!empty($request->language) && empty($request->cat))
+        // {
+        //     $faqs = Faqs::where([['Status','=',$request->status],['Language','=', $request->language]]);
+        // }
         $out =  Datatables::of($faqs->get())->make(true);
         $data = $out->getData();
            for($i=0; $i < count($data->data); $i++) {
                $output = '';
-               $output .= ' <a href="'.url(route('faqs.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+               $output .= ' <a href="'.url(route('faqs.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs"  data-toggle="tooltip" title="Show Details"  style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
             //    if(Auth::user()->can('faqs-update')){
-               $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                if(empty($request->status)){
+               $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs"  data-toggle="tooltip" title="Edit Faqs"  style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
             //    }
                if(Auth::user()->can('faqs-update'))
                {
-               $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+               $output .= '<span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
+               <a data-toggle="tooltip" class="btn btn-danger btn-xs" title="Deactive FAQs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a></span> ';
+            //    <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>
                $output .= '
                 <form method="post" action="'.url(route('faqs.delete')).'">
                      <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -257,11 +347,11 @@ class FaqController extends Controller
                                      <div class="modal-content">
                                      <!-- Modal Header -->
                                      <div class="modal-header">
-                                         <h4 class="modal-title">Do you want delete? </h4>
+                                         <h4 class="modal-title">Do you want Deactive? </h4>
                                      </div>
                                      <!-- Modal footer -->
                                      <div class="modal-footer">
-                                         <button type="submit" class="btn btn-danger">Delete</button>
+                                         <button type="submit" class="btn btn-danger">Deactive</button>
                                          <button type="button" class="btn" data-dismiss="modal">Close</button>
                                      </div>
                                      </div>
@@ -270,6 +360,7 @@ class FaqController extends Controller
                      </form>
                 ';
                }
+            }
                $data->data[$i]->action = (string)$output;
             }
            $out->setData($data);

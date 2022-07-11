@@ -91,7 +91,7 @@
 
             <div class="row" style="margin-bottom: 15px;margin-top: 10px;">
                 <div class=" col-11 input-group input-group-sm">
-                    <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your keywords here" value="">
+                    <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type Page name here..." value="">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-lg btn-default" id="search" style="height: 31px;">
                         <i class="fa fa-search"></i>

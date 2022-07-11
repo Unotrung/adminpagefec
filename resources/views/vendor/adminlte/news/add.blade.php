@@ -26,21 +26,32 @@
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
                     <div class="col-sm-10">
-                        <select type="string" class="form-control" name="Language_Create" id="examplelang" placeholder="Language"  style="border-left: 2px solid red;" >
+                        <select type="string" class=" form-control @error('Language_Create') is-invalid @enderror " name="Language_Create"  id="examplelang" placeholder="Language"  style="border-left: 2px solid red;" >
                             <option value="">Choose Language</option>
                             <option value="VI">VI</option>
                             <option value="EN">EN</option>
                           </select>
-                    </div>
+
+                    @error('Language_Create')
+                    <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
-                    <input type="string" class="form-control" name="Title_Create" id="exampletitle" placeholder="Title"   style="border-left: 2px solid red;">
+                        <input type="string" class="form-control @error('Title_Create') is-invalid @enderror"  name="Title_Create" id="exampletitle" placeholder="Title"   style="border-left: 2px solid red;">
+                        @error('Title_Create')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
-                </div>
 
+                </div>
                 <!-- <div class="form-group row"> -->
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
@@ -67,7 +78,7 @@
                     </div>
 
                 {{-- Save Button --}}
-                <button type="submit" class="btn btn-success btn-user btn-block">
+                <button type="submit" class="btn btn-success btn-user btn-block" style="width: 100px;margin: auto;">
                     Save
                 </button>
 
@@ -85,45 +96,5 @@
     $(function () {
       $('#summernote').summernote();
     })
-
-    function btnSubmit(){
-		var Title = $("#exampletitle").val();
-		var Language = $("#examplelang").val();
-        if(Title.length === 0  && Language.length > 0){
-            toastr["error"]("Please Input Title!")
-        }
-        if(Title.length === 0  && Post.length === 0){
-            toastr["error"]("Please Input Title, Post!")
-        }
-        if(Title.length > 0  && Post.length === 0){
-            toastr["error"]("Please Input Post!")
-        }
-        toastr.options = {
-			"closeButton": false,
-			"debug": true,
-			"newestOnTop": false,
-			"progressBar": false,
-			"positionClass": "toast-top-right",
-			"preventDuplicates": false,
-			"onclick": null,
-			"showDuration": "300",
-			"hideDuration": "1000",
-			"timeOut": "5000",
-			"extendedTimeOut": "1000",
-			"showEasing": "swing",
-			"hideEasing": "linear",
-			"showMethod": "fadeIn",
-			"hideMethod": "fadeOut"
-		}
-		if(Title.length > 0 && Post.length > 0)
-		{
-			// data-toggle="modal" data-target="#confirmModal"
-			$("#confirmModal").modal("show");
-			formChanged = false;
-		}
-
-	}
-
-
 </script>
 @stop

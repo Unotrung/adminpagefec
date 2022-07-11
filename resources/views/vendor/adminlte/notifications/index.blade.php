@@ -69,7 +69,7 @@
 
 
 @section('js')
- 
+
 <!-- DataTables  & Plugins -->
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -90,15 +90,13 @@
     <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
 
     <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js"></script>
-    
+
 <!-- AdminLTE for demo purposes -->
 
 <!-- Page specific script -->
 <script>
 var editor;
   $(function () {
-
-    
 
     $("#example1").DataTable({
       processing: true,
@@ -108,12 +106,12 @@ var editor;
           {data: 'Title', name: 'Title'},
           {data: 'created_at', name: 'Date Post'  },
           {
-                  data: 'action', 
-                  name: 'action', 
-                  orderable: true, 
+                  data: 'action',
+                  name: 'action',
+                  orderable: true,
                   searchable: true
           },
-          
+
         ],
         columnDefs: [ {
         targets: 1,

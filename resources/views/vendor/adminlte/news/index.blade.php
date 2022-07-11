@@ -95,7 +95,7 @@
                     <div class="row"  style="margin-bottom: 15px;margin-top: 10px;">
                         <div class="col-11">
                             <div class="input-group input-group-sm">
-                              <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type your question here" value="">
+                              <input type="search" class="form-control form-control-lg" id ="input" placeholder="Type title here..." value="">
                                 <div class="input-group-append">
                                   <button type="submit" class="btn btn-lg btn-default" id="search">
                                   <i class="fa fa-search"></i>

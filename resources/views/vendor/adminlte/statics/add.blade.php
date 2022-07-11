@@ -18,6 +18,7 @@
                 class="fas fa-arrow-left fa-sm text-white-50"></i> Back</a>
     </div>
 @stop
+
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -61,7 +62,12 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
-                        <input type="string" class="form-control" name="Title_Create" id="exampletitle" placeholder="Title"  style="border-left: 2px solid red;">
+                        <input type="string" class="form-control @error('Title_Create') is-invalid @enderror" name="Title_Create" id="exampletitle" placeholder="Title"  style="border-left: 2px solid red;">
+                        @error('Title_Create')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                         </div>
                     </div>
 
@@ -72,10 +78,16 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <div class="form-group row ">
                         <label for="" class="col-sm-2 col-form-label">Post</label>
+                        <label for=""style="margin-inline: -9px;color: red;">(*)</label>
                         <div class="col-sm-10">
-                            <textarea name="Post_Create" id="summernote1" cols="100" rows="10"   style="border-left: 2px solid red;">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                            <textarea class="@error('Post_Create') is-invalid @enderror" name="Post_Create" id="summernote1" cols="100" rows="10"   style="border-left: 2px solid red;">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                            @error('Post_Create')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 
@@ -85,9 +97,9 @@
                         {{-- <input type="string" class="form-control" name="Language_Create" placeholder="Language" > --}}
                         {{-- <form action="#"> --}}
                             <select type="string" class="form-control" name="Language_Create" placeholder="Language" >
-                              <option>Choose Language...</option>
-                              <option>VI</option>
-                              <option> EN</option>
+                              <option value="">Choose Language...</option>
+                              <option value="VI">VI</option>
+                              <option value="EN"> EN</option>
                             </select>
                       {{-- </form> --}}
                         </div>
@@ -114,6 +126,7 @@
     $(function () {
       $('#summernote1').summernote();
     })
+
 </script>
 <!-- SweetAlert2 -->
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>

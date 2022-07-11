@@ -40,7 +40,10 @@ class StaticsController extends Controller
     {
         $statics = new Statics;
         // $statics->Content = $request->Content_Create;
-
+        $request->validate([
+            'Title_Create' => ['required', 'string', 'max:255'],
+            'Post_Create' => ['required', 'string']
+        ]);
         // $statics->URL = $request->Url_Create;
 
         ///static new
@@ -263,14 +266,15 @@ class StaticsController extends Controller
                 // $data = $out->getData();
                 for($i=0; $i < count($data->data); $i++) {
                $output = '';
-                $output .= ' <a href="'.url(route('statics.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                $output .= ' <a href="'.url(route('statics.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
                 //    if(Auth::user()->can('news-update')){
                 if(empty($request->status)){
-                $output .= ' <a href="'.url(route('statics.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+                $output .= ' <a href="'.url(route('statics.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Edit Statics" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                     // }
                 // ->can('statics-delete')
                 //     if(Auth::user()){
-                $output .= ' <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>';
+                $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
+                <a data-toggle="tooltip" class="btn btn-danger btn-xs" title="Deactivate Statics" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a></span>';
                 $output .= '
                 <form method="post" action="'.url(route('statics.destroy')).'")>
                         <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -280,12 +284,12 @@ class StaticsController extends Controller
                                         <div class="modal-content">
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Do you want delete? </h4>
+                                            <h4 class="modal-title">Do you want Deactive statics? </h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-danger">Deactive</button>
                                             <button type="button" class="btn" data-dismiss="modal">Close</button>
                                         </div>
                                         </div>
