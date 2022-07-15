@@ -152,7 +152,7 @@ $config = [
             </div>
 
             <div class="col-sm-12">
-              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Street:</label>{{$bnpl["temporaryStreet"]}}</div>
+              <div class="col-md-10 fvalue"><label for="inputPassword3" class="col-sm-7 col-form-label">Street:</label>{{$temporaryStreet}}</div>
             </div>
 
           </div>  

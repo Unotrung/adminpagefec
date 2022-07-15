@@ -61,12 +61,31 @@ class BnplController extends Controller
             
             $bnpls = $data_bnpl->json();
             $bnpl = $bnpls["data"];
+            // $temporary = $bnpl["temporaryCity"];
+            // { !empty($myvariable) ? $myvariable : null }
+
+            // if (isset[$bnpl["temporaryStreet"]])
+
+            // if (isset($temporaryStreet)) {
+            //     return (}
+            
+            // is_null($temperaryStreet)? {$temperaryStreet = '' } :{$temperaryStreet = $temperaryStreet};
+            // }
+
+            {{ $temporaryStreet = (isset($bnpl["temporaryStreet"])) ?($bnpl["temporaryStreet"])
+                :"" ;
+            }}
+
+
+
+            // print_r($temporaryStreet);
+            // exit;
         }
         else
         {
             $bnpl = "";
         }
-        return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl]);
+        return view('vendor.adminlte.bnpl.edit',["bnpl"=>$bnpl],["temporaryStreet"=>$temporaryStreet]);
     }
 
 
