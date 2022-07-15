@@ -51,6 +51,7 @@
 					<input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
 						value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" style="border-left: 2px solid red">
 
+						
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-envelope {{ config('adminlte.classes_auth_icon', '') }}"></span>

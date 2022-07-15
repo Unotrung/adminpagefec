@@ -91,8 +91,8 @@
                 </div>
                 <div class="col-0" >
                   {{-- <input type="text" class="form-control datetimepicker-input" id="dateString" readonly/> --}}
-                  <input type="text" value="" id="dateString" name="dateString" >
-                  {{-- style="visibility: hidden;height:1px" --}}
+                  <input type="text" value="" id="dateString" name="dateString" style="visibility: hidden;height:1px">
+                  
                 </div>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>

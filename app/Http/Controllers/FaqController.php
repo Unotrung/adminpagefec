@@ -9,7 +9,9 @@ use DataTables;
 use Excel;
 use Auth;
 use App\Imports\FaqsImport;
+use App\Models\Role;
 use Carbon\Carbon;
+
 use Illuminate\Support\Facades\Route;
 
 class FaqController extends Controller
@@ -178,6 +180,9 @@ class FaqController extends Controller
     {
         if ($request->ajax())
         {
+        $user = Auth::user()->role_ids[0];
+        $role =Role::find($user);
+        $role_name = $role["name"];
         $faqs = Faqs::where('Status',1);
         $from = Carbon::parse($request->from)->format('Y-m-d');
         // $request->from = Carbon::createFromDate('2022, 6, 1)');
@@ -331,12 +336,12 @@ class FaqController extends Controller
                $output .= ' <a href="'.url(route('faqs.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs"  data-toggle="tooltip" title="Show Details"  style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
             //    if(Auth::user()->can('faqs-update')){
                 if(empty($request->status)){
+                    if(($role_name == 'system admin' ) || ($role_name == 'website admin') || ($role_name == 'super admin')){
                $output .= ' <a href="'.url(route('faqs.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs"  data-toggle="tooltip" title="Edit Faqs"  style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-            //    }
-               if(Auth::user()->can('faqs-update'))
-               {
+            }
+               if(($role_name == 'super admin' )){
                $output .= '<span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
-               <a data-toggle="tooltip" class="btn btn-danger btn-xs" title="Deactive FAQs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a></span> ';
+               <a data-toggle="tooltip" class="btn btn-danger btn-xs" title="Deactivate FAQ" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a></span> ';
             //    <a data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'" class="btn btn-danger btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a>
                $output .= '
                 <form method="post" action="'.url(route('faqs.delete')).'">

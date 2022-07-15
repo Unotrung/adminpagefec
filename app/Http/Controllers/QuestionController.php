@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Statics;
+use App\Models\Role;
 use DataTables;
 use Auth;
 use Mail;
@@ -178,6 +179,9 @@ class QuestionController extends Controller
     {
         if ($request->ajax())
         {
+            $user = Auth::user()->role_ids[0];
+            $role =Role::find($user);
+            $role_name = $role["name"];
             $question = Question::where('Status','1');
             $from = Carbon::parse($request->from)->format('Y-m-d');
             // $request->from = Carbon::createFromDate('2022, 6, 1)');
@@ -242,12 +246,16 @@ class QuestionController extends Controller
 
                 $output = '';
                 if(empty($data->data[$i]->Status)){
+                    if(($role_name == 'super admin') || ($role_name == 'system admin') || ($role_name == 'website admin')){
                     $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                    }
                     //    if(Auth::user()->can('faqs-update')){
+                        if(($role_name == 'super admin') || ($role_name == 'system admin') || ($role_name == 'website admin')){
                     $output .= ' <a href="'.url(route('question.answer',['id'=>$data->data[$i]->_id])).'" class="btn btn-success btn-xs" data-toggle="tooltip" title="Ans & Add question" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-reply"></i></a>';
-
+                        }
                     //    }
                     //    if(Auth::user()->can('faqs-update')){
+                        if(($role_name == 'super admin') || ($role_name == 'system admin') || ($role_name == 'website admin')){
                     $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
                     <a class="btn btn-warning btn-xs" data-toggle="tooltip" title="Note" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a></span>';
                     $output .= '
@@ -274,6 +282,8 @@ class QuestionController extends Controller
                                     </div>
                             </form>
                         ';
+                        }
+                        if(($role_name == 'super admin') || ($role_name == 'system admin')){
                         $output .= ' <span data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
                         <a class="btn btn-danger btn-xs" data-toggle="tooltip" title="Close question" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-times-circle"></i></a></span>';
                         $output .= '
@@ -297,10 +307,14 @@ class QuestionController extends Controller
                                     </div>
                             </form>
                         ';
+                        }
                     }
                     elseif(($data->data[$i]->Status) == 1)
                     {
+                        if(($role_name == 'super admin') || ($role_name == 'system admin') || ($role_name == 'website admin')){
                         $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        }
+                        if(($role_name == 'super admin') || ($role_name == 'system admin')){
                         $output .= ' <span data-toggle="modal" data-target="#closeModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
                          <a class="btn btn-success btn-xs" data-toggle="tooltip" title="Reopen question" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-sync "></i></a></span>';
                         $output .= '
@@ -324,10 +338,14 @@ class QuestionController extends Controller
                                     </div>
                             </form>
                         ';
+                        }
                     }
                     else
                     {
+                        if(($role_name == 'super admin') || ($role_name == 'system admin') || ($role_name == 'website admin')){
                         $output .= ' <a href="'.url(route('question.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
+                        }
+                        if(($role_name == 'super admin') || ($role_name == 'system admin') || ($role_name == 'website admin')){
                         $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
                         <a class="btn btn-warning btn-xs" data-toggle="tooltip" title="Note" style="display:inline;padding:2px 4px 3px 4px;"><i class="fa fa-book"></i></a></span>';
                         $output .= '
@@ -354,6 +372,7 @@ class QuestionController extends Controller
                                         </div>
                                 </form>
                             ';
+                        }
                     }
                 //    }
                 $data->data[$i]->action = (string)$output;

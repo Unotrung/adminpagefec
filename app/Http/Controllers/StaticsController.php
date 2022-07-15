@@ -5,6 +5,7 @@ use App\Models\Statics;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Models\Role;
 use Auth;
 
 class StaticsController extends Controller
@@ -148,7 +149,16 @@ class StaticsController extends Controller
 
         if ($request->ajax())
         {
-
+                $user = Auth::user()->role_ids[0];
+                $role =Role::find($user);
+                $role_name = $role["name"];
+                
+                // $role_id = $user[0]["role_ids"][0];
+                // $role = Role::find($role_id);
+                // $role_name = $role["name"];
+                // print_r($role_name);
+                // exit;
+            
                 $statics = Statics::where('Status',1);
                 if(empty($request->status))
                 {
@@ -261,20 +271,24 @@ class StaticsController extends Controller
                 $data = $out->getData();
 
 
-
+                
                 // $out =  Datatables::of(Modules::whereNull("is_delete")->get())->make(true);
                 // $data = $out->getData();
                 for($i=0; $i < count($data->data); $i++) {
+                
                $output = '';
                 $output .= ' <a href="'.url(route('statics.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs" data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
-                //    if(Auth::user()->can('news-update')){
+
                 if(empty($request->status)){
+                    if(($role_name == 'system admin' ) || ($role_name == 'website admin') || ($role_name == 'super admin')){
                 $output .= ' <a href="'.url(route('statics.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Edit Statics" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
                     // }
                 // ->can('statics-delete')
                 //     if(Auth::user()){
                 $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
                 <a data-toggle="tooltip" class="btn btn-danger btn-xs" title="Deactivate Statics" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a></span>';
+                    }
+                    if(($role_name == 'super admin')){
                 $output .= '
                 <form method="post" action="'.url(route('statics.destroy')).'")>
                         <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -297,6 +311,7 @@ class StaticsController extends Controller
                                 </div>
                         </form>
                 ';
+                    }
                 }
                $data->data[$i]->action = (string)$output;
                 }

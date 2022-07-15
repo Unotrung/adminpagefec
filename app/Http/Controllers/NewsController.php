@@ -6,6 +6,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
+use App\Models\Role;
 use Auth;
 class NewsController extends Controller
 {
@@ -134,7 +135,9 @@ class NewsController extends Controller
 
     public function dtajax(Request $request){
         if ($request->ajax()) {
-
+            $user = Auth::user()->role_ids[0];
+            $role =Role::find($user);
+            $role_name = $role["name"];
             // if(!empty($request->dateString))
             // {
             //     $data->data[$_id]('post')->whereBetween('date', array($request->from,$request->to) );
@@ -191,11 +194,13 @@ class NewsController extends Controller
                $output .= ' <a href="'.url(route('news.show',['id'=>$data->data[$i]->_id])).'" class="btn btn-info btn-xs"  data-toggle="tooltip" title="Show Details" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-eye"></i></a>';
             //    if(Auth::user()->can('news-update')){
                 if(empty($request->status)){
+                    if(($role_name == 'system admin' ) || ($role_name == 'website admin') || ($role_name == 'super admin')){
                 $output .= ' <a href="'.url(route('news.edit',['id'=>$data->data[$i]->_id])).'" class="btn btn-warning btn-xs" data-toggle="tooltip" title="Edit News" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
-                // }
+                }
                 // if(Auth::user()->can('news-delete')){
                 $output .= ' <span data-toggle="modal" data-target="#demoModal-'.$data->data[$i]->_id.'" data-id="'.$data->data[$i]->_id.'">
                 <a data-toggle="tooltip" class="btn btn-danger btn-xs" title="Deactivate News" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-ban"></i></a></span>';
+                if(($role_name == 'super admin')){
                 $output .= '
                 <form method="post" action="'.url(route('news.destroy')).'">
                         <input type="hidden" name="id" value="'.$data->data[$i]->_id.'">
@@ -205,12 +210,12 @@ class NewsController extends Controller
                                         <div class="modal-content">
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Do you want inactive news? </h4>
+                                            <h4 class="modal-title">Do you want deactive news? </h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger">Inactive</button>
+                                            <button type="submit" class="btn btn-danger">Deactive</button>
                                             <button type="button" class="btn" data-dismiss="modal">Close</button>
                                         </div>
                                         </div>
@@ -218,6 +223,7 @@ class NewsController extends Controller
                                 </div>
                         </form>
                 ';
+                }
             }
                $data->data[$i]->action = (string)$output;
            //     if($this->show_action) {

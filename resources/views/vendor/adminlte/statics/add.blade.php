@@ -4,9 +4,7 @@
 @section('css')
 <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
 
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+
 @stop
 @section('content_header')
 <div class="container-fluid">
@@ -80,9 +78,9 @@
 
                     <div class="form-group row ">
                         <label for="" class="col-sm-2 col-form-label">Post</label>
-                        <label for=""style="margin-inline: -9px;color: red;">(*)</label>
+                        <!-- <label for=""style="margin-inline: -9px;color: red;">(*)</label> -->
                         <div class="col-sm-10">
-                            <textarea class="@error('Post_Create') is-invalid @enderror" name="Post_Create" id="summernote1" cols="100" rows="10"   style="border-left: 2px solid red;">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
+                            <textarea class="@error('Post_Create') is-invalid @enderror" name="Post_Create" id="summernote1" cols="100" rows="10">Place <em>some</em> <u>text</u> <strong>here</strong></textarea>
                             @error('Post_Create')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -94,17 +92,17 @@
                     <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Language</label>
                         <div class="col-sm-10">
-                        {{-- <input type="string" class="form-control" name="Language_Create" placeholder="Language" > --}}
-                        {{-- <form action="#"> --}}
+                        <!-- {{-- <input type="string" class="form-control" name="Language_Create" placeholder="Language" > --}}
+                        {{-- <form action="#"> --}} -->
                             <select type="string" class="form-control" name="Language_Create" placeholder="Language" >
                               <option value="">Choose Language...</option>
                               <option value="VI">VI</option>
                               <option value="EN"> EN</option>
                             </select>
-                      {{-- </form> --}}
+                      <!-- {{-- </form> --}} -->
                         </div>
                     </div>
-                {{-- Save Button --}}
+                <!-- {{-- Save Button --}} -->
                 <button type="submit" class="btn btn-success btn-user btn-block" style="width: 100px;margin: auto;">
                     Submit
                 </button>
@@ -130,9 +128,10 @@
 </script>
 <!-- SweetAlert2 -->
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
-<!-- Toastr -->
+
+<!-- Toastr
 <script src="../../plugins/toastr/toastr.min.js"></script>
-<script src="toastr.js"></script>
+<script src="toastr.js"></script> -->
 
 
 @stop

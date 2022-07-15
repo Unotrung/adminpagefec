@@ -54,7 +54,7 @@
                         <div class="modal-content">
                         <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title">Do you want to add a new FAQ?  </h4>
+                                <h4 class="modal-title">Do you want to add a new Question?  </h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <!-- Modal footer -->
